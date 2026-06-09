@@ -173,8 +173,43 @@ export const PersonaAdvisor: React.FC = () => {
       }));
 
     } catch (err) {
-      console.error(err);
-      alert('상담관 응대 오류가 연출되었습니다. 서버 연결을 조율해주세요.');
+      console.error("Chat client-side error fallback:", err);
+      const simulatedResponses: Record<string, string[]> = {
+        algorithm: [
+          "알고리즘 분석관의 긴급 피드백: 현재 트래픽이 높은 경우, 노출 클릭률(CTR)과 평균 시청 지속 시간(AVD)의 꼬리 부분을 세부 통제하여 알고리즘 점수를 방어하십시오. 채널 분석 탭의 유입 비중 통계를 한 번 더 전면 추적해 보시는 것을 추천해 드립니다.",
+          "알고리즘 분석관 의견: 시청 이력이 아직 충분치 않은 초기 채널의 경우, 유사한 대형 채널의 썸네일과 하단 소스 태그들의 조향 흐름을 모사하는 기마론적 전략이 가장 높은 효율의 시드 점수를 획득하게 해 줍니다."
+        ],
+        senior: [
+          "디렉터 제인의 마음 조언: 타인의 인생 지혜를 채널에 빌릴 때, 극적인 전개를 위해 자극적 요소를 과장하기보다 사연 하나하나에 깃든 위로와 교훈의 한 자락을 정성스레 다독이는 것이 시청자들의 눈시울과 오랜 단골 화력을 끌어내는 정석입니다."
+        ],
+        aitools: [
+          "테크 리드의 꿀팁: 영상 초안 작성을 위해 매일 시간을 소모하는 번거로움을 멈추세요! AI 텍스트 생성 가이드나 CapCut 등 자동 편집 프리셋을 이용해 제작 시간을 1/15로 축소하고, 마크업 피드 분석에 더욱 많은 시간을 배팅하시는 게 전체 성장에 배로 유리합니다."
+        ],
+        monetization: [
+          "수익화 제언: 단순히 노출형 AdSense 수익에만 연명해서는 채널 안정성이 심하게 흔들립니다. YPP 통과 시 즉각 제휴 마케팅 링크나 이커머스 쇼핑 연결 등을 다각도로 결속하여 안전한 8개 파이프라인 기둥을 세우는 것을 최우선으로 기획하십시오."
+        ],
+        beginner: [
+          "따스한 멘토 응원: 처음부터 완벽하려는 완벽주의에 갇겨 예약 업로드조차 망설이고 계신가요? 70% 완성도로도 시작하는 그 용기 자체가 독자에게는 가장 깊은 친근함으로 교감하게 된답니다. 힘차게 첫 영상 예약 단추를 눌러보세요!"
+        ],
+        advanced: [
+          "그로스해커 냉밀 검토: 조회수가 정체될 때 홧김에 안 나온 지난 영상을 과지우는 등의 행위는 검색 히스토리 낙인을 가혹하게 꼬아 버립니다. 썸네일 글자 한 장식의 일인 통제 변수 A/B 테스트 지표를 7일 동안 정교하게 기록하여 개선하십시오."
+        ]
+      };
+
+      const choice = simulatedResponses[selectedPersona] || simulatedResponses.algorithm;
+      const fallbackReply = choice[Math.floor(Math.random() * choice.length)] + "\n\n(※ 실시간 AI 서버 점검 중으로 상담관 비상 메뉴 모드로 임시 매칭되었습니다.)";
+
+      const assistantMsg: ChatMessage = {
+        id: `a-${Date.now()}`,
+        role: 'assistant',
+        text: fallbackReply,
+        timestamp: new Date()
+      };
+
+      setChatHistory(prev => ({
+        ...prev,
+        [selectedPersona]: [...prev[selectedPersona], assistantMsg]
+      }));
     } finally {
       setLoading(false);
     }

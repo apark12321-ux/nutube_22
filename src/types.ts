@@ -74,4 +74,6 @@ export interface MetadataResult {
   storyboard: StoryboardScene[];
   thumbnails: ThumbnailConcept[];
   shortsScript: ShortsScript;
+  isFallback?: boolean;
+  fallbackReason?: string;
 }
