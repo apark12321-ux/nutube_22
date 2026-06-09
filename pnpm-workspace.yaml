@@ -1,0 +1,7 @@
+allowBuilds:
+  '@google/genai': true
+  esbuild: true
+  protobufjs: true
+minimumReleaseAgeExclude:
+  - '@vercel/build-utils@13.28.0'
+  - '@vercel/node@5.8.14'

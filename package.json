@@ -1,13 +1,13 @@
 {
-  "name": "react-example-root",
+  "name": "react-example",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm --prefix artifacts/nutube run dev",
-    "build": "npm --prefix artifacts/nutube run build",
-    "start": "npm --prefix artifacts/nutube run start",
-    "lint": "npm --prefix artifacts/nutube run lint"
+    "dev": "tsx server.ts",
+    "build": "vite build && node build-server.js",
+    "start": "node dist/server.cjs",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
