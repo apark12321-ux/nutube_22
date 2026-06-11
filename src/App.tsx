@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
@@ -7,6 +7,7 @@ import { GuideReader } from './components/GuideReader';
 import { MetadataGenerator } from './components/MetadataGenerator';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
 import { AdSenseDiagnostic } from './components/AdSenseDiagnostic';
+import { FooterModals } from './components/FooterModals';
 
 import { 
   Search, 
@@ -27,12 +28,117 @@ export default function App() {
   // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense'
   const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense'>('guides');
   
+  // 푸터 이용약관 및 개인정보처리방침 모달 상태 관리자
+  const [footerModalType, setFooterModalType] = useState<'terms' | 'privacy' | null>(null);
+  
   // 가이드 상세 선택 조회 정보
   const [selectedPost, setSelectedPost] = useState<GuidePost | null>(null);
 
   // 검색어 및 카테고리 필터 인디케이터
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // --- 브라우저 주소창 연동 & 검색엔진 서치 콘솔 색인 자동 연계 엔진 ---
+  const syncStateFromUrl = () => {
+    const path = window.location.pathname;
+    if (path === '/builder') {
+      setActiveTab('builder');
+      setSelectedPost(null);
+    } else if (path === '/advisor') {
+      setActiveTab('advisor');
+      setSelectedPost(null);
+    } else if (path === '/adsense') {
+      setActiveTab('adsense');
+      setSelectedPost(null);
+    } else if (path.startsWith('/guide/')) {
+      const slug = path.replace('/guide/', '');
+      const post = ALL_POSTS.find(p => p.slug === slug);
+      if (post) {
+        setActiveTab('guides');
+        setSelectedPost(post);
+      } else {
+        setActiveTab('guides');
+        setSelectedPost(null);
+      }
+    } else if (path.startsWith('/guides/')) {
+      const slug = path.replace('/guides/', '');
+      const post = ALL_POSTS.find(p => p.slug === slug);
+      if (post) {
+        setActiveTab('guides');
+        setSelectedPost(post);
+      } else {
+        setActiveTab('guides');
+        setSelectedPost(null);
+      }
+    } else {
+      setActiveTab('guides');
+      setSelectedPost(null);
+    }
+  };
+
+  // 1. 컴포넌트 마운트 시 최초 주소 파싱 및 popstate 이벤트 리스너 감지 등록
+  useEffect(() => {
+    syncStateFromUrl();
+
+    const handlePopState = () => {
+      syncStateFromUrl();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  // 2. 탭 선택 및 가이드 글 진입 상황을 URL 경로에 실시간 동기화 (pushState)
+  useEffect(() => {
+    let targetPath = '/';
+    let targetTitle = 'NuTube Premium Core Hub';
+    let targetDesc = '구독자 0명 시점의 알고리즘 침투 기획부터 100만 고지 달성을 위한 썸네일 A/B 테스트 지표 관리법까지, 고밀도 실물 채널 운영 비기 46편을 무료 배포합니다.';
+
+    if (selectedPost) {
+      targetPath = `/guide/${selectedPost.slug}`;
+      targetTitle = `${selectedPost.title} | NuTube Premium Core Hub`;
+      targetDesc = selectedPost.summary || selectedPost.subtitle;
+    } else if (activeTab === 'builder') {
+      targetPath = '/builder';
+      targetTitle = '원클릭 AI 비칭 부스터 | NuTube Premium Core Hub';
+    } else if (activeTab === 'advisor') {
+      targetPath = '/advisor';
+      targetTitle = 'AI 심층상담관 | NuTube Premium Core Hub';
+    } else if (activeTab === 'adsense') {
+      targetPath = '/adsense';
+      targetTitle = '애드센스 긴급 구급대 | NuTube Premium Core Hub';
+    } else {
+      targetPath = '/';
+      targetTitle = 'NuTube Premium Core Hub - 유튜브 조회수 & 수익 구조 최강 비책 보관소';
+    }
+
+    // 현재의 브라우저 주소와 다를 경우에만 pushState 실행하여 무한 루트 및 중복 히스토리 유입 방지
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+
+    // 검색 크롤러 봇 및 탭 타이틀을 위해 DOM 메타 동적 업데이트 진행
+    document.title = targetTitle;
+    
+    // HTML 메타 디스크립션 동적 개조
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', targetDesc);
+    } else {
+      const newMeta = document.createElement('meta');
+      newMeta.name = 'description';
+      newMeta.content = targetDesc;
+      document.head.appendChild(newMeta);
+    }
+
+    // OpenGraph 메타 동적 개조 (SNS 공유 미리보기 최적화)
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogTitle) ogTitle.setAttribute('content', targetTitle);
+    if (ogDesc) ogDesc.setAttribute('content', targetDesc);
+  }, [activeTab, selectedPost]);
 
   // 카테고리별 아이콘 맵 매칭 유틸
   const getCategoryIcon = (key: string, className: string) => {
@@ -302,13 +408,28 @@ export default function App() {
       <footer className="border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500 font-mono" id="applet-footer">
         <div className="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© 2026 NuTube Premium Core Hub. All Rights Reserved.</p>
-          <div className="flex gap-4">
-            <span className="cursor-default hover:text-slate-400 transition-colors">이용약관</span>
+          <div className="flex gap-4 items-center">
+            <button 
+              onClick={() => setFooterModalType('terms')}
+              className="hover:text-amber-400 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
+              id="footer-btn-terms"
+            >
+              이용약관
+            </button>
             <span className="h-4 w-[1px] bg-slate-900" />
-            <span className="cursor-default hover:text-slate-400 transition-colors">개인정보처리방침</span>
+            <button 
+              onClick={() => setFooterModalType('privacy')}
+              className="hover:text-red-400 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
+              id="footer-btn-privacy"
+            >
+              개인정보처리방침
+            </button>
           </div>
         </div>
       </footer>
+
+      {/* 푸터 전문 모달 오버레이 */}
+      <FooterModals type={footerModalType} onClose={() => setFooterModalType(null)} />
 
     </div>
   );
