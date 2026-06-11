@@ -8,6 +8,118 @@ interface GuideReaderProps {
   onBack: () => void;
 }
 
+interface ContentBlock {
+  type: 'h2' | 'h3' | 'h4' | 'list' | 'code' | 'paragraph' | 'divider';
+  lines: string[];
+  lang?: string;
+}
+
+const parseContentToBlocks = (content: string): ContentBlock[] => {
+  const lines = content.split('\n');
+  const blocks: ContentBlock[] = [];
+  let currentBlock: ContentBlock | null = null;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i];
+    const trimmedLine = rawLine.trim();
+    
+    // 1. Divider/Horizontal Rule
+    if (trimmedLine === '---' || trimmedLine === '***') {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+        currentBlock = null;
+      }
+      blocks.push({ type: 'divider', lines: [trimmedLine] });
+      continue;
+    }
+    
+    // 2. Code Block
+    if (trimmedLine.startsWith('```')) {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+        currentBlock = null;
+      }
+      const lang = trimmedLine.replace('```', '').trim();
+      const codeLines: string[] = [];
+      i++; // skip start tag line
+      while (i < lines.length && !lines[i].trim().startsWith('```')) {
+        codeLines.push(lines[i]);
+        i++;
+      }
+      blocks.push({ type: 'code', lines: codeLines, lang });
+      continue;
+    }
+    
+    // If we have an empty line
+    if (trimmedLine === '') {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+        currentBlock = null;
+      }
+      continue;
+    }
+    
+    // 3. Headings
+    if (trimmedLine.startsWith('## ')) {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+      }
+      blocks.push({ type: 'h2', lines: [trimmedLine] });
+      currentBlock = null;
+      continue;
+    }
+    if (trimmedLine.startsWith('### ')) {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+      }
+      blocks.push({ type: 'h3', lines: [trimmedLine] });
+      currentBlock = null;
+      continue;
+    }
+    if (trimmedLine.startsWith('#### ')) {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+      }
+      blocks.push({ type: 'h4', lines: [trimmedLine] });
+      currentBlock = null;
+      continue;
+    }
+    
+    // 4. List Items
+    const isListItem = trimmedLine.startsWith('- ') || 
+                       trimmedLine.startsWith('* ') || 
+                       /^\d+\.\s+/.test(trimmedLine);
+                       
+    if (isListItem) {
+      if (currentBlock && currentBlock.type !== 'list') {
+        blocks.push(currentBlock);
+        currentBlock = null;
+      }
+      if (!currentBlock) {
+        currentBlock = { type: 'list', lines: [] };
+      }
+      currentBlock.lines.push(trimmedLine);
+      continue;
+    }
+    
+    // 5. Normal Paragraph lines
+    if (currentBlock && currentBlock.type === 'paragraph') {
+      currentBlock.lines.push(rawLine);
+    } else {
+      if (currentBlock) {
+        blocks.push(currentBlock);
+      }
+      currentBlock = { type: 'paragraph', lines: [rawLine] };
+    }
+  }
+  
+  if (currentBlock) {
+    blocks.push(currentBlock);
+  }
+  
+  return blocks;
+};
+
 export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, onBack }) => {
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes || Math.floor(Math.random() * 45) + 12);
@@ -230,61 +342,90 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
 
         {/* 아티클 상세 내용 (가독성 높은 에디토리얼 마크다운 스타일 수동 가공 렌더러) */}
         <article className="prose prose-invert max-w-none text-slate-200 text-sm sm:text-base leading-relaxed space-y-6" id="guide-markdown-body">
-          {post.content.split('\n\n').map((paragraph, index) => {
-            const trimmed = paragraph.trim();
-            if (!trimmed) return null;
-
-            // 1. 헤더 H2 파싱
-            if (trimmed.startsWith('## ')) {
-              return (
-                <h3 key={index} className="pt-6 pb-2 text-xl sm:text-2xl font-bold tracking-tight text-white border-b border-slate-900 font-display">
-                  {renderFormattedText(trimmed.replace('## ', ''))}
-                </h3>
-              );
+          {parseContentToBlocks(post.content).map((block, index) => {
+            switch (block.type) {
+              case 'h2': {
+                const text = block.lines[0].replace(/^##\s+/, '');
+                return (
+                  <h3 key={index} id={`heading-h2-${index}`} className="pt-6 pb-2 text-xl sm:text-2xl font-bold tracking-tight text-white border-b border-slate-900 font-display">
+                    {renderFormattedText(text)}
+                  </h3>
+                );
+              }
+              case 'h3': {
+                const text = block.lines[0].replace(/^###\s+/, '');
+                return (
+                  <h4 key={index} id={`heading-h3-${index}`} className="pt-4 pb-1 text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <span className="inline-block h-4 w-1 bg-red-500 rounded-full" />
+                    {renderFormattedText(text)}
+                  </h4>
+                );
+              }
+              case 'h4': {
+                const text = block.lines[0].replace(/^####\s+/, '');
+                return (
+                  <h5 key={index} id={`heading-h4-${index}`} className="pt-3 pb-1 text-sm sm:text-base font-bold text-amber-500 flex items-center gap-1.5">
+                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-500" />
+                    {renderFormattedText(text)}
+                  </h5>
+                );
+              }
+              case 'divider': {
+                return (
+                  <hr key={index} id={`divider-${index}`} className="my-8 border-slate-900/80" />
+                );
+              }
+              case 'list': {
+                return (
+                  <ul key={index} id={`list-block-${index}`} className="space-y-2.5 pl-5 list-disc text-slate-300 bg-slate-900/10 p-4 rounded-xl border border-slate-800/45">
+                    {block.lines.map((line, i) => {
+                      const cleanItem = line.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
+                      return (
+                        <li key={i} className="text-xs sm:text-sm">
+                          {renderFormattedText(cleanItem)}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                );
+              }
+              case 'code': {
+                const codeContent = block.lines.join('\n');
+                return (
+                  <div key={index} id={`code-block-${index}`} className="relative group my-6 rounded-xl overflow-hidden border border-slate-800 bg-slate-950 font-mono text-xs text-rose-300/90 shadow-lg">
+                    <div className="flex items-center justify-between px-4 py-2 bg-slate-900/70 text-[10px] text-slate-500 border-b border-slate-800">
+                      <span className="font-semibold uppercase tracking-wider">{block.lang || 'code'}</span>
+                      <button
+                        onClick={() => {
+                          try {
+                            navigator.clipboard.writeText(codeContent);
+                            alert('코드가 클립보드에 복사되었습니다.');
+                          } catch (err) {
+                            alert('코드 복사에 실패했습니다.');
+                          }
+                        }}
+                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all text-[10px] border border-slate-700/65 cursor-pointer"
+                      >
+                        코드 복사
+                      </button>
+                    </div>
+                    <pre className="p-4 overflow-x-auto whitespace-pre leading-relaxed select-text select-all">
+                      <code>{codeContent}</code>
+                    </pre>
+                  </div>
+                );
+              }
+              case 'paragraph': {
+                const paragraphText = block.lines.join('\n');
+                return (
+                  <p key={index} className="text-slate-300 leading-relaxed font-sans text-xs sm:text-sm">
+                    {renderFormattedText(paragraphText)}
+                  </p>
+                );
+              }
+              default:
+                return null;
             }
-
-            // 2. 헤더 H3 파싱 (예: 6대 원칙, 카테고리별 적합도 등 부가 소제목)
-            if (trimmed.startsWith('### ')) {
-              return (
-                <h4 key={index} className="pt-4 pb-1 text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
-                  <span className="inline-block h-4 w-1 bg-red-500 rounded-full" />
-                  {renderFormattedText(trimmed.replace('### ', ''))}
-                </h4>
-              );
-            }
-
-            // 2-2. 헤더 H4 파싱
-            if (trimmed.startsWith('#### ')) {
-              return (
-                <h5 key={index} className="pt-3 pb-1 text-sm sm:text-base font-bold text-amber-500 flex items-center gap-1.5">
-                  <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-500" />
-                  {renderFormattedText(trimmed.replace('#### ', ''))}
-                </h5>
-              );
-            }
-
-            // 3. 순서 있는 리스트 처리 (설명, 원칙 가이드 등)
-            if (trimmed.startsWith('- ') || trimmed.startsWith('1. ') || trimmed.startsWith('2. ') || trimmed.startsWith('3. ') || trimmed.startsWith('4. ') || trimmed.startsWith('5. ') || trimmed.startsWith('6. ')) {
-              return (
-                <ul key={index} className="space-y-2.5 pl-5 list-disc text-slate-300 bg-slate-900/30 p-4 rounded-xl border border-slate-900">
-                  {trimmed.split('\n').map((listItem, i) => {
-                    const cleanItem = listItem.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
-                    return (
-                      <li key={i} className="text-xs sm:text-sm">
-                        {renderFormattedText(cleanItem)}
-                      </li>
-                    );
-                  })}
-                </ul>
-              );
-            }
-
-            // 4. 일반 패러그래프 렌더
-            return (
-              <p key={index} className="text-slate-300 leading-relaxed font-sans text-xs sm:text-sm">
-                {renderFormattedText(trimmed)}
-              </p>
-            );
           })}
         </article>
 

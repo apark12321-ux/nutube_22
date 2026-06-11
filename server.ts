@@ -328,7 +328,18 @@ app.post('/api/assistant/chat', async (req, res) => {
       const formattedContents: any[] = [];
       
       if (chatHistory && Array.isArray(chatHistory)) {
-        chatHistory.slice(-8).forEach(msg => {
+        // 프론트엔드에서 보낸 chatHistory에 현재 질문(message)이 중복 포함되어 있을 우려가 있으므로,
+        // 마지막 항목이 user 포지션이고 메시지가 동일하면 이를 제거하여 정합성을 유지합니다.
+        let historyToProcess = [...chatHistory];
+        if (
+          historyToProcess.length > 0 &&
+          historyToProcess[historyToProcess.length - 1].role === 'user' &&
+          historyToProcess[historyToProcess.length - 1].text === message
+        ) {
+          historyToProcess.pop();
+        }
+
+        historyToProcess.slice(-8).forEach(msg => {
           formattedContents.push({
             role: msg.role === 'user' ? 'user' : 'model',
             parts: [{ text: msg.text }]
@@ -342,9 +353,24 @@ app.post('/api/assistant/chat', async (req, res) => {
         parts: [{ text: message }]
       });
 
+      // Gemini API 조건 충족: user와 model 역할이 연속으로 동일하게 오지 않도록 연속 항목을 단일 항목으로 병합 처리
+      const normalizedContents: any[] = [];
+      formattedContents.forEach(item => {
+        if (normalizedContents.length === 0) {
+          normalizedContents.push(item);
+        } else {
+          const lastItem = normalizedContents[normalizedContents.length - 1];
+          if (lastItem.role === item.role) {
+            lastItem.parts[0].text += "\n" + item.parts[0].text;
+          } else {
+            normalizedContents.push(item);
+          }
+        }
+      });
+
       const response = await ai.models.generateContent({
         model: 'gemini-3.5-flash',
-        contents: formattedContents,
+        contents: normalizedContents,
         config: {
           systemInstruction: `${selectedInstruction} 유튜브 가이드라인 및 전문적인 지식을 기반으로 하여 다정하고 명확한 한국어로 성심껏 조언해주어라.`,
           temperature: 0.7
