@@ -57,6 +57,70 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
     return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
   };
 
+  // 텍스트 내의 **볼드** 및 `백틱 인라인코드`를 완벽 포맷팅하는 수동 에디토리얼 파서
+  const renderFormattedText = (text: string): React.ReactNode[] => {
+    if (!text) return [];
+    
+    // 이스케이프 문자 및 역슬래시 정리 정돈
+    let cleanText = text.replace(/\\`/g, '`').replace(/\\\*/g, '*');
+    
+    const parts: React.ReactNode[] = [];
+    let currentWord = '';
+    let i = 0;
+    
+    while (i < cleanText.length) {
+      // 1. 볼드 감지 (** )
+      if (cleanText.substring(i, i + 2) === '**') {
+        if (currentWord) {
+          parts.push(<span key={`txt-${i}`}>{currentWord}</span>);
+          currentWord = '';
+        }
+        i += 2;
+        let boldText = '';
+        while (i < cleanText.length && cleanText.substring(i, i + 2) !== '**') {
+          boldText += cleanText[i];
+          i++;
+        }
+        if (boldText) {
+          parts.push(<strong key={`bold-${i}`} className="font-extrabold text-amber-400 mx-0.5">{boldText}</strong>);
+        }
+        if (cleanText.substring(i, i + 2) === '**') {
+          i += 2;
+        }
+      } 
+      // 2. 인라인 백틱 감지 ( ` )
+      else if (cleanText[i] === '`') {
+        if (currentWord) {
+          parts.push(<span key={`txt-${i}`}>{currentWord}</span>);
+          currentWord = '';
+        }
+        i++;
+        let codeText = '';
+        while (i < cleanText.length && cleanText[i] !== '`') {
+          codeText += cleanText[i];
+          i++;
+        }
+        if (codeText) {
+          parts.push(<code key={`code-${i}`} className="font-mono text-rose-400 bg-slate-950/80 px-1.5 py-0.5 rounded text-xs mx-0.5 border border-slate-800">{codeText}</code>);
+        }
+        if (cleanText[i] === '`') {
+          i++;
+        }
+      } 
+      // 3. 일반 글자
+      else {
+        currentWord += cleanText[i];
+        i++;
+      }
+    }
+    
+    if (currentWord) {
+      parts.push(<span key={`txt-end`}>{currentWord}</span>);
+    }
+    
+    return parts;
+  };
+
   return (
     <div className="relative pb-24" id={`guide-reader-${post.slug}`}>
       
@@ -174,7 +238,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             if (trimmed.startsWith('## ')) {
               return (
                 <h3 key={index} className="pt-6 pb-2 text-xl sm:text-2xl font-bold tracking-tight text-white border-b border-slate-900 font-display">
-                  {trimmed.replace('## ', '')}
+                  {renderFormattedText(trimmed.replace('## ', ''))}
                 </h3>
               );
             }
@@ -184,8 +248,18 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
               return (
                 <h4 key={index} className="pt-4 pb-1 text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
                   <span className="inline-block h-4 w-1 bg-red-500 rounded-full" />
-                  {trimmed.replace('### ', '')}
+                  {renderFormattedText(trimmed.replace('### ', ''))}
                 </h4>
+              );
+            }
+
+            // 2-2. 헤더 H4 파싱
+            if (trimmed.startsWith('#### ')) {
+              return (
+                <h5 key={index} className="pt-3 pb-1 text-sm sm:text-base font-bold text-amber-500 flex items-center gap-1.5">
+                  <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-500" />
+                  {renderFormattedText(trimmed.replace('#### ', ''))}
+                </h5>
               );
             }
 
@@ -197,7 +271,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                     const cleanItem = listItem.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
                     return (
                       <li key={i} className="text-xs sm:text-sm">
-                        {cleanItem}
+                        {renderFormattedText(cleanItem)}
                       </li>
                     );
                   })}
@@ -208,7 +282,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             // 4. 일반 패러그래프 렌더
             return (
               <p key={index} className="text-slate-300 leading-relaxed font-sans text-xs sm:text-sm">
-                {trimmed}
+                {renderFormattedText(trimmed)}
               </p>
             );
           })}
