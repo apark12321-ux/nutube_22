@@ -7,7 +7,6 @@ import { GuideReader } from './components/GuideReader';
 import { MetadataGenerator } from './components/MetadataGenerator';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
 import { AdSenseDiagnostic } from './components/AdSenseDiagnostic';
-import { FooterModals } from './components/FooterModals';
 
 import { 
   Search, 
@@ -25,11 +24,8 @@ import {
 } from 'lucide-react';
 
 export default function App() {
-  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense'
-  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense'>('guides');
-  
-  // 푸터 이용약관 및 개인정보처리방침 모달 상태 관리자
-  const [footerModalType, setFooterModalType] = useState<'terms' | 'privacy' | null>(null);
+  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail'
+  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail'>('guides');
   
   // 가이드 상세 선택 조회 정보
   const [selectedPost, setSelectedPost] = useState<GuidePost | null>(null);
@@ -50,11 +46,17 @@ export default function App() {
     } else if (path === '/adsense') {
       setActiveTab('adsense');
       setSelectedPost(null);
+    } else if (path === '/terms') {
+      setActiveTab('terms');
+      setSelectedPost(null);
+    } else if (path === '/privacy') {
+      setActiveTab('privacy');
+      setSelectedPost(null);
     } else if (path.startsWith('/guide/')) {
       const slug = path.replace('/guide/', '');
       const post = ALL_POSTS.find(p => p.slug === slug);
       if (post) {
-        setActiveTab('guides');
+        setActiveTab('guide-detail');
         setSelectedPost(post);
       } else {
         setActiveTab('guides');
@@ -64,7 +66,7 @@ export default function App() {
       const slug = path.replace('/guides/', '');
       const post = ALL_POSTS.find(p => p.slug === slug);
       if (post) {
-        setActiveTab('guides');
+        setActiveTab('guide-detail');
         setSelectedPost(post);
       } else {
         setActiveTab('guides');
@@ -96,10 +98,18 @@ export default function App() {
     let targetTitle = 'NuTube Premium Core Hub';
     let targetDesc = '구독자 0명 시점의 알고리즘 침투 기획부터 100만 고지 달성을 위한 썸네일 A/B 테스트 지표 관리법까지, 고밀도 실물 채널 운영 비기 46편을 무료 배포합니다.';
 
-    if (selectedPost) {
+    if (selectedPost && activeTab === 'guide-detail') {
       targetPath = `/guide/${selectedPost.slug}`;
       targetTitle = `${selectedPost.title} | NuTube Premium Core Hub`;
       targetDesc = selectedPost.summary || selectedPost.subtitle;
+    } else if (activeTab === 'terms') {
+      targetPath = '/terms';
+      targetTitle = '이용약관 | NuTube Premium Core Hub';
+      targetDesc = 'NuTube Premium Core Hub 서비스 이용약관 전문 고밀도 안내 페이지입니다.';
+    } else if (activeTab === 'privacy') {
+      targetPath = '/privacy';
+      targetTitle = '개인정보처리방침 | NuTube Premium Core Hub';
+      targetDesc = '귀중한 사용자 데이터 수집 한도를 정의하고 임시 쿠키 운용을 보호하기 위한 개인정보방침 내용입니다.';
     } else if (activeTab === 'builder') {
       targetPath = '/builder';
       targetTitle = '원클릭 AI 비칭 부스터 | NuTube Premium Core Hub';
@@ -187,8 +197,10 @@ export default function App() {
   }, []);
 
   // 특정 탭 이동 유틸
-  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'adsense') => {
-    setSelectedPost(null);
+  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => {
+    if (tab !== 'guide-detail') {
+      setSelectedPost(null);
+    }
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -204,17 +216,8 @@ export default function App() {
         
         {/* 탭 1: 고밀도 전략 가이드 리스트 */}
         {activeTab === 'guides' && (
-          <>
-            {selectedPost ? (
-              // 독서 집중 모드 아티클 상세 리더
-              <GuideReader 
-                post={selectedPost} 
-                categorySpec={CATEGORY_SPECS[selectedPost.category]}
-                onBack={() => setSelectedPost(null)} 
-              />
-            ) : (
-              // 대시보드 메인
-              <div id="guides-dashboard-view">
+          // 대시보드 메인
+          <div id="guides-dashboard-view">
                 
                 {/* 메인 히어로 배너 */}
                 <section className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800/80 py-12 sm:py-20 relative overflow-hidden" id="hero-banner">
@@ -339,7 +342,11 @@ export default function App() {
                         <PostCard 
                           key={post.slug} 
                           post={post} 
-                          onSelect={setSelectedPost} 
+                          onSelect={(p) => {
+                            setSelectedPost(p);
+                            setActiveTab('guide-detail');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }} 
                           accentColor={CATEGORY_SPECS[post.category]?.accentColor || '#ef4444'}
                         />
                       ))}
@@ -383,8 +390,16 @@ export default function App() {
 
                 </div>
               </div>
-            )}
-          </>
+            )
+        }
+
+        {/* 독서 집중 모드 아티클 상세 리더 (독립 단독 페이지 형태로 변경) */}
+        {activeTab === 'guide-detail' && selectedPost && (
+          <GuideReader 
+            post={selectedPost} 
+            categorySpec={CATEGORY_SPECS[selectedPost.category]}
+            onBack={() => handleNavigateTab('guides')} 
+          />
         )}
 
         {/* 탭 2: 원클릭 AI 디렉터 빌더 */}
@@ -402,6 +417,112 @@ export default function App() {
           <AdSenseDiagnostic />
         )}
 
+        {/* 탭 5: 이용약관 (팝업 형태 철폐, 일반 독립 페이지화) */}
+        {activeTab === 'terms' && (
+          <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 animate-fade-in" id="terms-view">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 sm:p-10 shadow-xl">
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight mb-6 pb-4 border-b border-slate-800 flex items-center gap-2">
+                <span className="inline-block h-6 w-1.5 bg-amber-500 rounded-full" />
+                <span>NuTube Premium Core Hub 이용약관</span>
+              </h2>
+              <div className="space-y-6 text-sm text-slate-300 leading-relaxed font-sans">
+                <div className="bg-amber-500/5 border border-amber-500/10 rounded-xl p-4 mb-4">
+                  <p className="text-xs text-amber-400 font-medium leading-relaxed">
+                    ※ 본 이용약관은 NuTube Premium Core Hub가 제공하는 유튜브 성장 공략, AI 알고리즘 기획 분석기 및 애드센스 진단 등의 핵심 전략 리포트 서비스 사용 지침을 정의합니다.
+                  </p>
+                </div>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 1조 (목적)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    본 약관은 크리에이터 성장 파트너 NuTube Premium Core Hub(이하 "서비스")가 제공하는 웹 애플리케이션 및 브라우징 리소스의 합리적인 사용 한계와 회원의 권리 의무 및 책임 사항을 목적으로 합니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 2조 (서비스의 핵심 구조 및 품질 보증의 제한)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    1. 서비스가 제공하는 유튜브 비책 아티클, AI 기반 대본/썸네일 부스터, 애드센스 긴급 진단 로직은 다변량 통계적 알고리즘 기준 및 크리에이티브 실무 지침서에 의거합니다.<br />
+                    2. 인공지능 분석 데이터는 수시로 추천 메커니즘을 100% 실시간으로 반영하지 못할 수 있으며, 개별 채널의 성취 지표(구독자, 조회수, 정식 승인 해결 등)에 정량적 100% 승인이나 흥행 보장을 법적으로 절대 확약하지 않습니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 3조 (크리에이티브 리소스의 소유권 및 재배포 규정)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    1. 서비스 내에 고밀도로 수록된 46편의 기획 서적 수준 공략본, AI 부스팅 프롬프트 시스템 디자인 전반은 독자 지식재산권으로 전속됩니다.<br />
+                    2. 이용자는 가이드 내용을 사전 승낙 없이 무단으로 인쇄 영리용 PDF로 제작 및 배포하거나 상업적 교재로 무단 유상 양도하는 권리 침해 행위를 일절 금지합니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 4조 (면책 조항)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    회사는 천재지변, 연계 서비스 제공처(YouTube API, Google AdSense 등)의 규칙 폐지 및 변동, 또는 기술적 불능 등 불가피한 오류 시스템에 따른 장애에 책임을 다으나, 일체 파생된 제3자 채널 손실 등에 민형사상 배상 책임을 지지 않습니다.
+                  </p>
+                </section>
+              </div>
+              <div className="mt-10 pt-6 border-t border-slate-800/60 text-center">
+                <button
+                  onClick={() => handleNavigateTab('guides')}
+                  className="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold hover:border-slate-700 hover:text-white transition-all cursor-pointer"
+                >
+                  비책 홈으로 돌아가기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 탭 6: 개인정보처리방침 (팝업 형태 철폐, 일반 독립 페이지화) */}
+        {activeTab === 'privacy' && (
+          <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 animate-fade-in" id="privacy-view">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 sm:p-10 shadow-xl">
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight mb-6 pb-4 border-b border-slate-800 flex items-center gap-2">
+                <span className="inline-block h-6 w-1.5 bg-red-500 rounded-full" />
+                <span>개인정보처리방침 안내 전문</span>
+              </h2>
+              <div className="space-y-6 text-sm text-slate-300 leading-relaxed font-sans">
+                <div className="bg-red-500/5 border border-red-500/10 rounded-xl p-4 mb-4">
+                  <p className="text-xs text-red-400 font-medium leading-relaxed">
+                    ※ 본 개인정보처리방침은 NuTube Premium Core Hub 서비스 이용 환경에서 이용자의 디지털 기밀을 강력하게 수호하기 위하여 어떠한 불필요한 추적 정보도 수집 전송하지 않음을 밝혀둡니다.
+                  </p>
+                </div>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 1조 (수집하는 개인정보 항목 및 임시 보관 수준)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    1. 본 서비스는 귀찮고 유출 위험이 크며 번거로운 회원가입 절차 자체를 설계하지 않았습니다.<br />
+                    2. 서비스의 AI 분석기는 이용자가 채널 진단을 위해 직접 손수 기입한 내용(채널 주제, 타겟 등)만을 임시 파라미터로 처리합니다. 그 외 IP 주소나 브라우저 메타 정보 등의 추적을 절대 진행하지 않습니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 2조 (개인 데이터의 사용 목적 및 연동 범위)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    이용자가 작성한 모든 메타데이터와 질문지 정보는 연동된 구글 생성형 거대 언어 모델(Gemini API) 서비스와의 오직 실시간 컨슈머 컨설팅 일회용 통신에 한해 사용될 뿐이며, 피드백 완수 즉시 시스템 스레드에서 자동 소거됩니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 3조 (데이터의 영구 처분 및 타 단체 공유 방지)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    1. 본 플랫폼은 클라우드 서버 측에 사용자의 가이드 열람 통계 데이터베이스를 영구 축적하지 않습니다.<br />
+                    2. 임시 캐싱 목적의 브라우저 보관 기법(LocalStorage)은 오직 사용자가 창을 닫기 전까지 본인 환경에서만 제어될 뿐이며, 어떠한 광고 그룹이나 제3자 정보망에도 흘려보내지 않음을 명시합니다.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <h4 className="font-bold text-white text-base font-display">제 4조 (정보주체의 관리 책임자 소통)</h4>
+                  <p className="text-slate-400 text-xs sm:text-[13px] pl-3">
+                    이용자는 언제나 브라우저 캐시 데이터를 마음껏 소거함으로써 분석 로그를 완벽 조치할 수 있습니다. 개인정보 문의 사항은 시스템 인프라 최강 책임팀 메일(apark12321@gmail.com)을 통하여 전광석화 같은 피드백이 가능합니다.
+                  </p>
+                </section>
+              </div>
+              <div className="mt-10 pt-6 border-t border-slate-800/60 text-center">
+                <button
+                  onClick={() => handleNavigateTab('guides')}
+                  className="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold hover:border-slate-700 hover:text-white transition-all cursor-pointer"
+                >
+                  비책 홈으로 돌아가기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </main>
 
       {/* 심플 세련 푸터 */}
@@ -410,7 +531,7 @@ export default function App() {
           <p>© 2026 NuTube Premium Core Hub. All Rights Reserved.</p>
           <div className="flex gap-4 items-center">
             <button 
-              onClick={() => setFooterModalType('terms')}
+              onClick={() => handleNavigateTab('terms')}
               className="hover:text-amber-400 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
               id="footer-btn-terms"
             >
@@ -418,7 +539,7 @@ export default function App() {
             </button>
             <span className="h-4 w-[1px] bg-slate-900" />
             <button 
-              onClick={() => setFooterModalType('privacy')}
+              onClick={() => handleNavigateTab('privacy')}
               className="hover:text-red-400 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
               id="footer-btn-privacy"
             >
@@ -427,9 +548,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* 푸터 전문 모달 오버레이 */}
-      <FooterModals type={footerModalType} onClose={() => setFooterModalType(null)} />
 
     </div>
   );

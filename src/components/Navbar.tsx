@@ -2,11 +2,12 @@ import React from 'react';
 import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award } from 'lucide-react';
 
 interface NavbarProps {
-  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense';
-  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense') => void;
+  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
+  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab }) => {
+  const isGuidesTabActive = currentTab === 'guides' || currentTab === 'guide-detail' || currentTab === 'terms' || currentTab === 'privacy';
   return (
     <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -34,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab }) => {
             id="nav-btn-guides"
             onClick={() => setTab('guides')}
             className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
-              currentTab === 'guides'
+              isGuidesTabActive
                 ? 'bg-red-500/10 text-red-400 border border-red-500/20'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
             }`}

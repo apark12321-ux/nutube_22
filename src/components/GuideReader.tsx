@@ -124,6 +124,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes || Math.floor(Math.random() * 45) + 12);
   const [scrollPercent, setScrollPercent] = useState(0);
+  const [shareToast, setShareToast] = useState(false);
+  const [copiedCodeBlockId, setCopiedCodeBlockId] = useState<number | null>(null);
 
   // 스크롤 프로그레스 바 계산
   useEffect(() => {
@@ -158,9 +160,10 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   const handleShare = () => {
     try {
       navigator.clipboard.writeText(window.location.href);
-      alert('비책의 링크를 성공적으로 클립보드에 복사했습니다!');
+      setShareToast(true);
+      setTimeout(() => setShareToast(false), 2200);
     } catch (err) {
-      alert('공유용 링크 복사에 실패했습니다.');
+      console.error("Failed to copy link via clipboard", err);
     }
   };
 
@@ -255,7 +258,12 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             <span>비책 목록으로 가기</span>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative">
+            {shareToast && (
+              <div className="absolute -bottom-10 right-0 z-20 bg-slate-900 text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-red-500/20 whitespace-nowrap shadow-lg animate-fade-in-down">
+                링크 복사 완료! 🔗
+              </div>
+            )}
             <button 
               id="reader-share-btn"
               onClick={handleShare}
@@ -399,14 +407,15 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                         onClick={() => {
                           try {
                             navigator.clipboard.writeText(codeContent);
-                            alert('코드가 클립보드에 복사되었습니다.');
+                            setCopiedCodeBlockId(index);
+                            setTimeout(() => setCopiedCodeBlockId(null), 2000);
                           } catch (err) {
-                            alert('코드 복사에 실패했습니다.');
+                            console.error("Code copy failed", err);
                           }
                         }}
-                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all text-[10px] border border-slate-700/65 cursor-pointer"
+                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all text-[10px] border border-slate-700/65 cursor-pointer min-w-[75px] text-center"
                       >
-                        코드 복사
+                        {copiedCodeBlockId === index ? '복사 완료! ✅' : '코드 복사'}
                       </button>
                     </div>
                     <pre className="p-4 overflow-x-auto whitespace-pre leading-relaxed select-text select-all">
