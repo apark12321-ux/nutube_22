@@ -8,10 +8,10 @@
 }
 
 body {
-  background-color: #0b0f19;
-  color: #f1f5f9;
   font-family: var(--font-sans);
   overflow-x: hidden;
+  word-break: keep-all;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 스크롤바 커스텀 */
@@ -20,14 +20,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: var(--bg-scroll-track, #031424);
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: var(--bg-scroll-thumb, #0a3d62);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: var(--bg-scroll-thumb-hover, #3c6382);
 }
 
 .font-display {

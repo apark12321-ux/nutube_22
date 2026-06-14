@@ -1,31 +1,40 @@
 import React from 'react';
-import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award } from 'lucide-react';
+import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
   setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => void;
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggleTheme }) => {
   const isGuidesTabActive = currentTab === 'guides' || currentTab === 'guide-detail' || currentTab === 'terms' || currentTab === 'privacy';
+  
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className={`sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${
+      theme === 'dark' 
+        ? 'border-sky-950/40 bg-[#021321]/80 text-[#e0f2fe]' 
+        : 'border-sky-100/80 bg-white/80 text-slate-850 shadow-sm'
+    }`}>
+      <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-3 sm:px-6 lg:px-8">
         
         {/* 로고 영역 */}
         <div 
           onClick={() => setTab('guides')} 
-          className="flex cursor-pointer items-center gap-2.5 transition-opacity hover:opacity-90"
+          className="flex cursor-pointer items-center gap-2 transition-opacity hover:opacity-90"
           id="logo-container"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-rose-600 shadow-lg shadow-red-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 options to-sky-600 shadow-md shadow-sky-500/20">
             <Youtube className="h-5.5 w-5.5 text-white" />
           </div>
           <div>
-            <h1 className="font-display text-lg font-bold tracking-tight text-white sm:text-xl flex items-center gap-1">
-              NuTube <span className="text-xs font-semibold bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded border border-red-500/20 font-mono">2026</span>
+            <h1 className={`font-display text-base sm:text-lg font-extrabold tracking-tight flex items-center gap-1 ${
+              theme === 'dark' ? 'text-white' : 'text-[#011d33]'
+            }`}>
+              NuTube <span className="text-[10px] font-bold bg-cyan-500/10 text-cyan-500 px-1.5 py-0.5 rounded border border-cyan-500/20 font-mono">2026</span>
             </h1>
-            <p className="text-[10px] text-slate-400 hidden sm:block">유튜브 알고리즘 & 수익화 최고 비서</p>
+            <p className="text-[9px] text-slate-400 hidden sm:block">유튜브 알고리즘 & 수익화 최고 비서</p>
           </div>
         </div>
 
@@ -34,71 +43,97 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab }) => {
           <button
             id="nav-btn-guides"
             onClick={() => setTab('guides')}
-            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               isGuidesTabActive
-                ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
+                ? 'bg-sky-500/10 text-sky-500 border border-sky-500/20'
+                : theme === 'dark'
+                  ? 'text-slate-400 hover:text-white hover:bg-[#032841]'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/40'
             }`}
           >
             <BookOpen className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">비책 가이드</span>
-            <span className="inline sm:hidden font-bold">가이드</span>
+            <span className="inline sm:hidden">가이드</span>
           </button>
 
           <button
             id="nav-btn-builder"
             onClick={() => setTab('builder')}
-            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               currentTab === 'builder'
-                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
+                ? 'bg-[#00b894]/10 text-[#00b894] border border-[#00b894]/20'
+                : theme === 'dark'
+                  ? 'text-slate-400 hover:text-white hover:bg-[#032841]'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/40'
             }`}
           >
             <Sparkles className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">원클릭 AI 빌더</span>
-            <span className="inline sm:hidden font-bold">AI 빌더</span>
+            <span className="inline sm:hidden">AI 빌더</span>
           </button>
 
           <button
             id="nav-btn-advisor"
             onClick={() => setTab('advisor')}
-            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               currentTab === 'advisor'
                 ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
+                : theme === 'dark'
+                  ? 'text-slate-400 hover:text-white hover:bg-[#032841]'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/40'
             }`}
           >
             <MessageSquare className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">AI 컨설턴트</span>
-            <span className="inline sm:hidden font-bold">상담실</span>
+            <span className="inline sm:hidden">상담실</span>
           </button>
 
           <button
             id="nav-btn-adsense"
             onClick={() => setTab('adsense')}
-            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all relative ${
+            className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-extrabold transition-all relative cursor-pointer ${
               currentTab === 'adsense'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30 shadow'
-                : 'bg-rose-505/5 text-rose-400/90 hover:text-white hover:bg-rose-500/10 border border-rose-500/10'
+                ? 'bg-rose-500/10 text-rose-500 border border-rose-500/30 shadow-sm'
+                : theme === 'dark'
+                  ? 'border border-rose-500/10 bg-rose-500/5 text-rose-400 hover:bg-rose-500/10'
+                  : 'border border-rose-200 bg-rose-50/50 text-rose-600 hover:bg-rose-100/50'
             }`}
           >
-            <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-rose-500 animate-ping" />
+            <span className="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full bg-rose-500 animate-ping" />
             <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
-            <span className="hidden sm:inline">애드센스 재승인</span>
+            <span className="hidden sm:inline">애드센스 SOS</span>
             <span className="inline sm:hidden">SOS</span>
           </button>
         </nav>
 
+        {/* 오른쪽 간이 지표 및 여름 테마 자동 전환 단추 */}
+        <div className="flex items-center gap-2.5 text-xs font-mono">
+          
+          <button
+            onClick={toggleTheme}
+            className={`p-2 rounded-xl border transition-all hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-[#032841] border-[#084875] text-amber-400 hover:bg-[#05385b]'
+                : 'bg-[#e0f2fe] border-[#bae6fd] text-amber-500 hover:bg-[#bae6fd]'
+            }`}
+            title={theme === 'dark' ? '주간 시원한 해변 모드로 변환' : '야간 심해 블루 모드로 변환'}
+          >
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4 text-sky-700" />}
+          </button>
 
-        {/* 오른쪽 간이 지표 */}
-        <div className="hidden lg:flex items-center gap-4 text-xs font-mono text-slate-400">
-          <div className="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
-            <Compass className="h-3.5 w-3.5 text-blue-400" />
-            <span>Q2 알고리즘 수립 완료</span>
-          </div>
-          <div className="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
-            <Award className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
-            <span>Premium E-E-A-T</span>
+          <div className="hidden lg:flex items-center gap-3 text-xs">
+            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${
+              theme === 'dark' ? 'bg-[#032841] border-[#084875] text-slate-400' : 'bg-white border-sky-100 text-[#0984e3] shadow-xs'
+            }`}>
+              <Compass className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Q2 알고점 탑재</span>
+            </div>
+            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${
+              theme === 'dark' ? 'bg-[#032841] border-[#084875] text-slate-400' : 'bg-white border-sky-100 text-[#00b894] shadow-xs'
+            }`}>
+              <Award className="h-3.5 w-3.5 text-[#00b894] animate-pulse" />
+              <span>Premium E-E-A-T</span>
+            </div>
           </div>
         </div>
 

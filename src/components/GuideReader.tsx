@@ -6,6 +6,7 @@ interface GuideReaderProps {
   post: GuidePost;
   categorySpec: CategorySpec;
   onBack: () => void;
+  theme?: 'light' | 'dark';
 }
 
 interface ContentBlock {
@@ -59,7 +60,7 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
       continue;
     }
     
-    // 3. Headings
+    // 3. Headings (with defensive cleaning of any header hashtags)
     if (trimmedLine.startsWith('## ')) {
       if (currentBlock) {
         blocks.push(currentBlock);
@@ -76,7 +77,7 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
       currentBlock = null;
       continue;
     }
-    if (trimmedLine.startsWith('#### ')) {
+    if (trimmedLine.startsWith('#### ') || trimmedLine.startsWith('####')) {
       if (currentBlock) {
         blocks.push(currentBlock);
       }
@@ -88,7 +89,7 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
     // 4. List Items
     const isListItem = trimmedLine.startsWith('- ') || 
                        trimmedLine.startsWith('* ') || 
-                       /^\d+\.\s+/.test(trimmedLine);
+                       /^\d+\s*\.\s+/.test(trimmedLine);
                        
     if (isListItem) {
       if (currentBlock && currentBlock.type !== 'list') {
@@ -120,7 +121,7 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
   return blocks;
 };
 
-export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, onBack }) => {
+export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, onBack, theme = 'dark' }) => {
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes || Math.floor(Math.random() * 45) + 12);
   const [scrollPercent, setScrollPercent] = useState(0);
@@ -197,7 +198,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           i++;
         }
         if (boldText) {
-          parts.push(<strong key={`bold-${i}`} className="font-extrabold text-amber-400 mx-0.5">{boldText}</strong>);
+          parts.push(<strong key={`bold-${i}`} className="font-extrabold text-cyan-500 mx-0.5">{boldText}</strong>);
         }
         if (cleanText.substring(i, i + 2) === '**') {
           i += 2;
@@ -216,7 +217,15 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           i++;
         }
         if (codeText) {
-          parts.push(<code key={`code-${i}`} className="font-mono text-rose-400 bg-slate-950/80 px-1.5 py-0.5 rounded text-xs mx-0.5 border border-slate-800">{codeText}</code>);
+          parts.push(
+            <code key={`code-${i}`} className={`font-mono px-1.5 py-0.5 rounded text-xs mx-0.5 border ${
+              theme === 'dark' 
+                ? 'text-cyan-400 bg-slate-950/80 border-sky-950' 
+                : 'text-sky-600 bg-sky-50 border-sky-150'
+            }`}>
+              {codeText}
+            </code>
+          );
         }
         if (cleanText[i] === '`') {
           i++;
@@ -239,9 +248,9 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   return (
     <div className="relative pb-24" id={`guide-reader-${post.slug}`}>
       
-      {/* 고 대비 상단 진행 인디케이터 바 */}
+      {/* 고 대비 상단 진행 인디케이터 바 (시원한 여름 마린색) */}
       <div 
-        className="fixed top-16 left-0 h-1 bg-gradient-to-r from-red-500 via-amber-500 to-rose-600 transition-all duration-100 z-50"
+        className="fixed top-16 left-0 h-1 bg-gradient-to-r from-sky-400 via-teal-400 to-cyan-500 transition-all duration-100 z-50"
         style={{ width: `${scrollPercent}%` }}
       />
 
@@ -252,7 +261,9 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           <button 
             id="reader-back-btn"
             onClick={onBack}
-            className="group flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-400 transition-colors hover:text-white"
+            className={`group flex items-center gap-2 text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
+              theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-sky-700'
+            }`}
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             <span>비책 목록으로 가기</span>
@@ -260,14 +271,20 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
 
           <div className="flex items-center gap-2 relative">
             {shareToast && (
-              <div className="absolute -bottom-10 right-0 z-20 bg-slate-900 text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-red-500/20 whitespace-nowrap shadow-lg animate-fade-in-down">
+              <div className={`absolute -bottom-10 right-0 z-20 text-[10px] font-bold px-2.5 py-1 rounded-lg whitespace-nowrap shadow-md animate-fade-in-down ${
+                theme === 'dark' ? 'bg-[#032e49] text-cyan-400 border border-cyan-500/20' : 'bg-sky-50 text-sky-600 border border-sky-200'
+              }`}>
                 링크 복사 완료! 🔗
               </div>
             )}
             <button 
               id="reader-share-btn"
               onClick={handleShare}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-colors cursor-pointer ${
+                theme === 'dark'
+                  ? 'border-sky-950 bg-[#032841]/50 text-slate-400 hover:text-white hover:bg-[#032e49]'
+                  : 'border-sky-100 bg-white text-slate-500 hover:text-sky-600 hover:bg-sky-50'
+              }`}
               title="링크 복사"
             >
               <Share2 className="h-4 w-4" />
@@ -275,45 +292,57 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             <button 
               id="reader-like-btn"
               onClick={handleLike}
-              className={`flex h-9 px-3 gap-1.5 items-center justify-center rounded-xl border transition-all duration-300 ${
+              className={`flex h-9 px-3 gap-1.5 items-center justify-center rounded-xl border transition-all duration-300 cursor-pointer ${
                 liked 
-                  ? 'bg-rose-500/10 border-rose-500/30 text-rose-400 scale-105' 
-                  : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-rose-500/10 border-rose-500/30 text-rose-505 select-none' 
+                  : theme === 'dark'
+                    ? 'bg-[#032841]/50 border-sky-950 text-slate-400 hover:text-white hover:bg-[#032e49]'
+                    : 'bg-white border-sky-100 text-slate-500 hover:text-sky-600 hover:bg-sky-50 shadow-xs'
               }`}
               title="좋아요"
             >
-              <Heart className={`h-4 w-4 ${liked ? 'fill-rose-500' : ''}`} />
-              <span className="text-xs font-semibold font-mono">{likesCount}</span>
+              <Heart className={`h-4 w-4 ${liked ? 'fill-rose-500 text-rose-500' : ''}`} />
+              <span className={`text-xs font-bold font-mono ${liked ? 'text-rose-500' : ''}`}>{likesCount}</span>
             </button>
           </div>
         </div>
 
         {/* 아티클 헤더 */}
-        <header className="mb-10 text-center sm:text-left">
+        <header className="mb-10 text-center sm:text-left break-keep select-none">
           <div className="flex justify-center sm:justify-start items-center gap-3.5 mb-4">
             <span 
-              className="rounded-full px-3 py-1 text-xs font-semibold tracking-wide font-mono uppercase bg-slate-900"
-              style={{ color: categorySpec.accentColor, border: `1px solid ${categorySpec.accentColor}30` }}
+              className={`rounded-full px-3 py-1 text-xs font-bold tracking-wide font-mono uppercase bg-opacity-10`}
+              style={{ 
+                color: categorySpec.accentColor, 
+                backgroundColor: `${categorySpec.accentColor}15`,
+                border: `1px solid ${categorySpec.accentColor}30` 
+              }}
             >
               {post.categoryLabel}
             </span>
-            <div className="h-4 w-[1px] bg-slate-800" />
-            <span className="text-xs font-mono text-slate-500">
+            <div className={`h-4 w-[1px] ${theme === 'dark' ? 'bg-sky-950' : 'bg-sky-100'}`} />
+            <span className={`text-xs font-mono ${theme === 'dark' ? 'text-sky-300/40' : 'text-slate-400'}`}>
               {post.readTime || '3분 완성 밀도'}
             </span>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+          <h2 className={`font-display text-2xl sm:text-4xl font-black tracking-tight leading-tight ${
+            theme === 'dark' ? 'text-white' : 'text-[#011d33]'
+          }`}>
             {post.title}
           </h2>
-          <p className="mt-3 text-sm sm:text-lg text-slate-400 font-medium">
+          <p className={`mt-3 text-sm sm:text-lg font-bold leading-relaxed ${
+            theme === 'dark' ? 'text-sky-300/80' : 'text-slate-600'
+          }`}>
             {post.subtitle}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-4 border-t border-slate-900 text-xs text-slate-500">
+          <div className={`mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-4 border-t text-xs ${
+            theme === 'dark' ? 'border-sky-950/40 text-slate-500' : 'border-sky-100 text-slate-400'
+          }`}>
             <div className="flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5" />
-              <span className="text-slate-300 font-medium">{post.author}</span>
+              <User className="h-3.5 w-3.5 text-sky-505" />
+              <span className={theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}>{post.author}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar className="h-3.5 w-3.5" />
@@ -321,26 +350,36 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             </div>
             <div className="flex items-center gap-1.5">
               <Flame className="h-3.5 w-3.5 text-amber-500" />
-              <span>E-E-A-T 검증 완료</span>
+              <span className={theme === 'dark' ? 'text-sky-300/55' : 'text-slate-550'}>E-E-A-T 검증 완료</span>
             </div>
           </div>
         </header>
 
-        {/* 2026년 수석 크리에이티브 시그니처 페르소나 코멘트 (강박적이고 유려한 E-E-A-T 연출) */}
-        <section className="mb-10 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 p-5 sm:p-6" id="persona-comment-box">
+        {/* 2026년 수석 크리에이티브 시그니처 페르소나 코멘트 */}
+        <section className={`mb-10 rounded-2xl border p-5 sm:p-6 break-keep select-none ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-br from-[#032e49] to-[#010e1a] border-sky-955' 
+            : 'bg-gradient-to-br from-sky-50 to-white border-sky-100 shadow-md shadow-sky-100/30'
+        }`} id="persona-comment-box">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 shadow-md">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00b894] to-[#0984e3] shadow-md shadow-sky-300/20">
               <UserCheck className="h-6 w-6 text-white" />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold text-red-400 font-mono tracking-wider uppercase">NuTube 2026 수석 멘토단</span>
-                <span className="text-[11px] bg-slate-800 px-1.5 py-0.5 rounded text-white font-semibold">CO-PILOT COMMENT</span>
+                <span className="text-xs font-extrabold text-[#00b894] font-mono tracking-wider uppercase">NuTube 2026 수석 멘토단</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                  theme === 'dark' ? 'bg-[#032841] text-sky-300' : 'bg-sky-100 text-sky-800'
+                }`}>CO-PILOT COMMENT</span>
               </div>
-              <p className="mt-2 text-xs sm:text-sm italic text-slate-300 font-medium leading-relaxed">
-                {categorySpec.persona}
+              <p className={`mt-2 text-xs sm:text-sm italic font-semibold leading-relaxed ${
+                theme === 'dark' ? 'text-sky-100' : 'text-slate-700'
+              }`}>
+                &ldquo;{categorySpec.persona}&rdquo;
               </p>
-              <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-400 bg-slate-900 py-1.5 px-3 rounded-lg border border-slate-800">
+              <div className={`mt-3 flex items-center gap-2 text-[11px] py-1.5 px-3 rounded-lg border ${
+                theme === 'dark' ? 'bg-[#010a12]/80 border-sky-950/40 text-slate-400' : 'bg-white border-sky-100 text-slate-500'
+              }`}>
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
                 <span>이 아티클의 전략을 AI 어시스턴트에게 던져 즉석 채널 진단을 받으실 수 있습니다.</span>
               </div>
@@ -349,45 +388,58 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         </section>
 
         {/* 아티클 상세 내용 (가독성 높은 에디토리얼 마크다운 스타일 수동 가공 렌더러) */}
-        <article className="prose prose-invert max-w-none text-slate-200 text-sm sm:text-base leading-relaxed space-y-6" id="guide-markdown-body">
+        <article className={`prose max-w-none leading-relaxed space-y-6 break-keep ${
+          theme === 'dark' ? 'text-sky-100' : 'text-slate-800'
+        }`} id="guide-markdown-body">
           {parseContentToBlocks(post.content).map((block, index) => {
             switch (block.type) {
               case 'h2': {
-                const text = block.lines[0].replace(/^##\s+/, '');
+                // Defensive markdown raw tag cleanup
+                const text = block.lines[0].replace(/^#+\s*/, '');
                 return (
-                  <h3 key={index} id={`heading-h2-${index}`} className="pt-6 pb-2 text-xl sm:text-2xl font-bold tracking-tight text-white border-b border-slate-900 font-display">
+                  <h3 key={index} id={`heading-h2-${index}`} className={`pt-6 pb-2 text-xl sm:text-2xl font-extrabold tracking-tight border-b font-display ${
+                    theme === 'dark' ? 'text-white border-sky-950/50' : 'text-[#011d33] border-sky-100'
+                  }`}>
                     {renderFormattedText(text)}
                   </h3>
                 );
               }
               case 'h3': {
-                const text = block.lines[0].replace(/^###\s+/, '');
+                const text = block.lines[0].replace(/^#+\s*/, '');
                 return (
-                  <h4 key={index} id={`heading-h3-${index}`} className="pt-4 pb-1 text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
-                    <span className="inline-block h-4 w-1 bg-red-500 rounded-full" />
+                  <h4 key={index} id={`heading-h3-${index}`} className={`pt-4 pb-1 text-base sm:text-lg font-extrabold flex items-center gap-2 ${
+                    theme === 'dark' ? 'text-sky-100' : 'text-slate-900'
+                  }`}>
+                    <span className="inline-block h-4 w-1 bg-sky-500 rounded-full" />
                     {renderFormattedText(text)}
                   </h4>
                 );
               }
               case 'h4': {
-                const text = block.lines[0].replace(/^####\s+/, '');
+                const text = block.lines[0].replace(/^#+\s*/, '');
                 return (
-                  <h5 key={index} id={`heading-h4-${index}`} className="pt-3 pb-1 text-sm sm:text-base font-bold text-amber-500 flex items-center gap-1.5">
-                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-500" />
+                  <h5 key={index} id={`heading-h4-${index}`} className="pt-3 pb-1 text-sm sm:text-base font-extrabold text-cyan-500 flex items-center gap-1.5">
+                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse" />
                     {renderFormattedText(text)}
                   </h5>
                 );
               }
               case 'divider': {
                 return (
-                  <hr key={index} id={`divider-${index}`} className="my-8 border-slate-900/80" />
+                  <hr key={index} id={`divider-${index}`} className={`my-8 ${
+                    theme === 'dark' ? 'border-sky-950/50' : 'border-sky-100'
+                  }`} />
                 );
               }
               case 'list': {
                 return (
-                  <ul key={index} id={`list-block-${index}`} className="space-y-2.5 pl-5 list-disc text-slate-300 bg-slate-900/10 p-4 rounded-xl border border-slate-800/45">
+                  <ul key={index} id={`list-block-${index}`} className={`space-y-2.5 pl-5 list-disc p-4 rounded-xl border ${
+                    theme === 'dark' 
+                      ? 'bg-[#032841]/30 border-sky-950/40 text-sky-200' 
+                      : 'bg-sky-50/40 border-sky-100 text-slate-700'
+                  }`}>
                     {block.lines.map((line, i) => {
-                      const cleanItem = line.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
+                      const cleanItem = line.replace(/^[-*]\s+/, '').replace(/^\d+\s*\.\s+/, '');
                       return (
                         <li key={i} className="text-xs sm:text-sm">
                           {renderFormattedText(cleanItem)}
@@ -400,8 +452,12 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
               case 'code': {
                 const codeContent = block.lines.join('\n');
                 return (
-                  <div key={index} id={`code-block-${index}`} className="relative group my-6 rounded-xl overflow-hidden border border-slate-800 bg-slate-950 font-mono text-xs text-rose-300/90 shadow-lg">
-                    <div className="flex items-center justify-between px-4 py-2 bg-slate-900/70 text-[10px] text-slate-500 border-b border-slate-800">
+                  <div key={index} id={`code-block-${index}`} className={`relative group my-6 rounded-xl overflow-hidden border font-mono text-xs shadow-md ${
+                    theme === 'dark'
+                      ? 'border-sky-950 bg-slate-950 text-cyan-300'
+                      : 'border-sky-100 bg-slate-900 text-cyan-200'
+                  }`}>
+                    <div className="flex items-center justify-between px-4 py-2 bg-slate-955/60 text-[10px] text-slate-500 border-b border-sky-950/30">
                       <span className="font-semibold uppercase tracking-wider">{block.lang || 'code'}</span>
                       <button
                         onClick={() => {
@@ -413,7 +469,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                             console.error("Code copy failed", err);
                           }
                         }}
-                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all text-[10px] border border-slate-700/65 cursor-pointer min-w-[75px] text-center"
+                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white transition-all text-[10px] border border-slate-700/60 cursor-pointer min-w-[75px] text-center"
                       >
                         {copiedCodeBlockId === index ? '복사 완료! ✅' : '코드 복사'}
                       </button>
@@ -427,7 +483,9 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
               case 'paragraph': {
                 const paragraphText = block.lines.join('\n');
                 return (
-                  <p key={index} className="text-slate-300 leading-relaxed font-sans text-xs sm:text-sm">
+                  <p key={index} className={`leading-relaxed font-sans text-xs sm:text-sm ${
+                    theme === 'dark' ? 'text-sky-100/90' : 'text-slate-700'
+                  }`}>
                     {renderFormattedText(paragraphText)}
                   </p>
                 );
@@ -440,13 +498,17 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
 
         {/* E-E-A-T 검증 공식 레퍼런스 출처 링크 카드 */}
         {post.authorityUrl && (
-          <section className="mt-12 rounded-2xl bg-slate-900/40 border border-slate-800/80 p-5" id="eeat-authority-card">
+          <section className={`mt-12 rounded-2xl border p-5 ${
+            theme === 'dark' ? 'bg-[#032841]/30 border-sky-950/50' : 'bg-sky-50/30 border-sky-100 shadow-xs'
+          }`} id="eeat-authority-card">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h4 className="text-xs font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-wider font-mono">
+                <h4 className={`text-xs font-bold flex items-center gap-1.5 uppercase tracking-wider font-mono ${
+                  theme === 'dark' ? 'text-sky-300/70' : 'text-slate-500'
+                }`}>
                   <span>E-E-A-T 신뢰성 공식 레퍼런스</span>
                 </h4>
-                <p className="mt-1 text-xs text-slate-300">
+                <p className={`mt-1 text-xs ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
                   해당 비책 가이드는 신뢰할 수 있는 구글 공인 가이드라인과 실물 데이터를 원본으로 검증 수치화했습니다.
                 </p>
               </div>
@@ -455,7 +517,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 target="_blank"
                 referrerPolicy="no-referrer"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-600 text-white transition-all hover:bg-slate-700"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl bg-sky-500 hover:bg-sky-650 text-white transition-all shadow-xs"
               >
                 <span>{post.authorityLabel || '공식 가이드 전문'}</span>
                 <ExternalLink className="h-3 w-3" />
@@ -465,11 +527,17 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         )}
 
         {/* 가이드 하단 태그 클라우드 */}
-        <div className="mt-8 pt-6 border-t border-slate-900 flex flex-wrap gap-2">
+        <div className={`mt-8 pt-6 border-t flex flex-wrap gap-2 ${
+          theme === 'dark' ? 'border-sky-950/50' : 'border-sky-100/70'
+        }`}>
           {(post.tags || []).map((tag, i) => (
             <span 
               key={i} 
-              className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-medium bg-slate-900 text-slate-400 hover:text-white transition-colors cursor-default"
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition-all cursor-default ${
+                theme === 'dark'
+                  ? 'bg-[#032e49] text-sky-300 hover:text-white'
+                  : 'bg-sky-50 text-sky-600 hover:bg-sky-100 border border-sky-100'
+              }`}
             >
               #{tag}
             </span>
@@ -481,7 +549,11 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           <button 
             id="reader-back-btn-bottom"
             onClick={onBack}
-            className="inline-flex px-6 py-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/40 text-slate-300 text-xs font-semibold hover:text-white transition-all hover:-translate-y-0.5"
+            className={`inline-flex px-6 py-3 rounded-xl border text-xs font-bold transition-all hover:-translate-y-0.5 cursor-pointer ${
+              theme === 'dark'
+                ? 'border-sky-950 bg-[#032841]/50 text-slate-300 hover:text-white hover:bg-[#032e49]'
+                : 'border-sky-100 bg-white text-slate-700 hover:text-sky-700 hover:bg-sky-50 shadow-xs'
+            }`}
           >
             이전 비책 목록으로 돌아가기
           </button>
