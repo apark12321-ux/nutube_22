@@ -11,7 +11,7 @@ interface ChatMessage {
 }
 
 // 텍스트 내의 **볼드**, `백틱`, # 헤더, 리스트 및 \n 개행 마크다운 처리를 완벽하게 수행하는 프리미엄 에디토리얼 파서
-const renderFormattedText = (text: string) => {
+const renderFormattedText = (text: string, theme: 'light' | 'dark' = 'dark') => {
   if (!text) return null;
   const cleanLines = text.split('\n');
   
@@ -36,7 +36,7 @@ const renderFormattedText = (text: string) => {
         }
         if (boldText) {
           parts.push(
-            <strong key={`bold-${idxKey}-${i}`} className="font-extrabold text-amber-300 mx-0.5">
+            <strong key={`bold-${idxKey}-${i}`} className={`font-extrabold mx-0.5 ${theme === 'dark' ? 'text-amber-300' : 'text-amber-600'}`}>
               {boldText}
             </strong>
           );
@@ -57,7 +57,11 @@ const renderFormattedText = (text: string) => {
         }
         if (codeText) {
           parts.push(
-            <code key={`code-${idxKey}-${i}`} className="font-mono text-rose-400 bg-slate-950 px-1.5 py-0.5 rounded text-xs mx-0.5 border border-slate-900">
+            <code key={`code-${idxKey}-${i}`} className={`font-mono px-1.5 py-0.5 rounded text-xs mx-0.5 border ${
+              theme === 'dark' 
+                ? 'text-rose-450 bg-slate-950 border-slate-900' 
+                : 'text-rose-600 bg-sky-50 border-sky-100'
+            }`}>
               {codeText}
             </code>
           );
@@ -85,14 +89,16 @@ const renderFormattedText = (text: string) => {
         
         // Horizontal divider
         if (trimmed === '---' || trimmed === '***') {
-          return <hr key={idx} className="my-2.5 border-slate-800/80" />;
+          return <hr key={idx} className={`my-2.5 ${theme === 'dark' ? 'border-slate-800/80' : 'border-sky-100'}`} />;
         }
         
         // Headings
         if (trimmed.startsWith('## ')) {
           const contentText = trimmed.replace(/^##\s+/, '');
           return (
-            <h4 key={idx} className="pt-2 pb-0.5 text-sm sm:text-base font-extrabold text-white tracking-tight border-b border-slate-800">
+            <h4 key={idx} className={`pt-2 pb-0.5 text-sm sm:text-base font-extrabold tracking-tight border-b ${
+              theme === 'dark' ? 'text-white border-slate-800' : 'text-[#011d33] border-sky-100'
+            }`}>
               {renderInlineStyles(contentText, `h2-${idx}`)}
             </h4>
           );
@@ -101,7 +107,9 @@ const renderFormattedText = (text: string) => {
         if (trimmed.startsWith('### ')) {
           const contentText = trimmed.replace(/^###\s+/, '');
           return (
-            <h5 key={idx} className="pt-1.5 pb-0.5 text-xs sm:text-sm font-bold text-slate-100 flex items-center gap-1.5">
+            <h5 key={idx} className={`pt-1.5 pb-0.5 text-xs sm:text-sm font-bold flex items-center gap-1.5 ${
+              theme === 'dark' ? 'text-slate-100' : 'text-slate-800'
+            }`}>
               <span className="inline-block h-3 w-0.5 bg-gradient-to-b from-purple-500 to-indigo-500 rounded-full" />
               {renderInlineStyles(contentText, `h3-${idx}`)}
             </h5>
@@ -111,8 +119,10 @@ const renderFormattedText = (text: string) => {
         if (trimmed.startsWith('#### ')) {
           const contentText = trimmed.replace(/^####\s+/, '');
           return (
-            <h6 key={idx} className="pt-1.5 pb-0.5 text-xs sm:text-sm font-semibold text-amber-400 flex items-center gap-1.5">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+            <h6 key={idx} className={`pt-1.5 pb-0.5 text-xs sm:text-sm font-semibold flex items-center gap-1.5 ${
+              theme === 'dark' ? 'text-amber-400' : 'text-amber-600'
+            }`}>
+              <span className={`inline-block h-1.5 w-1.5 rounded-full ${theme === 'dark' ? 'bg-amber-400' : 'bg-amber-600'}`} />
               {renderInlineStyles(contentText, `h4-${idx}`)}
             </h6>
           );
@@ -122,8 +132,10 @@ const renderFormattedText = (text: string) => {
         if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
           const contentText = trimmed.replace(/^[-*]\s+/, '');
           return (
-            <div key={idx} className="pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm text-slate-300">
-              <span className="text-purple-400 select-none">•</span>
+            <div key={idx} className={`pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm ${
+              theme === 'dark' ? 'text-slate-300' : 'text-slate-705'
+            }`}>
+              <span className="text-purple-500 select-none">•</span>
               <span>{renderInlineStyles(contentText, `li-${idx}`)}</span>
             </div>
           );
@@ -135,8 +147,10 @@ const renderFormattedText = (text: string) => {
           const num = numMatch[1];
           const contentText = numMatch[2];
           return (
-            <div key={idx} className="pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm text-slate-300">
-              <span className="text-amber-400 font-mono font-bold select-none text-[10px] sm:text-xs">{num}.</span>
+            <div key={idx} className={`pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm ${
+              theme === 'dark' ? 'text-slate-300' : 'text-slate-705'
+            }`}>
+              <span className="text-amber-500 font-mono font-bold select-none text-[10px] sm:text-xs">{num}.</span>
               <span>{renderInlineStyles(contentText, `num-${idx}`)}</span>
             </div>
           );
@@ -149,7 +163,9 @@ const renderFormattedText = (text: string) => {
         
         // Standard paragraph
         return (
-          <div key={idx} className="min-h-[1.125rem] text-slate-200 text-xs sm:text-sm">
+          <div key={idx} className={`min-h-[1.125rem] text-xs sm:text-sm ${
+            theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
+          }`}>
             {renderInlineStyles(line, `p-${idx}`)}
           </div>
         );
@@ -158,7 +174,11 @@ const renderFormattedText = (text: string) => {
   );
 };
 
-export const PersonaAdvisor: React.FC = () => {
+interface PersonaAdvisorProps {
+  theme?: 'light' | 'dark';
+}
+
+export const PersonaAdvisor: React.FC<PersonaAdvisorProps> = ({ theme = 'dark' }) => {
   const [selectedPersona, setSelectedPersona] = useState<string>('algorithm');
   const [inputMessage, setInputMessage] = useState<string>('');
   const [chatHistory, setChatHistory] = useState<Record<string, ChatMessage[]>>({
@@ -365,13 +385,17 @@ export const PersonaAdvisor: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8" id="persona-advisor-root">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-14rem)] min-h-[500px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-auto lg:h-[calc(100vh-14rem)] lg:min-h-[580px]">
         
         {/* 전문가 선택 패널 (4 Columns) */}
-        <div className="lg:col-span-4 flex flex-col gap-4 overflow-y-auto pr-1" id="advisor-selector-panel">
+        <div className="lg:col-span-4 flex flex-col gap-4 lg:overflow-y-auto pr-1" id="advisor-selector-panel">
           <div>
-            <h3 className="font-display font-black text-xl text-white">NuTube 전문 멘토 6선</h3>
-            <p className="text-xs text-slate-400 mt-1">상담을 원하는 유튜브 성장 도우미를 클릭하시면, 1:1 디렉팅 포트가 실시간 매칭됩니다.</p>
+            <h3 className={`font-display font-black text-xl ${theme === 'dark' ? 'text-white' : 'text-[#011d33]'}`}>
+              NuTube 전문 멘토 6선
+            </h3>
+            <p className={`text-xs mt-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-550'}`}>
+              상담을 원하는 유튜브 성장 도우미를 클릭하시면, 1:1 디렉팅 포트가 실시간 매칭됩니다.
+            </p>
           </div>
 
           <div className="flex flex-row lg:flex-col gap-2.5 pb-2 overflow-x-auto lg:overflow-x-visible">
@@ -382,25 +406,32 @@ export const PersonaAdvisor: React.FC = () => {
                   key={spec.key}
                   id={`advisor-card-${spec.key}`}
                   onClick={() => setSelectedPersona(spec.key)}
-                  className={`flex items-start gap-3.5 p-3.5 rounded-xl border text-left cursor-pointer transition-all duration-300 shrink-0 lg:shrink select-none ${
+                  className={`flex items-start gap-3.5 p-3.5 rounded-xl border text-left cursor-pointer transition-all duration-300 w-[240px] min-w-[240px] lg:w-auto lg:min-w-0 select-none ${
                     isActive 
-                      ? 'bg-slate-900 border-slate-700 shadow-lg shadow-slate-950/40 translate-x-1' 
-                      : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-900/40 hover:border-slate-800'
+                      ? theme === 'dark'
+                        ? 'bg-slate-900 border-slate-700 shadow-lg shadow-slate-950/40 translate-x-1 ring-1 ring-sky-500/20 text-white' 
+                        : 'bg-white border-sky-400 shadow-md shadow-sky-100/60 translate-x-1 ring-1 ring-sky-500/20 text-slate-800'
+                      : theme === 'dark'
+                        ? 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-900/40 hover:border-slate-800 text-slate-300'
+                        : 'bg-sky-50/50 border-sky-100/80 hover:bg-sky-100/50 hover:border-sky-200 text-slate-650'
                   }`}
-                  style={{ width: '240px', minWidth: '240px', lgWidth: 'auto', lgMinWidth: '100%' }}
                 >
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${spec.gradient} shadow text-white`}>
                     {getPersonaIcon(spec.key, 'h-5 w-5')}
                   </div>
                   <div className="overflow-hidden">
                     <div className="flex items-center gap-1.5 justify-between">
-                      <span className="text-xs font-bold text-white block truncate">{spec.label} 전담</span>
+                      <span className={`text-xs font-bold block truncate ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
+                        {spec.label} 전담
+                      </span>
                       <span className="flex items-center gap-1 text-[9px] font-mono font-medium text-emerald-400 bg-emerald-500/10 px-1 py-0.5 rounded border border-emerald-500/20">
                         <Circle className="h-1.5 w-1.5 fill-emerald-500" />
                         <span>대기중</span>
                       </span>
                     </div>
-                    <p className="text-[10px] text-slate-400 line-clamp-1 mt-0.5 leading-relaxed">{spec.description}</p>
+                    <p className={`text-[10px] line-clamp-1 mt-0.5 leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                      {spec.description}
+                    </p>
                   </div>
                 </div>
               );
@@ -409,24 +440,30 @@ export const PersonaAdvisor: React.FC = () => {
         </div>
 
         {/* 1:1 라이브 채팅 창 (8 Columns) */}
-        <div className="lg:col-span-8 flex flex-col rounded-2xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl shadow-slate-950/70" id="advisor-chat-window">
+        <div className={`lg:col-span-8 flex flex-col rounded-2xl border overflow-hidden shadow-2xl h-[540px] sm:h-[620px] lg:h-full ${
+          theme === 'dark' 
+            ? 'border-slate-800 bg-slate-950/80 shadow-slate-950/70' 
+            : 'border-sky-100 bg-white shadow-sky-100/40'
+        }`} id="advisor-chat-window">
           
           {/* 채팅방 상단 바 */}
-          <div className="border-b border-slate-800 bg-slate-900/60 px-5 py-4 flex items-center justify-between gap-4">
+          <div className={`border-b px-5 py-4 flex items-center justify-between gap-4 ${
+            theme === 'dark' ? 'border-slate-800 bg-slate-900/60' : 'border-sky-100 bg-sky-50/50'
+          }`}>
             <div className="flex items-center gap-3">
               <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${currentPersonaSpec.gradient} text-white`}>
                 {getPersonaIcon(selectedPersona, 'h-5.5 w-5.5')}
               </div>
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+                <h4 className={`text-xs sm:text-sm font-bold flex items-center gap-1.5 ${theme === 'dark' ? 'text-white' : 'text-slate-850'}`}>
                   <span>{currentPersonaSpec.label} 1:1 밀착 어드바이저</span>
                 </h4>
-                <p className="text-[10px] text-emerald-400/95 font-mono">
+                <p className="text-[10px] text-emerald-405 font-mono">
                   ● LIVE-CHAT CONNECTED (GEMINI 3.5 FLASH)
                 </p>
               </div>
             </div>
-            <div className="text-[11px] text-slate-500 font-mono hidden sm:block">
+            <div className={`text-[11px] font-mono hidden sm:block ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>
               비책 정보 완벽 무장
             </div>
           </div>
@@ -449,10 +486,12 @@ export const PersonaAdvisor: React.FC = () => {
                   <div>
                     <div className={`rounded-xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                       isAssistant 
-                        ? 'bg-slate-900 text-slate-200 border border-slate-850 rounded-tl-none font-sans' 
-                        : 'bg-gradient-to-br from-red-500 to-rose-600 text-white rounded-tr-none font-semibold'
+                        ? theme === 'dark'
+                          ? 'bg-slate-900 text-slate-200 border border-slate-850 rounded-tl-none font-sans' 
+                          : 'bg-sky-50 text-slate-800 border border-sky-100 rounded-tl-none font-sans'
+                        : 'bg-gradient-to-br from-rose-500 to-red-650 text-white rounded-tr-none font-bold'
                     }`}>
-                      {renderFormattedText(msg.text)}
+                      {renderFormattedText(msg.text, theme)}
                     </div>
                     <span className="text-[9px] text-slate-500 font-sans tracking-tight mt-1.5 block" style={{ textAlign: isAssistant ? 'left' : 'right' }}>
                       {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -469,7 +508,11 @@ export const PersonaAdvisor: React.FC = () => {
                   {getPersonaIcon(selectedPersona, 'h-4 w-4')}
                 </div>
                 <div>
-                  <div className="rounded-xl p-3.5 bg-slate-900 text-slate-400 border border-slate-850 rounded-tl-none text-xs flex items-center gap-2">
+                  <div className={`rounded-xl p-3.5 border rounded-tl-none text-xs flex items-center gap-2 ${
+                    theme === 'dark'
+                      ? 'bg-slate-900 text-slate-400 border-slate-850'
+                      : 'bg-sky-50 text-slate-600 border-sky-100/80'
+                  }`}>
                     <span className="h-2 w-2 rounded-full bg-amber-400 animate-ping" />
                     <span>상담관이 전문 진단 처방을 구성하는 중...</span>
                   </div>
@@ -481,8 +524,14 @@ export const PersonaAdvisor: React.FC = () => {
           </div>
 
           {/* 간이 고민 질문 추천 바 */}
-          <div className="px-5 py-3 border-t border-slate-900 bg-slate-900/20 text-xs">
-            <p className="text-[10px] font-bold text-slate-500 mb-2 font-mono uppercase tracking-wider">추천 실무 컨설팅 질문:</p>
+          <div className={`px-5 py-3 border-t text-xs ${
+            theme === 'dark' 
+              ? 'border-slate-900 bg-slate-900/20' 
+              : 'border-sky-100 bg-sky-50/20'
+          }`}>
+            <p className={`text-[10px] font-bold mb-2 font-mono uppercase tracking-wider ${
+              theme === 'dark' ? 'text-slate-500' : 'text-slate-450'
+            }`}>추천 실무 컨설팅 질문:</p>
             <div className="flex flex-wrap gap-2 lg:max-h-24 lg:overflow-y-auto">
               {getQuickQuestions(selectedPersona).map((q, idx) => (
                 <button
@@ -490,7 +539,11 @@ export const PersonaAdvisor: React.FC = () => {
                   type="button"
                   disabled={loading}
                   onClick={() => handleSendMessage(q)}
-                  className="px-2.5 py-1 text-left rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors text-[10px] sm:text-xs text-ellipsis overflow-hidden"
+                  className={`px-2.5 py-1 text-left rounded-lg border transition-colors text-[10px] sm:text-xs text-ellipsis overflow-hidden cursor-pointer ${
+                    theme === 'dark'
+                      ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700'
+                      : 'bg-sky-50/80 border-sky-150 text-sky-800 hover:bg-sky-100/80 hover:text-sky-900 hover:border-sky-300'
+                  }`}
                 >
                   "{q}"
                 </button>
@@ -499,7 +552,9 @@ export const PersonaAdvisor: React.FC = () => {
           </div>
 
           {/* 입력 필드 영역 */}
-          <div className="p-4 border-t border-slate-800 bg-slate-900/40">
+          <div className={`p-4 border-t ${
+            theme === 'dark' ? 'border-slate-800 bg-slate-900/40' : 'border-sky-100 bg-sky-50/50'
+          }`}>
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
@@ -514,14 +569,18 @@ export const PersonaAdvisor: React.FC = () => {
                 onChange={(e) => setInputMessage(e.target.value)}
                 disabled={loading}
                 placeholder={`${currentPersonaSpec.label} 멘토에게 실무 고민을 털어놓으세요...`}
-                className="flex-1 rounded-xl border border-slate-800 bg-slate-950 py-3 px-4 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-purple-500 focus:outline-none transition-all"
+                className={`flex-1 rounded-xl border py-3 px-4 text-xs sm:text-sm focus:outline-none transition-all ${
+                  theme === 'dark'
+                    ? 'border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:border-purple-500'
+                    : 'border-sky-200 bg-white text-slate-805 placeholder-slate-400 focus:border-sky-500'
+                }`}
                 required
               />
               <button
                 type="submit"
                 id="chat-send-btn"
                 disabled={loading || !inputMessage.trim()}
-                className="rounded-xl px-5 py-3 bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg shadow-purple-500/10"
+                className="rounded-xl px-5 py-3 bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-505 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg shadow-purple-500/10 cursor-pointer"
               >
                 <Send className="h-4 w-4" />
               </button>
