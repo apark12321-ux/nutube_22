@@ -10,29 +10,152 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-// 텍스트 내의 **볼드** 및 \n 개행 마크다운 처리를 수행하는 함수
+// 텍스트 내의 **볼드**, `백틱`, # 헤더, 리스트 및 \n 개행 마크다운 처리를 완벽하게 수행하는 프리미엄 에디토리얼 파서
 const renderFormattedText = (text: string) => {
   if (!text) return null;
-  const lines = text.split('\n');
-  return lines.map((line, lineIdx) => {
-    // **텍스트** 패턴을 분할하여 볼드 적용
-    const parts = line.split(/(\*\*.*?\*\*)/g);
-    return (
-      <div key={lineIdx} className={line.trim() === '' ? 'h-3' : 'min-h-[1.25rem]'}>
-        {parts.map((part, partIdx) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
-            const boldText = part.slice(2, -2);
-            return (
-              <strong key={partIdx} className="font-extrabold text-white">
-                {boldText}
-              </strong>
-            );
-          }
-          return <span key={partIdx}>{part}</span>;
-        })}
-      </div>
-    );
-  });
+  const cleanLines = text.split('\n');
+  
+  // 인라인 볼드 및 코드 백틱 파싱 도우미
+  const renderInlineStyles = (txt: string, idxKey: string): React.ReactNode => {
+    let cleanText = txt.replace(/\\`/g, '`').replace(/\\\*/g, '*');
+    const parts: React.ReactNode[] = [];
+    let currentWord = '';
+    let i = 0;
+    
+    while (i < cleanText.length) {
+      if (cleanText.substring(i, i + 2) === '**') {
+        if (currentWord) {
+          parts.push(<span key={`txt-${idxKey}-${i}`}>{currentWord}</span>);
+          currentWord = '';
+        }
+        i += 2;
+        let boldText = '';
+        while (i < cleanText.length && cleanText.substring(i, i + 2) !== '**') {
+          boldText += cleanText[i];
+          i++;
+        }
+        if (boldText) {
+          parts.push(
+            <strong key={`bold-${idxKey}-${i}`} className="font-extrabold text-amber-300 mx-0.5">
+              {boldText}
+            </strong>
+          );
+        }
+        if (cleanText.substring(i, i + 2) === '**') {
+          i += 2;
+        }
+      } else if (cleanText[i] === '`') {
+        if (currentWord) {
+          parts.push(<span key={`txt-${idxKey}-${i}`}>{currentWord}</span>);
+          currentWord = '';
+        }
+        i++;
+        let codeText = '';
+        while (i < cleanText.length && cleanText[i] !== '`') {
+          codeText += cleanText[i];
+          i++;
+        }
+        if (codeText) {
+          parts.push(
+            <code key={`code-${idxKey}-${i}`} className="font-mono text-rose-400 bg-slate-950 px-1.5 py-0.5 rounded text-xs mx-0.5 border border-slate-900">
+              {codeText}
+            </code>
+          );
+        }
+        if (cleanText[i] === '`') {
+          i++;
+        }
+      } else {
+        currentWord += cleanText[i];
+        i++;
+      }
+    }
+    
+    if (currentWord) {
+      parts.push(<span key={`txt-end-${idxKey}`}>{currentWord}</span>);
+    }
+    
+    return <>{parts}</>;
+  };
+  
+  return (
+    <div className="space-y-2">
+      {cleanLines.map((line, idx) => {
+        const trimmed = line.trim();
+        
+        // Horizontal divider
+        if (trimmed === '---' || trimmed === '***') {
+          return <hr key={idx} className="my-2.5 border-slate-800/80" />;
+        }
+        
+        // Headings
+        if (trimmed.startsWith('## ')) {
+          const contentText = trimmed.replace(/^##\s+/, '');
+          return (
+            <h4 key={idx} className="pt-2 pb-0.5 text-sm sm:text-base font-extrabold text-white tracking-tight border-b border-slate-800">
+              {renderInlineStyles(contentText, `h2-${idx}`)}
+            </h4>
+          );
+        }
+        
+        if (trimmed.startsWith('### ')) {
+          const contentText = trimmed.replace(/^###\s+/, '');
+          return (
+            <h5 key={idx} className="pt-1.5 pb-0.5 text-xs sm:text-sm font-bold text-slate-100 flex items-center gap-1.5">
+              <span className="inline-block h-3 w-0.5 bg-gradient-to-b from-purple-500 to-indigo-500 rounded-full" />
+              {renderInlineStyles(contentText, `h3-${idx}`)}
+            </h5>
+          );
+        }
+        
+        if (trimmed.startsWith('#### ')) {
+          const contentText = trimmed.replace(/^####\s+/, '');
+          return (
+            <h6 key={idx} className="pt-1.5 pb-0.5 text-xs sm:text-sm font-semibold text-amber-400 flex items-center gap-1.5">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+              {renderInlineStyles(contentText, `h4-${idx}`)}
+            </h6>
+          );
+        }
+        
+        // List items
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+          const contentText = trimmed.replace(/^[-*]\s+/, '');
+          return (
+            <div key={idx} className="pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm text-slate-300">
+              <span className="text-purple-400 select-none">•</span>
+              <span>{renderInlineStyles(contentText, `li-${idx}`)}</span>
+            </div>
+          );
+        }
+        
+        // Numbered list items
+        const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+        if (numMatch) {
+          const num = numMatch[1];
+          const contentText = numMatch[2];
+          return (
+            <div key={idx} className="pl-3.5 flex items-start gap-1.5 text-xs sm:text-sm text-slate-300">
+              <span className="text-amber-400 font-mono font-bold select-none text-[10px] sm:text-xs">{num}.</span>
+              <span>{renderInlineStyles(contentText, `num-${idx}`)}</span>
+            </div>
+          );
+        }
+        
+        // Empty lines
+        if (trimmed === '') {
+          return <div key={idx} className="h-1.5" />;
+        }
+        
+        // Standard paragraph
+        return (
+          <div key={idx} className="min-h-[1.125rem] text-slate-200 text-xs sm:text-sm">
+            {renderInlineStyles(line, `p-${idx}`)}
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export const PersonaAdvisor: React.FC = () => {
