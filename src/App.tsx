@@ -650,33 +650,59 @@ export default function App() {
       </main>
 
       {/* 심플 세련 푸터 */}
-      <footer className={`border-t py-8 text-center text-xs font-mono transition-colors duration-300 ${
+      <footer className={`border-t py-10 text-[11px] font-sans transition-colors duration-300 line-normal break-keep ${
         theme === 'dark'
-          ? 'border-sky-955 bg-[#010912] text-slate-500'
-          : 'border-sky-100 bg-sky-50 text-slate-605'
+          ? 'border-sky-955 bg-[#010912] text-slate-400'
+          : 'border-sky-100 bg-sky-50/60 text-[#304156]'
       }`} id="applet-footer">
-        <div className="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 NuTube Premium Core Hub. All Rights Reserved.</p>
-          <div className="flex gap-4 items-center">
-            <button 
-              onClick={() => handleNavigateTab('terms')}
-              className={`transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none font-bold ${
-                theme === 'dark' ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-600 hover:text-sky-600'
-              }`}
-              id="footer-btn-terms"
-            >
-              이용약관
-            </button>
-            <span className={`h-4 w-[1px] ${theme === 'dark' ? 'bg-sky-950' : 'bg-sky-200'}`} />
-            <button 
-              onClick={() => handleNavigateTab('privacy')}
-              className={`transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none font-bold ${
-                theme === 'dark' ? 'text-slate-400 hover:text-rose-450' : 'text-slate-600 hover:text-rose-600'
-              }`}
-              id="footer-btn-privacy"
-            >
-              개인정보처리방침
-            </button>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-8 pb-6 border-b border-sky-100/10 md:items-center">
+            <div className="space-y-3 max-w-4xl text-left">
+              <p className={`font-bold text-sm tracking-tight ${theme === 'dark' ? 'text-white' : 'text-[#011d33]'}`}>
+                NuTube Premium Core Hub
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-6">
+                <div><span className="opacity-75">상호명 :</span> 유엘웨딩컴퍼니</div>
+                <div><span className="opacity-75">대표자 :</span> 박아름</div>
+                <div><span className="opacity-75">사업자등록번호 :</span> 131-86-25904</div>
+                <div><span className="opacity-75">통신판매업신고 :</span> 제 2021-인천부평-1275호</div>
+                <div className="sm:col-span-2 lg:col-span-2"><span className="opacity-75">주소 :</span> 인천광역시 부평구 경원대로 1366 에이원프라자 7층</div>
+                <div><span className="opacity-75">고객문의 :</span> 0507-1335-5904</div>
+                <div><span className="opacity-75">이메일 :</span> apark12321@gmail.com</div>
+                <div><span className="opacity-75">개인정보보호책임자 :</span> 박아름</div>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 items-center self-stretch justify-between md:self-auto border-t md:border-t-0 pt-4 md:pt-0 border-sky-100/10">
+              <div className="flex gap-4 items-center">
+                <button 
+                  onClick={() => handleNavigateTab('terms')}
+                  className={`transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none font-semibold ${
+                    theme === 'dark' ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+                  }`}
+                  id="footer-btn-terms"
+                >
+                  이용약관
+                </button>
+                <span className={`h-3 w-[1px] ${theme === 'dark' ? 'bg-sky-950' : 'bg-slate-350'}`} />
+                <button 
+                  onClick={() => handleNavigateTab('privacy')}
+                  className={`transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none font-semibold ${
+                    theme === 'dark' ? 'text-slate-300 hover:text-rose-450' : 'text-slate-705 hover:text-rose-600'
+                  }`}
+                  id="footer-btn-privacy"
+                >
+                  개인정보처리방침
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-left">
+            <p className="opacity-75">© 2026 NuTube Premium Core Hub & Virgin Road. All Rights Reserved.</p>
+            <p className="text-[10px] opacity-60">
+              본 서비스는 크리에이터들의 독립적이고 안전한 성장을 지원하기 위해 유엘웨딩컴퍼니에서 운영 및 관리합니다.
+            </p>
           </div>
         </div>
       </footer>
