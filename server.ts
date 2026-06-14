@@ -158,6 +158,49 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', usingRealGemini: !!ai });
 });
 
+// --- GOOGLE ADSENSE ADS.TXT INTEGRATION ENGINE ---
+// In-memory store for back-up when env is missing
+let globalAdSensePublisherId = "pub-9759242940251786";
+
+// Static crawl endpoints required by Google AdSense
+app.get('/ads.txt', (req, res) => {
+  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+  // Guarantee clean plain-text response format with no extra carriage returns
+  const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.send(`google.com, ${cleanPubId}, DIRECT, f08c47fec0942fa0\n`);
+});
+
+// App-ads.txt fallback
+app.get('/app-ads.txt', (req, res) => {
+  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+  const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.send(`google.com, ${cleanPubId}, DIRECT, f08c47fec0942fa0\n`);
+});
+
+// API for saving/loading live settings
+app.post('/api/settings/adsense', (req, res) => {
+  const { publisherId } = req.body;
+  if (publisherId && typeof publisherId === 'string') {
+    const trimmed = publisherId.trim();
+    if (/^pub-\d+$/.test(trimmed) || /^\d+$/.test(trimmed)) {
+      globalAdSensePublisherId = trimmed.startsWith('pub-') ? trimmed : `pub-${trimmed}`;
+      console.log(`[AdSense Settings] Updated live publisher ID to: ${globalAdSensePublisherId}`);
+      return res.json({ success: true, publisherId: globalAdSensePublisherId });
+    }
+  }
+  return res.status(400).json({ error: '유효한 Google AdSense Publisher ID(pub-으로 시작하는 숫자 조합)를 입력해주세요.' });
+});
+
+app.get('/api/settings/adsense', (req, res) => {
+  res.json({ 
+    publisherId: process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId,
+    isUsingEnv: !!process.env.ADSENSE_PUBLISHER_ID
+  });
+});
+
+
 // 1. 유튜브 핵심 메타데이터 원클릭 빌더 (Gemini 구조화 응답 생성)
 app.post('/api/assistant/generate', async (req, res) => {
   const { keyword } = req.body;
