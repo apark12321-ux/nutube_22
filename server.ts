@@ -411,6 +411,20 @@ app.post('/api/assistant/chat', async (req, res) => {
         }
       });
 
+      // Gemini API는 대화의 첫 번째 메시지 역할이 반드시 'user'로 시작해야 합니다.
+      // 인트로 멘토 인사(model 역할)가 맨 처음에 포함된 경우 API 400 에러를 방지하기 위해 앞단의 model 항목을 걸러줍니다.
+      while (normalizedContents.length > 0 && normalizedContents[0].role === 'model') {
+        normalizedContents.shift();
+      }
+
+      // 정합성 작업 후 대화 목록이 비었을 경우를 방지하여 현재 메시지를 기본 삽입합니다.
+      if (normalizedContents.length === 0) {
+        normalizedContents.push({
+          role: 'user',
+          parts: [{ text: message }]
+        });
+      }
+
       const response = await ai.models.generateContent({
         model: 'gemini-3.5-flash',
         contents: normalizedContents,
@@ -448,6 +462,21 @@ async function startServer() {
       appType: 'spa',
     });
     app.use(vite.middlewares);
+
+    // 개발 모드에서 API 나 정적 리소스가 아닌, 브라우저 직접 탐색 라우트(예: /advisor 등) 새로고침 시 SPA index.html fallback
+    app.get('*', async (req, res, next) => {
+      if (req.originalUrl.startsWith('/api') || req.originalUrl.includes('.')) {
+        return next();
+      }
+      try {
+        const fs = await import('fs');
+        let template = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
+        template = await vite.transformIndexHtml(req.originalUrl, template);
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+      } catch (e) {
+        next(e);
+      }
+    });
   } else {
     // 빌드 출력 디스크 에셋 매칭 서빙
     const distPath = path.join(process.cwd(), 'dist');

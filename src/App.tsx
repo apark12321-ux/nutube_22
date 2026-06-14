@@ -83,7 +83,12 @@ export default function App() {
 
   // --- 브라우저 주소창 연동 & 검색엔진 서치 콘솔 색인 자동 연계 엔진 ---
   const syncStateFromUrl = () => {
-    const path = window.location.pathname;
+    let path = window.location.pathname;
+    // 모바일 브라우저나 리다이렉트 시 끝에 붙는 트레일링 슬래시(/) 정제
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
+
     if (path === '/builder') {
       setActiveTab('builder');
       setSelectedPost(null);
@@ -171,8 +176,17 @@ export default function App() {
       targetTitle = 'NuTube Premium Core Hub - 유튜브 조회수 & 수익 구조 최강 비책 보관소';
     }
 
+    // 모바일 브라우저 정밀 URL 정합성 비교를 위한 패스 클렌징
+    const currentCleanPath = window.location.pathname.endsWith('/') && window.location.pathname.length > 1
+      ? window.location.pathname.slice(0, -1)
+      : window.location.pathname;
+
+    const targetCleanPath = targetPath.endsWith('/') && targetPath.length > 1
+      ? targetPath.slice(0, -1)
+      : targetPath;
+
     // 현재의 브라우저 주소와 다를 경우에만 pushState 실행하여 무한 루트 및 중복 히스토리 유입 방지
-    if (window.location.pathname !== targetPath) {
+    if (currentCleanPath !== targetCleanPath) {
       window.history.pushState(null, '', targetPath);
     }
 

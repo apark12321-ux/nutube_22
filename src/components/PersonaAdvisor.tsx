@@ -491,7 +491,7 @@ export const PersonaAdvisor: React.FC<PersonaAdvisorProps> = ({ theme = 'dark' }
                           : 'bg-sky-50 text-slate-800 border border-sky-100 rounded-tl-none font-sans'
                         : 'bg-gradient-to-br from-rose-500 to-red-650 text-white rounded-tr-none font-bold'
                     }`}>
-                      {renderFormattedText(msg.text, theme)}
+                      {renderFormattedText(msg.text, theme === 'light' ? 'light' : 'dark')}
                     </div>
                     <span className="text-[9px] text-slate-500 font-sans tracking-tight mt-1.5 block" style={{ textAlign: isAssistant ? 'left' : 'right' }}>
                       {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
