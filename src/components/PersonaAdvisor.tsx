@@ -351,19 +351,8 @@ export const PersonaAdvisor: React.FC<PersonaAdvisorProps> = ({ theme = 'dark' }
           msg.includes('애드센스') || 
           msg.includes('adsense') || 
           msg.includes('ads.txt') || 
-          msg.includes('adstxt') || 
-          msg.includes('코드') || 
-          msg.includes('3개') || 
-          msg.includes('세개') || 
-          msg.includes('식별') || 
-          msg.includes('도메인') || 
-          msg.includes('사이트') || 
-          msg.includes('승인') || 
-          msg.includes('준비 중') || 
-          msg.includes('찾을 수 없음') || 
-          msg.includes('nutube') || 
-          msg.includes('zip9') || 
-          msg.includes('virginroad')
+          msg.includes('adstxt') ||
+          ((msg.includes('zip9') || msg.includes('virginroad')) && (msg.includes('코드') || msg.includes('승인') || msg.includes('도메인') || msg.includes('사이트') || msg.includes('인증')))
         ) {
           return `## 🛡️ 동일한 애드센스 코드를 3개 사이트에 함께 사용하시는군요! 해결 가이드입니다.
 
