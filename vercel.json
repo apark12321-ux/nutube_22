@@ -1,6 +1,10 @@
 {
   "framework": "vite",
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api" },
+    { "source": "/rss.xml", "destination": "/api" },
+    { "source": "/ads.txt", "destination": "/api" },
+    { "source": "/app-ads.txt", "destination": "/api" },
     { "source": "/api/(.*)", "destination": "/api" }
   ]
 }
