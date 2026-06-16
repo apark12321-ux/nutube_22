@@ -6,8 +6,7 @@ import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
 import { MetadataGenerator } from './components/MetadataGenerator';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
-import { AdSenseDiagnostic } from './components/AdSenseDiagnostic';
-import { BlogStudioIntegration } from './components/BlogStudioIntegration';
+
 
 import { 
   Search, 
@@ -72,8 +71,8 @@ export default function App() {
     localStorage.setItem('nutube-theme', nextTheme);
   };
 
-  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail'
-  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail'>('guides');
+  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'terms' | 'privacy' | 'guide-detail'
+  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'terms' | 'privacy' | 'guide-detail'>('guides');
   
   // 가이드 상세 선택 조회 정보
   const [selectedPost, setSelectedPost] = useState<GuidePost | null>(null);
@@ -113,12 +112,6 @@ export default function App() {
       setSelectedPost(null);
     } else if (path === '/advisor') {
       setActiveTab('advisor');
-      setSelectedPost(null);
-    } else if (path === '/adsense') {
-      setActiveTab('adsense');
-      setSelectedPost(null);
-    } else if (path === '/blogstudio') {
-      setActiveTab('blogstudio');
       setSelectedPost(null);
     } else if (path === '/terms') {
       setActiveTab('terms');
@@ -190,13 +183,6 @@ export default function App() {
     } else if (activeTab === 'advisor') {
       targetPath = '/advisor';
       targetTitle = 'AI 심층상담관 | NuTube Premium Core Hub';
-    } else if (activeTab === 'adsense') {
-      targetPath = '/adsense';
-      targetTitle = '애드센스 긴급 구급대 | NuTube Premium Core Hub';
-    } else if (activeTab === 'blogstudio') {
-      targetPath = '/blogstudio';
-      targetTitle = '실시간 블로그 연동 포털 | NuTube Premium Core Hub';
-      targetDesc = 'BlogStudio.live 및 외부 API와의 Webhook 연동을 통해 동적 포스팅 발행 상황을 조율하고 관리하는 통합 콘솔입니다.';
     } else {
       targetPath = '/';
       targetTitle = 'NuTube Premium Core Hub - 유튜브 조회수 & 수익 구조 최강 비책 보관소';
@@ -284,7 +270,7 @@ export default function App() {
   }, [posts]);
 
   // 특정 탭 이동 유틸
-  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail') => {
+  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'terms' | 'privacy' | 'guide-detail') => {
     if (tab !== 'guide-detail') {
       setSelectedPost(null);
     }
@@ -348,13 +334,6 @@ export default function App() {
                   >
                     <Sparkles className="h-4.5 w-4.5" />
                     <span>원클릭 AI 비칭 부스터 사용해보기</span>
-                  </button>
-                  <button
-                    onClick={() => handleNavigateTab('adsense')}
-                    className="rounded-xl px-4.5 py-3 bg-gradient-to-r from-rose-500 to-red-650 hover:from-rose-400 hover:to-red-550 text-white font-extrabold text-xs sm:text-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-red-500/20 flex items-center gap-2 cursor-pointer"
-                  >
-                    <span className="h-2 w-2 rounded-full bg-white animate-ping" />
-                    <span>🚨 애드센스 거절 긴급 구급대</span>
                   </button>
                   <button
                     onClick={() => handleNavigateTab('advisor')}
@@ -542,15 +521,6 @@ export default function App() {
           <PersonaAdvisor theme={theme} />
         )}
 
-        {/* 탭 4: 애드센스 긴급 승인 구급대 */}
-        {activeTab === 'adsense' && (
-          <AdSenseDiagnostic theme={theme} />
-        )}
-
-        {/* 탭 4.5: 블로그스튜디오 실시간 연동 */}
-        {activeTab === 'blogstudio' && (
-          <BlogStudioIntegration theme={theme} posts={posts} onRefreshPosts={refreshPosts} />
-        )}
 
         {/* 탭 5: 이용약관 */}
         {activeTab === 'terms' && (
@@ -689,12 +659,6 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-start justify-between gap-8 pb-6 border-b border-sky-100/10 md:items-center">
             <div className="space-y-3 max-w-4xl text-left">
-              <p className={`font-bold text-sm tracking-tight ${theme === 'dark' ? 'text-white' : 'text-[#011d33]'}`}>
-                NuTube Premium Core Hub
-              </p>
-              <p className="max-w-2xl opacity-75 leading-relaxed text-[11px]">
-                본 서비스는 크리에이터들의 독립적이고 안전한 유튜브 성장을 지원하며, 실시간 Ads.txt 자가 진단 및 맞춤형 성장 비책 분석 처방을 지원하는 전문 서포트 허브입니다.
-              </p>
               <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] opacity-75">
                 <div><span className="font-semibold">고객지원 문의:</span> apark12321@gmail.com</div>
                 <div><span className="font-semibold">운영시간:</span> 평일 10:00 - 18:00 (주말 및 공휴일 휴무)</div>

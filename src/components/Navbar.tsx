@@ -2,8 +2,8 @@ import React from 'react';
 import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award, Sun, Moon, Globe } from 'lucide-react';
 
 interface NavbarProps {
-  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail';
-  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail') => void;
+  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
+  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
@@ -88,38 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
             <span className="inline sm:hidden">상담실</span>
           </button>
 
-          <button
-            id="nav-btn-blogstudio"
-            onClick={() => setTab('blogstudio')}
-            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-              currentTab === 'blogstudio'
-                ? 'bg-[#00b894]/10 text-[#00b894] border border-[#00b894]/20'
-                : theme === 'dark'
-                  ? 'text-slate-400 hover:text-white hover:bg-[#032841]'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/40'
-            }`}
-          >
-            <Globe className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">실시간 블로그 연동</span>
-            <span className="inline sm:hidden">블로그 연동</span>
-          </button>
 
-          <button
-            id="nav-btn-adsense"
-            onClick={() => setTab('adsense')}
-            className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-extrabold transition-all relative cursor-pointer ${
-              currentTab === 'adsense'
-                ? 'bg-rose-500/10 text-rose-500 border border-rose-500/30 shadow-sm'
-                : theme === 'dark'
-                  ? 'border border-rose-500/10 bg-rose-500/5 text-rose-400 hover:bg-rose-500/10'
-                  : 'border border-rose-200 bg-rose-50/50 text-rose-600 hover:bg-rose-100/50'
-            }`}
-          >
-            <span className="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full bg-rose-500 animate-ping" />
-            <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
-            <span className="hidden sm:inline">애드센스 SOS</span>
-            <span className="inline sm:hidden">SOS</span>
-          </button>
         </nav>
 
         {/* 오른쪽 간이 지표 및 여름 테마 자동 전환 단추 */}
