@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
+import { ALL_POSTS } from './src/data';
 
 dotenv.config();
 
@@ -177,6 +178,102 @@ app.get('/app-ads.txt', (req, res) => {
   const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.send(`google.com, ${cleanPubId}, DIRECT, f08c47fec0942fa0\n`);
+});
+
+// --- GOOGLE SEARCH CONSOLE SITEMAP.XML GENERATOR ---
+app.get('/sitemap.xml', (req, res) => {
+  const host = req.headers.host || 'nutube.kr';
+  const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  const baseUrl = `${protocol}://${host}`;
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  // Static site paths
+  const staticPages = [
+    { path: '', priority: '1.0', changefreq: 'daily' },
+    { path: '/builder', priority: '0.8', changefreq: 'weekly' },
+    { path: '/advisor', priority: '0.8', changefreq: 'weekly' },
+    { path: '/adsense', priority: '0.8', changefreq: 'weekly' },
+    { path: '/terms', priority: '0.3', changefreq: 'monthly' },
+    { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
+  ];
+
+  staticPages.forEach(p => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}${p.path}</loc>\n`;
+    xml += `    <lastmod>2026-06-16T12:00:00Z</lastmod>\n`;
+    xml += `    <changefreq>${p.changefreq}</changefreq>\n`;
+    xml += `    <priority>${p.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // Dynamic Blog Post paths
+  ALL_POSTS.forEach(post => {
+    const postDate = post.updatedAt || post.publishedAt || '2026-06-16T12:00:00Z';
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/guide/${post.slug}</loc>\n`;
+    xml += `    <lastmod>${postDate}</lastmod>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `    <priority>0.6</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += `</urlset>`;
+
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.status(200).send(xml);
+});
+
+// --- GOOGLE SEARCH CONSOLE RSS.XML FEED GENERATOR ---
+app.get('/rss.xml', (req, res) => {
+  const host = req.headers.host || 'nutube.kr';
+  const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  const baseUrl = `${protocol}://${host}`;
+
+  function escapeXml(unsafe: string): string {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+      switch (c) {
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '&': return '&amp;';
+        case '\'': return '&apos;';
+        case '"': return '&quot;';
+        default: return c;
+      }
+    });
+  }
+
+  let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
+  xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
+  xml += `<channel>\n`;
+  xml += `  <title>NuTube Premium Core Hub</title>\n`;
+  xml += `  <link>${baseUrl}/</link>\n`;
+  xml += `  <description>${escapeXml('유튜브 조회수 & 수익 구조 최강 무적 비책 보관소')}</description>\n`;
+  xml += `  <language>ko-kr</language>\n`;
+  xml += `  <lastBuildDate>Tue, 16 Jun 2026 12:00:00 GMT</lastBuildDate>\n`;
+  xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
+
+  ALL_POSTS.forEach(post => {
+    const guidUrl = `${baseUrl}/guide/${post.slug}`;
+    const desc = post.summary || post.subtitle || '';
+    const pubDate = new Date(post.publishedAt).toUTCString();
+
+    xml += `  <item>\n`;
+    xml += `    <title>${escapeXml(post.title)}</title>\n`;
+    xml += `    <link>${guidUrl}</link>\n`;
+    xml += `    <guid isPermaLink="true">${guidUrl}</guid>\n`;
+    xml += `    <description>${escapeXml(desc)}</description>\n`;
+    xml += `    <pubDate>${pubDate}</pubDate>\n`;
+    xml += `    <author>${escapeXml(post.author)}</author>\n`;
+    xml += `  </item>\n`;
+  });
+
+  xml += `</channel>\n`;
+  xml += `</rss>`;
+
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.status(200).send(xml);
 });
 
 // API for saving/loading live settings
