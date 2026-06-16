@@ -1,9 +1,9 @@
 import React from 'react';
-import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award, Sun, Moon } from 'lucide-react';
+import { Youtube, Sparkles, BookOpen, MessageSquare, Compass, Award, Sun, Moon, Globe } from 'lucide-react';
 
 interface NavbarProps {
-  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
-  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => void;
+  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail';
+  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail') => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
   return (
     <header className={`sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${
       theme === 'dark' 
-        ? 'border-sky-950/40 bg-[#021321]/80 text-[#e0f2fe]' 
+        ? 'border-sky-955 bg-[#021321]/80 text-[#e0f2fe]' 
         : 'border-sky-100/80 bg-white/80 text-slate-850 shadow-sm'
     }`}>
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-3 sm:px-6 lg:px-8">
@@ -86,6 +86,22 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
             <MessageSquare className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">AI 컨설턴트</span>
             <span className="inline sm:hidden">상담실</span>
+          </button>
+
+          <button
+            id="nav-btn-blogstudio"
+            onClick={() => setTab('blogstudio')}
+            className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+              currentTab === 'blogstudio'
+                ? 'bg-[#00b894]/10 text-[#00b894] border border-[#00b894]/20'
+                : theme === 'dark'
+                  ? 'text-slate-400 hover:text-white hover:bg-[#032841]'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/40'
+            }`}
+          >
+            <Globe className="h-3.5 w-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">실시간 블로그 연동</span>
+            <span className="inline sm:hidden">블로그 연동</span>
           </button>
 
           <button

@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
 import { ALL_POSTS } from './src/data';
@@ -209,7 +210,17 @@ app.get('/sitemap.xml', (req, res) => {
   });
 
   // Dynamic Blog Post paths
-  ALL_POSTS.forEach(post => {
+  const dynamicPosts = readDynamicPosts();
+  const combined = [...dynamicPosts, ...ALL_POSTS];
+  const seenSlugs = new Set<string>();
+  const uniquePosts = combined.filter(post => {
+    if (!post || !post.slug) return false;
+    if (seenSlugs.has(post.slug)) return false;
+    seenSlugs.add(post.slug);
+    return true;
+  });
+
+  uniquePosts.forEach(post => {
     const postDate = post.updatedAt || post.publishedAt || '2026-06-16T12:00:00Z';
     xml += `  <url>\n`;
     xml += `    <loc>${baseUrl}/guide/${post.slug}</loc>\n`;
@@ -254,10 +265,20 @@ app.get('/rss.xml', (req, res) => {
   xml += `  <lastBuildDate>Tue, 16 Jun 2026 12:00:00 GMT</lastBuildDate>\n`;
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
 
-  ALL_POSTS.forEach(post => {
+  const dynamicPosts = readDynamicPosts();
+  const combined = [...dynamicPosts, ...ALL_POSTS];
+  const seenSlugs = new Set<string>();
+  const uniquePosts = combined.filter(post => {
+    if (!post || !post.slug) return false;
+    if (seenSlugs.has(post.slug)) return false;
+    seenSlugs.add(post.slug);
+    return true;
+  });
+
+  uniquePosts.forEach(post => {
     const guidUrl = `${baseUrl}/guide/${post.slug}`;
     const desc = post.summary || post.subtitle || '';
-    const pubDate = new Date(post.publishedAt).toUTCString();
+    const pubDate = new Date(post.publishedAt || '2026-06-16T12:00:00Z').toUTCString();
 
     xml += `  <item>\n`;
     xml += `    <title>${escapeXml(post.title)}</title>\n`;
@@ -265,7 +286,7 @@ app.get('/rss.xml', (req, res) => {
     xml += `    <guid isPermaLink="true">${guidUrl}</guid>\n`;
     xml += `    <description>${escapeXml(desc)}</description>\n`;
     xml += `    <pubDate>${pubDate}</pubDate>\n`;
-    xml += `    <author>${escapeXml(post.author)}</author>\n`;
+    xml += `    <author>${escapeXml(post.author || 'BlogStudio AI')}</author>\n`;
     xml += `  </item>\n`;
   });
 
@@ -294,6 +315,188 @@ app.get('/api/settings/adsense', (req, res) => {
   res.json({ 
     publisherId: process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId,
     isUsingEnv: !!process.env.ADSENSE_PUBLISHER_ID
+  });
+});
+
+// --- DYNAMIC POSTS SYSTEM FOR BLOGSTUDIO.LIVE ---
+const DYNAMIC_POSTS_FILE = path.join(process.cwd(), 'src', 'data', 'dynamic_posts.json');
+let blogStudioSecretToken = "blogstudio-secret-99";
+
+// Ensure Directory for saving dynamic posts
+try {
+  const dir = path.dirname(DYNAMIC_POSTS_FILE);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+} catch (e) {
+  console.error("Directory guarantee failed:", e);
+}
+
+function readDynamicPosts(): any[] {
+  try {
+    if (fs.existsSync(DYNAMIC_POSTS_FILE)) {
+      const content = fs.readFileSync(DYNAMIC_POSTS_FILE, 'utf-8');
+      return JSON.parse(content);
+    }
+  } catch (e) {
+    console.error("Error reading dynamic posts file:", e);
+  }
+  return [];
+}
+
+function writeDynamicPosts(posts: any[]): boolean {
+  try {
+    fs.writeFileSync(DYNAMIC_POSTS_FILE, JSON.stringify(posts, null, 2), 'utf-8');
+    return true;
+  } catch (e) {
+    console.error("Error writing dynamic posts file:", e);
+    return false;
+  }
+}
+
+function getCategoryLabel(category: string): string {
+  switch (category) {
+    case 'algorithm': return '유튜브 알고리즘';
+    case 'senior': return '시니어 사연 쇼츠';
+    case 'aitools': return 'AI 도구';
+    case 'monetization': return '영상 채널 수익화';
+    case 'beginner': return '왕초보 출발';
+    case 'advanced': return '중고수 전략';
+    default: return '유튜브 알고리즘';
+  }
+}
+
+// 1. API: Get Combined Posts (static + dynamic)
+app.get('/api/posts', (req, res) => {
+  const dynamicPosts = readDynamicPosts();
+  const combined = [...dynamicPosts, ...ALL_POSTS];
+  
+  // Clean duplicates by slug if any
+  const seenSlugs = new Set<string>();
+  const uniqueCombined = combined.filter(post => {
+    if (!post || !post.slug) return false;
+    if (seenSlugs.has(post.slug)) {
+      return false;
+    }
+    seenSlugs.add(post.slug);
+    return true;
+  });
+
+  // Sort by publishedAt desc
+  uniqueCombined.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+  res.json(uniqueCombined);
+});
+
+// 2. API: Get Integration Config/Security Token
+app.get('/api/settings/blogstudio', (req, res) => {
+  res.json({
+    token: blogStudioSecretToken,
+    webhookUrl: "/api/posts"
+  });
+});
+
+// 3. API: Update Integration Security Token
+app.post('/api/settings/blogstudio', (req, res) => {
+  const { token } = req.body;
+  if (token && typeof token === 'string' && token.trim().length > 0) {
+    blogStudioSecretToken = token.trim();
+    return res.json({ success: true, token: blogStudioSecretToken });
+  }
+  return res.status(400).json({ error: '유효한 연동 인증 토큰값을 입력해 주세요.' });
+});
+
+// 4. API: Delete a dynamic post (convenience in UI)
+app.delete('/api/posts/:slug', (req, res) => {
+  const { slug } = req.params;
+  const { token } = req.query;
+
+  // Optional token verification can be added, or allow for local dashboard
+  let list = readDynamicPosts();
+  const initialLength = list.length;
+  list = list.filter(p => p.slug !== slug);
+  
+  if (list.length === initialLength) {
+    return res.status(404).json({ error: '해당 동적 포스트를 찾을 수 없거나 삭제가 불가능합니다.' });
+  }
+  
+  writeDynamicPosts(list);
+  res.json({ success: true, message: '동적 아티클 삭제에 성공했습니다.' });
+});
+
+// 5. API: Create / Post a new article (Webhook for blogstudio.live)
+app.post('/api/posts', (req, res) => {
+  // Check auth header or query token or body token
+  const authHeader = req.headers['authorization'] || '';
+  const queryToken = req.query.token || '';
+  const reqToken = req.body.token || '';
+  
+  let passedToken = '';
+  if (authHeader) {
+    passedToken = authHeader.replace(/^Bearer\s+/i, '').trim();
+  } else if (queryToken) {
+    passedToken = String(queryToken).trim();
+  } else if (reqToken) {
+    passedToken = String(reqToken).trim();
+  }
+
+  // Token verification for secure publishing
+  if (blogStudioSecretToken && passedToken !== blogStudioSecretToken) {
+    console.warn(`[BlogStudio Publish] Blocked unauthorized attempt. Token passed: "${passedToken}"`);
+    return res.status(401).json({ 
+      error: '인증 토큰이 유효하지 않습니다. NuTube 통합 연동 설정에 등록된 BlogStudio 보안 토큰을 헤더(Authorization: Bearer <토큰>) 또는 파라미터(token=...) 형태로 제공하십시오.' 
+    });
+  }
+
+  const { title, content, subtitle, summary, category, author, tags, slug: passedSlug } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ error: '필수 필드(title, content)가 유실되었습니다.' });
+  }
+
+  // Slugify title or use passedSlug
+  let slugged = passedSlug ? String(passedSlug).trim().toLowerCase() : '';
+  if (!slugged) {
+    const rawSlug = String(title).trim().toLowerCase()
+      .replace(/[^a-z0-9가-힣\s-]/g, '')
+      .replace(/\s+/g, '-');
+    slugged = `${rawSlug}-${Math.floor(Math.random() * 100000)}`;
+  }
+
+  const cleanCategory = ['algorithm', 'senior', 'aitools', 'monetization', 'beginner', 'advanced'].includes(category) ? category : 'algorithm';
+
+  const newPost = {
+    slug: slugged,
+    title: String(title).trim(),
+    subtitle: subtitle ? String(subtitle).trim() : (summary ? String(summary).trim().substring(0, 80) : 'BlogStudio 자동 연동 포스팅 자료'),
+    category: cleanCategory,
+    categoryLabel: getCategoryLabel(cleanCategory),
+    publishedAt: new Date().toISOString(),
+    author: author ? String(author).trim() : 'BlogStudio AI',
+    summary: summary ? String(summary).trim() : (subtitle ? String(subtitle).trim() : ''),
+    content: String(content),
+    tags: Array.isArray(tags) ? tags : [cleanCategory, 'BlogStudio', '자동발행'],
+    readTime: `${Math.max(1, Math.ceil(String(content).length / 280))}분`,
+    likes: Math.floor(Math.random() * 50) + 12
+  };
+
+  const currentList = readDynamicPosts();
+  
+  // Overwrite if slug matches, otherwise append
+  const idx = currentList.findIndex(p => p.slug === slugged);
+  if (idx > -1) {
+    currentList[idx] = newPost;
+  } else {
+    currentList.unshift(newPost);
+  }
+
+  writeDynamicPosts(currentList);
+  console.log(`[BlogStudio Publish] New post published successfully: "${title}" (Slug: ${slugged})`);
+
+  res.json({
+    success: true,
+    message: '새로운 동적 아티클이 성공적으로 자동 발행 및 누적 완료되었습니다.',
+    post: newPost
   });
 });
 

@@ -7,6 +7,7 @@ import { GuideReader } from './components/GuideReader';
 import { MetadataGenerator } from './components/MetadataGenerator';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
 import { AdSenseDiagnostic } from './components/AdSenseDiagnostic';
+import { BlogStudioIntegration } from './components/BlogStudioIntegration';
 
 import { 
   Search, 
@@ -71,18 +72,36 @@ export default function App() {
     localStorage.setItem('nutube-theme', nextTheme);
   };
 
-  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail'
-  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail'>('guides');
+  // 메인 비쥬얼 탭 컨트롤러: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail'
+  const [activeTab, setActiveTab] = useState<'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail'>('guides');
   
   // 가이드 상세 선택 조회 정보
   const [selectedPost, setSelectedPost] = useState<GuidePost | null>(null);
+
+  // 동적 포스트 상태 관리 (BlogStudio 자동 연동 대응)
+  const [posts, setPosts] = useState<GuidePost[]>(ALL_POSTS);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(false);
+
+  const refreshPosts = () => {
+    setIsLoadingPosts(true);
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setPosts(data);
+          syncStateFromUrl(data);
+        }
+      })
+      .catch(err => console.error("Error loading combined posts:", err))
+      .finally(() => setIsLoadingPosts(false));
+  };
 
   // 검색어 및 카테고리 필터 인디케이터
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // --- 브라우저 주소창 연동 & 검색엔진 서치 콘솔 색인 자동 연계 엔진 ---
-  const syncStateFromUrl = () => {
+  const syncStateFromUrl = (currentPosts: GuidePost[] = posts) => {
     let path = window.location.pathname;
     // 모바일 브라우저나 리다이렉트 시 끝에 붙는 트레일링 슬래시(/) 정제
     if (path.length > 1 && path.endsWith('/')) {
@@ -98,6 +117,9 @@ export default function App() {
     } else if (path === '/adsense') {
       setActiveTab('adsense');
       setSelectedPost(null);
+    } else if (path === '/blogstudio') {
+      setActiveTab('blogstudio');
+      setSelectedPost(null);
     } else if (path === '/terms') {
       setActiveTab('terms');
       setSelectedPost(null);
@@ -106,7 +128,7 @@ export default function App() {
       setSelectedPost(null);
     } else if (path.startsWith('/guide/')) {
       const slug = path.replace('/guide/', '');
-      const post = ALL_POSTS.find(p => p.slug === slug);
+      const post = currentPosts.find(p => p.slug === slug);
       if (post) {
         setActiveTab('guide-detail');
         setSelectedPost(post);
@@ -116,7 +138,7 @@ export default function App() {
       }
     } else if (path.startsWith('/guides/')) {
       const slug = path.replace('/guides/', '');
-      const post = ALL_POSTS.find(p => p.slug === slug);
+      const post = currentPosts.find(p => p.slug === slug);
       if (post) {
         setActiveTab('guide-detail');
         setSelectedPost(post);
@@ -130,9 +152,9 @@ export default function App() {
     }
   };
 
-  // 1. 컴포넌트 마운트 시 최초 주소 파싱 및 popstate 이벤트 리스너 감지 등록
+   // 1. 컴포넌트 마운트 시 최초 주소 파싱 및 popstate 이벤트 리스너 감지 등록
   useEffect(() => {
-    syncStateFromUrl();
+    refreshPosts();
 
     const handlePopState = () => {
       syncStateFromUrl();
@@ -171,6 +193,10 @@ export default function App() {
     } else if (activeTab === 'adsense') {
       targetPath = '/adsense';
       targetTitle = '애드센스 긴급 구급대 | NuTube Premium Core Hub';
+    } else if (activeTab === 'blogstudio') {
+      targetPath = '/blogstudio';
+      targetTitle = '실시간 블로그 연동 포털 | NuTube Premium Core Hub';
+      targetDesc = 'BlogStudio.live 및 외부 API와의 Webhook 연동을 통해 동적 포스팅 발행 상황을 조율하고 관리하는 통합 콘솔입니다.';
     } else {
       targetPath = '/';
       targetTitle = 'NuTube Premium Core Hub - 유튜브 조회수 & 수익 구조 최강 비책 보관소';
@@ -227,7 +253,7 @@ export default function App() {
   // 포스트 정렬 및 필터링 핵심 최적화
   const filteredPosts = useMemo(() => {
     // 발행일 역순 정렬 (최신 비책이 최상단 노출)
-    let list = [...ALL_POSTS].sort((a, b) => {
+    let list = [...posts].sort((a, b) => {
       return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
     });
 
@@ -246,19 +272,19 @@ export default function App() {
     }
 
     return list;
-  }, [searchQuery, selectedCategory]);
+  }, [posts, searchQuery, selectedCategory]);
 
   // 카테고리별 글 개수 실시간 재연산 취합
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     CATEGORIES_LIST.forEach((c) => {
-      counts[c.key] = ALL_POSTS.filter((p) => p.category === c.key).length;
+      counts[c.key] = posts.filter((p) => p.category === c.key).length;
     });
     return counts;
-  }, []);
+  }, [posts]);
 
   // 특정 탭 이동 유틸
-  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => {
+  const handleNavigateTab = (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'blogstudio' | 'terms' | 'privacy' | 'guide-detail') => {
     if (tab !== 'guide-detail') {
       setSelectedPost(null);
     }
@@ -519,6 +545,11 @@ export default function App() {
         {/* 탭 4: 애드센스 긴급 승인 구급대 */}
         {activeTab === 'adsense' && (
           <AdSenseDiagnostic theme={theme} />
+        )}
+
+        {/* 탭 4.5: 블로그스튜디오 실시간 연동 */}
+        {activeTab === 'blogstudio' && (
+          <BlogStudioIntegration theme={theme} posts={posts} onRefreshPosts={refreshPosts} />
         )}
 
         {/* 탭 5: 이용약관 */}
