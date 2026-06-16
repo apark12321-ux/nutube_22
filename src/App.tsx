@@ -661,15 +661,12 @@ export default function App() {
               <p className={`font-bold text-sm tracking-tight ${theme === 'dark' ? 'text-white' : 'text-[#011d33]'}`}>
                 NuTube Premium Core Hub
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-6">
-                <div><span className="opacity-75">상호명 :</span> 유엘웨딩컴퍼니</div>
-                <div><span className="opacity-75">대표자 :</span> 박아름</div>
-                <div><span className="opacity-75">사업자등록번호 :</span> 131-86-25904</div>
-                <div><span className="opacity-75">통신판매업신고 :</span> 제 2021-인천부평-1275호</div>
-                <div className="sm:col-span-2 lg:col-span-2"><span className="opacity-75">주소 :</span> 인천광역시 부평구 경원대로 1366 에이원프라자 7층</div>
-                <div><span className="opacity-75">고객문의 :</span> 0507-1335-5904</div>
-                <div><span className="opacity-75">이메일 :</span> apark12321@gmail.com</div>
-                <div><span className="opacity-75">개인정보보호책임자 :</span> 박아름</div>
+              <p className="max-w-2xl opacity-75 leading-relaxed text-[11px]">
+                본 서비스는 크리에이터들의 독립적이고 안전한 유튜브 성장을 지원하며, 실시간 Ads.txt 자가 진단 및 맞춤형 성장 비책 분석 처방을 지원하는 전문 서포트 허브입니다.
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] opacity-75">
+                <div><span className="font-semibold">고객지원 문의:</span> apark12321@gmail.com</div>
+                <div><span className="font-semibold">운영시간:</span> 평일 10:00 - 18:00 (주말 및 공휴일 휴무)</div>
               </div>
             </div>
             
@@ -699,9 +696,9 @@ export default function App() {
           </div>
           
           <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-left">
-            <p className="opacity-75">© 2026 NuTube Premium Core Hub & Virgin Road. All Rights Reserved.</p>
-            <p className="text-[10px] opacity-60">
-              본 서비스는 크리에이터들의 독립적이고 안전한 성장을 지원하기 위해 유엘웨딩컴퍼니에서 운영 및 관리합니다.
+            <p className="opacity-75">© 2026 NuTube Premium Core Hub. All Rights Reserved.</p>
+            <p className="text-[10px] opacity-50 max-w-2xl">
+              Disclaimer: NuTube Premium Core Hub는 개별 크리에이터의 편의와 진단을 돕기 위한 독립형 시스템으로, Google LLC 및 YouTube 가이드라인과 계약 관계가 없는 기술 보조 도구입니다.
             </p>
           </div>
         </div>
