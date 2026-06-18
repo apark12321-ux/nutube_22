@@ -13,6 +13,23 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Vercel / Cloud Run 프록시 및 수집 경로 복원용 긴급 수리 지점 미들웨어
+app.use((req, res, next) => {
+  const matchedPath = req.headers['x-matched-path'] || req.headers['x-original-url'] || req.url;
+  if (matchedPath && typeof matchedPath === 'string') {
+    if (matchedPath.includes('/sitemap.xml')) {
+      req.url = '/sitemap.xml';
+    } else if (matchedPath.includes('/rss.xml')) {
+      req.url = '/rss.xml';
+    } else if (matchedPath.includes('/ads.txt')) {
+      req.url = '/ads.txt';
+    } else if (matchedPath.includes('/app-ads.txt')) {
+      req.url = '/app-ads.txt';
+    }
+  }
+  next();
+});
+
 // Gemini API 초기화
 const apiKey = process.env.GEMINI_API_KEY;
 let ai: GoogleGenAI | null = null;
@@ -164,8 +181,8 @@ app.get('/api/health', (req, res) => {
 // In-memory store for back-up when env is missing
 let globalAdSensePublisherId = "pub-9759242940251786";
 
-// Static crawl endpoints required by Google AdSense
-app.get('/ads.txt', (req, res) => {
+// Static crawl endpoints required by Google AdSense (support both direct and /api prefixes)
+app.get(['/ads.txt', '/api/ads.txt'], (req, res) => {
   const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
   // Guarantee clean plain-text response format with no extra carriage returns
   const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
@@ -174,7 +191,7 @@ app.get('/ads.txt', (req, res) => {
 });
 
 // App-ads.txt fallback
-app.get('/app-ads.txt', (req, res) => {
+app.get(['/app-ads.txt', '/api/app-ads.txt'], (req, res) => {
   const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
   const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
@@ -182,7 +199,7 @@ app.get('/app-ads.txt', (req, res) => {
 });
 
 // --- GOOGLE SEARCH CONSOLE SITEMAP.XML GENERATOR ---
-app.get('/sitemap.xml', (req, res) => {
+app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
   const host = req.headers.host || 'nutube.kr';
   const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
@@ -200,10 +217,14 @@ app.get('/sitemap.xml', (req, res) => {
     { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
   ];
 
+  // Make the static page lastmod contemporary (today's date)
+  const currentISO = new Date().toISOString().substring(0, 10);
+  const staticLastmod = `${currentISO}T12:00:00Z`;
+
   staticPages.forEach(p => {
     xml += `  <url>\n`;
     xml += `    <loc>${baseUrl}${p.path}</loc>\n`;
-    xml += `    <lastmod>2026-06-16T12:00:00Z</lastmod>\n`;
+    xml += `    <lastmod>${staticLastmod}</lastmod>\n`;
     xml += `    <changefreq>${p.changefreq}</changefreq>\n`;
     xml += `    <priority>${p.priority}</priority>\n`;
     xml += `  </url>\n`;
@@ -221,7 +242,7 @@ app.get('/sitemap.xml', (req, res) => {
   });
 
   uniquePosts.forEach(post => {
-    const postDate = post.updatedAt || post.publishedAt || '2026-06-16T12:00:00Z';
+    const postDate = post.updatedAt || post.publishedAt || staticLastmod;
     xml += `  <url>\n`;
     xml += `    <loc>${baseUrl}/guide/${post.slug}</loc>\n`;
     xml += `    <lastmod>${postDate}</lastmod>\n`;
@@ -237,7 +258,7 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 // --- GOOGLE SEARCH CONSOLE RSS.XML FEED GENERATOR ---
-app.get('/rss.xml', (req, res) => {
+app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   const host = req.headers.host || 'nutube.kr';
   const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
@@ -255,6 +276,8 @@ app.get('/rss.xml', (req, res) => {
     });
   }
 
+  const currentUTC = new Date().toUTCString();
+
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
   xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
   xml += `<channel>\n`;
@@ -262,7 +285,7 @@ app.get('/rss.xml', (req, res) => {
   xml += `  <link>${baseUrl}/</link>\n`;
   xml += `  <description>${escapeXml('유튜브 조회수 & 수익 구조 최강 무적 비책 보관소')}</description>\n`;
   xml += `  <language>ko-kr</language>\n`;
-  xml += `  <lastBuildDate>Tue, 16 Jun 2026 12:00:00 GMT</lastBuildDate>\n`;
+  xml += `  <lastBuildDate>${currentUTC}</lastBuildDate>\n`;
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
 
   const dynamicPosts = readDynamicPosts();
@@ -278,7 +301,7 @@ app.get('/rss.xml', (req, res) => {
   uniquePosts.forEach(post => {
     const guidUrl = `${baseUrl}/guide/${post.slug}`;
     const desc = post.summary || post.subtitle || '';
-    const pubDate = new Date(post.publishedAt || '2026-06-16T12:00:00Z').toUTCString();
+    const pubDate = new Date(post.publishedAt || '2026-06-18T12:00:00Z').toUTCString();
 
     xml += `  <item>\n`;
     xml += `    <title>${escapeXml(post.title)}</title>\n`;
