@@ -1,10 +1,40 @@
 {
-  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/ads.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/rss.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }
+      ]
+    }
+  ],
   "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/api" },
-    { "source": "/rss.xml", "destination": "/api" },
-    { "source": "/ads.txt", "destination": "/api" },
-    { "source": "/app-ads.txt", "destination": "/api" },
-    { "source": "/api/(.*)", "destination": "/api" }
+    {
+      "source": "/((?!api/|assets/|thumbnails/|sitemap\\.xml|rss\\.xml|robots\\.txt|ads\\.txt|.*\\.[a-zA-Z0-9]+$).*)",
+      "destination": "/index.html"
+    }
   ]
 }
