@@ -20,13 +20,26 @@ const normalizePath = (pathname: string) => {
   return clean || '/';
 };
 
+const postPath = (post: GuidePost) => '/post/'.concat(encodeURIComponent(post.title));
+
 const findPostBySlug = (slug: string) => {
   const decodedSlug = decodeURIComponent(slug);
   return ALL_POSTS.find((item) => item.slug === decodedSlug) || null;
 };
 
+const findPostByTitle = (titleSegment: string) => {
+  const decodedTitle = decodeURIComponent(titleSegment);
+  return ALL_POSTS.find((item) => item.title === decodedTitle) || null;
+};
+
 const resolveRoute = (pathname: string): RouteState => {
   const path = normalizePath(pathname);
+
+  if (path.startsWith('/post/')) {
+    const titleSegment = path.replace('/post/', '');
+    const matchedPost = findPostByTitle(titleSegment);
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost } : { tab: 'guides', post: null };
+  }
 
   if (path.startsWith('/guide/')) {
     const slug = path.replace('/guide/', '');
@@ -43,7 +56,7 @@ const resolveRoute = (pathname: string): RouteState => {
 };
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
-  if (tab === 'guide-detail' && post) return `/guide/${encodeURIComponent(post.slug)}`;
+  if (tab === 'guide-detail' && post) return postPath(post);
   if (tab === 'builder') return '/builder';
   if (tab === 'advisor') return '/advisor';
   if (tab === 'terms') return '/terms';
@@ -86,7 +99,7 @@ export default function App() {
   const navigate = (next: Tab, selectedPost: GuidePost | null = null) => {
     const nextPath = pathForTab(next, selectedPost);
     if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
-      window.history.pushState({ tab: next, slug: selectedPost?.slug || null }, '', nextPath);
+      window.history.pushState({ tab: next, title: selectedPost?.title || null }, '', nextPath);
     }
     setPost(next === 'guide-detail' ? selectedPost : null);
     setTab(next);
@@ -134,7 +147,7 @@ export default function App() {
                 </div>
               </div>
               <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((item) => <PostCard key={item.slug} post={item} href={`/guide/${encodeURIComponent(item.slug)}`} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
+                {posts.map((item) => <PostCard key={item.slug} post={item} href={postPath(item)} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
               </section>
             </div>
           </>
