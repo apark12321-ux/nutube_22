@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
@@ -10,12 +10,70 @@ import { PersonaAdvisor } from './components/PersonaAdvisor';
 
 type Tab = 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
 
+interface RouteState {
+  tab: Tab;
+  post: GuidePost | null;
+}
+
+const normalizePath = (pathname: string) => {
+  const clean = pathname.replace(/\/+$/, '');
+  return clean || '/';
+};
+
+const findPostBySlug = (slug: string) => {
+  const decodedSlug = decodeURIComponent(slug);
+  return ALL_POSTS.find((item) => item.slug === decodedSlug) || null;
+};
+
+const resolveRoute = (pathname: string): RouteState => {
+  const path = normalizePath(pathname);
+
+  if (path.startsWith('/guide/')) {
+    const slug = path.replace('/guide/', '');
+    const matchedPost = findPostBySlug(slug);
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost } : { tab: 'guides', post: null };
+  }
+
+  if (path === '/builder') return { tab: 'builder', post: null };
+  if (path === '/advisor') return { tab: 'advisor', post: null };
+  if (path === '/terms') return { tab: 'terms', post: null };
+  if (path === '/privacy') return { tab: 'privacy', post: null };
+
+  return { tab: 'guides', post: null };
+};
+
+const pathForTab = (tab: Tab, post?: GuidePost | null) => {
+  if (tab === 'guide-detail' && post) return `/guide/${encodeURIComponent(post.slug)}`;
+  if (tab === 'builder') return '/builder';
+  if (tab === 'advisor') return '/advisor';
+  if (tab === 'terms') return '/terms';
+  if (tab === 'privacy') return '/privacy';
+  return '/';
+};
+
+const initialRoute = (): RouteState => {
+  if (typeof window === 'undefined') return { tab: 'guides', post: null };
+  return resolveRoute(window.location.pathname);
+};
+
 export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [tab, setTab] = useState<Tab>('guides');
-  const [post, setPost] = useState<GuidePost | null>(null);
+  const [tab, setTab] = useState<Tab>(() => initialRoute().tab);
+  const [post, setPost] = useState<GuidePost | null>(() => initialRoute().post);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const next = resolveRoute(window.location.pathname);
+      setPost(next.post);
+      setTab(next.tab);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();
@@ -25,16 +83,20 @@ export default function App() {
       .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q));
   }, [query, category]);
 
-  const go = (next: Tab) => {
-    if (next !== 'guide-detail') setPost(null);
+  const navigate = (next: Tab, selectedPost: GuidePost | null = null) => {
+    const nextPath = pathForTab(next, selectedPost);
+    if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
+      window.history.pushState({ tab: next, slug: selectedPost?.slug || null }, '', nextPath);
+    }
+    setPost(next === 'guide-detail' ? selectedPost : null);
     setTab(next);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const go = (next: Tab) => navigate(next);
+
   const openPost = (item: GuidePost) => {
-    setPost(item);
-    setTab('guide-detail');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate('guide-detail', item);
   };
 
   const dark = theme === 'dark';
