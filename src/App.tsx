@@ -7,6 +7,7 @@ import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
 import { ContentPlanner } from './components/ContentPlanner';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
+import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 
 type Tab = 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
 
@@ -15,23 +16,16 @@ interface RouteState {
   post: GuidePost | null;
 }
 
+const POSTS = applyPostDateSchedule(ALL_POSTS);
+
 const normalizePath = (pathname: string) => {
   const clean = pathname.replace(/\/+$/, '');
   return clean || '/';
 };
 
-const postTitleSegment = (title: string) =>
-  title
-    .trim()
-    .replace(/[\\/#?]+/g, ' ')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-
-const postPath = (post: GuidePost) => `/post/${postTitleSegment(post.title)}`;
-
 const findPostBySlug = (slug: string) => {
   const decodedSlug = decodeURIComponent(slug);
-  return ALL_POSTS.find((item) => item.slug === decodedSlug) || null;
+  return POSTS.find((item) => item.slug === decodedSlug) || null;
 };
 
 const findPostByTitle = (titleSegment: string) => {
@@ -39,9 +33,9 @@ const findPostByTitle = (titleSegment: string) => {
   const titleFromLegacySpaceUrl = decodedSegment.replace(/-/g, ' ');
 
   return (
-    ALL_POSTS.find((item) => postTitleSegment(item.title) === decodedSegment) ||
-    ALL_POSTS.find((item) => item.title === decodedSegment) ||
-    ALL_POSTS.find((item) => item.title === titleFromLegacySpaceUrl) ||
+    POSTS.find((item) => postTitleSegment(item.title) === decodedSegment) ||
+    POSTS.find((item) => item.title === decodedSegment) ||
+    POSTS.find((item) => item.title === titleFromLegacySpaceUrl) ||
     null
   );
 };
@@ -70,7 +64,7 @@ const resolveRoute = (pathname: string): RouteState => {
 };
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
-  if (tab === 'guide-detail' && post) return postPath(post);
+  if (tab === 'guide-detail' && post) return getPostPath(post);
   if (tab === 'builder') return '/builder';
   if (tab === 'advisor') return '/advisor';
   if (tab === 'terms') return '/terms';
@@ -104,7 +98,7 @@ export default function App() {
 
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();
-    return [...ALL_POSTS]
+    return [...POSTS]
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .filter((item) => !category || item.category === category)
       .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q));
@@ -161,7 +155,7 @@ export default function App() {
                 </div>
               </div>
               <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((item) => <PostCard key={item.slug} post={item} href={postPath(item)} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
+                {posts.map((item) => <PostCard key={item.slug} post={item} href={getPostPath(item)} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
               </section>
             </div>
           </>
