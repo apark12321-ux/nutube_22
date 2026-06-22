@@ -20,7 +20,14 @@ const normalizePath = (pathname: string) => {
   return clean || '/';
 };
 
-const postPath = (post: GuidePost) => '/post/'.concat(encodeURIComponent(post.title));
+const postTitleSegment = (title: string) =>
+  title
+    .trim()
+    .replace(/[\\/#?]+/g, ' ')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+
+const postPath = (post: GuidePost) => `/post/${postTitleSegment(post.title)}`;
 
 const findPostBySlug = (slug: string) => {
   const decodedSlug = decodeURIComponent(slug);
@@ -28,8 +35,15 @@ const findPostBySlug = (slug: string) => {
 };
 
 const findPostByTitle = (titleSegment: string) => {
-  const decodedTitle = decodeURIComponent(titleSegment);
-  return ALL_POSTS.find((item) => item.title === decodedTitle) || null;
+  const decodedSegment = decodeURIComponent(titleSegment);
+  const titleFromLegacySpaceUrl = decodedSegment.replace(/-/g, ' ');
+
+  return (
+    ALL_POSTS.find((item) => postTitleSegment(item.title) === decodedSegment) ||
+    ALL_POSTS.find((item) => item.title === decodedSegment) ||
+    ALL_POSTS.find((item) => item.title === titleFromLegacySpaceUrl) ||
+    null
+  );
 };
 
 const resolveRoute = (pathname: string): RouteState => {
