@@ -134,7 +134,7 @@ export default function App() {
                 </div>
               </div>
               <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((item) => <PostCard key={item.slug} post={item} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
+                {posts.map((item) => <PostCard key={item.slug} post={item} href={`/guide/${encodeURIComponent(item.slug)}`} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
               </section>
             </div>
           </>
