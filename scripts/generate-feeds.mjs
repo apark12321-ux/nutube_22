@@ -6,6 +6,18 @@ const ROOT = process.cwd();
 const DAY_MS = 24 * 60 * 60 * 1000;
 const SCHEDULE_END_UTC = Date.UTC(2026, 5, 23, 1, 0, 0);
 
+const REVIEW_HOLD_SLUGS = new Set([
+  'shorts-rpm-maximization-strategy',
+  'ai-visual-storytelling-production',
+  'community-fandom-reputation-management',
+  'google-search-console-seo-indexing',
+  'adsense-rejection-recovery',
+  'youtube-zero-views-remedy-formula',
+  'vintage-europe-aesthetic-shorts-hook',
+  'adsense-low-value-content-solution',
+  'search-console-sitemap-fetch-success',
+]);
+
 const sourceFiles = [
   path.join(ROOT, 'src', 'data.ts'),
   ...fs.readdirSync(path.join(ROOT, 'src', 'data'))
@@ -57,7 +69,7 @@ const extractPosts = () => {
 
   const seen = new Set();
   return posts.filter((post) => {
-    if (!post.slug || seen.has(post.slug)) return false;
+    if (!post.slug || REVIEW_HOLD_SLUGS.has(post.slug) || seen.has(post.slug)) return false;
     seen.add(post.slug);
     return true;
   });
@@ -94,8 +106,8 @@ const ensureDist = () => {
 const buildSitemap = (posts) => {
   const staticPages = [
     { loc: SITE_URL, lastmod: '2026-06-23', changefreq: 'daily', priority: '1.0' },
-    { loc: `${SITE_URL}/builder`, lastmod: '2026-06-23', changefreq: 'weekly', priority: '0.8' },
-    { loc: `${SITE_URL}/advisor`, lastmod: '2026-06-23', changefreq: 'weekly', priority: '0.8' },
+    { loc: `${SITE_URL}/about`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.6' },
+    { loc: `${SITE_URL}/contact`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.5' },
     { loc: `${SITE_URL}/terms`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.3' },
     { loc: `${SITE_URL}/privacy`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.3' },
   ];
@@ -131,7 +143,7 @@ const buildRss = (posts) => {
     '  <channel>',
     '    <title>NuTube - 유튜브 채널 운영 실전 가이드</title>',
     `    <link>${SITE_URL}/</link>`,
-    '    <description>유튜브 알고리즘, 수익화, AI 도구, 쇼츠 운영 전략을 정리하는 실전 가이드 미디어입니다.</description>',
+    '    <description>유튜브 채널 운영자가 바로 적용할 수 있는 알고리즘, 수익화, AI 도구, 쇼츠 제작 전략을 정리합니다.</description>',
     '    <language>ko-KR</language>',
     '    <lastBuildDate>Tue, 23 Jun 2026 10:00:00 +0900</lastBuildDate>',
     `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
