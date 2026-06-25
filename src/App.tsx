@@ -5,11 +5,9 @@ import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
-import { ContentPlanner } from './components/ContentPlanner';
-import { PersonaAdvisor } from './components/PersonaAdvisor';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 
-type Tab = 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
+type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail';
 
 interface RouteState {
   tab: Tab;
@@ -55,8 +53,8 @@ const resolveRoute = (pathname: string): RouteState => {
     return matchedPost ? { tab: 'guide-detail', post: matchedPost } : { tab: 'guides', post: null };
   }
 
-  if (path === '/builder') return { tab: 'builder', post: null };
-  if (path === '/advisor') return { tab: 'advisor', post: null };
+  if (path === '/about') return { tab: 'about', post: null };
+  if (path === '/contact') return { tab: 'contact', post: null };
   if (path === '/terms') return { tab: 'terms', post: null };
   if (path === '/privacy') return { tab: 'privacy', post: null };
 
@@ -65,8 +63,8 @@ const resolveRoute = (pathname: string): RouteState => {
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'guide-detail' && post) return getPostPath(post);
-  if (tab === 'builder') return '/builder';
-  if (tab === 'advisor') return '/advisor';
+  if (tab === 'about') return '/about';
+  if (tab === 'contact') return '/contact';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
   return '/';
@@ -133,10 +131,6 @@ export default function App() {
                 <p className="text-xs font-bold text-cyan-400">유튜브 채널 운영 가이드</p>
                 <h1 className={dark ? 'mt-4 text-3xl font-black text-white sm:text-5xl' : 'mt-4 text-3xl font-black text-slate-900 sm:text-5xl'}>필요한 정보를 쉽게 확인하고 바로 적용하세요</h1>
                 <p className={dark ? 'mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-sky-300/75' : 'mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-600'}>채널 시작, 콘텐츠 기획, 쇼츠 운영, 썸네일 점검, 수익화 준비에 필요한 정보를 체크리스트 중심으로 정리합니다.</p>
-                <div className="mt-7 flex justify-center gap-3">
-                  <button onClick={() => go('builder')} className="rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-white">기획 체크리스트</button>
-                  <button onClick={() => go('advisor')} className={dark ? 'rounded-xl border border-sky-900 px-5 py-3 text-sm font-bold text-sky-100' : 'rounded-xl border border-sky-100 bg-white px-5 py-3 text-sm font-bold text-slate-700'}>질문 정리</button>
-                </div>
               </div>
             </section>
             <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -161,17 +155,25 @@ export default function App() {
           </>
         )}
         {tab === 'guide-detail' && post && <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={() => go('guides')} theme={theme} />}
-        {tab === 'builder' && <ContentPlanner theme={theme} />}
-        {tab === 'advisor' && <PersonaAdvisor theme={theme} />}
-        {tab === 'terms' && <Info title="이용약관" text="NuTube는 유튜브 채널 운영 정보를 제공하는 가이드 사이트입니다. 제공 정보는 참고용이며 최신 정책은 공식 안내를 함께 확인해야 합니다." theme={theme} />}
-        {tab === 'privacy' && <Info title="개인정보처리방침" text="NuTube는 별도 회원가입 없이 정보를 제공합니다. 문의 과정에서 전달된 정보는 답변 목적 외로 사용하지 않습니다." theme={theme} />}
+        {tab === 'about' && <Info title="NuTube 소개" text="NuTube는 유튜브 채널 운영자가 채널 개설, 영상 기획, 쇼츠 운영, 댓글 소통, 수익화 준비를 점검할 수 있도록 실전형 정보를 정리하는 독립 가이드 사이트입니다. 모든 글은 방문자가 바로 실행할 수 있는 체크리스트와 주의사항 중심으로 구성합니다." theme={theme} />}
+        {tab === 'contact' && <Info title="문의 및 오류 제보" text="콘텐츠 오류, 최신 정책 반영 요청, 사이트 이용 관련 문의는 apark12321@gmail.com 으로 보내주세요. 접수된 문의는 내용 확인 후 필요한 경우 사이트 개선에 반영합니다." theme={theme} />}
+        {tab === 'terms' && <Info title="이용약관" text="NuTube는 유튜브 채널 운영 정보를 제공하는 가이드 사이트입니다. 제공 정보는 참고용이며 YouTube 및 Google의 최신 공식 정책은 각 공식 안내 페이지에서 함께 확인해야 합니다." theme={theme} />}
+        {tab === 'privacy' && <Info title="개인정보처리방침" text="NuTube는 별도 회원가입 없이 정보를 제공합니다. 문의 과정에서 전달된 이메일 주소와 문의 내용은 답변 및 오류 확인 목적 외로 사용하지 않습니다." theme={theme} />}
       </main>
-      <footer className={dark ? 'border-t border-sky-950 px-4 py-8 text-center text-xs text-sky-300/50' : 'border-t border-sky-100 bg-white px-4 py-8 text-center text-xs text-slate-500'}>© NuTube</footer>
+      <footer className={dark ? 'border-t border-sky-950 px-4 py-8 text-center text-xs text-sky-300/50' : 'border-t border-sky-100 bg-white px-4 py-8 text-center text-xs text-slate-500'}>
+        <div className="mb-3 flex justify-center gap-4">
+          <button onClick={() => go('about')}>소개</button>
+          <button onClick={() => go('contact')}>문의</button>
+          <button onClick={() => go('privacy')}>개인정보처리방침</button>
+          <button onClick={() => go('terms')}>이용약관</button>
+        </div>
+        © NuTube
+      </footer>
     </div>
   );
 }
 
 function Info({ title, text, theme }: { title: string; text: string; theme: 'light' | 'dark' }) {
   const dark = theme === 'dark';
-  return <div className="mx-auto max-w-4xl px-4 py-12"><div className={dark ? 'rounded-2xl border border-sky-950 bg-[#042841]/50 p-8' : 'rounded-2xl border border-sky-100 bg-white p-8 shadow-sm'}><h1 className={dark ? 'text-2xl font-extrabold text-white' : 'text-2xl font-extrabold text-slate-900'}>{title}</h1><p className={dark ? 'mt-4 text-sm leading-relaxed text-sky-200' : 'mt-4 text-sm leading-relaxed text-slate-700'}>{text}</p></div></div>;
+  return <div className="mx-auto max-w-4xl px-4 py-12"><div className={dark ? 'rounded-2xl border border-sky-950 bg-[#042841]/50 p-8' : 'rounded-2xl border border-sky-100 bg-white p-8 shadow-sm'}><h1 className={dark ? 'text-2xl font-extrabold text-white' : 'text-2xl font-extrabold text-slate-900'}>{title}</h1><p className={dark ? 'mt-4 text-sm leading-7 text-sky-200' : 'mt-4 text-sm leading-7 text-slate-700'}>{text}</p></div></div>;
 }
