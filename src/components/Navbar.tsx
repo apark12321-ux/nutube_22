@@ -1,9 +1,11 @@
 import React from 'react';
-import { BookOpen, Moon, Sparkles, Sun, Youtube, MessageSquare } from 'lucide-react';
+import { BookOpen, Moon, Sun, Youtube, Info, Mail } from 'lucide-react';
+
+type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail';
 
 interface NavbarProps {
-  currentTab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail';
-  setTab: (tab: 'guides' | 'builder' | 'advisor' | 'adsense' | 'terms' | 'privacy' | 'guide-detail') => void;
+  currentTab: Tab;
+  setTab: (tab: Tab) => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
@@ -11,7 +13,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggleTheme }) => {
   const active = 'bg-sky-500/10 text-sky-500 border border-sky-500/20';
   const idle = theme === 'dark' ? 'text-slate-400 hover:text-white hover:bg-[#032841]' : 'text-slate-600 hover:text-slate-900 hover:bg-sky-100/60';
-  const guideActive = ['guides', 'guide-detail', 'terms', 'privacy'].includes(currentTab);
+  const guideActive = ['guides', 'guide-detail'].includes(currentTab);
 
   return (
     <header className={theme === 'dark' ? 'sticky top-0 z-50 border-b border-sky-950 bg-[#021321]/85 backdrop-blur-md' : 'sticky top-0 z-50 border-b border-sky-100 bg-white/90 backdrop-blur-md shadow-sm'}>
@@ -31,13 +33,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
             <BookOpen className="h-3.5 w-3.5" />
             <span>가이드</span>
           </button>
-          <button onClick={() => setTab('builder')} className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold sm:text-sm ${currentTab === 'builder' ? active : idle}`}>
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>기획 도구</span>
+          <button onClick={() => setTab('about')} className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold sm:text-sm ${currentTab === 'about' ? active : idle}`}>
+            <Info className="h-3.5 w-3.5" />
+            <span>소개</span>
           </button>
-          <button onClick={() => setTab('advisor')} className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold sm:text-sm ${currentTab === 'advisor' ? active : idle}`}>
-            <MessageSquare className="h-3.5 w-3.5" />
-            <span>질문 정리</span>
+          <button onClick={() => setTab('contact')} className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold sm:text-sm ${currentTab === 'contact' ? active : idle}`}>
+            <Mail className="h-3.5 w-3.5" />
+            <span>문의</span>
           </button>
         </nav>
 
