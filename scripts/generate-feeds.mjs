@@ -4,7 +4,8 @@ import path from 'path';
 const SITE_URL = 'https://nutube.kr';
 const ROOT = process.cwd();
 const DAY_MS = 24 * 60 * 60 * 1000;
-const SCHEDULE_END_UTC = Date.UTC(2026, 5, 23, 1, 0, 0);
+const SCHEDULE_END_UTC = Date.UTC(2026, 5, 26, 1, 0, 0);
+const STATIC_LASTMOD = '2026-06-26';
 
 const REVIEW_HOLD_SLUGS = new Set([
   'shorts-rpm-maximization-strategy',
@@ -105,11 +106,11 @@ const ensureDist = () => {
 
 const buildSitemap = (posts) => {
   const staticPages = [
-    { loc: SITE_URL, lastmod: '2026-06-23', changefreq: 'daily', priority: '1.0' },
-    { loc: `${SITE_URL}/about`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.6' },
-    { loc: `${SITE_URL}/contact`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.5' },
-    { loc: `${SITE_URL}/terms`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.3' },
-    { loc: `${SITE_URL}/privacy`, lastmod: '2026-06-23', changefreq: 'monthly', priority: '0.3' },
+    { loc: SITE_URL, lastmod: STATIC_LASTMOD, changefreq: 'daily', priority: '1.0' },
+    { loc: `${SITE_URL}/about`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.6' },
+    { loc: `${SITE_URL}/contact`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.5' },
+    { loc: `${SITE_URL}/terms`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.3' },
+    { loc: `${SITE_URL}/privacy`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.3' },
   ];
 
   const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
@@ -145,7 +146,7 @@ const buildRss = (posts) => {
     `    <link>${SITE_URL}/</link>`,
     '    <description>유튜브 채널 운영자가 바로 적용할 수 있는 알고리즘, 수익화, AI 도구, 쇼츠 제작 전략을 정리합니다.</description>',
     '    <language>ko-KR</language>',
-    '    <lastBuildDate>Tue, 23 Jun 2026 10:00:00 +0900</lastBuildDate>',
+    '    <lastBuildDate>Fri, 26 Jun 2026 10:00:00 +0900</lastBuildDate>',
     `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
   ];
 
