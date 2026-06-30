@@ -17,6 +17,12 @@ export interface CategorySpec {
   accentColor: string;
 }
 
+export interface PostImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface GuidePost {
   slug: string;
   title: string;
@@ -33,6 +39,8 @@ export interface GuidePost {
   likes?: number;
   authorityUrl?: string;
   authorityLabel?: string;
+  thumbnail?: PostImage;
+  bodyImages?: [PostImage, PostImage];
 }
 
 export interface TitleSuggestion {
