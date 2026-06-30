@@ -1,3 +1,4 @@
+import { addPostImages } from './postImages';
 import { GuidePost } from './types';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -44,10 +45,10 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
 
     const updatedDate = new Date(publishDate.getTime() + 45 * 60 * 1000);
 
-    return {
+    return addPostImages({
       ...post,
       publishedAt: publishDate.toISOString(),
       updatedAt: updatedDate.toISOString(),
-    };
+    });
   });
 };
