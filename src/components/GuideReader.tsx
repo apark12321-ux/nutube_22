@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
 import { ArrowLeft, Share2, Calendar, User, BookOpen, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface GuideReaderProps {
   post: GuidePost;
@@ -100,11 +101,23 @@ const renderFormattedText = (text: string): React.ReactNode[] => {
 };
 
 const ImageFigure = ({ image }: { image?: PostImage }) => {
-  if (!image?.src) return null;
+  const src = image?.src || DEFAULT_REMOTE_IMAGE;
+  const alt = image?.alt || '유튜브 채널 운영 참고 이미지';
+
   return (
     <figure className="my-8 overflow-hidden rounded-2xl border border-sky-100 bg-white shadow-sm dark:border-sky-950 dark:bg-[#032841]/40">
-      <img src={image.src} alt={image.alt} loading="lazy" className="aspect-[16/9] w-full object-cover" />
-      {image.caption ? <figcaption className="px-4 py-3 text-[13px] leading-6 text-slate-500 dark:text-sky-100/65">{image.caption}</figcaption> : null}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        onError={(event) => {
+          event.currentTarget.onerror = null;
+          event.currentTarget.src = DEFAULT_REMOTE_IMAGE;
+        }}
+        className="aspect-[16/9] w-full object-cover"
+      />
+      {image?.caption ? <figcaption className="px-4 py-3 text-[13px] leading-6 text-slate-500 dark:text-sky-100/65">{image.caption}</figcaption> : null}
     </figure>
   );
 };
