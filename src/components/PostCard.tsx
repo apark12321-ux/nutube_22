@@ -1,6 +1,7 @@
 import React from 'react';
 import { GuidePost } from '../types';
 import { ArrowRight, Calendar, User } from 'lucide-react';
+import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface PostCardProps {
   post: GuidePost;
@@ -30,9 +31,14 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
       >
         <div className="aspect-[16/9] overflow-hidden bg-slate-900/20">
           <img
-            src={post.thumbnail?.src}
+            src={post.thumbnail?.src || DEFAULT_REMOTE_IMAGE}
             alt={post.thumbnail?.alt || post.title}
             loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = DEFAULT_REMOTE_IMAGE;
+            }}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
