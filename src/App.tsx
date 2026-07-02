@@ -12,6 +12,7 @@ type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail'
 interface RouteState {
   tab: Tab;
   post: GuidePost | null;
+  category: string | null;
 }
 
 interface PageSection {
@@ -25,6 +26,11 @@ const POSTS = applyPostDateSchedule(ALL_POSTS);
 const normalizePath = (pathname: string) => {
   const clean = pathname.replace(/\/+$/, '');
   return clean || '/';
+};
+
+const isKnownCategory = (value: string | null) => {
+  if (!value) return false;
+  return CATEGORIES_LIST.some((item) => item.key === value);
 };
 
 const findPostBySlug = (slug: string) => {
@@ -50,21 +56,26 @@ const resolveRoute = (pathname: string): RouteState => {
   if (path.startsWith('/post/')) {
     const titleSegment = path.replace('/post/', '');
     const matchedPost = findPostByTitle(titleSegment);
-    return matchedPost ? { tab: 'guide-detail', post: matchedPost } : { tab: 'guides', post: null };
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'guides', post: null, category: null };
   }
 
   if (path.startsWith('/guide/')) {
     const slug = path.replace('/guide/', '');
     const matchedPost = findPostBySlug(slug);
-    return matchedPost ? { tab: 'guide-detail', post: matchedPost } : { tab: 'guides', post: null };
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'guides', post: null, category: null };
   }
 
-  if (path === '/about') return { tab: 'about', post: null };
-  if (path === '/contact') return { tab: 'contact', post: null };
-  if (path === '/terms') return { tab: 'terms', post: null };
-  if (path === '/privacy') return { tab: 'privacy', post: null };
+  if (path.startsWith('/category/')) {
+    const categoryKey = decodeURIComponent(path.replace('/category/', ''));
+    return { tab: 'guides', post: null, category: isKnownCategory(categoryKey) ? categoryKey : null };
+  }
 
-  return { tab: 'guides', post: null };
+  if (path === '/about') return { tab: 'about', post: null, category: null };
+  if (path === '/contact') return { tab: 'contact', post: null, category: null };
+  if (path === '/terms') return { tab: 'terms', post: null, category: null };
+  if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
+
+  return { tab: 'guides', post: null, category: null };
 };
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
@@ -77,7 +88,7 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
 };
 
 const initialRoute = (): RouteState => {
-  if (typeof window === 'undefined') return { tab: 'guides', post: null };
+  if (typeof window === 'undefined') return { tab: 'guides', post: null, category: null };
   return resolveRoute(window.location.pathname);
 };
 
@@ -211,41 +222,36 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
           '본인이 제공한 개인정보의 열람 요청',
           '잘못된 정보의 정정 요청',
           '문의 정보 삭제 요청',
-          '개인정보 처리에 대한 문의 또는 이의 제기'
+          '개인정보 처리에 대한 문의 및 이의 제기'
         ]
       },
       {
         heading: '개인정보 문의',
-        body: ['개인정보 관련 문의는 apark12321@gmail.com 으로 보내주세요.']
+        body: ['개인정보 관련 문의는 apark12321@gmail.com 으로 보내주시면 확인 후 답변드리겠습니다.']
       }
     ]
   },
   terms: {
     title: '이용약관',
     updated: '2026년 6월 23일',
-    intro: '이 약관은 NuTube에서 제공하는 유튜브 채널 운영 정보, 가이드, 체크리스트, 참고 자료 이용에 관한 기본 조건을 정합니다.',
+    intro: '본 약관은 NuTube 사이트 이용과 콘텐츠 활용에 관한 기본 기준을 안내합니다. 사이트를 이용하는 경우 본 약관에 동의한 것으로 봅니다.',
     sections: [
       {
         heading: '서비스의 성격',
         body: [
-          'NuTube는 유튜브 채널 운영에 필요한 일반 정보와 실전 점검 자료를 제공하는 정보 사이트입니다. 제공되는 내용은 참고용이며, YouTube, Google, AdSense 등 각 플랫폼의 공식 정책과 심사 결과를 대체하지 않습니다.',
-          '각 글의 내용은 작성 시점의 정보와 운영 경험을 바탕으로 정리되며, 플랫폼 정책 변경이나 개별 채널 상황에 따라 적용 결과가 달라질 수 있습니다.'
+          'NuTube는 유튜브 채널 운영에 필요한 참고 정보를 제공하는 정보형 사이트입니다. 제공되는 내용은 일반적인 참고 자료이며, YouTube, Google, AdSense 등 플랫폼의 공식 입장이나 최종 판단을 대체하지 않습니다.'
         ]
       },
       {
         heading: '이용자의 책임',
-        items: [
-          '제공된 정보를 본인의 채널 상황에 맞게 검토한 뒤 적용해야 합니다.',
-          '수익화, 광고, 저작권, 개인정보, 커뮤니티 정책과 관련된 최종 판단은 각 플랫폼 공식 안내를 함께 확인해야 합니다.',
-          '타인의 저작권, 초상권, 개인정보를 침해하는 방식으로 콘텐츠를 제작해서는 안 됩니다.',
-          'NuTube의 콘텐츠를 무단 복제하여 다른 사이트에 대량 게시해서는 안 됩니다.'
+        body: [
+          '이용자는 NuTube의 정보를 참고하여 본인 채널과 상황에 맞게 판단해야 합니다. 정책, 수익화 조건, 광고 관련 기준은 수시로 바뀔 수 있으므로 중요한 결정 전에는 반드시 공식 문서와 본인 계정 화면을 함께 확인해야 합니다.'
         ]
       },
       {
         heading: '콘텐츠 저작권',
         body: [
-          'NuTube에 게시된 글, 구성, 문장, 표, 체크리스트 등은 사이트 운영자에게 권리가 있습니다. 개인 학습과 내부 참고 목적의 이용은 가능하지만, 상업적 복제·재배포·무단 전재는 허용하지 않습니다.',
-          '외부 공식 자료나 제3자 자료를 참고하는 경우, 해당 자료의 권리는 각 권리자에게 있습니다.'
+          'NuTube에 게시된 글, 구성, 이미지, 편집 요소의 저작권은 사이트 운영자 또는 해당 권리자에게 있습니다. 개인 학습과 참고 목적의 이용은 가능하지만, 무단 복제, 대량 수집, 재배포, 상업적 재가공은 허용하지 않습니다.'
         ]
       },
       {
@@ -281,16 +287,18 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
 };
 
 export default function App() {
+  const route = initialRoute();
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [tab, setTab] = useState<Tab>(() => initialRoute().tab);
-  const [post, setPost] = useState<GuidePost | null>(() => initialRoute().post);
+  const [tab, setTab] = useState<Tab>(route.tab);
+  const [post, setPost] = useState<GuidePost | null>(route.post);
   const [query, setQuery] = useState('');
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<string | null>(route.category);
 
   useEffect(() => {
     const handlePopState = () => {
       const next = resolveRoute(window.location.pathname);
       setPost(next.post);
+      setCategory(next.category);
       setTab(next.tab);
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
@@ -307,6 +315,17 @@ export default function App() {
       .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q));
   }, [query, category]);
 
+  const selectedCategory = category ? CATEGORIES_LIST.find((item) => item.key === category) : null;
+
+  const scrollToPosts = () => {
+    window.setTimeout(() => {
+      const target = document.getElementById('related-posts-section');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 80);
+  };
+
   const navigate = (next: Tab, selectedPost: GuidePost | null = null) => {
     const nextPath = pathForTab(next, selectedPost);
     if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
@@ -314,7 +333,23 @@ export default function App() {
     }
     setPost(next === 'guide-detail' ? selectedPost : null);
     setTab(next);
+    if (next !== 'guide-detail') setCategory(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const selectCategory = (key: string) => {
+    const nextCategory = category === key ? null : key;
+    const nextPath = nextCategory ? `/category/${nextCategory}` : '/';
+
+    if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
+      window.history.pushState({ tab: 'guides', category: nextCategory }, '', nextPath);
+    }
+
+    setPost(null);
+    setTab('guides');
+    setQuery('');
+    setCategory(nextCategory);
+    scrollToPosts();
   };
 
   const go = (next: Tab) => navigate(next);
@@ -339,21 +374,52 @@ export default function App() {
               </div>
             </section>
             <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-              <section className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-                {CATEGORIES_LIST.map((item) => (
-                  <button key={item.key} onClick={() => setCategory(category === item.key ? null : item.key)} className={category === item.key ? 'rounded-2xl border border-cyan-400 bg-cyan-500/10 p-4 text-left' : dark ? 'rounded-2xl border border-sky-950 bg-[#042841]/50 p-4 text-left' : 'rounded-2xl border border-sky-100 bg-white p-4 text-left shadow-sm'}>
-                    <div className="text-sm font-bold">{item.label}</div>
-                    <div className={dark ? 'mt-1 text-xs text-sky-300/60' : 'mt-1 text-xs text-slate-500'}>{item.description}</div>
-                  </button>
-                ))}
+              <section className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6" aria-label="가이드 카테고리">
+                {CATEGORIES_LIST.map((item) => {
+                  const active = category === item.key;
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => selectCategory(item.key)}
+                      className={active
+                        ? 'rounded-2xl border border-cyan-400 bg-cyan-500/10 p-4 text-left shadow-lg shadow-cyan-950/20 ring-2 ring-cyan-400/30 transition active:scale-[0.98]'
+                        : dark
+                          ? 'rounded-2xl border border-sky-950 bg-[#042841]/50 p-4 text-left transition hover:border-sky-700 active:scale-[0.98]'
+                          : 'rounded-2xl border border-sky-100 bg-white p-4 text-left shadow-sm transition hover:border-sky-300 active:scale-[0.98]'}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="text-sm font-bold">{item.label}</div>
+                        <span className={active ? 'rounded-full bg-cyan-400 px-2 py-0.5 text-[10px] font-black text-slate-950' : dark ? 'text-[10px] font-bold text-sky-300/45' : 'text-[10px] font-bold text-slate-400'}>
+                          보기
+                        </span>
+                      </div>
+                      <div className={dark ? 'mt-1 text-xs leading-5 text-sky-300/60' : 'mt-1 text-xs leading-5 text-slate-500'}>{item.description}</div>
+                    </button>
+                  );
+                })}
               </section>
+
               <div className={dark ? 'mb-8 rounded-2xl border border-sky-950 bg-[#042841]/40 p-4' : 'mb-8 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm'}>
-                <div className="relative max-w-md">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-400" />
-                  <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="가이드 검색" className={dark ? 'w-full rounded-xl border border-sky-950 bg-[#021321] py-2.5 pl-10 pr-4 text-sm text-white outline-none' : 'w-full rounded-xl border border-sky-100 bg-sky-50 py-2.5 pl-10 pr-4 text-sm text-slate-900 outline-none'} />
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="text-xs font-bold text-cyan-400">관련 포스팅</p>
+                    <h2 className={dark ? 'mt-1 text-xl font-black text-white' : 'mt-1 text-xl font-black text-slate-900'}>
+                      {selectedCategory ? `${selectedCategory.label} 가이드` : '전체 가이드'}
+                    </h2>
+                    <p className={dark ? 'mt-1 text-xs text-sky-300/60' : 'mt-1 text-xs text-slate-500'}>
+                      {selectedCategory ? `${posts.length}개의 관련 글을 확인할 수 있습니다.` : `${posts.length}개의 전체 글을 확인할 수 있습니다.`}
+                    </p>
+                  </div>
+                  <div className="relative w-full max-w-md">
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-400" />
+                    <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="가이드 검색" className={dark ? 'w-full rounded-xl border border-sky-950 bg-[#021321] py-2.5 pl-10 pr-4 text-sm text-white outline-none' : 'w-full rounded-xl border border-sky-100 bg-sky-50 py-2.5 pl-10 pr-4 text-sm text-slate-900 outline-none'} />
+                  </div>
                 </div>
               </div>
-              <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+              <section id="related-posts-section" className="scroll-mt-24 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {posts.map((item) => <PostCard key={item.slug} post={item} href={getPostPath(item)} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
               </section>
             </div>
