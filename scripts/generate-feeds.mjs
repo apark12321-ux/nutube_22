@@ -4,8 +4,8 @@ import path from 'path';
 const SITE_URL = 'https://nutube.kr';
 const ROOT = process.cwd();
 const DAY_MS = 24 * 60 * 60 * 1000;
-const SCHEDULE_END_UTC = Date.UTC(2026, 6, 1, 1, 0, 0);
-const STATIC_LASTMOD = '2026-07-01';
+const SCHEDULE_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
+const STATIC_LASTMOD = '2026-07-03';
 
 const REVIEW_HOLD_SLUGS = new Set([
   'shorts-rpm-maximization-strategy',
@@ -146,7 +146,7 @@ const buildRss = (posts) => {
     `    <link>${SITE_URL}/</link>`,
     '    <description>영상 채널 운영자가 바로 적용할 수 있는 콘텐츠 기획, 쇼츠 제작, AI 도구, 수익화 준비 체크리스트를 정리합니다.</description>',
     '    <language>ko-KR</language>',
-    '    <lastBuildDate>Wed, 01 Jul 2026 10:00:00 +0900</lastBuildDate>',
+    '    <lastBuildDate>Fri, 03 Jul 2026 10:00:00 +0900</lastBuildDate>',
     `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
   ];
 
