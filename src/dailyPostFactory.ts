@@ -112,14 +112,16 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
 const MIN_CONTENT_LENGTH_WITHOUT_SPACE = 3000;
 
 const pick = (items: string[], seed: number) => items[Math.abs(seed) % items.length];
-const dateKey = (value: string | Date) => new Date(value).toISOString().slice(0, 10);
 const formatKoreanDate = (date: Date) => `${date.getUTCMonth() + 1}월 ${date.getUTCDate()}일`;
 const dayIndex = (date: Date) => Math.floor((date.getTime() - Date.UTC(2026, 4, 1, 1, 0, 0)) / (24 * 60 * 60 * 1000));
 export const contentLengthWithoutSpace = (content: string) => content.replace(/\s/g, '').length;
 
 export const dailyTitle = (category: DailyCategory, date: Date) => {
   const seed = dayIndex(date) + DAILY_CATEGORIES.findIndex((item) => item.key === category.key) * 11;
-  return `${formatKoreanDate(date)} ${category.label}: ${pick(category.themes, seed)}로 ${pick(category.angles, seed + 3)} 만들기`;
+  const theme = pick(category.themes, seed);
+  const situation = pick(category.situations, seed + 1).replace(/ 상황$/g, '');
+  const angle = pick(category.angles, seed + 3);
+  return `${category.label}: ${theme}으로 ${situation} 해결하는 ${angle}`;
 };
 
 export const buildDailyContent = (category: DailyCategory, date: Date) => {
