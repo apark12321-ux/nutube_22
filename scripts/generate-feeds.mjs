@@ -142,9 +142,9 @@ const buildRss = (posts) => {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     '  <channel>',
-    '    <title>NuTube - 유튜브 채널 운영 실전 가이드</title>',
+    '    <title>크리에이터 가이드랩 - 영상 채널 운영 실전 가이드</title>',
     `    <link>${SITE_URL}/</link>`,
-    '    <description>유튜브 채널 운영자가 바로 적용할 수 있는 알고리즘, 수익화, AI 도구, 쇼츠 제작 전략을 정리합니다.</description>',
+    '    <description>영상 채널 운영자가 바로 적용할 수 있는 콘텐츠 기획, 쇼츠 제작, AI 도구, 수익화 준비 체크리스트를 정리합니다.</description>',
     '    <language>ko-KR</language>',
     '    <lastBuildDate>Wed, 01 Jul 2026 10:00:00 +0900</lastBuildDate>',
     `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
@@ -156,7 +156,7 @@ const buildRss = (posts) => {
     lines.push(`      <link>${escapeXml(post.url)}</link>`);
     lines.push(`      <guid isPermaLink="true">${escapeXml(post.url)}</guid>`);
     lines.push(`      <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>`);
-    lines.push(`      <description>${escapeXml(post.subtitle || '유튜브 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.')}</description>`);
+    lines.push(`      <description>${escapeXml(post.subtitle || '영상 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.')}</description>`);
     lines.push('    </item>');
   });
 
