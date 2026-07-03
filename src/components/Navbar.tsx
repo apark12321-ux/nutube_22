@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Moon, Sun, Youtube, Info, Mail } from 'lucide-react';
+import { BookOpen, Moon, Sun, Info, Mail, Clapperboard } from 'lucide-react';
 
 type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail';
 
@@ -20,11 +20,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
         <button onClick={() => setTab('guides')} className="flex items-center gap-2 text-left">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 shadow-md shadow-sky-500/20">
-            <Youtube className="h-5 w-5 text-white" />
+            <Clapperboard className="h-5 w-5 text-white" />
           </span>
           <span>
-            <span className={theme === 'dark' ? 'block font-display text-lg font-extrabold text-white' : 'block font-display text-lg font-extrabold text-slate-900'}>NuTube</span>
-            <span className="hidden text-[10px] text-slate-400 sm:block">유튜브 채널 운영 실전 가이드</span>
+            <span className={theme === 'dark' ? 'block font-display text-base font-extrabold text-white sm:text-lg' : 'block font-display text-base font-extrabold text-slate-900 sm:text-lg'}>크리에이터 가이드랩</span>
+            <span className="hidden text-[10px] text-slate-400 sm:block">영상 채널 운영 실전 가이드</span>
           </span>
         </button>
 
