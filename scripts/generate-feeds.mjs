@@ -6,6 +6,7 @@ const ROOT = process.cwd();
 const DAY_MS = 24 * 60 * 60 * 1000;
 const TWO_DAY_MS = DAY_MS * 2;
 const SCHEDULE_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
+const JUNE_START_UTC = Date.UTC(2026, 5, 1, 0, 0, 0);
 const STATIC_LASTMOD = '2026-07-03';
 
 const CATEGORY_ORDER = ['beginner', 'algorithm', 'aitools', 'monetization', 'senior', 'advanced'];
@@ -55,14 +56,16 @@ const categoryRank = (key) => {
   return index === -1 ? CATEGORY_ORDER.length : index;
 };
 
+const isArchivePost = (post) => new Date(post.publishedAt).getTime() < JUNE_START_UTC;
+
 const extractPosts = () => {
   const posts = [];
   sourceFiles.forEach((file) => {
     const content = fs.readFileSync(file, 'utf-8');
-    const pattern = /slug:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?subtitle:\s*'([^']*)'[\s\S]*?category:\s*'([^']+)'[\s\S]*?publishedAt:\s*'([^']+)'/g;
+    const pattern = /slug:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?subtitle:\s*'([^']*)'[\s\S]*?category:\s*'([^']+)'[\s\S]*?publishedAt:\s*'([^']+)'[\s\S]*?updatedAt:\s*'([^']+)'/g;
     let match;
     while ((match = pattern.exec(content))) {
-      posts.push({ slug: match[1], title: match[2], subtitle: match[3], category: match[4], publishedAt: match[5] });
+      posts.push({ slug: match[1], title: match[2], subtitle: match[3], category: match[4], publishedAt: match[5], updatedAt: match[6] });
     }
   });
 
@@ -75,8 +78,11 @@ const extractPosts = () => {
 };
 
 const applySchedule = (posts) => {
+  const archivePosts = posts.filter(isArchivePost).map((post) => ({ ...post, url: postUrl(post.title) }));
+  const targetPosts = posts.filter((post) => !isArchivePost(post));
   const grouped = new Map();
-  posts.forEach((post) => {
+
+  targetPosts.forEach((post) => {
     const group = grouped.get(post.category) || [];
     group.push(post);
     grouped.set(post.category, group);
@@ -98,7 +104,7 @@ const applySchedule = (posts) => {
       scheduled.push({ ...post, publishedAt: publishDate.toISOString(), updatedAt: updatedDate.toISOString(), url: postUrl(post.title) });
     });
   });
-  return scheduled;
+  return [...archivePosts, ...scheduled];
 };
 
 const ensureDist = () => {
@@ -139,4 +145,4 @@ const posts = applySchedule(extractPosts());
 const dist = ensureDist();
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), buildSitemap(posts), 'utf-8');
 fs.writeFileSync(path.join(dist, 'rss.xml'), buildRss(posts), 'utf-8');
-console.log(`[feeds] generated sitemap.xml and rss.xml for ${posts.length} category-scheduled posts`);
+console.log(`[feeds] generated sitemap.xml and rss.xml for ${posts.length} posts with archive dates`);
