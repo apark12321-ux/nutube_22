@@ -2,7 +2,18 @@ import { addPostImages } from './postImages';
 import { GuidePost } from './types';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const TWO_DAY_MS = DAY_MS * 2;
 const SCHEDULE_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
+
+const CATEGORY_ORDER = ['beginner', 'algorithm', 'aitools', 'monetization', 'senior', 'advanced'];
+const CATEGORY_OFFSETS: Record<string, number> = {
+  beginner: 0,
+  algorithm: 1,
+  aitools: 0,
+  monetization: 1,
+  senior: 0,
+  advanced: 1,
+};
 
 export const REVIEW_HOLD_SLUGS = new Set([
   'shorts-rpm-maximization-strategy',
@@ -30,25 +41,47 @@ export const postTitleSegment = (title: string) =>
 
 export const getPostPath = (post: Pick<GuidePost, 'title'>) => `/post/${postTitleSegment(post.title)}`;
 
+const categoryRank = (key: string) => {
+  const index = CATEGORY_ORDER.indexOf(key);
+  return index === -1 ? CATEGORY_ORDER.length : index;
+};
+
 export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
-  const chronological = [...posts]
-    .filter(isPublishedPost)
-    .sort((a, b) => {
-      const dateDiff = new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
-      return dateDiff || a.slug.localeCompare(b.slug);
-    });
+  const grouped = new Map<string, GuidePost[]>();
 
-  return chronological.map((post, index) => {
-    const dayOffset = chronological.length - 1 - index;
-    const publishDate = new Date(SCHEDULE_END_UTC - dayOffset * DAY_MS);
-    publishDate.setUTCHours(1 + (index % 8), (index % 4) * 10, 0, 0);
-
-    const updatedDate = new Date(publishDate.getTime() + 45 * 60 * 1000);
-
-    return addPostImages({
-      ...post,
-      publishedAt: publishDate.toISOString(),
-      updatedAt: updatedDate.toISOString(),
-    });
+  [...posts].filter(isPublishedPost).forEach((post) => {
+    const group = grouped.get(post.category) || [];
+    group.push(post);
+    grouped.set(post.category, group);
   });
+
+  const scheduled: GuidePost[] = [];
+
+  Array.from(grouped.entries())
+    .sort(([a], [b]) => categoryRank(a) - categoryRank(b))
+    .forEach(([categoryKey, items]) => {
+      const sorted = [...items].sort((a, b) => {
+        const dateDiff = new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
+        return dateDiff || a.slug.localeCompare(b.slug);
+      });
+
+      const rank = categoryRank(categoryKey);
+      const offsetDays = CATEGORY_OFFSETS[categoryKey] ?? rank % 2;
+
+      sorted.forEach((post, index) => {
+        const fromLatest = sorted.length - 1 - index;
+        const publishDate = new Date(SCHEDULE_END_UTC - offsetDays * DAY_MS - fromLatest * TWO_DAY_MS);
+        publishDate.setUTCHours(1 + ((rank + index) % 8), (index % 4) * 10, 0, 0);
+
+        const updatedDate = new Date(publishDate.getTime() + 45 * 60 * 1000);
+
+        scheduled.push(addPostImages({
+          ...post,
+          publishedAt: publishDate.toISOString(),
+          updatedAt: updatedDate.toISOString(),
+        }));
+      });
+    });
+
+  return scheduled.sort((a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime());
 };
