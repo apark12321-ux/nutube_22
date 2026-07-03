@@ -9,22 +9,13 @@ const FILL_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
 const STATIC_LASTMOD = '2026-07-03';
 
 const DAILY_CATEGORIES = [
-  { key: 'beginner', label: '왕초보 출발', author: '크리에이터 가이드랩 편집부', tag: '채널입문' },
-  { key: 'algorithm', label: '유튜브 알고리즘', author: '크리에이터 가이드랩 분석팀', tag: '운영분석' },
-  { key: 'aitools', label: 'AI 도구', author: '크리에이터 가이드랩 제작팀', tag: 'AI제작' },
-  { key: 'monetization', label: '영상 채널 수익화', author: '크리에이터 가이드랩 운영팀', tag: '수익화준비' },
-  { key: 'senior', label: '시니어 사연 쇼츠', author: '크리에이터 가이드랩 스토리팀', tag: '시니어콘텐츠' },
-  { key: 'advanced', label: '중고수 전략', author: '크리에이터 가이드랩 전략팀', tag: '채널전략' },
+  { key: 'beginner', label: '왕초보 출발', themes: ['첫 영상 주제 선택', '채널 소개 문장 설계', '첫 10초 도입부 구성', '촬영 전 대본 뼈대 만들기', '초보자가 버려야 할 완벽주의'], angles: ['바로 따라 할 수 있는 단순성', '공감되는 진정성', '지속 가능한 운영 기준'] },
+  { key: 'algorithm', label: '유튜브 알고리즘', themes: ['클릭률이 낮은 영상의 원인 분석', '시청 지속 시간이 떨어지는 구간 찾기', '추천 흐름이 약해진 영상 복구', '제목 변경 전 확인할 데이터', '썸네일 테스트의 판단 기준'], angles: ['지표를 행동으로 번역하는 관점', '흐름을 보는 분석 기준', '시리즈 단위 판단법'] },
+  { key: 'aitools', label: 'AI 도구', themes: ['AI 대본 초안을 사람 말투로 바꾸기', 'AI 음성 사용 전 감정선 점검', '자막 자동화 후 검수 기준', '썸네일 문구를 AI로 줄이는 방법', '자료 조사 프롬프트 설계'], angles: ['검수 체계 중심 운영', '속도와 신뢰성을 함께 잡는 방식', '운영자 경험을 보강하는 방법'] },
+  { key: 'monetization', label: '영상 채널 수익화', themes: ['수익화 전 단계에서 준비할 신뢰 요소', '협찬 제안을 받기 전 채널 정리', '멤버십보다 먼저 필요한 팬 관계', '상품 소개 영상의 신뢰 문장', '설명란과 고정댓글의 역할'], angles: ['신뢰를 먼저 만드는 관점', '장기 재방문을 보는 관점', '정책 안정성을 지키는 방식'] },
+  { key: 'senior', label: '시니어 사연 쇼츠', themes: ['시니어 시청자가 끝까지 보는 도입부', '사연 영상의 감정선 조절', '큰 자막과 쉬운 문장 구성', '댓글 공감을 부르는 질문', '생활 정보와 사연의 결합'], angles: ['따뜻하지만 과장하지 않는 관점', '시청자 경험을 존중하는 문장', '모바일 가독성을 먼저 보는 방식'] },
+  { key: 'advanced', label: '중고수 전략', themes: ['성장 정체 구간의 원인 분리', '시리즈 포맷 재설계', '채널 브랜딩 문장 정리', '롱폼과 쇼츠의 역할 분리', 'A/B 테스트의 올바른 순서'], angles: ['채널을 제품처럼 보는 관점', '성과를 구조별로 나누는 방식', '기존 자산을 재활용하는 전략'] },
 ];
-
-const DAILY_TITLE_PREFIX = {
-  beginner: '초보 크리에이터를 위한 오늘의 채널 점검',
-  algorithm: '영상 추천 흐름을 이해하는 오늘의 운영 점검',
-  aitools: 'AI 제작 도구를 활용하는 오늘의 작업 점검',
-  monetization: '영상 채널 수익화를 준비하는 오늘의 운영 점검',
-  senior: '시니어 시청자에게 전달력을 높이는 오늘의 콘텐츠 점검',
-  advanced: '성장 정체를 줄이는 오늘의 고급 운영 점검',
-};
 
 const hold = (...parts) => parts.join('-');
 const REVIEW_HOLD_SLUGS = new Set([
@@ -67,6 +58,13 @@ const postTitleSegment = (title) => String(title)
 const postUrl = (title) => `${SITE_URL}/post/${encodeURI(postTitleSegment(title))}`;
 const dateKey = (value) => new Date(value).toISOString().slice(0, 10);
 const formatKoreanDate = (date) => `${date.getUTCMonth() + 1}월 ${date.getUTCDate()}일`;
+const pick = (items, seed) => items[Math.abs(seed) % items.length];
+const dayIndex = (date) => Math.floor((date.getTime() - FILL_START_UTC) / DAY_MS);
+const dailyTitle = (category, date) => {
+  const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === category.key);
+  const seed = dayIndex(date) + categoryIndex * 11;
+  return `${formatKoreanDate(date)} ${category.label}: ${pick(category.themes, seed)}로 ${pick(category.angles, seed + 3)} 만들기`;
+};
 
 const extractPosts = () => {
   const posts = [];
@@ -89,7 +87,7 @@ const extractPosts = () => {
 
 const makeDailyPost = (category, date) => {
   const key = date.toISOString().slice(0, 10);
-  const title = `${DAILY_TITLE_PREFIX[category.key]}: ${formatKoreanDate(date)} 체크리스트`;
+  const title = dailyTitle(category, date);
   const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === category.key);
   const publishedAt = new Date(date);
   publishedAt.setUTCHours(1 + categoryIndex, 0, 0, 0);
@@ -98,7 +96,7 @@ const makeDailyPost = (category, date) => {
   return {
     slug: `daily-${category.key}-${key}`,
     title,
-    subtitle: `${category.label} 카테고리에서 오늘 확인해야 할 핵심 운영 기준을 정리했습니다.`,
+    subtitle: `${category.label} 카테고리에서 ${formatKoreanDate(date)}에 다루기 좋은 실전형 운영 주제를 깊이 있게 정리했습니다.`,
     category: category.key,
     publishedAt: publishedAt.toISOString(),
     updatedAt: updatedAt.toISOString(),
@@ -112,7 +110,6 @@ const fillMissingDailyCategoryPosts = (posts) => {
     const updatedAt = new Date(publishedAt.getTime() + 45 * 60 * 1000);
     return { ...post, publishedAt: publishedAt.toISOString(), updatedAt: updatedAt.toISOString(), url: postUrl(post.title) };
   });
-
   const existing = new Set(normalized.map((post) => `${post.category}:${dateKey(post.publishedAt)}`));
   const filled = [...normalized];
 
@@ -127,7 +124,6 @@ const fillMissingDailyCategoryPosts = (posts) => {
       }
     });
   }
-
   return filled;
 };
 
@@ -153,7 +149,7 @@ const buildSitemap = (posts) => {
 };
 
 const buildRss = (posts) => {
-  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '  <channel>', '    <title>크리에이터 가이드랩 - 영상 채널 운영 실전 가이드</title>', `    <link>${SITE_URL}/</link>`, '    <description>영상 채널 운영자가 바로 적용할 수 있는 콘텐츠 기획, 쇼츠 제작, AI 도구, 수익화 준비 체크리스트를 정리합니다.</description>', '    <language>ko-KR</language>', '    <lastBuildDate>Fri, 03 Jul 2026 10:00:00 +0900</lastBuildDate>', `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`];
+  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '  <channel>', '    <title>크리에이터 가이드랩 - 영상 채널 운영 실전 가이드</title>', `    <link>${SITE_URL}/</link>`, '    <description>영상 채널 운영자가 바로 적용할 수 있는 콘텐츠 기획, 쇼츠 제작, AI 도구, 수익화 준비 전략을 정리합니다.</description>', '    <language>ko-KR</language>', '    <lastBuildDate>Fri, 03 Jul 2026 10:00:00 +0900</lastBuildDate>', `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`];
   [...posts].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).forEach((post) => lines.push('    <item>', `      <title>${escapeXml(post.title)}</title>`, `      <link>${escapeXml(post.url)}</link>`, `      <guid isPermaLink="true">${escapeXml(post.url)}</guid>`, `      <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>`, `      <description>${escapeXml(post.subtitle || '영상 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.')}</description>`, '    </item>'));
   lines.push('  </channel>', '</rss>');
   return `${lines.join('\n')}\n`;
@@ -163,4 +159,4 @@ const posts = fillMissingDailyCategoryPosts(extractPosts());
 const dist = ensureDist();
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), buildSitemap(posts), 'utf-8');
 fs.writeFileSync(path.join(dist, 'rss.xml'), buildRss(posts), 'utf-8');
-console.log(`[feeds] generated sitemap.xml and rss.xml for ${posts.length} filled daily category posts`);
+console.log(`[feeds] generated sitemap.xml and rss.xml for ${posts.length} varied daily category posts`);
