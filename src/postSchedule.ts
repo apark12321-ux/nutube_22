@@ -2,7 +2,7 @@ import { addPostImages } from './postImages';
 import { GuidePost } from './types';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const SCHEDULE_END_UTC = Date.UTC(2026, 6, 1, 1, 0, 0);
+const SCHEDULE_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
 
 export const REVIEW_HOLD_SLUGS = new Set([
   'shorts-rpm-maximization-strategy',
