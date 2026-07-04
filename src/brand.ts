@@ -1,12 +1,10 @@
-export const SITE_DISPLAY_NAME = '크리에이터 가이드랩';
-export const SITE_ENGLISH_NAME = 'Creator Guide Lab';
+export const SITE_DISPLAY_NAME = '유튜브랩';
+export const SITE_ENGLISH_NAME = 'YouTube Lab';
 
 const replaceText = (value: string) =>
   value
     .replace(/NuTube/g, SITE_DISPLAY_NAME)
-    .replace(/nutube/gi, SITE_ENGLISH_NAME)
-    .replace(/유튜브 채널 운영 실전 가이드/g, '영상 채널 운영 실전 가이드')
-    .replace(/유튜브 채널 운영 가이드/g, '영상 채널 운영 가이드');
+    .replace(/nutube/gi, SITE_ENGLISH_NAME);
 
 const walkTextNodes = (root: Node) => {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, Moon, Sun, Info, Mail, Clapperboard } from 'lucide-react';
+import { SITE_DISPLAY_NAME } from '../brand';
 
 type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail';
 
@@ -23,8 +24,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setTab, theme, toggl
             <Clapperboard className="h-5 w-5 text-white" />
           </span>
           <span>
-            <span className={theme === 'dark' ? 'block font-display text-base font-extrabold text-white sm:text-lg' : 'block font-display text-base font-extrabold text-slate-900 sm:text-lg'}>크리에이터 가이드랩</span>
-            <span className="hidden text-[10px] text-slate-400 sm:block">영상 채널 운영 실전 가이드</span>
+            <span className={theme === 'dark' ? 'block font-display text-base font-extrabold text-white sm:text-lg' : 'block font-display text-base font-extrabold text-slate-900 sm:text-lg'}>{SITE_DISPLAY_NAME}</span>
+            <span className="hidden text-[10px] text-slate-400 sm:block">유튜브 채널 운영 실전 가이드</span>
           </span>
         </button>
 
