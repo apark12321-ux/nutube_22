@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, User, BookOpen, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, User, BookOpen, CheckCircle2, AlertTriangle, FileText, List } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface GuideReaderProps {
@@ -122,17 +122,7 @@ const ImageFigure = ({ image }: { image?: PostImage }) => {
   );
 };
 
-const checklist = [
-  '본인 채널의 주제와 시청자층에 맞는지 먼저 확인합니다.',
-  '업로드 전 제목, 썸네일, 도입부, 설명란을 함께 점검합니다.',
-  '업로드 후 노출수, 클릭률, 평균 시청 지속 시간, 댓글 반응을 기록합니다.',
-];
-
-const mistakes = [
-  '조회수 하나만 보고 영상의 성과를 판단하는 것',
-  '검증되지 않은 팁을 모든 영상에 한꺼번에 적용하는 것',
-  '시청자에게 필요한 정보보다 운영자의 기대 효과를 먼저 강조하는 것',
-];
+// Static checklists removed to show dynamic guide summary and table of contents
 
 export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, onBack, theme = 'dark' }) => {
   const [scrollPercent, setScrollPercent] = useState(0);
@@ -197,31 +187,76 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
 
         <ImageFigure image={post.thumbnail} />
 
-        <section className={`mb-8 rounded-2xl border p-5 sm:p-6 ${dark ? 'border-sky-950 bg-[#032841]/50' : 'border-sky-100 bg-white shadow-sm'}`}>
-          <div className="flex items-start gap-3">
-            <BookOpen className="mt-1 h-5 w-5 shrink-0 text-cyan-400" />
-            <div>
-              <h2 className={dark ? 'text-lg font-extrabold text-white' : 'text-lg font-extrabold text-slate-900'}>이 가이드의 활용 방법</h2>
-              <p className={dark ? 'mt-2 text-sm leading-7 text-sky-100/80' : 'mt-2 text-sm leading-7 text-slate-700'}>아래 내용은 채널 운영자가 업로드 전후에 점검할 항목을 정리한 자료입니다. 실제 적용 전에는 본인 채널의 주제, 시청자층, YouTube 스튜디오 데이터를 함께 확인하세요.</p>
+        {/* 가이드 핵심 요약 및 목차 영역 */}
+        <section className="mb-8 grid gap-6 md:grid-cols-2" id="guide-overview-section">
+          {/* 가이드 핵심 요약 */}
+          <div className={`rounded-2xl border p-5 sm:p-6 flex flex-col ${dark ? 'border-sky-950 bg-[#032841]/50' : 'border-sky-100 bg-white shadow-sm'}`}>
+            <div className="flex items-center gap-2 mb-4">
+              <FileText className="h-5 w-5 text-cyan-400 shrink-0" />
+              <h2 className={`text-base font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📝 가이드 요약 정리</h2>
             </div>
+            <p className={`text-sm leading-7 ${dark ? 'text-sky-100/80' : 'text-slate-700'}`}>
+              {renderFormattedText(post.summary || `${post.title}에 대한 핵심 요약 내용입니다. 채널 성장을 위한 구체적이고 실전적인 방법론들을 아래 본문에서 세부적으로 풀어냅니다.`)}
+            </p>
           </div>
-        </section>
 
-        <section className="mb-8 grid gap-4 md:grid-cols-2">
-          <div className={`rounded-2xl border p-5 ${dark ? 'border-emerald-900/50 bg-emerald-950/20' : 'border-emerald-100 bg-emerald-50/60'}`}>
-            <h2 className={`flex items-center gap-2 text-base font-extrabold ${dark ? 'text-emerald-200' : 'text-emerald-800'}`}><CheckCircle2 className="h-5 w-5" />먼저 확인할 것</h2>
-            <ul className={`mt-3 space-y-2 text-sm leading-7 ${dark ? 'text-emerald-50/85' : 'text-emerald-950'}`}>{checklist.map((item) => <li key={item}>- {item}</li>)}</ul>
-          </div>
-          <div className={`rounded-2xl border p-5 ${dark ? 'border-amber-900/50 bg-amber-950/20' : 'border-amber-100 bg-amber-50/70'}`}>
-            <h2 className={`flex items-center gap-2 text-base font-extrabold ${dark ? 'text-amber-200' : 'text-amber-800'}`}><AlertTriangle className="h-5 w-5" />피해야 할 실수</h2>
-            <ul className={`mt-3 space-y-2 text-sm leading-7 ${dark ? 'text-amber-50/85' : 'text-amber-950'}`}>{mistakes.map((item) => <li key={item}>- {item}</li>)}</ul>
+          {/* 가이드 목차 */}
+          <div className={`rounded-2xl border p-5 sm:p-6 flex flex-col ${dark ? 'border-sky-950 bg-[#032841]/50' : 'border-sky-100 bg-white shadow-sm'}`}>
+            <div className="flex items-center gap-2 mb-4">
+              <List className="h-5 w-5 text-cyan-400 shrink-0" />
+              <h2 className={`text-base font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📋 가이드 목차</h2>
+            </div>
+            <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+              {blocks
+                .map((block, idx) => ({ block, idx }))
+                .filter(({ block }) => {
+                  if (block.type !== 'h2' && block.type !== 'h3') return false;
+                  const headingText = block.lines[0] || '';
+                  const cleanText = headingText.trim().toLowerCase();
+                  const cleanTitle = post.title.trim().toLowerCase();
+                  // Skip main title matching headings to avoid redundant items
+                  if (cleanText === cleanTitle || cleanText.includes(cleanTitle) || cleanTitle.includes(cleanText)) {
+                    return false;
+                  }
+                  return true;
+                })
+                .map(({ block, idx }) => {
+                  const isH3 = block.type === 'h3';
+                  return (
+                    <li key={idx} className={isH3 ? 'pl-4' : ''}>
+                      <button
+                        onClick={() => {
+                          const element = document.getElementById(`heading-${idx}`);
+                          if (element) {
+                            const headerOffset = 80;
+                            const elementPosition = element.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                            window.scrollTo({
+                              top: offsetPosition,
+                              behavior: 'smooth'
+                            });
+                          }
+                        }}
+                        className={`text-left text-sm transition-colors hover:underline hover:cursor-pointer flex items-center gap-1.5 ${
+                          isH3
+                            ? `${dark ? 'text-sky-300/80 hover:text-cyan-400' : 'text-slate-600 hover:text-sky-700'} font-normal text-[13px] py-0.5`
+                            : `${dark ? 'text-sky-100/95 hover:text-cyan-400' : 'text-slate-800 hover:text-sky-700'} font-bold py-1 mt-2 first:mt-0`
+                        }`}
+                      >
+                        <span className={`inline-block rounded-full bg-cyan-400 shrink-0 ${isH3 ? 'h-1 w-1' : 'h-1.5 w-1.5'}`} />
+                        <span className="truncate">{block.lines[0]}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         </section>
 
         <article className={`space-y-6 break-keep text-[16px] leading-8 sm:text-[17px] sm:leading-9 ${dark ? 'text-sky-100/90' : 'text-slate-800'}`} id="guide-markdown-body">
           {blocks.map((block, index) => {
-            if (block.type === 'h2') return <h2 key={index} className={`border-b pb-2 pt-6 text-2xl font-black tracking-tight ${dark ? 'border-sky-950/50 text-white' : 'border-sky-100 text-[#011d33]'}`}>{renderFormattedText(block.lines[0])}</h2>;
-            if (block.type === 'h3') return <h3 key={index} className={`flex items-center gap-2 pt-4 text-xl font-extrabold ${dark ? 'text-sky-100' : 'text-slate-900'}`}><span className="inline-block h-4 w-1 rounded-full bg-sky-500" />{renderFormattedText(block.lines[0])}</h3>;
+            if (block.type === 'h2') return <h2 key={index} id={`heading-${index}`} className={`border-b pb-2 pt-6 text-2xl font-black tracking-tight ${dark ? 'border-sky-950/50 text-white' : 'border-sky-100 text-[#011d33]'}`}>{renderFormattedText(block.lines[0])}</h2>;
+            if (block.type === 'h3') return <h3 key={index} id={`heading-${index}`} className={`flex items-center gap-2 pt-4 text-xl font-extrabold ${dark ? 'text-sky-100' : 'text-slate-900'}`}><span className="inline-block h-4 w-1 rounded-full bg-sky-500" />{renderFormattedText(block.lines[0])}</h3>;
             if (block.type === 'divider') return <hr key={index} className={dark ? 'my-8 border-sky-950/50' : 'my-8 border-sky-100'} />;
             if (block.type === 'list') return <ul key={index} className={`space-y-2.5 rounded-xl border p-5 pl-7 text-[15px] leading-8 ${dark ? 'border-sky-950/40 bg-[#032841]/30 text-sky-100/90' : 'border-sky-100 bg-sky-50/40 text-slate-700'}`}>{block.lines.map((line, i) => <li key={i} className="list-disc">{renderFormattedText(line)}</li>)}</ul>;
             if (block.type === 'code') return <pre key={index} className="overflow-x-auto rounded-xl border border-sky-950 bg-slate-950 p-4 text-sm leading-7 text-cyan-200"><code>{block.lines.join('\n')}</code></pre>;

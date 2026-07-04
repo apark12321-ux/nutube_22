@@ -56,7 +56,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
             {post.title}
           </h3>
           <p className={theme === 'dark' ? 'mt-3 line-clamp-3 text-[13px] leading-6 text-sky-300/70' : 'mt-3 line-clamp-3 text-[13px] leading-6 text-slate-500'}>
-            {post.summary || '유튜브 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.'}
+            {(post.summary || '유튜브 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.').replace(/\*\*/g, '').replace(/`/g, '')}
           </p>
           {post.thumbnail?.caption ? (
             <p className={theme === 'dark' ? 'mt-3 line-clamp-2 text-[11px] leading-5 text-sky-300/45' : 'mt-3 line-clamp-2 text-[11px] leading-5 text-slate-400'}>

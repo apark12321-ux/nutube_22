@@ -27,7 +27,7 @@ const uniqueImageUrl = (post: GuidePost, slot: 'thumb' | 'body-a' | 'body-b') =>
 const makeThumbnail = (post: GuidePost): PostImage => ({
   src: uniqueImageUrl(post, 'thumb'),
   alt: `${categoryLabel(post)} 주제의 영상 채널 운영 가이드 썸네일 이미지`,
-  caption: '글의 핵심 주제를 한눈에 확인할 수 있는 대표 이미지입니다.',
+  caption: post.title,
 });
 
 const makeBodyImage = (post: GuidePost, slot: 'body-a' | 'body-b', order: number): PostImage => ({

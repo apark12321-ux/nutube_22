@@ -185,6 +185,56 @@ ${format}으로 제작한다면 첫 단계는 소재를 넓히는 것이 아니�
 ${dateText} ${category.label} 포스팅의 핵심은 ${theme}을 통해 ${category.promise}입니다. 오늘은 많은 항목을 한꺼번에 고치려 하기보다, ${situation}에서 출발해 ${metric}으로 결과를 확인하고 ${nextMove}로 다음 콘텐츠를 연결하는 것이 좋습니다. 이렇게 쌓인 글은 날짜만 채운 글이 아니라 카테고리 안에서 서로 연결되는 운영 기록이 됩니다. 결국 좋은 콘텐츠 운영은 한 번의 강한 제목보다, 매일 같은 기준으로 시청자의 문제를 발견하고 해결하는 누적 과정에 가깝습니다.`;
 };
 
+export const buildDailySummary = (category: DailyCategory, date: Date) => {
+  const seed = dayIndex(date) + DAILY_CATEGORIES.findIndex((item) => item.key === category.key) * 17;
+  const theme = pick(category.themes, seed);
+  const situation = pick(category.situations, seed + 1).replace(/ 상황$/g, '');
+  const angle = pick(category.angles, seed + 3);
+  const nextMove = pick(category.nextMoves, seed + 6);
+
+  return `${category.label} 운영자를 위해 마련된 맞춤형 성장 가이드입니다. 이번 글에서는 **'${theme}'** 주제를 다루며, **'${situation}'**의 고충을 해결할 수 있는 **'${angle}'** 관점의 실무 해법을 전해드립니다. 여기에 구체적인 핵심 지표 분석과 발행 후 즉각 이행할 수 있는 **'${nextMove}'** 액션 전략까지 모두 담았습니다.`;
+};
+
+export const buildDeepDiveContent = (category: DailyCategory, date: Date) => {
+  const seed = dayIndex(date) + DAILY_CATEGORIES.findIndex((item) => item.key === category.key) * 17 + 23; // shift seed offset to ensure unique content
+  const theme = pick(category.themes, seed);
+  const situation = pick(category.situations, seed + 1).replace(/ 상황$/g, '');
+  const format = pick(category.formats, seed + 2);
+  const angle = pick(category.angles, seed + 3);
+  const mistake = pick(category.mistakes, seed + 4);
+  const metric = pick(category.metrics, seed + 5);
+  const nextMove = pick(category.nextMoves, seed + 6);
+
+  return `### 💡 실전 적용을 위한 심화 가이드라인
+
+오늘의 주제인 **${theme}**을 실제 운영에 완벽히 이식하기 위해서는 단순 이론 분석을 넘어 정량적 체계와 행동 수칙이 필수적입니다. 특히 ${category.audience}를 위해 자칫 간과하기 쉬운 디테일들을 한 단계 깊게 점검합니다.
+
+---
+
+### 1단계: 발행 전 완벽 점검 목록
+- **독자의 고충 맞춤형 설계**: 현재 준비 중인 도입부와 제목이 **${situation}** 상황을 해결할 수 있는 직관적인 해결책을 암시하는지 체크하세요.
+- **포맷형 레이아웃 구성**: 이번 주제를 **${format}** 형태로 기획할 때, 독자가 초반 10초 이내에 시청(또는 스크롤)을 지속할 명확한 근거와 시각적 혜택이 있어야 합니다.
+- **치명적 실수 방지**: 가장 빈번히 일어나는 오류인 **${mistake}**의 요소를 사전에 걸러냈는지 본문을 직접 꼼꼼히 낭독하며 감수하세요.
+
+---
+
+### 2단계: 핵심 행동 지침 및 문장 설계
+- **훅 문구 재설계**: 독자의 뇌리에 메시지를 꽂아 넣기 위해, **${angle}** 시각에 기반한 단 한 문장의 명확한 해결 원칙을 던지며 이야기를 시작합니다.
+- **중반 이탈 지점 제어**: 장황한 서술은 무조건 스킵을 부릅니다. 문장을 두 문장 이하로 쪼개고, 줄 바꿈과 수치(Data)를 섞어 모바일 가독성을 한계까지 높여주세요.
+- **정교한 흐름 유도**: 본문의 핵심 제안 이후, 마지막 단추로 **${nextMove}** 전략을 행동 촉구(CTA)로 녹여내어 독자가 채널 내에서 지속적인 성장 여정을 이어가도록 만드세요.
+
+---
+
+### 3단계: 성과 수치 분석 및 피드백 순환
+- **최우선 관측 지표**: 업로드 후 겉보기 조회수만 바라보지 말고, **${metric}** 지표를 최우선 지침서로 설정하세요. 이 변수를 기록하고 수정하는 과정에서 핵심 독자층이 고정됩니다.
+- **지표 부진 시 대처법**: 원인을 쪼개 확인해야 합니다. 만약 노출 클릭이 부진하다면 본문 수정이 아닌 패키징 및 제목 구조 미세조정부터 시작하며 순차적으로 테스트를 갱신하세요.
+
+---
+
+### 심화 핵심 메모 요약
+성장의 비밀은 자극성에 있지 않고, 매일 반복되는 미세한 품질 검수와 올바른 지표 관리에 숨어있습니다. 오늘 제안 드린 **${theme}** 심화 체크리스트를 지금 바로 기획 시트에 기록하여 창작 과정을 한 차원 업그레이드해 보세요.`;
+};
+
 export const makeDailyPost = (category: DailyCategory, date: Date): GuidePost => {
   const key = date.toISOString().slice(0, 10);
   const title = dailyTitle(category, date);
@@ -202,7 +252,7 @@ export const makeDailyPost = (category: DailyCategory, date: Date): GuidePost =>
     publishedAt: publishedAt.toISOString(),
     updatedAt: updatedAt.toISOString(),
     author: category.author,
-    summary: `${category.label} 운영자가 ${formatKoreanDate(date)}에 바로 적용할 수 있는 주제 선정, 제목 구성, 본문 흐름, 지표 확인, 후속 콘텐츠 연결 전략입니다.`,
+    summary: buildDailySummary(category, date),
     tags: [category.tag, '영상채널운영', '콘텐츠기획', '운영전략', '크리에이터가이드'],
     readTime: '12분',
     likes: 0,
@@ -212,8 +262,9 @@ export const makeDailyPost = (category: DailyCategory, date: Date): GuidePost =>
 };
 
 export const ensureMinimumPostLength = (post: GuidePost) => {
+  if (post.content.includes('## 💡 심화 보강 해설') || post.content.includes('## 심화 보강 해설')) return post;
   if (contentLengthWithoutSpace(post.content) >= MIN_CONTENT_LENGTH_WITHOUT_SPACE) return post;
   const category = DAILY_CATEGORIES.find((item) => item.key === post.category) || DAILY_CATEGORIES[0];
-  const extension = buildDailyContent(category, new Date(post.publishedAt));
-  return { ...post, content: `${post.content}\n\n---\n\n## 심화 보강 해설\n\n${extension}` };
+  const deepDive = buildDeepDiveContent(category, new Date(post.publishedAt));
+  return { ...post, content: `${post.content}\n\n---\n\n## 💡 심화 보강 해설\n\n${deepDive}` };
 };
