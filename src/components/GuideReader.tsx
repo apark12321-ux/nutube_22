@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, User, BookOpen, CheckCircle2, AlertTriangle, FileText, List } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, User, BookOpen, CheckCircle2, AlertTriangle, FileText, List } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface GuideReaderProps {
@@ -181,6 +181,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           <p className={`mt-4 text-base font-semibold leading-8 sm:text-xl ${dark ? 'text-sky-200/85' : 'text-slate-600'}`}>{post.subtitle}</p>
           <div className={`mt-6 flex flex-wrap items-center gap-4 border-t pt-4 text-sm ${dark ? 'border-sky-950/50 text-slate-400' : 'border-sky-100 text-slate-500'}`}>
             <span className="flex items-center gap-1.5"><User className="h-4 w-4" />{post.author || 'NuTube 편집부'}</span>
+            <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" />{formatDate(post.publishedAt)}</span>
           </div>
         </header>
 

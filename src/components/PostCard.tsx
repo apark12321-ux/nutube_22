@@ -1,6 +1,6 @@
 import React from 'react';
 import { GuidePost } from '../types';
-import { ArrowRight, User } from 'lucide-react';
+import { ArrowRight, Calendar, User } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface PostCardProps {
@@ -12,6 +12,9 @@ interface PostCardProps {
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor, href, theme = 'dark' }) => {
+  const date = new Date(post.publishedAt);
+  const formattedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     onSelect(post);
@@ -65,6 +68,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
         <div className={theme === 'dark' ? 'mx-5 mb-5 flex items-center justify-between border-t border-sky-950/50 pt-4 text-[11px] text-sky-300/45' : 'mx-5 mb-5 flex items-center justify-between border-t border-sky-100 pt-4 text-[11px] text-slate-400'}>
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1"><User className="h-3 w-3" />{post.author}</span>
+            <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{formattedDate}</span>
           </div>
           <span className={theme === 'dark' ? 'flex items-center gap-1 font-semibold text-cyan-400' : 'flex items-center gap-1 font-semibold text-sky-600'}>
             가이드 보기 <ArrowRight className="h-3 w-3" />
