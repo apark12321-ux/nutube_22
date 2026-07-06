@@ -182,11 +182,13 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
     }
 
     const content = removeDatesAndClean(post.content);
-    const summary = removeDatesAndClean(post.summary);
+    const summary = post.summary ? removeDatesAndClean(post.summary) : undefined;
 
     const tags = post.tags
-      .map(tag => removeDatesAndClean(tag).replace(/\s+/g, ''))
-      .filter(tag => tag && tag !== '최근');
+      ? post.tags
+          .map(tag => removeDatesAndClean(tag).replace(/\s+/g, ''))
+          .filter(tag => tag && tag !== '최근')
+      : undefined;
 
     return {
       ...post,
