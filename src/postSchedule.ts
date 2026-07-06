@@ -4,7 +4,7 @@ import { GuidePost } from './types';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const FILL_START_UTC = Date.UTC(2026, 4, 1, 1, 0, 0);
-const FILL_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
+const FILL_END_UTC = Date.UTC(2026, 6, 6, 1, 0, 0);
 
 const hold = (...parts: string[]) => parts.join('-');
 export const REVIEW_HOLD_SLUGS = new Set([
