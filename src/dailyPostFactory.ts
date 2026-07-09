@@ -240,7 +240,7 @@ export const makeDailyPost = (category: DailyCategory, date: Date): GuidePost =>
   publishedAt.setUTCHours(1 + categoryIndex, 0, 0, 0);
   const updatedAt = new Date(publishedAt.getTime() + 45 * 60 * 1000);
 
-  if (key === '2026-07-07') {
+  if (key === '2026-07-07' || key === '2026-07-09') {
     let newsTitle = title;
     let newsSubtitle = `${category.label} 카테고리에서 깊이 있게 다루기 좋은 실전형 운영 주제를 선별하여 정리했습니다.`;
     let newsSummary = buildDailySummary(category, date);
