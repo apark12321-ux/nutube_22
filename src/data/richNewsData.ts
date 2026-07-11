@@ -1,4 +1,4 @@
-import { CategoryKey, GuidePost } from '../types';
+import { CategoryKey, GuidePost, DifficultyLevel } from '../types';
 import { DailyCategory } from '../dailyPostFactory';
 
 export interface DynamicPostConfig {

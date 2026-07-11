@@ -1,10 +1,17 @@
 export type CategoryKey = 
-  | 'algorithm' 
-  | 'senior' 
-  | 'aitools' 
-  | 'monetization' 
-  | 'beginner' 
+  | 'youtube' 
+  | 'instagram' 
+  | 'tiktok' 
+  | 'blog' 
+  | 'digital_biz'
+  | 'algorithm'
+  | 'senior'
+  | 'aitools'
+  | 'monetization'
+  | 'beginner'
   | 'advanced';
+
+export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface CategorySpec {
   key: CategoryKey;
@@ -41,6 +48,7 @@ export interface GuidePost {
   authorityLabel?: string;
   thumbnail?: PostImage;
   bodyImages?: [PostImage, PostImage];
+  level?: DifficultyLevel;
 }
 
 export interface TitleSuggestion {

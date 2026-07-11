@@ -1,9 +1,11 @@
-import { CategorySpec, GuidePost } from './types';
+import { CategorySpec, GuidePost, CategoryKey } from './types';
 import { POSTS_GROUP_1 } from './data/posts1';
 import { POSTS_GROUP_2 } from './data/posts2';
 import { POSTS_GROUP_3_part1 } from './data/posts3_part1';
 import { POSTS_GROUP_3_part2 } from './data/posts3_part2';
 import { POSTS_GROUP_3_part3 } from './data/posts3_part3';
+import { EXTRA_POSTS } from './data/extra_posts';
+
 
 const JUNE_14_SHORTS_RPM_GUIDE: GuidePost = {
   slug: 'shorts-rpm-maximization-strategy',
@@ -266,38 +268,221 @@ const PREMIUM_ADSENSE_GUIDE: GuidePost = {
 애드센스는 법적으로 전 세계에 "인당 단 한 개의 계정"만을 승인합니다. 오래전 휴대전화 가입, Google Play 결제, 부계정 가입 등에서 중복 설정된 채널 꼬임은 즉시 불합격 요인을 선언합니다.
 
 #### 1. 구형 휴면 계정 강제 정지
+#### 1. 구형 휴면 계정 강제 정지
 기억에서 잊혀진 예전 이메일을 찾아 반드시 구글 애드센스 사이트에 로그인 후 '계정 해지 및 탈퇴'를 완수해야 합니다.
-- 만약 과거 폐기된 계정 명의를 도저히 찾을 수 없을 때는 본 계정을 정식 영구 폐쇄한 뒤, **새로운 통신 포트 및 결제 통장 명의자가 될 수 있는 가족 명의로 우회 개통**하는 노선이 가장 상처 없는 우회 해법입니다.
+- 만약 과거에 생성한 가입 계정이 있다면 반드시 하나의 대표 구글 계정으로 통합한 후 심사를 재요청하십시오.
+- 애드센스 승인 거절은 무서운 형벌이 아니라, 단지 플랫폼의 정량적 규칙을 맞추는 정비 과정일 뿐입니다. E-E-A-T 가이드라인을 준수하여 당당히 승인 도장을 받아내시기 바랍니다.`
+};
+
+const INSTAGRAM_REELS_ALGORITHM_GUIDE: GuidePost = {
+  slug: 'instagram-reels-algorithm-formula',
+  title: '2026 인스타그램 릴스 알고리즘 공식: 노출률과 바이럴 도달의 3대 핵심 변수',
+  subtitle: '팔로워 0명에서 시작해 첫 릴스 조회수 10만 회를 돌파하기 위한 오가닉 배출 공식과 추천 트리거 분석',
+  category: 'instagram',
+  categoryLabel: '인스타그램 수익화',
+  publishedAt: '2026-07-11T10:00:00Z',
+  updatedAt: '2026-07-11T10:15:00Z',
+  author: '인스타 브랜딩 디렉터 제이슨',
+  summary: '인스타그램 릴스 추천 시스템의 변화를 분석하고, 완시청률(Watch Time), 반복 시청률, 저장 및 공유 비율을 높이는 3가지 디자인 비법을 제공합니다.',
+  tags: ['인스타수익화', '릴스알고리즘', '인스타그램', '숏폼바이럴', '퍼스널브랜딩'],
+  readTime: '8분',
+  likes: 423,
+  level: 'intermediate',
+  content: `## 2026년 인스타그램 릴스가 가장 우대하는 3가지 신호
+
+인스타그램에서 단순히 예쁘고 잘 꾸며진 피드만 올리던 시대는 완전히 지났습니다. 알고리즘은 이제 일반 노출 피드보다 릴스(Reels) 추천 영역을 무대로 오가닉 트래픽의 80% 이상을 배분하고 있습니다. 
+
+오늘 분석하는 **릴스 폭발의 3대 가중치 신호**를 명확히 이해하고 릴스 템플릿을 수정하십시오.
 
 ---
 
-### 합격 통계를 앞당기는 실시간 신청서 제출 골든 가이드
+### 1. 첫 2초의 후킹 비주얼 (Visual Hook)
 
-수정이 끝난 후 재심사 버튼을 무작정 60초 내에 누르지 마십시오.
-1. 수집 봇이 여러분이 갈고닦은 고품격 오리지널 글을 다 긁어간 후 신청해야 합니다. 구글 서치콘솔에 들어가 **[색인 생성 요청]을 마수걸이로 손수 전수 등록**하십시오.
-2. 약 3~4일의 간격을 벌린 뒤, 애드센스 재심사 텍스트 소명 영역에 정중하고 정량적으로 개선 사실을 논평하여 서술(위의 자동 생성 툴을 복사해 활용)하시면, 수동 심사역이 기쁜 마음으로 승인 스위치를 가동해 선사할 것입니다.
-`
+릴스를 쓸어내리는 사용자는 0.5초 만에 영상을 계속 볼지 넘길지 결정합니다. 
+- **텍스트 오버레이 배치**: 영상 최상단이 아닌, 화면 정중앙이나 3분의 2 지점에 고대비 폰트로 궁금증을 자극하는 문구를 얹으십시오. (예: "인스타로 월 300 번 번 이 사소한 행동")
+- **동적 오프닝**: 가만히 서서 인사하는 컷 대신, 무언가를 자르거나, 걷거나, 시각적인 충격을 주는 동작으로 첫 프레임을 가동하십시오.
+
+---
+
+### 2. 저장(Save)과 공유(Share)를 부르는 정보 자산화
+
+인스타그램 알고리즘이 추천 피드를 밀어올릴 때 가장 높게 평가하는 행동 데이터는 '저장'과 '공유'입니다. 
+- **팁 공유형 자산화**: "내일 바로 써먹을 수 있는 맛집 리스트 5선" 혹은 "일주일에 3번만 해도 뱃살이 사라지는 기적의 동작" 처럼 두고두고 다시 볼 수밖에 없는 유용성 중심의 콘텐츠를 구성하면, 저장 버튼 클릭률이 300% 이상 수직 상승합니다.
+- **댓글 자동화 연동**: "댓글로 '인스타'라고 남겨주시면 전체 PDF 파일을 DM으로 즉시 자동 발송해 드립니다" 라는 멘트를 남겨 많은 댓글과 인앱 잔존 시간을 유도하십시오.`
+};
+
+const INSTAGRAM_SPONSORSHIP_GUIDE: GuidePost = {
+  slug: 'instagram-brand-sponsorship-guide',
+  title: '팔로워 1,000명으로 인스타 협찬 받아내기: 브랜드 협상 DM 가이드 및 포트폴리오 템플릿',
+  subtitle: '초보 마이크로 인플루언서가 직접 브랜드를 선제 공략하고 고단가 원고료를 유치하는 프로세스',
+  category: 'instagram',
+  categoryLabel: '인스타그램 수익화',
+  publishedAt: '2026-07-10T10:00:00Z',
+  updatedAt: '2026-07-10T10:10:00Z',
+  author: '인스타 수익화 전문가 앨리스',
+  summary: '수만 명의 팔로워가 없어도 구매 전환율이 높은 마이크로 인플루언서만의 강점을 부각하여 브랜드로부터 현물 협찬과 유료 원고료 제안을 먼저 이끌어내는 실전 가이드입니다.',
+  tags: ['마이크로인플루언서', '인스타협찬', 'DM제안', '수익화전략', '공동구매'],
+  readTime: '7분',
+  likes: 312,
+  level: 'beginner',
+  content: `## 팔로워 1,000명도 협찬이 가능한 2026년 마케팅 시장
+
+많은 사람들이 협찬을 받으려면 최소 만 명 이상의 팔로워가 필요하다고 오해합니다. 하지만 브랜드사 마케팅 부서는 이제 가짜 계정이 섞인 수만 팔로워보다, **실제 구매 전환율이 높은 진성 팬 1,000명을 보유한 마이크로 채널**에 더 매력을 느낍니다.
+
+---
+
+### 1. 매력적인 프로필(Bio) 재정립
+
+브랜드 담당자가 귀하의 계정에 방문했을 때, "이 채널은 어떤 카테고리의 어떤 고민을 해결하는 곳"인지 3초 안에 알게 해야 합니다.
+- **잘못된 프로필**: "일상 공유 / 소통 환영 / 반려묘 집사"
+- **올바른 프로필**: "30대 직장인의 자취방 10만 원 인테리어 도전기 | 가성비 꿀템 정보 전송"
+
+---
+
+### 2. 선제적 공략 제안 DM 템플릿
+
+기다리기만 해서는 협찬이 오지 않습니다. 가치 있는 브랜드에 DM으로 선제 제안을 보내십시오.
+\`\`\`text
+[인스타그램 협업 제안]
+안녕하세요, [브랜드이름] 담당자님! 
+30대 자취 가구 리뷰 전문 크리에이터 [내이름]입니다. 
+
+자사의 신제품 [제품명]이 저희 채널의 주 타겟인 2030 자취생 시청자들에게 매우 호응이 높을 것으로 생각되어 먼저 연락드렸습니다.
+협업 진행 시 릴스 제작 및 구매 유도 고정 링크를 제공하여 실질적인 전환 성과를 보증해 드리겠습니다.
+
+진행 의사가 있으시다면 간단한 회사 메일이나 연락처를 공유해 주시면 구체적인 제안서를 즉각 발송해 드리겠습니다. 감사합니다!
+\`\`\`
+
+이처럼 정중하고 비즈니스 지향적인 자세로 먼저 문을 두드리십시오.`
+};
+
+const TIKTOK_CRP_GUIDE: GuidePost = {
+  slug: 'tiktok-creator-rewards-program-guide',
+  title: '틱톡 크리에이터 리워드 프로그램(CRP) 완벽 공략: 고품질 1분 이상 숏폼으로 월 $3,000 연금형 수익 내기',
+  subtitle: '틱톡이 전면 출시한 1분 이상 고단가 영상 보상 획득을 위한 화질, 완독률, 고가치 키워드 설정 전술',
+  category: 'tiktok',
+  categoryLabel: '틱톡 수익화',
+  publishedAt: '2026-07-11T11:00:00Z',
+  updatedAt: '2026-07-11T11:10:00Z',
+  author: '틱톡 바이럴 그로스해커 제이',
+  summary: '틱톡의 1분 이상 콘텐츠 제작 장려 정책인 크리에이터 리워드 프로그램(CRP) 조건과 평균 RPM $1 이상을 받기 위한 고품질 비디오 제작 및 타겟 오디언스 결속 가이드입니다.',
+  tags: ['틱톡수익화', 'CRP', '틱톡알고리즘', '1분영상', '바이럴숏폼'],
+  readTime: '9분',
+  likes: 388,
+  level: 'advanced',
+  content: `## 틱톡의 새로운 패러다임: 1분 이상의 오리지널 콘텐츠
+
+과거 15초짜리 댄스 챌린지 중심이었던 틱톡은 이제 유튜브 롱폼을 견제하기 위해 **1분 이상의 고품질 가로형/세로형 비디오**에 압도적인 현금 보상 세제를 집행하고 있습니다. 그것이 바로 '크리에이터 리워드 프로그램(CRP)'입니다.
+
+---
+
+### 1. 크리에이터 리워드 프로그램 가입 조건
+
+보상을 받기 위해 우선 도달해야 하는 최소한의 기준입니다:
+- 만 19세 이상 대한민국 거주자
+- 최소 팔로워 **10,000명** 보유
+- 지난 30일 동안 최소 동영상 조회수 **100,000회** 이상 기록
+
+---
+
+### 2. RPM을 5배 상승시키는 핵심 비결 (How to Maximize RPM)
+
+가장 높은 보상을 받기 위해서는 단순히 조회수만 늘리는 것이 아닌, **타겟 품질 점수**를 관리해야 합니다.
+- **오리지널 비주얼 기동**: 유튜브나 다른 플랫폼의 영상을 무단으로 퍼다 편집한 비디오는 틱톡의 AI 오리지널 탐지 필터에 의해 '부적절한 콘텐츠'로 분류되어 수익 창출 자격이 즉시 박탈됩니다. 본인 목소리 나레이션, 본인이 생성하거나 촬영한 에셋을 100% 사용하십시오.
+- **미국 등 고가치 타겟 노출**: 검색 키워드나 태그를 영문 병행 삽입하거나 미국 시청자들이 관심 가질 글로벌 정보(예: 테크, 인포그래픽, 지식 스토리)를 구성하면 조회수당 보상이 3~5배 폭등합니다.`
+};
+
+const DIGITAL_BIZ_EBOOK_GUIDE: GuidePost = {
+  slug: 'ebook-automation-kmon-strategy',
+  title: 'PDF 전자책 집필부터 크몽/탈잉 무인 자동 판매 자동화: 100% 마진의 디지털 패시브 인컴 구조 수립',
+  subtitle: '경험과 가치의 정수를 한 권에 압축하여 플랫폼 승인을 통과하고 24시간 자가 정산되도록 연동하는 마스터플랜',
+  category: 'digital_biz',
+  categoryLabel: '지식창업 & 뉴스레터',
+  publishedAt: '2026-07-09T10:00:00Z',
+  updatedAt: '2026-07-09T10:20:00Z',
+  author: '지식 비즈니스 아키텍트 레오',
+  summary: '재고가 필요 없고 배송비도 없는 100% 마진의 디지털 전자책 비즈니스 구축 가이드입니다. 주제 선정, 판매용 목차 작성법, 크몽 등록 조건 및 무인 자동 배송 자동화 기법을 완벽 해부합니다.',
+  tags: ['전자책수익', '지식창업', '패시브인컴', '크몽판매', '자동화수익'],
+  readTime: '10분',
+  likes: 411,
+  level: 'beginner',
+  content: `## 자는 동안에도 통장으로 돈이 들어오는 전자책 자동 판매 시스템
+
+여러분이 가진 아주 사소한 노하우, 남들보다 조금 더 빨리 알게 된 업무 효율화 팁, 혹은 독특한 취미 생활조차도 누군가에게는 수십 시간을 아껴줄 천금 같은 정보 자산이 됩니다. 전자책(PDF) 비즈니스는 한 번 쓰고 나면 무한히 복제되어 알아서 수익을 안겨주는 패시브 인컴의 종착지입니다.
+
+---
+
+### 1. 팔릴 수밖에 없는 문제 해결형 주제 선정
+
+단순한 에세이나 자서전은 전혀 팔리지 않습니다. 구매자는 오직 **"내 문제 상황을 빠르게 해결해 주는 해결책"**에 돈을 냅니다.
+
+- [ ] **수요의 크기 검증**: 구글 트렌드, 네이버 키워드 도구, 블랙키위 등을 활용해 해당 질문과 고민 키워드의 검색량이 충분한지 대조하십시오.
+- [ ] **구체적인 타겟팅 구체화**: "초보 유튜버를 위한 안내서" 대신 "구독자 0명에서 첫 달 수익창출 통과까지, 하루 1시간 60초 숏츠 대본 제작 가이드" 처럼 타겟과 기간, 결과를 한정하십시오.
+- [ ] **비포 앤 애프터 보장**: 이 전자책을 다 읽은 직후, 독자가 실행할 수 있는 명확한 하나의 솔루션(예: "워드프레스 블로그 30분 만에 개설 완료하기")을 정립해야 합니다.
+
+- **나쁜 예**: "나의 귀여운 고양이 키우기 일지"
+- **좋은 예**: "초보 집사 99%가 겪는 고양이 사료 알레르기 즉각 구별법 및 상황별 응급 처치 가이드"
+
+---
+
+### 2. 가독성과 전문성을 높이는 워드/한글 편집 표준
+
+소비자가 돈을 내고 산 디지털 저작물이기 때문에 최하 수준의 가독성 포맷팅이 보장되어야 합니다. 그렇지 않으면 재능 마켓 플랫폼에서 즉각 반려 처리됩니다.
+
+- [ ] **분량 준수**: 주요 재능 마켓(크몽, 탈잉 등) 승인 최소 기준인 **A4 20페이지 이상**(표지 및 목차 제외)을 정성껏 구성하십시오.
+- [ ] **글꼴과 정렬**: 가독성이 높은 맑은고딕 또는 나눔고딕을 사용하십시오. 본문 폰트 크기 11pt, 줄간격 160%를 유지하여 모바일이나 태블릿 화면에서 시청하기 편하게 줄 맞춤 하십시오.
+- [ ] **위계 구조 확립**: 제목 1 (24pt), 제목 2 (16pt), 본문 (11pt) 등 헤드라인 스타일을 적용해 문단 구조가 시각적으로 분리되어 읽히도록 정돈해 주세요.
+- [ ] **시각적 강조 장치**: 중요 공식이나 절대 놓치면 안 되는 꿀팁은 테두리(박스) 효과나 보색 글자색(예: 굵은 파란색)을 입혀 시야가 머물게 하십시오.
+
+---
+
+### 3. 크몽(Kmong) & 탈잉(Taling) 입점 심사 단번에 통과하는 체크리스트
+
+전자책을 완성한 후 플랫폼에 등록할 때, 다음의 4가지 검수 조건을 사전에 자체 평가해 보십시오.
+
+- [ ] **자기소개 및 신뢰 증명**: 본인이 해당 분야에서 축적한 이력, 자격증, 수익 통계 스크린샷 등을 상세 설명란에 투명하게 오픈했는가?
+- [ ] **상세 목차 공개**: 구매 전에 어떤 내용을 배우는지 대목차, 중목차, 소목차로 짜인 전체 가이드라인을 상세페이지에 명기했는가?
+- [ ] **저작권 및 무단 배포 금지 고지**: 전자책 첫 장과 마지막 장에 무단 복제 및 상업적 유포 시 법적 처벌(저작권법 제136조)에 처해질 수 있다는 경고문을 텍스트로 박아 두었는가?
+- [ ] **포함되지 않는 항목 명시**: 상담 피드백 1:1 세션이 포함인지, 아니면 순수 PDF 자료만 단독 제공인지 등 독자의 기대 오류를 차단하는 범위를 설정해 놓았는가?
+
+---
+
+### 4. 무인 자동 판매 및 이메일/문자 자동 발송 파이프라인 연동 기법
+
+결제가 완료될 때마다 수동으로 이메일을 보내주는 일은 24시간 작동하는 패시브 인컴의 사상에 맞지 않습니다. 노코드 시스템을 이용해 주문 처리 장벽을 제로로 낮추어야 합니다.
+
+1. **플랫폼 웹훅(Webhook) 탑재**: 아임웹이나 카페24 등의 개인 사이트를 운영하는 경우 결제 완료 시 신호가 외부로 발송되는 웹훅 주소를 세팅하십시오.
+2. **자피어(Zapier) 또는 메이크(Make) 연동**:
+   - **Trigger**: New Order Created (새 결제 주문 감지)
+   - **Action**: Google Drive에서 전자책 PDF의 '링크 공유 권한'을 해당 결제 고객 메일로 자동 발급 (이때 인쇄 및 다운로드 방지 옵션 켜기)
+   - **Action 2**: 알림톡 이나 자동 발송 메일을 통해 "안녕하세요, OO 가이드 전자책 배송 메일입니다. 30일 동안만 다운로드 가능합니다." 안내 통신문 전달.
+3. **크몽 전용 자동 발송 API 연동**: 크몽 파트너 대시보드 내 자동 발송 시스템을 활성화하여, 고객이 결제하는 즉시 대화방에 파일 다운로드 경로가 자동으로 송출되도록 체크박스를 활성화해 두십시오.
+
+---
+
+### 5. 불법 유포 차단 및 저작권 보안 전략
+
+공들여 쓴 내 소중한 지식 자산이 불법으로 유출되는 것을 차단하기 위한 필수 보안 테크닉입니다.
+
+- **개별 워터마크(Watermark) 삽입**: 워드나 한글 파일 변환 시, 페이지 배경에 고객의 성명이나 이메일 주소를 옅은 회색으로 자동 인쇄되도록 하는 워터마크 모듈을 결합하십시오.
+- **인쇄 및 복사 잠금 세팅**: PDF 변환 프로그램(Adobe Acrobat Pro 등)의 보안 메뉴에서 **"텍스트 복사 금지"** 및 **"비밀번호가 있어야 인쇄 가능"** 하도록 패스워드를 씌워 최종 변환해 배포하시길 바랍니다.`
 };
 
 const JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE: GuidePost = {
-  slug: 'youtube-zero-views-remedy-formula',
-  title: '알고리즘의 침묵을 깨는 업로드 정석 11단계: 조회수 0을 단기간에 극복하는 실전 인덱싱 매뉴얼',
-  subtitle: '기획에 쏟는 열정만큼 중요한 업로드 최적화 세팅 — 검색 상위 노출과 고관여 체류시간을 창출하는 핵심 디바이스',
-  category: 'algorithm',
-  categoryLabel: '유튜브 알고리즘',
-  publishedAt: '2026-06-13T10:00:00Z',
-  updatedAt: '2026-06-13T10:15:00Z',
-  author: '알고리즘 수석 설계 분석관 라이언',
-  summary: '영상을 정성스레 제작해 올려도 조회수가 움직이지 않을 때, 이는 알고리즘이 해당 영상을 무시한 것이 아니라 전달 정보 부족으로 길을 잃었기 때문입니다. 검색 유입을 장악하고, 시청자가 체류하는 구조적 그물을 설계하는 실전 11단계 최적화 지침을 대공개합니다.',
-  tags: ['조회수상승', '유튜브SEO', '챕터타임라인', '시청지속시간', '실전업로드'],
-  readTime: '11분',
-  likes: 685,
-  authorityLabel: 'YouTube Algorithm & Distribution Engineer',
-  content: `## 무관심한 알고리즘을 깨우는 테크니컬 업로드의 힘
-
-우리가 수 시간 동안 기획하고 촬영 및 편집한 영상이 정작 유튜브 스튜디오에서 조회수 두 자릿수 혹은 미미한 성과에 멈춘다면 창작의 영혼은 급속히 마모됩니다. 대다수 크리에이터는 이때 "내 영상 퀄리티가 낮아서" 혹은 "알고리즘의 불공정함"을 성토하며 채널을 멈춥니다.
-
-그러나 차갑게 평가 내리는 기계 분석 엔진인 알고리즘은 단지 영상의 텍스트와 주변 메타데이터 신호가 부재해 **"이 영상을 어떤 집단에게 진열해야 할지"** 판단을 유보한 것뿐입니다. 조회수 제로의 벽을 뚫는 11가지 핵심 업로드 공식을 통해 채널 성장 지표를 복리로 극대화하는 실전 비법서의 지침을 이식하십시오.
+  slug: 'youtube-seo-upload-formulas',
+  title: '유튜브 업로드 고수들의 11가지 SEO 필살기 공식: 알고리즘과 타겟 시드 매칭 실무',
+  subtitle: '기계 필터 노출 가중치를 획득하고 시청 세션 연쇄 도달을 유도하는 채널 아키텍처 가이드',
+  category: 'youtube',
+  categoryLabel: '유튜브 수익화',
+  publishedAt: '2026-06-13T09:00:00Z',
+  updatedAt: '2026-06-13T09:30:00Z',
+  author: '수석 성장 전문가 로이',
+  summary: '유튜브 업로드 알고리즘의 유기적 분류 점수를 올리고, 첫 시드 피드에서 시청 세션 지속 시간을 복리로 올리는 11대 핵심 공식입니다.',
+  tags: ['유튜브SEO', '알고리즘최적화', '업로드전략', '검색엔진최적화', '채널브랜딩'],
+  readTime: '12분',
+  likes: 475,
+  level: 'advanced',
+  content: `## 노출의 벽을 뚫는 11가지 핵심 업로드 공식을 통해 채널 성장 지표를 복리로 극대화하는 실전 비법서의 지침을 이식하십시오.
 
 ---
 
@@ -371,6 +556,7 @@ const JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE: GuidePost = {
 유튜브를 지배하는 것은 한순간의 신들린 운이 아닌, 작은 규칙들이 부단히 복리로 축적되어 완성되는 질서의 체계입니다. 이제 모든 프로세스를 굳건히 무장하고 다음 떡상의 주인공으로 완벽 도약하십시오.`
 };
 
+
 const JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE: GuidePost = {
   slug: 'vintage-europe-aesthetic-shorts-hook',
   title: '유럽 서정적 자막과 3초 비언어 후킹 프레임: 왕초보가 숏폼 디자인 감각 선점하기',
@@ -412,6 +598,7 @@ const JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE: GuidePost = {
   - 아무 설명 없이 손끝으로 조심스레 무언가를 열고 있는 초정밀 줌인 샷, 또는 찻잔 위로 이슬방울이 똑 떨어지는 고속 슬로우 신을 먼저 2.5초 흘려보내십시오.
   - 뇌 과학적으로 시청자는 본능적으로 '이 상황이 대체 무엇인가?' 알아내고자 집중력을 발동하고, 이 집중의 관성이 15초의 높은 시청 유지력으로 고스란히 이월됩니다.`
 };
+
 
 const JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY: GuidePost = {
   slug: 'adsense-low-value-content-solution',
@@ -459,6 +646,7 @@ const JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY: GuidePost = {
 - **실시간 주입 적용:** 저희 NuTube Premium Core Hub는 금주 단행된 패치를 통해 **‘본인 서버 라이브 매핑’**을 연동시켜 두었습니다.
 - **다중 도메인 100% 정상 송출 보증:** 메인 서버인 \`nutube.kr\`뿐만 아니라 서브 및 우회 배포망인 \`zip9.kr\`, \`virginroad.kr\` 전체가 백엔드 라우터를 통하여 동적 plain-text 200 OK 응답으로 똑똑하게 서빙되도록 다중 리프렉션 필터를 고착시켰습니다. 구글 게시자 ID(\`pub-xxxxxxxxxxxxxxxx\`)를 실서버 삽입기에 단 한 번 등록해두시는 것만으로 3초 만에 원천 차단 우회가 완료됩니다.`
 };
+
 
 const JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK: GuidePost = {
   slug: 'search-console-sitemap-fetch-success',
@@ -508,7 +696,7 @@ const JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK: GuidePost = {
 3. **RSS 실시간 날짜 동적화:** 과거 정적 상수에 머물던 마지막 빌드 시각(\`lastBuildDate\`)을 호출 시점의 GMT 기준 리얼타임 데이터 필터링으로 개조 완료하여 구글 알고리즘이 매 탐색마다 "실시간으로 포스팅이 전향 업진되고 있는 생동감 넘치는 1등급 도메인"으로 강력 추천 분류하게 인덱싱 가산세를 입혔습니다.`
 };
 
-export const ALL_POSTS: GuidePost[] = [
+const RAW_POSTS: GuidePost[] = [
   JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY,
   JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK,
   JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE,
@@ -518,6 +706,11 @@ export const ALL_POSTS: GuidePost[] = [
   JUNE_11_SEARCH_CONSOLE_GUIDE,
   PREMIUM_ADSENSE_GUIDE,
   JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE,
+  INSTAGRAM_REELS_ALGORITHM_GUIDE,
+  INSTAGRAM_SPONSORSHIP_GUIDE,
+  TIKTOK_CRP_GUIDE,
+  DIGITAL_BIZ_EBOOK_GUIDE,
+  ...EXTRA_POSTS,
   ...POSTS_GROUP_1,
   ...POSTS_GROUP_2,
   ...POSTS_GROUP_3_part1,
@@ -525,68 +718,137 @@ export const ALL_POSTS: GuidePost[] = [
   ...POSTS_GROUP_3_part3
 ];
 
+function mapPostToNewCategoryAndLevel(post: GuidePost): GuidePost {
+  let mappedCategory: CategoryKey = 'youtube';
+  let mappedLevel: 'beginner' | 'intermediate' | 'advanced' = 'intermediate';
+  let mappedCategoryLabel = '유튜브 수익화';
 
-// 카테고리 정의 및 메타데이터
+  const slug = post.slug.toLowerCase();
+  const content = (post.content || '').toLowerCase();
+  const title = post.title.toLowerCase();
+
+  // If already mapped in our new structure, keep it
+  if (post.category as string === 'youtube') {
+    mappedCategory = 'youtube';
+    mappedLevel = post.level || 'intermediate';
+  } else if (post.category as string === 'instagram') {
+    mappedCategory = 'instagram';
+    mappedLevel = post.level || 'intermediate';
+  } else if (post.category as string === 'tiktok') {
+    mappedCategory = 'tiktok';
+    mappedLevel = post.level || 'intermediate';
+  } else if (post.category as string === 'blog') {
+    mappedCategory = 'blog';
+    mappedLevel = post.level || 'intermediate';
+  } else if (post.category as string === 'digital_biz') {
+    mappedCategory = 'digital_biz';
+    mappedLevel = post.level || 'intermediate';
+  } else {
+    // Mapping from legacy categories
+    const oldCat = post.category as string;
+    if (oldCat === 'beginner') {
+      mappedCategory = 'youtube';
+      mappedLevel = 'beginner';
+    } else if (oldCat === 'advanced') {
+      if (slug.includes('adsense') || slug.includes('sitemap') || slug.includes('search') || content.includes('블로그') || content.includes('애드센스')) {
+        mappedCategory = 'blog';
+        mappedLevel = 'advanced';
+      } else {
+        mappedCategory = 'youtube';
+        mappedLevel = 'advanced';
+      }
+    } else if (oldCat === 'monetization') {
+      if (slug.includes('adsense') || slug.includes('sitemap') || slug.includes('search') || content.includes('블로그') || content.includes('애드센스')) {
+        mappedCategory = 'blog';
+        mappedLevel = 'advanced';
+      } else {
+        mappedCategory = 'youtube';
+        mappedLevel = 'advanced';
+      }
+    } else if (oldCat === 'algorithm') {
+      mappedCategory = 'youtube';
+      mappedLevel = 'intermediate';
+    } else if (oldCat === 'senior') {
+      mappedCategory = 'youtube';
+      mappedLevel = 'beginner';
+    } else if (oldCat === 'aitools') {
+      mappedCategory = 'youtube';
+      mappedLevel = 'intermediate';
+    }
+  }
+
+  // Set proper level if post already has a level set explicitly
+  if (post.level) {
+    mappedLevel = post.level;
+  }
+
+  // Assign label based on new category
+  if (mappedCategory === 'youtube') mappedCategoryLabel = '유튜브 수익화';
+  else if (mappedCategory === 'instagram') mappedCategoryLabel = '인스타그램 수익화';
+  else if (mappedCategory === 'tiktok') mappedCategoryLabel = '틱톡 수익화';
+  else if (mappedCategory === 'blog') mappedCategoryLabel = '블로그 & 애드센스';
+  else if (mappedCategory === 'digital_biz') mappedCategoryLabel = '지식창업 & 뉴스레터';
+
+  return {
+    ...post,
+    category: mappedCategory,
+    categoryLabel: mappedCategoryLabel,
+    level: mappedLevel
+  };
+}
+
+export const ALL_POSTS: GuidePost[] = RAW_POSTS.map(mapPostToNewCategoryAndLevel);
+
 export const CATEGORY_SPECS: Record<string, CategorySpec> = {
-  algorithm: {
-    key: 'algorithm',
-    label: '유튜브 알고리즘',
-    icon: 'TrendingUp',
-    gradient: 'from-blue-500 to-indigo-600',
-    description: '유튜브가 추천하고 피드를 구성하는 작동 양식을 정확히 이해합니다.',
-    count: ALL_POSTS.filter((p) => p.category === 'algorithm').length,
-    persona: '알고리즘 수석 설계 분석관: "조회수를 얻어내는 알고리즘의 보이지 않는 역학은 완벽히 수학적으로 해킹 가능합니다."',
-    accentColor: '#3b82f6'
+  youtube: {
+    key: 'youtube',
+    label: '유튜브 수익화',
+    icon: 'Play',
+    gradient: 'from-red-500 to-rose-600',
+    description: '채널 개설부터 쇼츠 기획, 추천 알고리즘 정복 및 광고 수익 극대화.',
+    count: ALL_POSTS.filter((p) => p.category === 'youtube').length,
+    persona: '유튜브 수석 성장 컨설턴트: "유튜브 알고리즘은 철저히 시청 세션을 유지하는 최적의 기획력으로 정복할 수 있습니다."',
+    accentColor: '#ef4444'
   },
-  senior: {
-    key: 'senior',
-    label: '시니어 사연 쇼츠',
-    icon: 'Heart',
-    gradient: 'from-pink-500 to-rose-600',
-    description: '감성을 움직이고 추억을 부르는 실화 기반 시니어 스토리텔링 방법입니다.',
-    count: ALL_POSTS.filter((p) => p.category === 'senior').length,
-    persona: '감성 사연 디렉터: "시니어 분들을 움직이는 따뜻한 감동과 인간미 넘치는 목소리에 성장의 본질이 있습니다."',
-    accentColor: '#f43f5e'
+  instagram: {
+    key: 'instagram',
+    label: '인스타그램 수익화',
+    icon: 'Instagram',
+    gradient: 'from-pink-500 to-purple-600',
+    description: '릴스 바이럴 알고리즘 최적화, 퍼스널 브랜딩 및 고단가 협찬 협상법.',
+    count: ALL_POSTS.filter((p) => p.category === 'instagram').length,
+    persona: '인스타 브랜딩 디렉터: "팔로워 수가 적어도 명확한 타겟 소통과 가치 제안만 있다면 확실한 수익을 뽑아냅니다."',
+    accentColor: '#ec4899'
   },
-  aitools: {
-    key: 'aitools',
-    label: 'AI 도구',
-    icon: 'Zap',
-    gradient: 'from-amber-500 to-orange-600',
-    description: '대본, 음성 생성, 자막 등 제작 시간을 압도적으로 아껴주는 유공 기술입니다.',
-    count: ALL_POSTS.filter((p) => p.category === 'aitools').length,
-    persona: '초고속 AI 테크 리드: "사람을 대체하는 것이 아닙니다. 15배 생산성을 올려 더 많은 시도를 가능케 하는 무적의 열쇠입니다."',
-    accentColor: '#f59e0b'
+  tiktok: {
+    key: 'tiktok',
+    label: '틱톡 수익화',
+    icon: 'Video',
+    gradient: 'from-slate-800 to-slate-900',
+    description: '첫 3초 후킹 공식, 크리에이터 리워드 프로그램(CRP) 및 글로벌 바이럴 기법.',
+    count: ALL_POSTS.filter((p) => p.category === 'tiktok').length,
+    persona: '틱톡 바이럴 그로스해커: "틱톡은 1초 단위의 리듬감과 강렬한 후킹으로 수백만 조회수 연금을 만드는 가장 빠른 도구입니다."',
+    accentColor: '#1e293b'
   },
-  monetization: {
-    key: 'monetization',
-    label: '영상 채널 수익화',
-    icon: 'DollarSign',
+  blog: {
+    key: 'blog',
+    label: '블로그 & 애드센스',
+    icon: 'BookOpen',
     gradient: 'from-emerald-500 to-teal-600',
-    description: '광고 수익, 제휴 쇼핑, 멤버십 등 월급급 부수입을 단계적으로 설계합니다.',
-    count: ALL_POSTS.filter((p) => p.category === 'monetization').length,
-    persona: '채널 레버리지 컨설턴트: "광고 수익에만 목매는 것은 가장 위험합니다. 8대 수익 기동을 단계적으로 빌드하십시오."',
+    description: '구글 애드센스 한방 승인, 검색 노출(SEO) 및 워드프레스/네이버 블로그 기법.',
+    count: ALL_POSTS.filter((p) => p.category === 'blog').length,
+    persona: 'SEO & 웹 수익화 전문가: "품질 높은 텍스트 자산과 서치 콘솔 색인 최적화가 지속 가능하고 높은 애드센스 연금을 보장합니다."',
     accentColor: '#10b981'
   },
-  beginner: {
-    key: 'beginner',
-    label: '왕초보 출발',
-    icon: 'Compass',
-    gradient: 'from-violet-500 to-purple-600',
-    description: '채널 개설부터 첫 업로드, 실수 대처법까지 부담을 내려놓고 시작하는 입문 코스.',
-    count: ALL_POSTS.filter((p) => p.category === 'beginner').length,
-    persona: '친절한 길잡이 멘토: "처음에는 70% 완성도로 일단 올리는 게 핵심입니다. 남과 비교하지 말고 시작의 기쁨을 가지세요."',
-    accentColor: '#8b5cf6'
-  },
-  advanced: {
-    key: 'advanced',
-    label: '중고수 전략',
-    icon: 'Award',
-    gradient: 'from-cyan-500 to-sky-600',
-    description: '채널 성숙기에서 썸네일 A/B 테스트와 이탈 최소화를 이루는 고품격 도약법.',
-    count: ALL_POSTS.filter((p) => p.category === 'advanced').length,
-    persona: '매출 극대화 그로스해커: "성장의 벽에 부딪혔을 때, 감이 아니라 데이터로 의사결정하여 세션 지속시간을 미세하게 늘리면 전성기가 다시 옵니다."',
-    accentColor: '#06b6d4'
+  digital_biz: {
+    key: 'digital_biz',
+    label: '지식창업 & 뉴스레터',
+    icon: 'Mail',
+    gradient: 'from-amber-500 to-orange-600',
+    description: 'PDF 전자책 제작 무인 판매 자동화, 유료 구독형 뉴스레터 비즈니스 설계.',
+    count: ALL_POSTS.filter((p) => p.category === 'digital_biz').length,
+    persona: '지식 비즈니스 아키텍트: "나만의 고유 경험을 100% 마진의 디지털 제품과 뉴스레터 구독제로 패시브 인컴화하십시오."',
+    accentColor: '#f59e0b'
   }
 };
 

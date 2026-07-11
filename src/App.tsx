@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
@@ -366,11 +366,107 @@ export default function App() {
       <main>
         {tab === 'guides' && (
           <>
-            <section className={dark ? 'border-b border-sky-950 bg-[#031d33] py-14' : 'border-b border-sky-100 bg-white py-14'}>
-              <div className="mx-auto max-w-5xl px-4 text-center break-keep">
-                <p className="text-xs font-bold text-cyan-400">유튜브 채널 운영 가이드</p>
-                <h1 className={dark ? 'mt-4 text-3xl font-black text-white sm:text-5xl' : 'mt-4 text-3xl font-black text-slate-900 sm:text-5xl'}>필요한 정보를 쉽게 확인하고 바로 적용하세요</h1>
-                <p className={dark ? 'mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-sky-300/75' : 'mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-600'}>채널 시작, 콘텐츠 기획, 쇼츠 운영, 썸네일 점검, 수익화 준비에 필요한 정보를 체크리스트 중심으로 정리합니다.</p>
+            <section className={dark ? 'border-b border-sky-950 bg-gradient-to-b from-[#031d33] to-[#02182b] py-16' : 'border-b border-sky-100 bg-gradient-to-b from-white to-sky-50/50 py-16'}>
+              <div className="mx-auto max-w-6xl px-4 break-keep">
+                <div className="text-center">
+                  <div className={dark ? 'inline-flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-black text-cyan-400 border border-cyan-500/20 shadow-sm shadow-cyan-950/20' : 'inline-flex items-center gap-1.5 rounded-full bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-600 border border-cyan-100'}>
+                    <Sparkles className="h-3 w-3 animate-pulse" />
+                    <span>2026 실전 유튜브 성장 로드맵 & 가이드</span>
+                  </div>
+                  <h1 className={dark ? 'mt-4 text-3xl font-black text-white sm:text-5xl tracking-tight leading-tight' : 'mt-4 text-3xl font-black text-slate-900 sm:text-5xl tracking-tight leading-tight'}>
+                    성공하는 유튜브 채널을 위한<br />
+                    <span className="bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">단계별 실무 체크리스트</span>
+                  </h1>
+                  <p className={dark ? 'mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-sky-200/85' : 'mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-slate-600'}>
+                    시청자의 첫 3초를 사로잡는 쇼츠 후킹 공식부터 클릭률을 폭발시키는 썸네일 자가 점검, 그리고 구글 애드센스 다중 계정 심사 통과법까지! 초보 크리에이터가 마주하는 모든 핵심 성공 지표를 실무자 시선에서 완벽하게 체크리스트 중심으로 정리해 드립니다.
+                  </p>
+                </div>
+
+                {/* Interactive 5-Step Checklist Roadmap */}
+                <div className="mt-12">
+                  <p className={dark ? 'text-center text-xs font-bold text-sky-400/80 mb-4' : 'text-center text-xs font-bold text-slate-500 mb-4'}>
+                    👇 각 로드맵 단계를 클릭하여 관련 실전 가이드를 즉시 확인해 보세요
+                  </p>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                    {[
+                      {
+                        step: '1단계',
+                        title: '채널 시작',
+                        icon: Rocket,
+                        color: 'from-orange-500 to-amber-500',
+                        desc: '브랜드 채널 설정, 기본 레이아웃 세팅 및 알고리즘 타겟팅 기초',
+                        search: '개설',
+                      },
+                      {
+                        step: '2단계',
+                        title: '콘텐츠 기획',
+                        icon: FileText,
+                        color: 'from-cyan-500 to-blue-500',
+                        desc: '알고리즘 피드 노출 및 시청 세션을 늘리는 정보 밀도 기획 공식',
+                        search: '기획',
+                      },
+                      {
+                        step: '3단계',
+                        title: '쇼츠 운영',
+                        icon: Zap,
+                        color: 'from-rose-500 to-red-500',
+                        desc: '첫 3초 후크 장치, 빠른 프레임 전환과 사운드 타이밍 연출',
+                        search: '쇼츠',
+                      },
+                      {
+                        step: '4단계',
+                        title: '썸네일 점검',
+                        icon: Image,
+                        color: 'from-purple-500 to-pink-500',
+                        desc: '텍스트 비율, 시선 흐름, 클릭률(CTR) 극대화 자가 진단 가이드',
+                        search: '썸네일',
+                      },
+                      {
+                        step: '5단계',
+                        title: '수익화 준비',
+                        icon: DollarSign,
+                        color: 'from-emerald-500 to-teal-500',
+                        desc: '애드센스 다중 휴면 계정 방지 정책 및 정밀 심사 승인 프로세스',
+                        search: '수익',
+                      },
+                    ].map((item) => {
+                      const Icon = item.icon;
+                      const isFiltering = query === item.search;
+                      return (
+                        <button
+                          key={item.title}
+                          onClick={() => {
+                            setQuery(item.search);
+                            scrollToPosts();
+                          }}
+                          className={dark 
+                            ? `group relative rounded-2xl border ${isFiltering ? 'border-cyan-400 bg-cyan-950/20' : 'border-sky-950 bg-[#042841]/35'} p-5 text-left transition duration-300 hover:border-sky-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-950/10`
+                            : `group relative rounded-2xl border ${isFiltering ? 'border-cyan-400 bg-cyan-50/50' : 'border-sky-100 bg-white'} p-5 text-left shadow-sm transition duration-300 hover:border-sky-300 hover:-translate-y-1 hover:shadow-md`
+                          }
+                        >
+                          <div className="flex items-center justify-between mb-3">
+                            <span className={dark ? 'text-[10px] font-black tracking-widest text-sky-400/70 uppercase' : 'text-[10px] font-black tracking-widest text-slate-400 uppercase'}>
+                              {item.step}
+                            </span>
+                            <span className={`flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br ${item.color} text-white shadow-sm shadow-black/10`}>
+                              <Icon className="h-4 w-4" />
+                            </span>
+                          </div>
+                          <h3 className={dark ? 'text-sm font-extrabold text-white group-hover:text-cyan-400 transition-colors' : 'text-sm font-extrabold text-slate-900 group-hover:text-cyan-600 transition-colors'}>
+                            {item.title}
+                          </h3>
+                          <p className={dark ? 'mt-2 text-xs leading-5 text-sky-300/60' : 'mt-2 text-xs leading-5 text-slate-500'}>
+                            {item.desc}
+                          </p>
+                          <div className="mt-3 flex items-center gap-1 text-[10px] font-bold text-cyan-400">
+                            <CheckSquare className="h-3 w-3" />
+                            <span>체크리스트 보기</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </section>
             <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
