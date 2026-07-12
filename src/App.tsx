@@ -337,8 +337,8 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const selectCategory = (key: string) => {
-    const nextCategory = category === key ? null : key;
+  const selectCategory = (key: string | null) => {
+    const nextCategory = key;
     const nextPath = nextCategory ? `/category/${nextCategory}` : '/';
 
     if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
@@ -349,10 +349,23 @@ export default function App() {
     setTab('guides');
     setQuery('');
     setCategory(nextCategory);
-    scrollToPosts();
+
+    if (key === null) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollToPosts();
+    }
   };
 
   const go = (next: Tab) => navigate(next);
+
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.state) {
+      window.history.back();
+    } else {
+      selectCategory(null);
+    }
+  };
 
   const openPost = (item: GuidePost) => {
     navigate('guide-detail', item);
@@ -368,7 +381,7 @@ export default function App() {
         theme={theme} 
         toggleTheme={() => setTheme(dark ? 'light' : 'dark')} 
         category={category}
-        setCategory={setCategory}
+        setCategory={selectCategory}
         searchQuery={query}
         setSearchQuery={setQuery}
       />
@@ -520,7 +533,7 @@ export default function App() {
             </div>
           </>
         )}
-        {tab === 'guide-detail' && post && <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={() => go('guides')} theme={theme} />}
+        {tab === 'guide-detail' && post && <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={handleBack} theme={theme} />}
         {tab === 'about' && <InfoPage page={PAGE_CONTENT.about} theme={theme} />}
         {tab === 'contact' && <InfoPage page={PAGE_CONTENT.contact} theme={theme} />}
         {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}

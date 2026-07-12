@@ -41,8 +41,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleCategoryClick = (catKey: string | null) => {
     setCategory(catKey);
-    setTab('guides');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavTab = (tab: Tab) => {
