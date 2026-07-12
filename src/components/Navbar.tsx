@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </div>
 
-            {/* "광고 제안" (Ad products) pill button matching yozm IT */}
+            {/* "제휴 및 문의" pill button */}
             <button
               onClick={() => handleNavTab('contact')}
               className={`hidden sm:inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-xs font-semibold border transition-all cursor-pointer ${
@@ -115,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
               id="nav-ad-btn"
             >
-              <span>광고 제안</span>
+              <span>제휴 및 문의</span>
             </button>
 
             {/* Theme Toggle */}
@@ -244,7 +244,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         }`}
                       >
                         <Mail className="h-4 w-4 shrink-0" />
-                        <span>제휴 광고 & 제보 문의</span>
+                        <span>제휴 제안 & 문의</span>
                       </button>
                     </nav>
 
