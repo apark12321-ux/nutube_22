@@ -170,7 +170,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   const [shareToast, setShareToast] = useState(false);
   
   // Interactive Login state for the "어떤 독자들이 봤을까요?" statistics card
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const dark = theme === 'dark';
@@ -485,42 +485,9 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             </div>
 
             <p className="text-[10px] text-slate-400 dark:text-slate-500 text-right italic pt-2">
-              * 누적 조회 유저 12,450여 명의 비식별 계정 가입 데이터를 기반으로 산출된 보고서입니다.
+              * 누적 조회 유저 12,450여 명의 비식별 데이터를 기반으로 산출된 보고서입니다.
             </p>
           </div>
-
-          {/* Secure Login Overlay if user is NOT logged in */}
-          {!isLoggedIn && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white/40 dark:bg-slate-950/40 backdrop-blur-xs transition-all duration-300">
-              <div className={`w-full max-w-[280px] p-5 rounded-2xl border text-center shadow-lg transform transition-all ${
-                dark ? 'bg-[#180a30] border-purple-900/60' : 'bg-white border-slate-100'
-              }`}>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-950 text-[#7C3AED] mx-auto mb-3">
-                  <Lock className="h-4.5 w-4.5" />
-                </div>
-                <h3 className={`text-xs font-extrabold mb-1 ${dark ? 'text-white' : 'text-slate-950'}`}>
-                  독자 비율 분석이 궁금하신가요?
-                </h3>
-                <p className="text-[10.5px] text-slate-400 mb-4 leading-normal">
-                  요즘크리에이터랩에 로그인하시면 실제 가입 회원들의 디테일한 백분율을 확인해 보실 수 있습니다.
-                </p>
-                <button
-                  onClick={handleMockLogin}
-                  disabled={isLoggingIn}
-                  className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:bg-purple-400 text-white font-extrabold py-2 px-4 rounded-xl text-xs transition-all cursor-pointer shadow-md shadow-purple-500/10 flex items-center justify-center gap-1"
-                >
-                  {isLoggingIn ? (
-                    <>
-                      <span className="h-3.5 w-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span>분석 데이터 호출 중...</span>
-                    </>
-                  ) : (
-                    <span>1초 안심 로그인하고 보기</span>
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
         </section>
 
         {/* Article Body Content */}

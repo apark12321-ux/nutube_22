@@ -553,7 +553,7 @@ export default function App() {
           본 사이트는 유튜브 채널 성장 전략을 다루는 가이드이며, 플랫폼 공식 제휴사가 아닌 독립 기획 정보소입니다.
         </p>
         <p className="mt-2 font-semibold text-slate-400 dark:text-slate-500">
-          © 요즘크리에이터랩 All rights reserved.
+          © 나우크리에이터랩 All rights reserved.
         </p>
       </footer>
     </div>

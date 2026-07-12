@@ -65,11 +65,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-logo-btn"
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-md shadow-purple-500/20 text-white font-black text-lg">
-              Y
+              N
             </span>
             <div className="flex flex-col">
               <div className="flex items-center">
-                <span className="font-extrabold text-[#7C3AED] text-[18px] tracking-tight">요즘</span>
+                <span className="font-extrabold text-[#7C3AED] text-[18px] tracking-tight">나우</span>
                 <span className={dark ? 'font-extrabold text-white text-[18px] tracking-tight' : 'font-extrabold text-slate-900 text-[18px] tracking-tight'}>크리에이터랩</span>
               </div>
               <span className="text-[9px] text-slate-400 font-medium leading-none tracking-tight">IT 기반 유튜브 성장 가이드</span>
@@ -193,9 +193,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="px-5 flex items-center justify-between border-b pb-4 border-slate-100 dark:border-purple-950">
                     <div className="flex items-center gap-2">
                       <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-black text-xs">
-                        Y
+                        N
                       </span>
-                      <span className="font-extrabold text-[#7C3AED] text-sm">요즘크리에이터랩</span>
+                      <span className="font-extrabold text-[#7C3AED] text-sm">나우크리에이터랩</span>
                     </div>
                     <button
                       onClick={() => setIsDrawerOpen(false)}
@@ -265,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   {/* Drawer Footer */}
                   <div className="px-5 border-t pt-4 border-slate-100 dark:border-purple-950 text-center">
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500">© 요즘크리에이터랩 All rights reserved.</p>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500">© 나우크리에이터랩 All rights reserved.</p>
                   </div>
                 </div>
               </div>
