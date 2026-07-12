@@ -288,7 +288,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
 
 export default function App() {
   const route = initialRoute();
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [tab, setTab] = useState<Tab>(route.tab);
   const [post, setPost] = useState<GuidePost | null>(route.post);
   const [query, setQuery] = useState('');
@@ -361,31 +361,52 @@ export default function App() {
   const dark = theme === 'dark';
 
   return (
-    <div className={dark ? 'min-h-screen bg-[#021321] text-sky-100' : 'min-h-screen bg-sky-50 text-slate-800'}>
-      <Navbar currentTab={tab} setTab={go} theme={theme} toggleTheme={() => setTheme(dark ? 'light' : 'dark')} />
+    <div className={dark ? 'min-h-screen bg-[#090314] text-slate-100' : 'min-h-screen bg-[#F8FAFC] text-slate-900'}>
+      <Navbar 
+        currentTab={tab} 
+        setTab={go} 
+        theme={theme} 
+        toggleTheme={() => setTheme(dark ? 'light' : 'dark')} 
+        category={category}
+        setCategory={setCategory}
+        searchQuery={query}
+        setSearchQuery={setQuery}
+      />
       <main>
         {tab === 'guides' && (
           <>
-            <section className={dark ? 'border-b border-sky-950 bg-gradient-to-b from-[#031d33] to-[#02182b] py-16' : 'border-b border-sky-100 bg-gradient-to-b from-white to-sky-50/50 py-16'}>
+            <section className={dark 
+              ? 'border-b border-purple-950 bg-gradient-to-b from-[#13062b] to-[#090314] py-14' 
+              : 'border-b border-slate-100 bg-white py-14'
+            }>
               <div className="mx-auto max-w-6xl px-4 break-keep">
                 <div className="text-center">
-                  <div className={dark ? 'inline-flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-black text-cyan-400 border border-cyan-500/20 shadow-sm shadow-cyan-950/20' : 'inline-flex items-center gap-1.5 rounded-full bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-600 border border-cyan-100'}>
+                  <div className={dark 
+                    ? 'inline-flex items-center gap-1.5 rounded-full bg-purple-500/10 px-3 py-1 text-xs font-black text-purple-400 border border-purple-500/20 shadow-sm' 
+                    : 'inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1 text-xs font-black text-[#7C3AED] border border-purple-100'
+                  }>
                     <Sparkles className="h-3 w-3 animate-pulse" />
                     <span>2026 실전 유튜브 성장 로드맵 & 가이드</span>
                   </div>
-                  <h1 className={dark ? 'mt-4 text-3xl font-black text-white sm:text-5xl tracking-tight leading-tight' : 'mt-4 text-3xl font-black text-slate-900 sm:text-5xl tracking-tight leading-tight'}>
-                    성공하는 유튜브 채널을 위한<br />
-                    <span className="bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">단계별 실무 체크리스트</span>
+                  <h1 className={dark 
+                    ? 'mt-4 text-[26px] sm:text-4xl font-black text-white tracking-tight leading-tight' 
+                    : 'mt-4 text-[26px] sm:text-4xl font-black text-slate-900 tracking-tight leading-tight'
+                  }>
+                    성공하는 1인 크리에이터를 위한<br />
+                    <span className="bg-gradient-to-r from-[#7C3AED] to-indigo-500 bg-clip-text text-transparent">단계별 실무 가이드 및 핵심 노하우</span>
                   </h1>
-                  <p className={dark ? 'mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-sky-200/85' : 'mx-auto mt-5 max-w-3xl text-sm leading-relaxed text-slate-600'}>
-                    시청자의 첫 3초를 사로잡는 쇼츠 후킹 공식부터 클릭률을 폭발시키는 썸네일 자가 점검, 그리고 구글 애드센스 다중 계정 심사 통과법까지! 초보 크리에이터가 마주하는 모든 핵심 성공 지표를 실무자 시선에서 완벽하게 체크리스트 중심으로 정리해 드립니다.
+                  <p className={dark 
+                    ? 'mx-auto mt-4 max-w-3xl text-xs sm:text-sm leading-relaxed text-slate-300' 
+                    : 'mx-auto mt-4 max-w-3xl text-xs sm:text-sm leading-relaxed text-slate-600'
+                  }>
+                    첫 3초 시선을 사로잡는 쇼츠 기획 공식부터 고수익 광고 단가(RPM) 최적화, 클릭률(CTR)을 견인하는 썸네일 노하우까지! 누구나 단계별 체크리스트를 따라 읽고 오늘 바로 실전에 적용해 보세요.
                   </p>
                 </div>
 
-                {/* Interactive 5-Step Checklist Roadmap */}
-                <div className="mt-12">
-                  <p className={dark ? 'text-center text-xs font-bold text-sky-400/80 mb-4' : 'text-center text-xs font-bold text-slate-500 mb-4'}>
-                    👇 각 로드맵 단계를 클릭하여 관련 실전 가이드를 즉시 확인해 보세요
+                {/* Interactive 5-Step Checklist Roadmap in Purple Styling */}
+                <div className="mt-10">
+                  <p className={dark ? 'text-center text-[10.5px] font-bold text-purple-400 mb-4' : 'text-center text-[10.5px] font-bold text-slate-500 mb-4'}>
+                    👇 각 로드맵 단계를 클릭하여 관련 실전 가이드를 검색해 보세요
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
                     {[
@@ -394,31 +415,31 @@ export default function App() {
                         title: '채널 시작',
                         icon: Rocket,
                         color: 'from-orange-500 to-amber-500',
-                        desc: '브랜드 채널 설정, 기본 레이아웃 세팅 및 알고리즘 타겟팅 기초',
+                        desc: '브랜드 채널 세팅 및 핵심 타겟팅 기초',
                         search: '개설',
                       },
                       {
                         step: '2단계',
                         title: '콘텐츠 기획',
                         icon: FileText,
-                        color: 'from-cyan-500 to-blue-500',
-                        desc: '알고리즘 피드 노출 및 시청 세션을 늘리는 정보 밀도 기획 공식',
+                        color: 'from-purple-500 to-indigo-500',
+                        desc: '알고리즘 피드 노출을 늘리는 시각 기획 공식',
                         search: '기획',
                       },
                       {
                         step: '3단계',
                         title: '쇼츠 운영',
                         icon: Zap,
-                        color: 'from-rose-500 to-red-500',
-                        desc: '첫 3초 후크 장치, 빠른 프레임 전환과 사운드 타이밍 연출',
+                        color: 'from-rose-500 to-pink-500',
+                        desc: '첫 3초 후크 장치와 빠른 프레임 전환 연출',
                         search: '쇼츠',
                       },
                       {
                         step: '4단계',
                         title: '썸네일 점검',
                         icon: Image,
-                        color: 'from-purple-500 to-pink-500',
-                        desc: '텍스트 비율, 시선 흐름, 클릭률(CTR) 극대화 자가 진단 가이드',
+                        color: 'from-blue-500 to-indigo-600',
+                        desc: '클릭률 극대화를 위한 레이아웃 자가 진단',
                         search: '썸네일',
                       },
                       {
@@ -426,7 +447,7 @@ export default function App() {
                         title: '수익화 준비',
                         icon: DollarSign,
                         color: 'from-emerald-500 to-teal-500',
-                        desc: '애드센스 다중 휴면 계정 방지 정책 및 정밀 심사 승인 프로세스',
+                        desc: '애드센스 휴면 및 정밀 승인 프로세스',
                         search: '수익',
                       },
                     ].map((item) => {
@@ -440,25 +461,25 @@ export default function App() {
                             scrollToPosts();
                           }}
                           className={dark 
-                            ? `group relative rounded-2xl border ${isFiltering ? 'border-cyan-400 bg-cyan-950/20' : 'border-sky-950 bg-[#042841]/35'} p-5 text-left transition duration-300 hover:border-sky-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-950/10`
-                            : `group relative rounded-2xl border ${isFiltering ? 'border-cyan-400 bg-cyan-50/50' : 'border-sky-100 bg-white'} p-5 text-left shadow-sm transition duration-300 hover:border-sky-300 hover:-translate-y-1 hover:shadow-md`
+                            ? `group relative rounded-2xl border ${isFiltering ? 'border-purple-500 bg-purple-950/20' : 'border-purple-950 bg-[#140b2a]'} p-5 text-left transition duration-300 hover:border-purple-700 hover:-translate-y-1 hover:shadow-lg`
+                            : `group relative rounded-2xl border ${isFiltering ? 'border-purple-400 bg-purple-50/45' : 'border-slate-100 bg-white'} p-5 text-left shadow-xs transition duration-300 hover:border-purple-200 hover:-translate-y-1 hover:shadow-sm`
                           }
                         >
                           <div className="flex items-center justify-between mb-3">
-                            <span className={dark ? 'text-[10px] font-black tracking-widest text-sky-400/70 uppercase' : 'text-[10px] font-black tracking-widest text-slate-400 uppercase'}>
+                            <span className={dark ? 'text-[9px] font-black tracking-widest text-purple-400 uppercase' : 'text-[9px] font-black tracking-widest text-slate-400 uppercase'}>
                               {item.step}
                             </span>
-                            <span className={`flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br ${item.color} text-white shadow-sm shadow-black/10`}>
+                            <span className={`flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br ${item.color} text-white shadow-xs`}>
                               <Icon className="h-4 w-4" />
                             </span>
                           </div>
-                          <h3 className={dark ? 'text-sm font-extrabold text-white group-hover:text-cyan-400 transition-colors' : 'text-sm font-extrabold text-slate-900 group-hover:text-cyan-600 transition-colors'}>
+                          <h3 className={dark ? 'text-[13px] font-extrabold text-white group-hover:text-purple-400 transition-colors' : 'text-[13px] font-extrabold text-slate-900 group-hover:text-[#7C3AED] transition-colors'}>
                             {item.title}
                           </h3>
-                          <p className={dark ? 'mt-2 text-xs leading-5 text-sky-300/60' : 'mt-2 text-xs leading-5 text-slate-500'}>
+                          <p className={dark ? 'mt-2 text-[11px] leading-relaxed text-slate-400' : 'mt-2 text-[11px] leading-relaxed text-slate-500'}>
                             {item.desc}
                           </p>
-                          <div className="mt-3 flex items-center gap-1 text-[10px] font-bold text-cyan-400">
+                          <div className="mt-3 flex items-center gap-1 text-[10px] font-bold text-[#7C3AED] dark:text-purple-400">
                             <CheckSquare className="h-3 w-3" />
                             <span>체크리스트 보기</span>
                           </div>
@@ -469,39 +490,17 @@ export default function App() {
                 </div>
               </div>
             </section>
-            <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-              <section className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6" aria-label="가이드 카테고리">
-                {CATEGORIES_LIST.map((item) => {
-                  const active = category === item.key;
-                  return (
-                    <button
-                      key={item.key}
-                      type="button"
-                      aria-pressed={active}
-                      onClick={() => selectCategory(item.key)}
-                      className={active
-                        ? 'rounded-2xl border border-cyan-400 bg-cyan-500/10 p-4 text-left shadow-lg shadow-cyan-950/20 ring-2 ring-cyan-400/30 transition active:scale-[0.98]'
-                        : dark
-                          ? 'rounded-2xl border border-sky-950 bg-[#042841]/50 p-4 text-left transition hover:border-sky-700 active:scale-[0.98]'
-                          : 'rounded-2xl border border-sky-100 bg-white p-4 text-left shadow-sm transition hover:border-sky-300 active:scale-[0.98]'}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="text-sm font-bold">{item.label}</div>
-                        <span className={active ? 'rounded-full bg-cyan-400 px-2 py-0.5 text-[10px] font-black text-slate-950' : dark ? 'text-[10px] font-bold text-sky-300/45' : 'text-[10px] font-bold text-slate-400'}>
-                          보기
-                        </span>
-                      </div>
-                      <div className={dark ? 'mt-1 text-xs leading-5 text-sky-300/60' : 'mt-1 text-xs leading-5 text-slate-500'}>{item.description}</div>
-                    </button>
-                  );
-                })}
-              </section>
 
-              <div className={dark ? 'mb-8 rounded-2xl border border-sky-950 bg-[#042841]/40 p-4' : 'mb-8 rounded-2xl border border-sky-100 bg-white p-4 shadow-sm'}>
+            <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+              {/* Category-aware Post Filter Header Block */}
+              <div className={dark 
+                ? 'mb-8 rounded-2xl border border-purple-950/50 bg-[#120822] p-5' 
+                : 'mb-8 rounded-2xl border border-slate-100 bg-white p-5 shadow-xs'
+              }>
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <p className="text-xs font-bold text-cyan-400">관련 포스팅</p>
-                    <h2 className={dark ? 'mt-1 text-xl font-black text-white' : 'mt-1 text-xl font-black text-slate-900'}>
+                    <p className="text-[10px] font-bold tracking-wider uppercase text-[#7C3AED] dark:text-purple-400">포스팅 리스트</p>
+                    <h2 className={dark ? 'mt-1 text-lg font-black text-white' : 'mt-1 text-lg font-black text-slate-900'}>
                       {selectedCategory ? `${selectedCategory.label} 가이드` : '전체 가이드'}
                     </h2>
                     <p className={dark ? 'mt-1 text-xs text-sky-300/60' : 'mt-1 text-xs text-slate-500'}>
@@ -527,14 +526,22 @@ export default function App() {
         {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}
         {tab === 'privacy' && <InfoPage page={PAGE_CONTENT.privacy} theme={theme} />}
       </main>
-      <footer className={dark ? 'border-t border-sky-950 px-4 py-8 text-center text-xs text-sky-300/50' : 'border-t border-sky-100 bg-white px-4 py-8 text-center text-xs text-slate-500'}>
-        <div className="mb-3 flex flex-wrap justify-center gap-4">
-          <button onClick={() => go('about')}>소개</button>
-          <button onClick={() => go('contact')}>문의</button>
-          <button onClick={() => go('privacy')}>개인정보처리방침</button>
-          <button onClick={() => go('terms')}>이용약관</button>
+      <footer className={dark 
+        ? 'border-t border-purple-950 bg-[#0c051a] px-4 py-8 text-center text-xs text-slate-400' 
+        : 'border-t border-slate-100 bg-white px-4 py-8 text-center text-xs text-slate-500 shadow-sm'
+      }>
+        <div className="mb-4 flex flex-wrap justify-center gap-5 font-bold">
+          <button onClick={() => go('about')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">소개</button>
+          <button onClick={() => go('contact')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">제휴 제안 & 문의</button>
+          <button onClick={() => go('privacy')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">개인정보처리방침</button>
+          <button onClick={() => go('terms')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">이용약관</button>
         </div>
-        © NuTube
+        <p className="text-[11px] text-slate-400 leading-relaxed max-w-md mx-auto">
+          본 사이트는 유튜브 채널 성장 전략을 다루는 가이드이며, 플랫폼 공식 제휴사가 아닌 독립 기획 정보소입니다.
+        </p>
+        <p className="mt-2 font-semibold text-slate-400 dark:text-slate-500">
+          © 요즘크리에이터랩 All rights reserved.
+        </p>
       </footer>
     </div>
   );
@@ -543,22 +550,28 @@ export default function App() {
 function InfoPage({ page, theme }: { page: { title: string; intro: string; updated: string; sections: PageSection[] }; theme: 'light' | 'dark' }) {
   const dark = theme === 'dark';
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <article className={dark ? 'rounded-3xl border border-sky-950 bg-[#042841]/50 p-7 shadow-xl shadow-sky-950/20 sm:p-10' : 'rounded-3xl border border-sky-100 bg-white p-7 shadow-sm sm:p-10'}>
-        <p className="text-xs font-bold text-cyan-400">최종 수정일: {page.updated}</p>
-        <h1 className={dark ? 'mt-3 text-3xl font-black text-white' : 'mt-3 text-3xl font-black text-slate-900'}>{page.title}</h1>
-        <p className={dark ? 'mt-5 text-base leading-8 text-sky-100/85' : 'mt-5 text-base leading-8 text-slate-700'}>{page.intro}</p>
-        <div className="mt-9 space-y-7">
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <article className={dark 
+        ? 'rounded-2xl border border-purple-950 bg-[#120822] p-7 shadow-xl sm:p-10' 
+        : 'rounded-2xl border border-slate-100 bg-white p-7 shadow-xs sm:p-10'
+      }>
+        <p className="text-xs font-bold text-[#7C3AED] dark:text-purple-400">최종 수정일: {page.updated}</p>
+        <h1 className={dark ? 'mt-3 text-2xl sm:text-3xl font-black text-white' : 'mt-3 text-2xl sm:text-3xl font-black text-slate-900'}>{page.title}</h1>
+        <p className={dark ? 'mt-4 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-4 text-xs sm:text-sm leading-relaxed text-slate-600'}>{page.intro}</p>
+        <div className="mt-8 space-y-6">
           {page.sections.map((section) => (
-            <section key={section.heading} className={dark ? 'rounded-2xl border border-sky-950/70 bg-[#021321]/45 p-5' : 'rounded-2xl border border-sky-100 bg-sky-50/60 p-5'}>
-              <h2 className={dark ? 'text-lg font-extrabold text-white' : 'text-lg font-extrabold text-slate-900'}>{section.heading}</h2>
+            <section key={section.heading} className={dark ? 'rounded-xl border border-purple-950 bg-[#090314] p-5' : 'rounded-xl border border-slate-50 bg-[#F8FAFC] p-5'}>
+              <h2 className={dark ? 'text-sm font-extrabold text-white' : 'text-sm font-extrabold text-slate-900'}>{section.heading}</h2>
               {section.body?.map((paragraph) => (
-                <p key={paragraph} className={dark ? 'mt-3 text-sm leading-7 text-sky-100/80' : 'mt-3 text-sm leading-7 text-slate-700'}>{paragraph}</p>
+                <p key={paragraph} className={dark ? 'mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600'}>{paragraph}</p>
               ))}
               {section.items && (
-                <ul className={dark ? 'mt-4 space-y-2 text-sm leading-7 text-sky-100/80' : 'mt-4 space-y-2 text-sm leading-7 text-slate-700'}>
+                <ul className={dark ? 'mt-3 space-y-1.5 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-3 space-y-1.5 text-xs sm:text-sm leading-relaxed text-slate-600'}>
                   {section.items.map((item) => (
-                    <li key={item} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" /> <span>{item}</span></li>
+                    <li key={item} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" /> 
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
               )}

@@ -201,6 +201,41 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
   };
 
   return visiblePosts
+    .map((post): GuidePost => {
+      let mappedCategory = post.category;
+      let mappedLevel = post.level || 'intermediate';
+      let mappedCategoryLabel = post.categoryLabel;
+
+      const oldCat = post.category as string;
+      if (oldCat === 'beginner') {
+        mappedCategory = 'youtube';
+        mappedLevel = 'beginner';
+        mappedCategoryLabel = '유튜브 수익화';
+      } else if (oldCat === 'algorithm') {
+        mappedCategory = 'youtube';
+        mappedLevel = 'intermediate';
+        mappedCategoryLabel = '유튜브 수익화';
+      } else if (oldCat === 'monetization') {
+        mappedCategory = 'youtube';
+        mappedLevel = 'advanced';
+        mappedCategoryLabel = '유튜브 수익화';
+      } else if (oldCat === 'senior') {
+        mappedCategory = 'youtube';
+        mappedLevel = 'beginner';
+        mappedCategoryLabel = '유튜브 수익화';
+      } else if (oldCat === 'advanced') {
+        mappedCategory = 'youtube';
+        mappedLevel = 'advanced';
+        mappedCategoryLabel = '유튜브 수익화';
+      }
+
+      return {
+        ...post,
+        category: mappedCategory,
+        categoryLabel: mappedCategoryLabel,
+        level: mappedLevel
+      };
+    })
     .map(ensureMinimumPostLength)
     .map(optimizePost)
     .map((post) => addPostImages(post))
