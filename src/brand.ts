@@ -1,5 +1,5 @@
-export const SITE_DISPLAY_NAME = '크리에이터랩';
-export const SITE_ENGLISH_NAME = 'Creator Lab';
+export const SITE_DISPLAY_NAME = '나우크리에이터랩';
+export const SITE_ENGLISH_NAME = 'Now Creator Lab';
 
 const replaceText = (value: string) =>
   value
