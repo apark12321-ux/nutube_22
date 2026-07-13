@@ -212,12 +212,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   // Retrieve reader stats tailored to current category
   const statsInfo = getCategoryReaderStats(post.category || 'youtube');
 
-  // Compute mock metrics based on post popularity
-  const calculatedViews = (post.likes || 15) * 31 + 420;
-  const formattedViews = calculatedViews >= 1000 
-    ? `${(calculatedViews / 1000).toFixed(1)}K` 
-    : `${calculatedViews}`;
-
   const renderFormattedText = (text: string): React.ReactNode[] => {
     const parts = text.replace(/\`/g, '`').replace(/\*/g, '*').split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
     return parts.map((part, index) => {
@@ -316,16 +310,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
               <span className="flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5" />
                 <span>{formatDate(post.publishedAt)}</span>
-              </span>
-              <span className="text-slate-200 dark:text-purple-950">|</span>
-              <span className="flex items-center gap-1 bg-amber-500/10 text-amber-500 dark:text-amber-400 px-1.5 py-0.5 rounded font-bold text-[10px]">
-                <Sparkles className="h-3 w-3 shrink-0" />
-                <span>인기</span>
-              </span>
-              <span className="text-slate-200 dark:text-purple-950">|</span>
-              <span className="flex items-center gap-1">
-                <Eye className="h-3.5 w-3.5" />
-                <span>{formattedViews} 조회</span>
               </span>
             </div>
           </div>

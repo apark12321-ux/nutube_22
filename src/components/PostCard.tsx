@@ -15,12 +15,6 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
   const date = new Date(post.publishedAt);
   const formattedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
-  // Calculate dynamic realistic views and likes for a publication vibe
-  const calculatedViews = (post.likes || 15) * 31 + 420;
-  const formattedViews = calculatedViews >= 1000 
-    ? `${(calculatedViews / 1000).toFixed(1)}K` 
-    : `${calculatedViews}`;
-
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     onSelect(post);
@@ -51,13 +45,6 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
             }}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
-          {/* Tag Overlay - Popular or Sparkle */}
-          {post.likes && post.likes > 400 && (
-            <div className="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
-              <Sparkles className="h-2.5 w-2.5" />
-              <span>인기</span>
-            </div>
-          )}
         </div>
 
         {/* Post Metadata & Details */}
@@ -110,16 +97,12 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
               <span>{post.author || '크리에이터랩'}</span>
             </div>
 
-            {/* Row 2: Date and Views */}
+            {/* Row 2: Date and Reading state */}
             <div className="flex items-center justify-between text-[11px] font-medium text-slate-400 dark:text-slate-500">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3 w-3" />
                   {formattedDate}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Eye className="h-3 w-3" />
-                  {formattedViews} 읽음
                 </span>
               </div>
               <span className={`flex items-center gap-0.5 font-bold transition-all group-hover:translate-x-1 ${
