@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, User, Clock, Eye, Sparkles, FileText, List, Check, ArrowRight, Lock } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, Clock, FileText, List } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 
 interface GuideReaderProps {
@@ -113,65 +113,9 @@ const ImageFigure = ({ image }: { image?: PostImage }) => {
   );
 };
 
-// Custom Reader statistics data generator based on post category to match "요즘IT"
-const getCategoryReaderStats = (category: string) => {
-  switch (category) {
-    case 'youtube':
-      return {
-        badges: ["1~3년차", "숏폼 전문", "조회수+협찬"],
-        stats: [
-          { rank: 1, label: "초보 & 숏폼 크리에이터", percentage: 54, color: "bg-[#06b6d4]" },
-          { rank: 2, label: "직장인 부업러 (N잡러)", percentage: 28, color: "bg-[#f59e0b]" },
-          { rank: 3, label: "기업 브랜드 홍보팀", percentage: 18, color: "bg-[#3b82f6]" },
-        ]
-      };
-    case 'instagram':
-      return {
-        badges: ["6개월 미만", "릴스 바이럴", "팔로워 극대화"],
-        stats: [
-          { rank: 1, label: "릴스 중심 인플루언서 지망생", percentage: 48, color: "bg-[#ec4899]" },
-          { rank: 2, label: "1인 브랜드 대표 (지식창업)", percentage: 35, color: "bg-[#10b981]" },
-          { rank: 3, label: "SNS 마케팅 대행사 실무자", percentage: 17, color: "bg-[#8b5cf6]" },
-        ]
-      };
-    case 'tiktok':
-      return {
-        badges: ["1년차 미만", "글로벌 타겟", "틱톡 CRP 정산"],
-        stats: [
-          { rank: 1, label: "글로벌 숏폼 큐레이터", percentage: 51, color: "bg-[#14b8a6]" },
-          { rank: 2, label: "제휴 마케터 (수익화 자동화)", percentage: 30, color: "bg-[#f59e0b]" },
-          { rank: 3, label: "MCN 에이전시 소속 크리에이터", percentage: 19, color: "bg-[#6366f1]" },
-        ]
-      };
-    case 'blog':
-      return {
-        badges: ["1~2년차", "워드프레스/티스토리", "구글 검색노출"],
-        stats: [
-          { rank: 1, label: "구글 애드센스 승인 대기자", percentage: 58, color: "bg-[#10b981]" },
-          { rank: 2, label: "서치콘솔 검색엔진 최적화 전문가", percentage: 26, color: "bg-[#ec4899]" },
-          { rank: 3, label: "전업 블로그 웹마스터", percentage: 16, color: "bg-[#3b82f6]" },
-        ]
-      };
-    case 'digital_biz':
-    default:
-      return {
-        badges: ["시작 단계", "전자책/뉴스레터", "무인 패시브 인컴"],
-        stats: [
-          { rank: 1, label: "전자책 및 온라인 대본 기획자", percentage: 45, color: "bg-[#f59e0b]" },
-          { rank: 2, label: "유료 뉴스레터 정기구독 설계자", percentage: 38, color: "bg-[#8b5cf6]" },
-          { rank: 3, label: "1인 지식창업 시스템 빌더", percentage: 17, color: "bg-[#06b6d4]" },
-        ]
-      };
-  }
-};
-
 export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, onBack, theme = 'dark' }) => {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [shareToast, setShareToast] = useState(false);
-  
-  // Interactive Login state for the "어떤 독자들이 봤을까요?" statistics card
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const dark = theme === 'dark';
 
@@ -198,19 +142,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
     }
   };
 
-  const handleMockLogin = () => {
-    setIsLoggingIn(true);
-    setTimeout(() => {
-      setIsLoggingIn(false);
-      setIsLoggedIn(true);
-    }, 1000);
-  };
-
   const blocks = parseContentToBlocks(post.content);
   let paragraphCount = 0;
-
-  // Retrieve reader stats tailored to current category
-  const statsInfo = getCategoryReaderStats(post.category || 'youtube');
 
   const renderFormattedText = (text: string): React.ReactNode[] => {
     const parts = text.replace(/\`/g, '`').replace(/\*/g, '*').split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
