@@ -1,21 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Noto Sans KR", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Noto Sans KR", "Outfit", var(--font-sans);
+  --font-sans: "PretendardVariable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "PretendardVariable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", var(--font-sans);
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 html {
-  font-size: 17px;
+  font-size: 16px;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-feature-settings: "cv05", "cv08", "cv11";
 }
 
 @media (max-width: 640px) {
   html {
-    font-size: 18px;
+    font-size: 16.5px;
   }
 }
 
@@ -24,9 +26,11 @@ body {
   overflow-x: hidden;
   word-break: keep-all;
   overflow-wrap: anywhere;
-  letter-spacing: -0.015em;
-  line-height: 1.75;
+  letter-spacing: -0.022em;
+  line-height: 1.8;
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a,
@@ -43,18 +47,21 @@ a {
 }
 
 #guide-markdown-body p {
-  font-size: 1rem;
-  line-height: 1.9;
+  font-size: 1.025rem;
+  line-height: 1.95;
+  letter-spacing: -0.02em;
 }
 
 #guide-markdown-body li {
   line-height: 1.85;
+  letter-spacing: -0.018em;
 }
 
 #guide-markdown-body h2,
 #guide-markdown-body h3,
 #guide-markdown-body h4 {
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
+  font-weight: 800;
 }
 
 /* 방문자 화면에서 운영·심사용 문구 노출 방지 */
