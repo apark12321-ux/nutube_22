@@ -41,11 +41,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleCategoryClick = (catKey: string | null) => {
     setCategory(catKey);
+    setIsDrawerOpen(false);
   };
 
   const handleNavTab = (tab: Tab) => {
     setTab(tab);
+    setIsDrawerOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLogoClick = () => {
     setCategory(null);
+    setTab('guides');
     setIsDrawerOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -60,7 +67,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left: Brand Logo styled like '요즘IT' */}
           <button 
-            onClick={() => handleCategoryClick(null)} 
+            type="button"
+            onClick={handleLogoClick} 
             className="flex items-center gap-2 text-left hover:opacity-90 transition-opacity cursor-pointer"
             id="nav-logo-btn"
           >
@@ -249,14 +257,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <div className="border-t pt-4 border-slate-100 dark:border-purple-950 space-y-2">
                       <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-purple-400">법적 고지</p>
                       <button 
+                        type="button"
                         onClick={() => handleNavTab('terms')}
-                        className={`w-full block text-left text-xs font-semibold py-1.5 px-4 rounded-lg ${dark ? 'text-slate-400 hover:text-white hover:bg-purple-950/20' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'}`}
+                        className={`w-full block text-left text-xs font-semibold py-2 px-4 rounded-lg cursor-pointer transition-colors ${
+                          currentTab === 'terms'
+                            ? 'bg-purple-500/10 text-[#7C3AED] font-bold'
+                            : dark 
+                              ? 'text-slate-400 hover:text-white hover:bg-purple-950/20' 
+                              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        }`}
                       >
                         이용약관
                       </button>
                       <button 
+                        type="button"
                         onClick={() => handleNavTab('privacy')}
-                        className={`w-full block text-left text-xs font-semibold py-1.5 px-4 rounded-lg ${dark ? 'text-slate-400 hover:text-white hover:bg-purple-950/20' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'}`}
+                        className={`w-full block text-left text-xs font-semibold py-2 px-4 rounded-lg cursor-pointer transition-colors ${
+                          currentTab === 'privacy'
+                            ? 'bg-purple-500/10 text-[#7C3AED] font-bold'
+                            : dark 
+                              ? 'text-slate-400 hover:text-white hover:bg-purple-950/20' 
+                              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        }`}
                       >
                         개인정보처리방침
                       </button>
