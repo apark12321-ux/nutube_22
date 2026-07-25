@@ -269,12 +269,80 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   let paragraphCount = 0;
 
   const renderFormattedText = (text: string): React.ReactNode[] => {
-    const parts = text.replace(/\`/g, '`').replace(/\*/g, '*').split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
-    return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) return <strong key={index} className="font-extrabold text-[#7C3AED] dark:text-purple-400">{part.slice(2, -2)}</strong>;
-      if (part.startsWith('`') && part.endsWith('`')) return <code key={index} className="rounded bg-slate-100 dark:bg-purple-950/80 border border-slate-200/50 dark:border-purple-900/30 px-1.5 py-0.5 text-[0.85em] text-[#7C3AED] dark:text-purple-300 font-mono">{part.slice(1, -1)}</code>;
-      return <span key={index}>{part}</span>;
-    });
+    if (!text) return [];
+
+    let cleanText = text.replace(/\*\*\s*\*\*/g, ' ');
+    cleanText = cleanText.replace(/\\`/g, '`').replace(/\\\*/g, '*');
+
+    const doubleStarCount = (cleanText.match(/\*\*/g) || []).length;
+    if (doubleStarCount % 2 !== 0) {
+      cleanText = cleanText + '**';
+    }
+
+    const parts: React.ReactNode[] = [];
+    let i = 0;
+    let currentText = '';
+
+    while (i < cleanText.length) {
+      if (cleanText.substring(i, i + 2) === '**') {
+        if (currentText) {
+          parts.push(<span key={`txt-${i}`}>{currentText}</span>);
+          currentText = '';
+        }
+        i += 2;
+        let boldContent = '';
+        while (i < cleanText.length && cleanText.substring(i, i + 2) !== '**') {
+          boldContent += cleanText[i];
+          i++;
+        }
+        if (cleanText.substring(i, i + 2) === '**') {
+          i += 2;
+        }
+
+        const trimmedBold = boldContent.trim();
+        if (trimmedBold) {
+          parts.push(
+            <strong key={`bold-${i}`} className="font-extrabold text-[#7C3AED] dark:text-purple-400">
+              {trimmedBold}
+            </strong>
+          );
+        } else {
+          parts.push(<span key={`sp-${i}`}> </span>);
+        }
+      } else if (cleanText[i] === '`') {
+        if (currentText) {
+          parts.push(<span key={`txt-${i}`}>{currentText}</span>);
+          currentText = '';
+        }
+        i++;
+        let codeContent = '';
+        while (i < cleanText.length && cleanText[i] !== '`') {
+          codeContent += cleanText[i];
+          i++;
+        }
+        if (cleanText[i] === '`') {
+          i++;
+        }
+
+        const trimmedCode = codeContent.trim();
+        if (trimmedCode) {
+          parts.push(
+            <code key={`code-${i}`} className="rounded bg-slate-100 dark:bg-purple-950/80 border border-slate-200/50 dark:border-purple-900/30 px-1.5 py-0.5 text-[0.85em] text-[#7C3AED] dark:text-purple-300 font-mono">
+              {trimmedCode}
+            </code>
+          );
+        }
+      } else {
+        currentText += cleanText[i];
+        i++;
+      }
+    }
+
+    if (currentText) {
+      parts.push(<span key="txt-end">{currentText}</span>);
+    }
+
+    return parts;
   };
 
   // Generate dynamic GEO FAQ items

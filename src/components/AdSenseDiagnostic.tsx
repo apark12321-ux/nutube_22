@@ -225,7 +225,7 @@ YPP 신청 시 발생한 애드센스 계정 연결 오류 문제를 해결하�
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
               구글 애드센스 승인 거절(블로그, 티스토리, 유튜브 등)로 좌절 중이신가요? 
-              현재 계정의 오리지널 신호 세기 및 사유를 정량적으로 입력하시면, **예상 승인 성공 점수 산출**과 함께 **심사역의 마음을 강박적이고 정중하게 자극할 소명용 편지 템플릿**을 탑재하여 재승인을 전폭 유도합니다.
+              현재 계정의 오리지널 신호 세기 및 사유를 정량적으로 입력하시면, <strong className="text-red-400 font-bold">예상 승인 성공 점수 산출</strong>과 함께 <strong className="text-red-400 font-bold">심사역의 마음을 강박적이고 정중하게 자극할 소명용 편지 템플릿</strong>을 탑재하여 재승인을 전폭 유도합니다.
             </p>
           </div>
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg shadow-red-500/20 animate-pulse">

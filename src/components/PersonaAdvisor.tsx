@@ -17,7 +17,16 @@ const renderFormattedText = (text: string, theme: 'light' | 'dark' = 'dark') => 
   
   // 인라인 볼드 및 코드 백틱 파싱 도우미
   const renderInlineStyles = (txt: string, idxKey: string): React.ReactNode => {
-    let cleanText = txt.replace(/\\`/g, '`').replace(/\\\*/g, '*');
+    if (!txt) return null;
+
+    let cleanText = txt.replace(/\*\*\s*\*\*/g, ' ');
+    cleanText = cleanText.replace(/\\`/g, '`').replace(/\\\*/g, '*');
+
+    const doubleStarCount = (cleanText.match(/\*\*/g) || []).length;
+    if (doubleStarCount % 2 !== 0) {
+      cleanText = cleanText + '**';
+    }
+
     const parts: React.ReactNode[] = [];
     let currentWord = '';
     let i = 0;
@@ -34,15 +43,19 @@ const renderFormattedText = (text: string, theme: 'light' | 'dark' = 'dark') => 
           boldText += cleanText[i];
           i++;
         }
-        if (boldText) {
-          parts.push(
-            <strong key={`bold-${idxKey}-${i}`} className={`font-extrabold mx-0.5 ${theme === 'dark' ? 'text-amber-300' : 'text-amber-600'}`}>
-              {boldText}
-            </strong>
-          );
-        }
         if (cleanText.substring(i, i + 2) === '**') {
           i += 2;
+        }
+
+        const trimmedBold = boldText.trim();
+        if (trimmedBold) {
+          parts.push(
+            <strong key={`bold-${idxKey}-${i}`} className={`font-extrabold mx-0.5 ${theme === 'dark' ? 'text-amber-300' : 'text-amber-600'}`}>
+              {trimmedBold}
+            </strong>
+          );
+        } else {
+          parts.push(<span key={`sp-${idxKey}-${i}`}> </span>);
         }
       } else if (cleanText[i] === '`') {
         if (currentWord) {
@@ -55,19 +68,21 @@ const renderFormattedText = (text: string, theme: 'light' | 'dark' = 'dark') => 
           codeText += cleanText[i];
           i++;
         }
-        if (codeText) {
+        if (cleanText[i] === '`') {
+          i++;
+        }
+
+        const trimmedCode = codeText.trim();
+        if (trimmedCode) {
           parts.push(
             <code key={`code-${idxKey}-${i}`} className={`font-mono px-1.5 py-0.5 rounded text-xs mx-0.5 border ${
               theme === 'dark' 
                 ? 'text-rose-450 bg-slate-950 border-slate-900' 
                 : 'text-rose-600 bg-sky-50 border-sky-100'
             }`}>
-              {codeText}
+              {trimmedCode}
             </code>
           );
-        }
-        if (cleanText[i] === '`') {
-          i++;
         }
       } else {
         currentWord += cleanText[i];
