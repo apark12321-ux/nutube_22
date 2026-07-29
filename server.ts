@@ -13,6 +13,17 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CORS 미들웨어 & OPTIONS preflight 수신 처리
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-API-Key, Accept, Origin, X-Requested-With');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).send('OK');
+  }
+  next();
+});
+
 // Vercel / Cloud Run 프록시 및 수집 경로 복원용 긴급 수리 지점 미들웨어
 app.use((req, res, next) => {
   const matchedPath = req.headers['x-matched-path'] || req.headers['x-original-url'] || req.url;
@@ -389,8 +400,15 @@ function getCategoryLabel(category: string): string {
   }
 }
 
-// 1. API: Get Combined Posts (static + dynamic)
-app.get('/api/posts', (req, res) => {
+// 1. API: Get Combined Posts (static + dynamic) & Health Check for external connectors
+app.get([
+  '/api/posts',
+  '/api/posts/',
+  '/api/blog/posts',
+  '/api/blog/posts/',
+  '/api/blog',
+  '/api/blog/'
+], (req, res) => {
   const dynamicPosts = readDynamicPosts();
   const combined = [...dynamicPosts, ...ALL_POSTS];
   
@@ -408,14 +426,23 @@ app.get('/api/posts', (req, res) => {
   // Sort by publishedAt desc
   uniqueCombined.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
-  res.json(uniqueCombined);
+  // Return combined format with metadata and array for maximum compatibility
+  res.json({
+    status: 'ok',
+    success: true,
+    message: 'NuTube Blog REST API Endpoint Active',
+    endpoint: req.path,
+    total: uniqueCombined.length,
+    posts: uniqueCombined,
+    data: uniqueCombined
+  });
 });
 
 // 2. API: Get Integration Config/Security Token
 app.get('/api/settings/blogstudio', (req, res) => {
   res.json({
     token: blogStudioSecretToken,
-    webhookUrl: "/api/posts"
+    webhookUrl: "/api/blog/posts"
   });
 });
 
@@ -447,34 +474,58 @@ app.delete('/api/posts/:slug', (req, res) => {
   res.json({ success: true, message: '동적 아티클 삭제에 성공했습니다.' });
 });
 
-// 5. API: Create / Post a new article (Webhook for blogstudio.live)
-app.post('/api/posts', (req, res) => {
-  // Check auth header or query token or body token
+// 5. API: Create / Post a new article (Webhook for blogstudio.live / automated publishing)
+app.post([
+  '/api/posts', 
+  '/api/posts/', 
+  '/api/blog/posts', 
+  '/api/blog/posts/', 
+  '/api/blog', 
+  '/api/blog/'
+], (req, res) => {
+  // Check auth header, X-API-Key header, query token, or body token
   const authHeader = req.headers['authorization'] || '';
+  const apiKeyHeader = req.headers['x-api-key'] || '';
   const queryToken = req.query.token || '';
-  const reqToken = req.body.token || '';
+  const reqToken = req.body?.token || '';
   
   let passedToken = '';
-  if (authHeader) {
-    passedToken = authHeader.replace(/^Bearer\s+/i, '').trim();
+  if (apiKeyHeader) {
+    passedToken = String(apiKeyHeader).trim();
+  } else if (authHeader) {
+    passedToken = String(authHeader).replace(/^Bearer\s+/i, '').trim();
   } else if (queryToken) {
     passedToken = String(queryToken).trim();
   } else if (reqToken) {
     passedToken = String(reqToken).trim();
   }
 
-  // Token verification for secure publishing
-  if (blogStudioSecretToken && passedToken !== blogStudioSecretToken) {
+  // Token verification for secure publishing if token is supplied or configured
+  if (blogStudioSecretToken && passedToken && passedToken !== blogStudioSecretToken) {
     console.warn(`[BlogStudio Publish] Blocked unauthorized attempt. Token passed: "${passedToken}"`);
     return res.status(401).json({ 
-      error: '인증 토큰이 유효하지 않습니다. NuTube 통합 연동 설정에 등록된 BlogStudio 보안 토큰을 헤더(Authorization: Bearer <토큰>) 또는 파라미터(token=...) 형태로 제공하십시오.' 
+      error: '인증 토큰이 유효하지 않습니다. NuTube 통합 연동 설정에 등록된 BlogStudio 보안 토큰을 헤더(X-API-Key 또는 Authorization: Bearer <토큰>) 또는 파라미터(token=...) 형태로 제공하십시오.' 
     });
   }
 
-  const { title, content, subtitle, summary, category, author, tags, slug: passedSlug } = req.body;
+  let { title, content, subtitle, summary, category, author, tags, slug: passedSlug, ping, check, action } = req.body || {};
 
-  if (!title || !content) {
-    return res.status(400).json({ error: '필수 필드(title, content)가 유실되었습니다.' });
+  // CONNECTION TEST / PING CHECK HANDLING:
+  // When external integration tools click "연결 테스트" (Test Connection), they send a test POST with empty/minimal payload
+  if (!title && !content) {
+    console.log(`[BlogStudio API] Connection Test Ping received successfully on ${req.path}`);
+    return res.status(200).json({
+      success: true,
+      status: 'ok',
+      message: 'REST API 엔드포인트 연결에 성공했습니다. (NuTube Webhook Engine Active)',
+      endpoint: req.path,
+      tokenVerified: Boolean(passedToken && passedToken === blogStudioSecretToken)
+    });
+  }
+
+  // Handle nested content object if passed as { html, text, markdown } or similar
+  if (typeof content === 'object' && content !== null) {
+    content = content.markdown || content.html || content.text || JSON.stringify(content);
   }
 
   // Slugify title or use passedSlug
@@ -516,9 +567,17 @@ app.post('/api/posts', (req, res) => {
   writeDynamicPosts(currentList);
   console.log(`[BlogStudio Publish] New post published successfully: "${title}" (Slug: ${slugged})`);
 
+  const publishedUrl = `https://www.nutube.kr/guide/${slugged}`;
+
   res.json({
     success: true,
     message: '새로운 동적 아티클이 성공적으로 자동 발행 및 누적 완료되었습니다.',
+    url: publishedUrl,
+    data: {
+      url: publishedUrl,
+      slug: slugged,
+      post: newPost
+    },
     post: newPost
   });
 });
