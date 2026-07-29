@@ -90,15 +90,15 @@ AI로 숏폼 역사/인물 다큐나 감동 스토리 영상을 제작할 때 �
 
 const JUNE_16_COMMUNITY_ENGAGEMENT_GUIDE: GuidePost = {
   slug: 'community-fandom-reputation-management',
-  title: '댓글 점수를 폭등시키는 시니어 팬덤 소통 공역: 시청 지속 시간을 늘리는 감성 댓글 매뉴얼',
-  subtitle: '독자의 자발적인 소통 광장을 개조하고 호감형 알고리즘 점수를 유발하는 3선 답글 작법',
+  title: '댓글 참여율을 폭등시키는 시니어 팬덤 소통 공역: 시청 지속 시간을 늘리는 감성 댓글 매뉴얼',
+  subtitle: '시청자의 자발적인 참여를 이끌어내고 알고리즘 노출을 극대화하는 실전 답글 작법',
   category: 'senior',
   categoryLabel: '시니어 사연 쇼츠',
   publishedAt: '2026-06-16T12:00:00Z',
   updatedAt: '2026-06-16T12:15:00Z',
   author: '감성 사연 디렉터 제인',
-  summary: '시니어 타겟층은 한번 결속하면 타 연령대 대비 상상할 수 없을 만큼 깊고 강력한 충성도를 표명합니다. 이들의 적극적 지지를 이끌고, 시청 잔류 수치를 우상향 정렬해 주는 답글 및 커뮤니티 전도 마스터플랜입니다.',
-  tags: ['시니어소통', '소통전략', '댓글활성화', '알고리즘점수', '감성스토리'],
+  summary: '시니어 타겟층은 한 번 팬이 되면 타 연령대 대비 매우 강력한 충성도를 보여줍니다. 시청자들의 적극적인 참여와 체류 시간을 늘려주는 19년차 마케터의 실전 소통 전략입니다.',
+  tags: ['시니어소통', '댓글마케팅', '팬덤구축', '알고리즘노출', '체류시간증가'],
   readTime: '10분',
   likes: 615,
   authorityLabel: 'Fandom Reputation Expert',
@@ -279,7 +279,7 @@ const INSTAGRAM_REELS_ALGORITHM_GUIDE: GuidePost = {
   readTime: '8분',
   likes: 423,
   level: 'intermediate',
-  content: `## 2026년 인스타그램 릴스가 가장 우대하는 3가지 신호
+  content: `## 2026년 인스타그램 릴스 알고리즘이 추천 노출을 늘려주는 3가지 핵심 신호
 
 인스타그램에서 단순히 예쁘고 잘 꾸며진 피드만 올리던 시대는 완전히 지났습니다. 알고리즘은 이제 일반 노출 피드보다 릴스(Reels) 추천 영역을 무대로 오가닉 트래픽의 80% 이상을 배분하고 있습니다. 
 

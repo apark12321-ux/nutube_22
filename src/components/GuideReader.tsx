@@ -467,7 +467,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         {/* Hero image banner */}
         <ImageFigure image={post.thumbnail} />
 
-        {/* AEO / GEO Direct Quick Answer Card */}
+        {/* 19년차 마케터 핵심 요약 Card */}
         <section className={`mb-8 rounded-2xl border p-5 sm:p-6 transition-all ${
           dark ? 'border-purple-900/50 bg-gradient-to-br from-[#1b0d38] via-[#13082a] to-[#100624]' : 'border-purple-100 bg-gradient-to-br from-purple-50/60 via-indigo-50/30 to-white shadow-xs'
         }`} id="aeo-quick-answer-card">
@@ -477,11 +477,11 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 ⚡
               </span>
               <h2 className={`text-sm font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>
-                AI & 검색엔진 다이렉트 요약 (AEO & GEO Quick Answer)
+                19년차 마케터의 실전 3초 핵심 요약
               </h2>
             </div>
             <span className="rounded-full bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-[#7C3AED] dark:text-purple-300">
-              AI 답변 인덱스 우대
+              실전 마케팅 핵심 포인트
             </span>
           </div>
 
