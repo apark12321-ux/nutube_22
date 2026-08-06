@@ -216,6 +216,19 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
 };
 
 
+const getPageNumbers = (current: number, total: number): (number | string)[] => {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  if (current <= 4) {
+    return [1, 2, 3, 4, 5, '...', total];
+  }
+  if (current >= total - 3) {
+    return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+  }
+  return [1, '...', current - 1, current, current + 1, '...', total];
+};
+
 export default function App() {
   const route = initialRoute();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -223,6 +236,12 @@ export default function App() {
   const [post, setPost] = useState<GuidePost | null>(route.post);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(route.category);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, category, pageSize]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -245,6 +264,14 @@ export default function App() {
       .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q));
   }, [query, category]);
 
+  const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+
+  const paginatedPosts = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return posts.slice(start, start + pageSize);
+  }, [posts, currentPage, pageSize]);
+
   const selectedCategory = category ? CATEGORIES_LIST.find((item) => item.key === category) : null;
 
   const scrollToPosts = () => {
@@ -254,6 +281,12 @@ export default function App() {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 80);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const target = Math.max(1, Math.min(newPage, totalPages));
+    setPage(target);
+    scrollToPosts();
   };
 
   const navigate = (next: Tab, selectedPost: GuidePost | null = null) => {
@@ -447,19 +480,156 @@ export default function App() {
                       {selectedCategory ? `${selectedCategory.label} 가이드` : '전체 가이드'}
                     </h2>
                     <p className={dark ? 'mt-1 text-xs text-sky-300/60' : 'mt-1 text-xs text-slate-500'}>
-                      {selectedCategory ? `${posts.length}개의 관련 글을 확인할 수 있습니다.` : `${posts.length}개의 전체 글을 확인할 수 있습니다.`}
+                      {selectedCategory 
+                        ? `총 ${posts.length}개의 관련 글 중 ${posts.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}-${Math.min(currentPage * pageSize, posts.length)}번째 표시 (페이지 ${currentPage}/${totalPages})` 
+                        : `총 ${posts.length}개의 전체 글 중 ${posts.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}-${Math.min(currentPage * pageSize, posts.length)}번째 표시 (페이지 ${currentPage}/${totalPages})`
+                      }
                     </p>
                   </div>
-                  <div className="relative w-full max-w-md">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-400" />
-                    <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="가이드 검색" className={dark ? 'w-full rounded-xl border border-sky-950 bg-[#021321] py-2.5 pl-10 pr-4 text-sm text-white outline-none' : 'w-full rounded-xl border border-sky-100 bg-sky-50 py-2.5 pl-10 pr-4 text-sm text-slate-900 outline-none'} />
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+                    <div className="relative w-full sm:w-64">
+                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-purple-400 dark:text-purple-400" />
+                      <input 
+                        value={query} 
+                        onChange={(e) => setQuery(e.target.value)} 
+                        placeholder="가이드 검색" 
+                        className={dark 
+                          ? 'w-full rounded-xl border border-purple-950 bg-[#0c051a] py-2 pl-9 pr-3 text-xs text-white outline-none focus:border-purple-600' 
+                          : 'w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-xs text-slate-900 outline-none focus:border-purple-400'
+                        } 
+                      />
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-auto">
+                      <span className={dark ? 'text-[11px] font-medium text-slate-400' : 'text-[11px] font-medium text-slate-500'}>보기:</span>
+                      {[12, 24, 36].map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => setPageSize(size)}
+                          className={pageSize === size
+                            ? 'rounded-lg bg-[#7C3AED] px-2.5 py-1 text-[11px] font-extrabold text-white shadow-xs'
+                            : dark
+                              ? 'rounded-lg border border-purple-950 bg-[#0c051a] px-2.5 py-1 text-[11px] font-bold text-slate-400 hover:text-white'
+                              : 'rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-600 hover:bg-slate-50'
+                          }
+                        >
+                          {size}개
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <section id="related-posts-section" className="scroll-mt-24 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((item) => <PostCard key={item.slug} post={item} href={getPostPath(item)} theme={theme} accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} onSelect={openPost} />)}
-              </section>
+              {paginatedPosts.length > 0 ? (
+                <section id="related-posts-section" className="scroll-mt-24 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {paginatedPosts.map((item) => (
+                    <PostCard 
+                      key={item.slug} 
+                      post={item} 
+                      href={getPostPath(item)} 
+                      theme={theme} 
+                      accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} 
+                      onSelect={openPost} 
+                    />
+                  ))}
+                </section>
+              ) : (
+                <div className={dark ? 'rounded-2xl border border-purple-950 bg-[#120822] p-12 text-center' : 'rounded-2xl border border-slate-100 bg-white p-12 text-center'}>
+                  <p className={dark ? 'text-sm text-slate-300 font-medium' : 'text-sm text-slate-600 font-medium'}>
+                    검색 조건과 일치하는 가이드 포스팅이 없습니다.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setQuery('');
+                      setCategory(null);
+                    }}
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-[#7C3AED] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-purple-700 transition-colors"
+                  >
+                    필터 초기화
+                  </button>
+                </div>
+              )}
+
+              {/* Pagination controls */}
+              {totalPages > 1 && (
+                <div className="mt-10 flex flex-col items-center justify-between gap-4 sm:flex-row border-t border-slate-200/80 dark:border-purple-950/80 pt-6">
+                  <div className={dark ? 'text-xs text-slate-400 font-medium' : 'text-xs text-slate-600 font-medium'}>
+                    페이지 <span className="font-black text-[#7C3AED] dark:text-purple-400">{currentPage}</span> / {totalPages} (총 <span className="font-bold">{posts.length}</span>개 가이드)
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                    <button
+                      onClick={() => handlePageChange(1)}
+                      disabled={currentPage === 1}
+                      className={dark
+                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-2.5 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
+                        : 'rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
+                      }
+                      title="첫 페이지"
+                    >
+                      « 처음
+                    </button>
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={dark
+                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
+                        : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
+                      }
+                    >
+                      ‹ 이전
+                    </button>
+
+                    {/* Numbered page buttons */}
+                    {getPageNumbers(currentPage, totalPages).map((p, idx) => {
+                      if (p === '...') {
+                        return (
+                          <span key={`ellipsis-${idx}`} className="px-1.5 text-xs text-slate-400 font-bold">
+                            ...
+                          </span>
+                        );
+                      }
+                      const isCurrent = p === currentPage;
+                      return (
+                        <button
+                          key={`page-${p}`}
+                          onClick={() => handlePageChange(p as number)}
+                          className={isCurrent
+                            ? 'rounded-lg bg-[#7C3AED] text-white px-3 py-1.5 text-xs font-black shadow-xs'
+                            : dark
+                              ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 hover:border-purple-700'
+                              : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50'
+                          }
+                        >
+                          {p}
+                        </button>
+                      );
+                    })}
+
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className={dark
+                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
+                        : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
+                      }
+                    >
+                      다음 ›
+                    </button>
+                    <button
+                      onClick={() => handlePageChange(totalPages)}
+                      disabled={currentPage === totalPages}
+                      className={dark
+                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-2.5 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
+                        : 'rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
+                      }
+                      title="마지막 페이지"
+                    >
+                      끝 »
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </>
         )}
