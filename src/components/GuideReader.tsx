@@ -271,7 +271,9 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
   const renderFormattedText = (text: string): React.ReactNode[] => {
     if (!text) return [];
 
-    let cleanText = text.replace(/\*\*\s*\*\*/g, ' ');
+    let cleanText = text.replace(/\*\*\s*\*\*/g, '');
+    cleanText = cleanText.replace(/\*\*'([^']+)'\*\*/g, "'$1'");
+    cleanText = cleanText.replace(/\*\*"([^"]+)"\*\*/g, '"$1"');
     cleanText = cleanText.replace(/\\`/g, '`').replace(/\\\*/g, '*');
 
     const doubleStarCount = (cleanText.match(/\*\*/g) || []).length;
@@ -488,7 +490,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           <div className="grid gap-3.5 text-[13px] leading-relaxed">
             <div className={`p-3 rounded-xl border ${dark ? 'bg-purple-950/30 border-purple-900/30 text-slate-200' : 'bg-white/80 border-purple-100 text-slate-800'}`}>
               <span className="font-extrabold text-[#7C3AED] dark:text-purple-300 mr-2">🎯 핵심 결론:</span>
-              <span>{post.summary || `${post.title}의 핵심은 구체적인 타겟 시청자 요구를 충족하고 체류 시간을 극대화하는 정교한 가치 제안에 있습니다.`}</span>
+              <span>{renderFormattedText(post.summary || `${post.title}의 핵심은 구체적인 타겟 시청자 요구를 충족하고 체류 시간을 극대화하는 정교한 가치 제안에 있습니다.`)}</span>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-3">

@@ -19,27 +19,27 @@ export interface DynamicPostConfig {
 }
 
 export const generateRichDynamicPost = (config: DynamicPostConfig, category: DailyCategory, key: string, publishedAt: Date): GuidePost => {
-  const intro = `${category.label} 분야에서 가장 주목받는 실무 주제인 **'${config.title}'**에 대한 실전 분석 가이드입니다. 많은 ${config.audience}분들이 콘텐츠 제작 과정에서 ${config.targetIssue} 문제로 큰 정체기를 겪으시곤 합니다. 이번 글에서는 ${config.keyAction} 공식을 기반으로 검색 노출과 시청 체류 시간을 극대화하는 정교한 전략적 해법을 자세히 설명해 드립니다.`;
+  const intro = `${category.label} 분야에서 가장 주목받는 실무 주제인 '${config.title}'에 대한 실전 분석 가이드입니다. 많은 ${config.audience}분들이 콘텐츠 제작 과정에서 ${config.targetIssue} 문제로 큰 정체기를 겪으시곤 합니다. 이번 글에서는 ${config.keyAction} 공식을 기반으로 검색 노출과 시청 체류 시간을 극대화하는 정교한 전략적 해법을 자세히 설명해 드립니다.`;
 
-  const reason = `오늘 다루는 **${config.coreTopic}**은(는) 단순히 하나의 동영상을 올리는 단발성 작업이 아니라, 채널 전체의 알고리즘 신뢰도와 추천 가중치를 결정짓는 중추적 기틀입니다. 이 주제를 깊이 있게 정비해 둘 때 비로소 노출 수급의 병목을 풀고 탄탄한 고가치 유기 트래픽을 상시 획득할 수 있습니다.`;
+  const reason = `오늘 다루는 '${config.coreTopic}'은 단순히 하나의 동영상을 올리는 단발성 작업이 아니라, 채널 전체의 알고리즘 신뢰도와 추천 가중치를 결정짓는 중추적 기틀입니다. 이 주제를 깊이 있게 정비해 둘 때 비로소 노출 수급의 병목을 풀고 탄탄한 고가치 유기 트래픽을 상시 획득할 수 있습니다.`;
 
   const reaction = `시청자는 본인의 불편이나 열망이 썸네일과 첫 오프닝에서 3초 안에 직관적 연출에 즉각 호응합니다. 채널에 머무를 뚜렷한 실용적 이득이 확인될 때 비로소 이탈을 멈추고 연쇄 시청 및 구독이라는 적극적인 의사결정으로 나아가게 됩니다.`;
 
   const packaging = `썸네일에는 감각적인 대칭 배색을 활용해 시각적 집중도를 올리고, 제목은 '${config.title}'에 부합하는 명사형 롱테일 키워드를 전면 배치하세요. 도입부 10초 이내에 시청자가 클릭을 통해 얻을 구체적인 보상을 명확히 고지해야 이탈 허들을 방어할 수 있습니다.`;
 
-  const caseStudy = `실제 한 채널에서는 ${config.targetIssue} 증상을 해결하지 못해 조회수가 하락세에 있었으나, 기존의 기획 포맷을 탈피하고 **${config.keyAction}** 솔루션을 도입하여 클릭률을 비약적으로 끌어올리고 전작 대비 약 300% 이상의 추천 피드 수혜와 구독자 성장을 일궈내는 데 성공했습니다.`;
+  const caseStudy = `실제 한 채널에서는 ${config.targetIssue} 증상을 해결하지 못해 조회수가 하락세에 있었으나, 기존의 기획 포맷을 탈피하고 '${config.keyAction}' 솔루션을 도입하여 클릭률을 비약적으로 끌어올리고 전작 대비 약 300% 이상의 추천 피드 수혜와 구독자 성장을 일궈내는 데 성공했습니다.`;
 
   const production = `제작 워크플로를 한층 체계화하십시오. 1단계로 주제 분석과 타겟 리서치를 완결하고, 2단계로 ${config.keyAction}를 시나리오 뼈대에 고정하여 촬영하며, 3단계로 후편집에서 ${config.metrics}를 모니터링할 장치들을 촘촘히 배치하는 일관된 작업 흐름을 확립하세요.`;
 
-  const pitfall = `가장 뼈아픈 실수는 창작자 본인의 감이나 취향에만 의존해 **${config.mistake}** 방식을 반복하는 것입니다. 이는 시청자와 추천 로봇 모두에게 부정적 체류 지표를 유발해 채널 전체를 슬럼프에 빠뜨릴 수 있으므로, 철저한 체크리스트 기반의 가치 검수로 우회해야 합니다.`;
+  const pitfall = `가장 뼈아픈 실수는 창작자 본인의 감이나 취향에만 의존해 '${config.mistake}' 방식을 반복하는 것입니다. 이는 시청자와 추천 로봇 모두에게 부정적 체류 지표를 유발해 채널 전체를 슬럼프에 빠뜨릴 수 있으므로, 철저한 체크리스트 기반의 가치 검수로 우회해야 합니다.`;
 
-  const metrics = `업로드 이후에는 스튜디오 대시보드의 **${config.metrics}** 데이터를 최우선적으로 기록하며 관찰하십시오. 초기 유입 시간대별 잔류율 곡선을 대조하여 시청자들이 어떤 특정 장면이나 자막, 혹은 목소리 톤에서 이탈했는지를 정량 분석하고 교정해 나가야 합니다.`;
+  const metrics = `업로드 이후에는 스튜디오 대시보드의 '${config.metrics}' 데이터를 최우선적으로 기록하며 관찰하십시오. 초기 유입 시간대별 잔류율 곡선을 대조하여 시청자들이 어떤 특정 장면이나 자막, 혹은 목소리 톤에서 이탈했는지를 정량 분석하고 교정해 나가야 합니다.`;
 
-  const expansion = `이번 기획에서 한 단계 나아가, 후속 콘텐츠로 **'${config.nextMove}'**를 기획하여 연쇄 시청의 브릿지를 놓아보세요. 시리즈의 영리한 흐름을 사전에 엮어둘 때, 시청자는 "이 채널이 내 고민을 깊이 있게 따라오고 있다"는 정서적 신뢰를 느껴 멤버십이나 고관여 팬덤으로 이식됩니다.`;
+  const expansion = `이번 기획에서 한 단계 나아가, 후속 콘텐츠로 '${config.nextMove}'를 기획하여 연쇄 시청의 브릿지를 놓아보세요. 시리즈의 영리한 흐름을 사전에 엮어둘 때, 시청자는 "이 채널이 내 고민을 깊이 있게 따라오고 있다"는 정서적 신뢰를 느껴 멤버십이나 고관여 팬덤으로 이식됩니다.`;
 
   const example = `### 📌 실전 적용 템플릿 및 예시\n\n${config.practicalExample}`;
 
-  const conclusion = `결국 ${category.label} 콘텐츠의 지속 가능한 흥행은 일시적인 자극에 의존하는 것이 아니라, 시청자의 관점을 최우선으로 배려한 **${config.coreTopic}**의 기계적, 정서적 최적화에 달려 있습니다. 오늘 제안한 공식을 기획 시트에 박아두고 매일 검수하며 꾸준히 실행해 나가십시오.`;
+  const conclusion = `결국 ${category.label} 콘텐츠의 지속 가능한 흥행은 일시적인 자극에 의존하는 것이 아니라, 시청자의 관점을 최우선으로 배려한 '${config.coreTopic}'의 기계적, 정서적 최적화에 달려 있습니다. 오늘 제안한 공식을 기획 시트에 박아두고 매일 검수하며 꾸준히 실행해 나가십시오.`;
 
   const content = `## ${config.title}
 
@@ -89,30 +89,30 @@ ${conclusion}
 
 ### 💡 실전 적용을 위한 심화 가이드라인
 
-오늘의 주제인 **${config.title}**을 실제 운영에 완벽히 이식하기 위해서는 단순 이론 분석을 넘어 정량적 체계와 행동 수칙이 필수적입니다. 특히 ${category.label} 분야의 실전적인 디테일들을 한 단계 깊게 점검합니다.
+오늘의 주제인 '${config.title}'을 실제 운영에 완벽히 이식하기 위해서는 단순 이론 분석을 넘어 정량적 체계와 행동 수칙이 필수적입니다. 특히 ${category.label} 분야의 실전적인 디테일들을 한 단계 깊게 점검합니다.
 
 ---
 
 ### 1단계: 발행 전 완벽 점검 목록
-* **${config.prepCheckList[0]}**
-* **${config.prepCheckList[1]}**
+* ${config.prepCheckList[0]}
+* ${config.prepCheckList[1]}
 
 ---
 
 ### 2단계: 핵심 행동 지침 및 문장 설계
-* **${config.actionPlanList[0]}**
-* **${config.actionPlanList[1]}**
+* ${config.actionPlanList[0]}
+* ${config.actionPlanList[1]}
 
 ---
 
 ### 3단계: 성과 수치 분석 및 피드백 순환
-* **${config.feedbackList[0]}**
-* **${config.feedbackList[1]}**
+* ${config.feedbackList[0]}
+* ${config.feedbackList[1]}
 
 ---
 
 ### 심화 핵심 메모 요약
-성장의 비밀은 자극성에 있지 않고, 매일 반복되는 미세한 품질 검수와 올바른 지표 관리에 숨어있습니다. 오늘 제안 드린 **${config.coreTopic}** 심화 체크리스트를 지금 바로 기획 시트에 기록하여 창작 과정을 한 차원 업그레이드해 보세요.`;
+성장의 비밀은 자극성에 있지 않고, 매일 반복되는 미세한 품질 검수와 올바른 지표 관리에 숨어있습니다. 오늘 제안 드린 '${config.coreTopic}' 심화 체크리스트를 지금 바로 기획 시트에 기록하여 창작 과정을 한 차원 업그레이드해 보세요.`;
 
   return {
     slug: `daily-${category.key}-${key}`,

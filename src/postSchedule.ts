@@ -9,7 +9,7 @@ const getTodayEndUTC = () => {
   const now = new Date();
   return Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 23, 59, 59);
 };
-const FILL_END_UTC = Math.max(Date.UTC(2026, 6, 11, 23, 59, 59), getTodayEndUTC());
+const FILL_END_UTC = Math.max(Date.UTC(2026, 7, 6, 23, 59, 59), getTodayEndUTC());
 
 const hold = (...parts: string[]) => parts.join('-');
 export const REVIEW_HOLD_SLUGS = new Set([
