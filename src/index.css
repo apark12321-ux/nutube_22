@@ -3,8 +3,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "PretendardVariable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "PretendardVariable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", var(--font-sans);
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-display: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", var(--font-sans);
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -13,11 +13,12 @@ html {
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   font-feature-settings: "cv05", "cv08", "cv11";
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 640px) {
   html {
-    font-size: 16.5px;
+    font-size: 16px;
   }
 }
 
@@ -25,9 +26,9 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   word-break: keep-all;
-  overflow-wrap: anywhere;
-  letter-spacing: -0.022em;
-  line-height: 1.8;
+  overflow-wrap: break-word;
+  letter-spacing: -0.02em;
+  line-height: 1.85;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,22 +47,61 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 포스팅 본문 가독성 최적화 전용 타이포그래피 규칙 */
 #guide-markdown-body p {
-  font-size: 1.025rem;
-  line-height: 1.95;
-  letter-spacing: -0.02em;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.9;
+  letter-spacing: -0.018em;
+  margin-bottom: 1.35rem;
+}
+
+@media (min-width: 640px) {
+  #guide-markdown-body p {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.92;
+  }
 }
 
 #guide-markdown-body li {
+  font-size: 1rem; /* 16px */
   line-height: 1.85;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.015em;
 }
 
-#guide-markdown-body h2,
-#guide-markdown-body h3,
-#guide-markdown-body h4 {
-  letter-spacing: -0.035em;
+@media (min-width: 640px) {
+  #guide-markdown-body li {
+    font-size: 1.0625rem; /* 17px */
+  }
+}
+
+#guide-markdown-body h2 {
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  font-weight: 900;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  #guide-markdown-body h2 {
+    font-size: 1.75rem; /* 28px */
+  }
+}
+
+#guide-markdown-body h3 {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.45;
+  letter-spacing: -0.02em;
   font-weight: 800;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  #guide-markdown-body h3 {
+    font-size: 1.375rem; /* 22px */
+  }
 }
 
 /* 방문자 화면에서 운영·심사용 문구 노출 방지 */

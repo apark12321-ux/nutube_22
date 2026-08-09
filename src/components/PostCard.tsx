@@ -69,17 +69,17 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
             </div>
 
             {/* Title */}
-            <h3 className={`line-clamp-2 text-[16px] font-extrabold leading-snug tracking-tight transition-colors ${
+            <h3 className={`line-clamp-2 text-[17px] font-extrabold leading-[1.4] tracking-tight transition-colors ${
               dark 
-                ? 'text-white group-hover:text-purple-400' 
+                ? 'text-white group-hover:text-purple-300' 
                 : 'text-slate-900 group-hover:text-[#7C3AED]'
             }`}>
               {post.title}
             </h3>
 
             {/* Summary */}
-            <p className={`mt-2.5 line-clamp-3 text-[12.5px] leading-relaxed font-medium ${
-              dark ? 'text-slate-400/90' : 'text-slate-500'
+            <p className={`mt-2.5 line-clamp-3 text-[13.5px] leading-relaxed font-medium ${
+              dark ? 'text-slate-300/90' : 'text-slate-600'
             }`}>
               {(post.summary || '유튜브 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.').replace(/\*\*/g, '').replace(/`/g, '')}
             </p>

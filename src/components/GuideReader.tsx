@@ -304,7 +304,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         const trimmedBold = boldContent.trim();
         if (trimmedBold) {
           parts.push(
-            <strong key={`bold-${i}`} className="font-extrabold text-[#7C3AED] dark:text-purple-400">
+            <strong key={`bold-${i}`} className="font-extrabold text-[#7C3AED] dark:text-purple-300 bg-purple-500/10 dark:bg-purple-900/30 px-1.5 py-0.5 rounded-md">
               {trimmedBold}
             </strong>
           );
@@ -412,14 +412,14 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         {/* Article Title, Author & Stats Header */}
         <header className="mb-8 break-keep">
           {/* Top category label */}
-          <p className="text-xs font-bold text-[#7C3AED] dark:text-purple-400 mb-2.5" itemProp="articleSection">
+          <p className="text-xs font-extrabold tracking-wider uppercase text-[#7C3AED] dark:text-purple-400 mb-2.5" itemProp="articleSection">
             {post.categoryLabel}
           </p>
           
           {/* Title */}
           <h1 
             itemProp="headline"
-            className={`text-[25px] sm:text-[32px] font-black leading-tight tracking-tight mb-4 ${
+            className={`text-[26px] sm:text-[35px] font-black leading-[1.3] tracking-tight mb-4 ${
               dark ? 'text-white' : 'text-slate-900'
             }`}
           >
@@ -429,8 +429,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           {/* Subtitle */}
           <p 
             itemProp="description"
-            className={`text-sm sm:text-[15px] leading-relaxed mb-6 font-medium ${
-              dark ? 'text-slate-400' : 'text-slate-600'
+            className={`text-[15px] sm:text-[17px] leading-[1.7] mb-6 font-medium ${
+              dark ? 'text-slate-300' : 'text-slate-600'
             }`}
           >
             {post.subtitle}
@@ -578,8 +578,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         {/* Article Body Content */}
         <article 
           itemProp="articleBody"
-          className={`space-y-6 break-keep text-[15px] leading-relaxed sm:text-[16px] sm:leading-8 ${
-            dark ? 'text-slate-200' : 'text-slate-800'
+          className={`space-y-6 break-keep text-[17px] sm:text-[18.5px] leading-[1.9] ${
+            dark ? 'text-slate-100' : 'text-slate-900'
           }`} 
           id="guide-markdown-body"
         >
@@ -589,8 +589,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 <h2 
                   key={index} 
                   id={`heading-${index}`} 
-                  className={`border-b pb-2 pt-6 text-xl sm:text-2xl font-black tracking-tight ${
-                    dark ? 'border-purple-950/40 text-white' : 'border-slate-100 text-[#011d33]'
+                  className={`border-b pb-3 pt-8 text-[22px] sm:text-[28px] font-black tracking-tight leading-snug ${
+                    dark ? 'border-purple-950/60 text-white' : 'border-slate-200 text-slate-900'
                   }`}
                 >
                   {renderFormattedText(block.lines[0])}
@@ -602,35 +602,35 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 <h3 
                   key={index} 
                   id={`heading-${index}`} 
-                  className={`flex items-center gap-2 pt-4 text-[17px] sm:text-lg font-extrabold ${
+                  className={`flex items-center gap-2.5 pt-6 text-[19px] sm:text-[22px] font-extrabold ${
                     dark ? 'text-purple-300' : 'text-[#7C3AED]'
                   }`}
                 >
-                  <span className="inline-block h-4 w-1 rounded-full bg-purple-500" />
+                  <span className="inline-block h-4 w-1.5 rounded-full bg-[#7C3AED] dark:bg-purple-400 shrink-0" />
                   {renderFormattedText(block.lines[0])}
                 </h3>
               );
             }
             if (block.type === 'divider') {
-              return <hr key={index} className={dark ? 'my-8 border-purple-950/30' : 'my-8 border-slate-100'} />;
+              return <hr key={index} className={dark ? 'my-8 border-purple-950/40' : 'my-8 border-slate-200'} />;
             }
             if (block.type === 'list') {
               return (
                 <ul 
                   key={index} 
-                  className={`space-y-2 rounded-xl border p-5 pl-7 text-[13.5px] sm:text-sm leading-relaxed ${
+                  className={`space-y-3 rounded-2xl border p-6 pl-8 text-[15.5px] sm:text-[17px] leading-[1.85] font-medium my-6 ${
                     dark 
-                      ? 'border-purple-950/40 bg-[#120822]/40 text-slate-300' 
-                      : 'border-slate-100 bg-purple-50/20 text-slate-600'
+                      ? 'border-purple-950/50 bg-[#120822]/60 text-slate-200' 
+                      : 'border-purple-100/80 bg-purple-50/30 text-slate-700'
                   }`}
                 >
-                  {block.lines.map((line, i) => <li key={i} className="list-disc">{renderFormattedText(line)}</li>)}
+                  {block.lines.map((line, i) => <li key={i} className="list-disc pl-1">{renderFormattedText(line)}</li>)}
                 </ul>
               );
             }
             if (block.type === 'code') {
               return (
-                <pre key={index} className="overflow-x-auto rounded-xl border border-purple-950 bg-slate-950 p-4 text-xs font-mono leading-relaxed text-purple-300 shadow-sm">
+                <pre key={index} className="overflow-x-auto rounded-xl border border-purple-950 bg-slate-950 p-4.5 text-sm font-mono leading-relaxed text-purple-300 shadow-sm my-6">
                   <code>{block.lines.join('\n')}</code>
                 </pre>
               );
@@ -638,7 +638,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             paragraphCount += 1;
             return (
               <React.Fragment key={index}>
-                <p className="font-medium text-[14.5px] sm:text-[15.5px] leading-relaxed">
+                <p className="font-normal text-[17px] sm:text-[18.5px] leading-[1.9] tracking-[-0.015em] mb-6">
                   {renderFormattedText(block.lines.join('\n'))}
                 </p>
                 {paragraphCount === 2 ? <ImageFigure image={post.bodyImages?.[0]} /> : null}

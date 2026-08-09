@@ -6,9 +6,10 @@ import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
 import { ContactForm } from './components/ContactForm';
+import { SearchConsoleManager } from './components/SearchConsoleManager';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 
-type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail';
+type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
 
 interface RouteState {
   tab: Tab;
@@ -75,6 +76,7 @@ const resolveRoute = (pathname: string): RouteState => {
   if (path === '/contact') return { tab: 'contact', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
   if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
+  if (path === '/search-console') return { tab: 'search-console', post: null, category: null };
 
   return { tab: 'guides', post: null, category: null };
 };
@@ -85,6 +87,7 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'contact') return '/contact';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
+  if (tab === 'search-console') return '/search-console';
   return '/';
 };
 
@@ -638,6 +641,11 @@ export default function App() {
         {tab === 'contact' && <ContactForm theme={theme} />}
         {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}
         {tab === 'privacy' && <InfoPage page={PAGE_CONTENT.privacy} theme={theme} />}
+        {tab === 'search-console' && (
+          <div className="mx-auto max-w-6xl px-4 py-10">
+            <SearchConsoleManager theme={theme} />
+          </div>
+        )}
       </main>
       <footer className={dark 
         ? 'border-t border-purple-950 bg-[#0c051a] px-4 py-8 text-center text-xs text-slate-400' 
@@ -646,6 +654,7 @@ export default function App() {
         <div className="mb-4 flex flex-wrap justify-center gap-5 font-bold">
           <button onClick={() => go('about')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">소개</button>
           <button onClick={() => go('contact')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">제휴 제안 & 문의</button>
+          <button onClick={() => go('search-console')} className="hover:text-[#7C3AED] transition-colors cursor-pointer text-[#7C3AED] font-extrabold">구글 서치콘솔 자동색인</button>
           <button onClick={() => go('privacy')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">개인정보처리방침</button>
           <button onClick={() => go('terms')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">이용약관</button>
         </div>
