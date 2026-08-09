@@ -654,7 +654,6 @@ export default function App() {
         <div className="mb-4 flex flex-wrap justify-center gap-5 font-bold">
           <button onClick={() => go('about')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">소개</button>
           <button onClick={() => go('contact')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">제휴 제안 & 문의</button>
-          <button onClick={() => go('search-console')} className="hover:text-[#7C3AED] transition-colors cursor-pointer text-[#7C3AED] font-extrabold">구글 서치콘솔 자동색인</button>
           <button onClick={() => go('privacy')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">개인정보처리방침</button>
           <button onClick={() => go('terms')} className="hover:text-[#7C3AED] transition-colors cursor-pointer">이용약관</button>
         </div>

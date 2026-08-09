@@ -111,22 +111,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </div>
 
-            {/* "구글 서치콘솔" pill button */}
-            <button
-              onClick={() => handleNavTab('search-console')}
-              className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
-                currentTab === 'search-console'
-                  ? 'bg-[#7C3AED] text-white shadow-sm'
-                  : dark 
-                    ? 'border border-purple-900/80 text-purple-300 bg-purple-950/20 hover:bg-purple-950/50' 
-                    : 'border border-purple-200 text-[#7C3AED] bg-purple-50/60 hover:bg-purple-100/80'
-              }`}
-              id="nav-search-console-btn"
-            >
-              <Globe className="h-3.5 w-3.5 text-purple-500 dark:text-purple-300" />
-              <span>구글 서치콘솔</span>
-            </button>
-
             {/* "제휴 및 문의" pill button */}
             <button
               onClick={() => handleNavTab('contact')}
@@ -267,18 +251,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                       >
                         <Mail className="h-4 w-4 shrink-0" />
                         <span>제휴 제안 & 문의</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleNavTab('search-console')}
-                        className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition-all text-left ${
-                          currentTab === 'search-console' 
-                            ? 'bg-purple-500/10 text-[#7C3AED]' 
-                            : dark ? 'hover:bg-purple-950/30 text-slate-300' : 'hover:bg-slate-50 text-slate-700'
-                        }`}
-                      >
-                        <Globe className="h-4 w-4 shrink-0 text-[#7C3AED]" />
-                        <span>구글 서치 콘솔 자동 색인</span>
                       </button>
                     </nav>
 
