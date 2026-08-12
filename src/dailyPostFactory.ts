@@ -233,12 +233,82 @@ export const buildDeepDiveContent = (category: DailyCategory, date: Date) => {
 성장의 비밀은 자극성에 있지 않고, 매일 반복되는 미세한 품질 검수와 올바른 지표 관리에 숨어있습니다. 오늘 제안 드린 **${theme}** 심화 체크리스트를 지금 바로 기획 시트에 기록하여 창작 과정을 한 차원 업그레이드해 보세요.`;
 };
 
+// Helper for deterministic pseudo-random float [0, 1) based on a string seed
+const getSeededRandom = (seedStr: string) => {
+  let hash = 0;
+  for (let i = 0; i < seedStr.length; i++) {
+    hash = (hash << 5) - hash + seedStr.charCodeAt(i);
+    hash |= 0;
+  }
+  const x = Math.sin(hash++) * 10000;
+  return x - Math.floor(x);
+};
+
+// Generate randomized upload time for a daily category post across 24 hours
+export const getRandomizedDailyPublishDate = (categoryKey: CategoryKey, date: Date): Date => {
+  const key = date.toISOString().slice(0, 10);
+  const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === categoryKey);
+  const safeCatIdx = categoryIndex >= 0 ? categoryIndex : 0;
+
+  const seedHour = getSeededRandom(`time-h-${key}-${categoryKey}`);
+  const seedMin = getSeededRandom(`time-m-${key}-${categoryKey}`);
+  const seedSec = getSeededRandom(`time-s-${key}-${categoryKey}`);
+
+  // Divide the 24-hour day into 5 distinct time windows so all 5 posts per day are well distributed across hours:
+  // Window 0: 01:00 - 05:59 UTC
+  // Window 1: 06:00 - 09:59 UTC
+  // Window 2: 10:00 - 13:59 UTC
+  // Window 3: 14:00 - 17:59 UTC
+  // Window 4: 18:00 - 22:59 UTC
+  const windowAssignments = [0, 1, 2, 3, 4];
+  for (let i = windowAssignments.length - 1; i > 0; i--) {
+    const j = Math.floor(getSeededRandom(`shuffle-win-${key}-${i}`) * (i + 1));
+    [windowAssignments[i], windowAssignments[j]] = [windowAssignments[j], windowAssignments[i]];
+  }
+
+  const assignedWindow = windowAssignments[safeCatIdx];
+
+  let startHour = 1;
+  let hourSpan = 4;
+
+  switch (assignedWindow) {
+    case 0:
+      startHour = 1;
+      hourSpan = 4;
+      break;
+    case 1:
+      startHour = 6;
+      hourSpan = 3;
+      break;
+    case 2:
+      startHour = 10;
+      hourSpan = 3;
+      break;
+    case 3:
+      startHour = 14;
+      hourSpan = 3;
+      break;
+    case 4:
+    default:
+      startHour = 18;
+      hourSpan = 4;
+      break;
+  }
+
+  const hour = startHour + Math.floor(seedHour * hourSpan);
+  const minute = Math.floor(seedMin * 60);
+  const second = Math.floor(seedSec * 60);
+
+  const pubDate = new Date(date);
+  pubDate.setUTCHours(hour, minute, second, 0);
+
+  return pubDate;
+};
+
 export const makeDailyPost = (category: DailyCategory, date: Date): GuidePost => {
   const key = date.toISOString().slice(0, 10);
   const title = dailyTitle(category, date);
-  const publishedAt = new Date(date);
-  const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === category.key);
-  publishedAt.setUTCHours(1 + categoryIndex, 0, 0, 0);
+  const publishedAt = getRandomizedDailyPublishDate(category.key, date);
   const updatedAt = new Date(publishedAt.getTime() + 45 * 60 * 1000);
 
   const richDataForDate = RICH_NEWS_DATA[key];

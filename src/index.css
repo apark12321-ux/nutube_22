@@ -104,12 +104,6 @@ a {
   }
 }
 
-/* 방문자 화면에서 운영·심사용 문구 노출 방지 */
-[id^="guide-reader-"] header .border-t > div:nth-child(3),
-#eeat-authority-card {
-  display: none !important;
-}
-
 /* 스크롤바 커스텀 */
 ::-webkit-scrollbar {
   width: 8px;

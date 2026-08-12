@@ -4,6 +4,9 @@ import fs from 'fs';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
 import { ALL_POSTS } from './src/data';
+import { applyPostDateSchedule } from './src/postSchedule';
+
+const getScheduledAllPosts = () => applyPostDateSchedule(ALL_POSTS);
 
 dotenv.config();
 
@@ -221,11 +224,10 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
   // Static site paths
   const staticPages = [
     { path: '', priority: '1.0', changefreq: 'daily' },
-    { path: '/builder', priority: '0.8', changefreq: 'weekly' },
-    { path: '/advisor', priority: '0.8', changefreq: 'weekly' },
-    { path: '/adsense', priority: '0.8', changefreq: 'weekly' },
-    { path: '/terms', priority: '0.3', changefreq: 'monthly' },
-    { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
+    { path: '/about', priority: '0.8', changefreq: 'weekly' },
+    { path: '/contact', priority: '0.8', changefreq: 'weekly' },
+    { path: '/terms', priority: '0.4', changefreq: 'monthly' },
+    { path: '/privacy', priority: '0.4', changefreq: 'monthly' },
   ];
 
   // Make the static page lastmod contemporary (today's date)
@@ -243,7 +245,7 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
 
   // Dynamic Blog Post paths
   const dynamicPosts = readDynamicPosts();
-  const combined = [...dynamicPosts, ...ALL_POSTS];
+  const combined = [...dynamicPosts, ...getScheduledAllPosts()];
   const seenSlugs = new Set<string>();
   const uniquePosts = combined.filter(post => {
     if (!post || !post.slug) return false;
@@ -300,7 +302,7 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
 
   const dynamicPosts = readDynamicPosts();
-  const combined = [...dynamicPosts, ...ALL_POSTS];
+  const combined = [...dynamicPosts, ...getScheduledAllPosts()];
   const seenSlugs = new Set<string>();
   const uniquePosts = combined.filter(post => {
     if (!post || !post.slug) return false;
@@ -489,7 +491,7 @@ app.get([
   '/api/blog/'
 ], (req, res) => {
   const dynamicPosts = readDynamicPosts();
-  const combined = [...dynamicPosts, ...ALL_POSTS];
+  const combined = [...dynamicPosts, ...getScheduledAllPosts()];
   
   // Clean duplicates by slug if any
   const seenSlugs = new Set<string>();
@@ -681,7 +683,7 @@ app.get('/api/search-console/status', (req, res) => {
   const baseUrl = `${protocol}://${host}`;
 
   const dynamicPosts = readDynamicPosts();
-  const allCombined = [...dynamicPosts, ...ALL_POSTS];
+  const allCombined = [...dynamicPosts, ...getScheduledAllPosts()];
   const logs = readIndexingLogs();
 
   res.json({
@@ -702,7 +704,7 @@ app.post('/api/search-console/index', async (req, res) => {
 
   if (reindexAll) {
     const dynamicPosts = readDynamicPosts();
-    const allCombined = [...dynamicPosts, ...ALL_POSTS];
+    const allCombined = [...dynamicPosts, ...getScheduledAllPosts()];
     
     const seenSlugs = new Set<string>();
     const uniquePosts = allCombined.filter(p => p && p.slug && !seenSlugs.has(p.slug) && seenSlugs.add(p.slug));
@@ -724,7 +726,7 @@ app.post('/api/search-console/index', async (req, res) => {
 
   if (slug) {
     const dynamicPosts = readDynamicPosts();
-    const allCombined = [...dynamicPosts, ...ALL_POSTS];
+    const allCombined = [...dynamicPosts, ...getScheduledAllPosts()];
     const targetPost = allCombined.find(p => p.slug === slug);
 
     if (!targetPost) {

@@ -205,7 +205,10 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
     };
   };
 
-  return visiblePosts
+  const nowMs = Date.now();
+  const nowIsoDate = new Date().toISOString().slice(0, 10);
+
+  const processedPosts = visiblePosts
     .map((post): GuidePost => {
       let mappedCategory = post.category;
       let mappedLevel = post.level || 'intermediate';
@@ -243,6 +246,24 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
     })
     .map(ensureMinimumPostLength)
     .map(optimizePost)
-    .map((post) => addPostImages(post))
+    .map((post) => addPostImages(post));
+
+  // Identify posts scheduled for today
+  const todaysPosts = processedPosts.filter(p => new Date(p.publishedAt).toISOString().slice(0, 10) === nowIsoDate);
+  const hasPublishedToday = todaysPosts.some(p => new Date(p.publishedAt).getTime() <= nowMs);
+
+  return processedPosts
+    .filter((post) => {
+      const pubMs = new Date(post.publishedAt).getTime();
+      if (pubMs <= nowMs) return true;
+
+      // Guarantee at least 1 post is published for today even early in the morning before scheduled upload time
+      if (!hasPublishedToday && todaysPosts.length > 0) {
+        const earliestToday = [...todaysPosts].sort((a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime())[0];
+        if (post.slug === earliestToday.slug) return true;
+      }
+
+      return false;
+    })
     .sort((a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime());
 };
