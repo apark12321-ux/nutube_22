@@ -1,10 +1,10 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-  --font-display: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Plus Jakarta Sans", var(--font-sans);
+  --font-display: "Black Han Sans", "Pretendard Variable", "Pretendard", "Noto Sans KR", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -16,10 +16,9 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (max-width: 640px) {
-  html {
-    font-size: 16px;
-  }
+.font-impact {
+  font-family: 'Black Han Sans', 'Pretendard', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 body {
@@ -123,3 +122,84 @@ a {
 .font-display {
   font-family: var(--font-display);
 }
+
+/* Category Filter Cards Hover Scale & Subtle Cyan Glow Animation */
+#category-scroller button {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+#category-scroller button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.25);
+}
+
+#category-scroller button.is-active {
+  border-color: rgba(34, 211, 238, 0.75) !important;
+  background-color: rgba(6, 182, 212, 0.22) !important;
+  color: #67e8f9 !important;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.32) !important;
+  font-weight: 800;
+}
+
+/* Custom Keyframe Animations for Dynamic & Sleek UI */
+@keyframes glowShift {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.75));
+  }
+}
+
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-glow-shift {
+  animation: glowShift 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: floatSmooth 4s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.shine-button {
+  background-size: 200% 100%;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shine-button:hover {
+  background-position: -100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+}
+

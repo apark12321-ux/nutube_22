@@ -11,11 +11,28 @@ export type CategoryKey =
   | 'beginner'
   | 'advanced';
 
+export type ParentCategoryKey = 
+  | 'video_platform'
+  | 'social_media'
+  | 'search_adsense'
+  | 'digital_business';
+
+export interface ParentCategorySpec {
+  key: ParentCategoryKey;
+  label: string;
+  icon: string;
+  description: string;
+  badge: string;
+  subCategories: CategoryKey[];
+}
+
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface CategorySpec {
   key: CategoryKey;
   label: string;
+  parentKey?: ParentCategoryKey;
+  parentLabel?: string;
   icon: string;
   gradient: string;
   description: string;

@@ -3,6 +3,8 @@ export const SITE_ENGLISH_NAME = 'Now Creator Lab';
 
 const replaceText = (value: string) =>
   value
+    .replace(/후미디어/g, SITE_DISPLAY_NAME)
+    .replace(/WHOMEDIA/gi, SITE_ENGLISH_NAME)
     .replace(/NuTube/g, SITE_DISPLAY_NAME)
     .replace(/nutube/gi, SITE_ENGLISH_NAME);
 
@@ -53,3 +55,4 @@ export const applyBrandDisplayName = () => {
     characterData: true,
   });
 };
+

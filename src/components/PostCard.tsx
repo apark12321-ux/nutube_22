@@ -23,7 +23,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
   const dark = theme === 'dark';
 
   return (
-    <article id={`post-card-${post.slug}`} className="h-full">
+    <article id={`post-card-${post.slug}`} className="h-full animate-fade-in-up">
       <a
         href={href}
         onClick={handleClick}
@@ -91,7 +91,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, accentColor,
           }`}>
             {/* Row 1: Author Name */}
             <div className="flex items-center gap-1.5 text-[12px] font-bold">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-950/80 text-[#7C3AED] text-[10px]">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 text-[10px]">
                 👤
               </span>
               <span>{post.author || '크리에이터랩'}</span>

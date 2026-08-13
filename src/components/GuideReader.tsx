@@ -11,7 +11,7 @@ interface GuideReaderProps {
 }
 
 interface ContentBlock {
-  type: 'h2' | 'h3' | 'list' | 'code' | 'paragraph' | 'divider';
+  type: 'h2' | 'h3' | 'list' | 'code' | 'paragraph' | 'divider' | 'table';
   lines: string[];
   lang?: string;
 }
@@ -35,6 +35,13 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
       if (currentBlock) blocks.push(currentBlock);
       currentBlock = null;
       blocks.push({ type: 'divider', lines: [line] });
+      continue;
+    }
+
+    if (line.startsWith('|') && line.includes('|')) {
+      if (currentBlock && currentBlock.type !== 'table') blocks.push(currentBlock);
+      if (!currentBlock || currentBlock.type !== 'table') currentBlock = { type: 'table', lines: [] };
+      currentBlock.lines.push(line);
       continue;
     }
 
@@ -441,14 +448,14 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             dark ? 'border-purple-950/30' : 'border-slate-100'
           }`}>
             <div className="flex items-center gap-2" itemProp="author" itemScope itemType="https://schema.org/Person">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-950/80 border border-purple-200/40 dark:border-purple-900/40 text-lg">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 border border-cyan-200/40 dark:border-cyan-900/40 text-lg">
                 🧑‍💻
               </span>
               <div className="flex flex-col">
                 <span className={`text-[13px] font-extrabold ${dark ? 'text-white' : 'text-slate-800'}`} itemProp="name">
                   {post.author || '크리에이터랩'}
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">나우크리에이터랩 수석 컨설턴트</span>
+                <span className="text-[10px] text-cyan-400 font-medium">나우크리에이터랩 수석 컨설턴트</span>
               </div>
             </div>
 
@@ -626,6 +633,42 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 >
                   {block.lines.map((line, i) => <li key={i} className="list-disc pl-1">{renderFormattedText(line)}</li>)}
                 </ul>
+              );
+            }
+            if (block.type === 'table') {
+              const rawRows = block.lines.map(line =>
+                line.split('|').map(c => c.trim()).filter((_, idx, arr) => idx > 0 && idx < arr.length - 1)
+              );
+              const header = rawRows[0] || [];
+              const bodyRows = rawRows.slice(1).filter(row => !row.every(c => /^:?-+:?$/.test(c.replace(/\s+/g, ''))));
+
+              return (
+                <div key={index} className="my-8 overflow-x-auto rounded-2xl border border-purple-200/80 dark:border-purple-900/60 shadow-xs bg-white dark:bg-[#120822]/80 p-1">
+                  <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                    {header.length > 0 && (
+                      <thead className={dark ? 'bg-purple-950/90 text-purple-200 border-b border-purple-900' : 'bg-purple-50 text-slate-800 border-b border-purple-100'}>
+                        <tr>
+                          {header.map((col, cIdx) => (
+                            <th key={cIdx} className="px-4 py-3 font-extrabold whitespace-nowrap">
+                              {renderFormattedText(col)}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                    )}
+                    <tbody>
+                      {bodyRows.map((row, rIdx) => (
+                        <tr key={rIdx} className={`border-b last:border-0 ${dark ? 'border-purple-950/40 hover:bg-purple-950/30' : 'border-slate-100 hover:bg-slate-50/80'}`}>
+                          {row.map((cell, cIdx) => (
+                            <td key={cIdx} className={`px-4 py-3 font-medium ${dark ? 'text-slate-200' : 'text-slate-700'}`}>
+                              {renderFormattedText(cell)}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               );
             }
             if (block.type === 'code') {
