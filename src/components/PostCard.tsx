@@ -1,7 +1,8 @@
 import React from 'react';
 import { GuidePost } from '../types';
-import { ArrowRight, Clock, Calendar } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
+import { formatPostDateTime } from '../utils/dateFormatter';
 
 interface PostCardProps {
   post: GuidePost;
@@ -12,8 +13,7 @@ interface PostCardProps {
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme = 'dark' }) => {
-  const date = new Date(post.publishedAt);
-  const formattedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+  const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -50,7 +50,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
         {/* Post Details with High Legibility & Clear Font Types */}
         <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between min-w-0">
           <div>
-            {/* Category Tag and Read Time */}
+            {/* Category Tag */}
             <div className="mb-3 flex items-center justify-between gap-2 flex-wrap">
               <span 
                 className="font-tag rounded-lg px-3 py-1 text-xs sm:text-sm font-black tracking-wide uppercase" 
@@ -61,10 +61,6 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
                 }}
               >
                 {post.categoryLabel}
-              </span>
-              <span className={`font-tag flex items-center gap-1.5 text-xs sm:text-sm font-semibold ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                <Clock className="h-4 w-4 text-purple-400 shrink-0" />
-                <span>{post.readTime || '6분'}</span>
               </span>
             </div>
 
@@ -89,19 +85,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
           <div className={`mt-5 pt-3.5 border-t flex flex-col gap-2.5 ${
             dark ? 'border-purple-950/50 text-slate-400' : 'border-slate-100 text-slate-500'
           }`}>
-            {/* Author */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold font-subheading">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 text-cyan-700 dark:text-cyan-400 text-xs">
-                👤
-              </span>
-              <span className="truncate">{post.author || '크리에이터랩'}</span>
-            </div>
-
             {/* Date & Action CTA */}
             <div className="flex items-center justify-between font-tag text-xs sm:text-sm font-medium text-slate-400 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 shrink-0" />
-                <time>{formattedDate}</time>
+              <span className="flex items-center gap-1.5 font-mono font-semibold">
+                <Calendar className="h-4 w-4 shrink-0 text-purple-400" />
+                <time>{formattedDateTime}</time>
               </span>
               <span className={`font-subheading flex items-center gap-1 text-xs sm:text-sm font-black transition-all group-hover:translate-x-1 ${
                 dark ? 'text-purple-400' : 'text-[#7C3AED]'

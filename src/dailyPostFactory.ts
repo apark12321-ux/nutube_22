@@ -21,7 +21,7 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
   {
     key: 'beginner',
     label: '왕초보 출발',
-    author: '크리에이터랩 편집부',
+    author: '안주영',
     tag: '채널입문',
     audience: '처음 채널을 열었거나 첫 열 편의 영상을 준비하는 초보 운영자',
     promise: '복잡한 장비보다 주제, 말투, 업로드 흐름을 안정적으로 잡는 것',
@@ -36,7 +36,7 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
   {
     key: 'algorithm',
     label: '유튜브 알고리즘',
-    author: '크리에이터랩 분석팀',
+    author: '안주영',
     tag: '운영분석',
     audience: '반응 변동 원인을 감으로 판단하지 않고 지표로 이해하려는 채널 운영자',
     promise: '추천 흐름, 클릭률, 시청 지속 시간, 재방문 신호를 함께 보며 다음 기획을 조정하는 것',
@@ -51,7 +51,7 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
   {
     key: 'monetization',
     label: '영상 채널 수익화',
-    author: '크리에이터랩 운영팀',
+    author: '안주영',
     tag: '수익화준비',
     audience: '광고 수익만 기대하지 않고 채널의 운영 구조와 신뢰를 함께 만들려는 운영자',
     promise: '수익 결과를 보장하기보다 시청자 신뢰, 콘텐츠 일관성, 정책 안정성, 전환 동선을 차분히 준비하는 것',
@@ -66,7 +66,7 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
   {
     key: 'senior',
     label: '시니어 사연 쇼츠',
-    author: '크리에이터랩 제작팀',
+    author: '안주영',
     tag: '시니어감성',
     audience: '감성을 움직이고 추억을 부르는 실화 기반 시니어 스토리텔링으로 팬덤을 쌓으려는 크리에이터',
     promise: '자극적 요소 없이 마음을 울리는 나레이션, 사연 구성, 자막 싱크와 시청 연장선을 탄탄히 설계하는 것',
@@ -81,7 +81,7 @@ export const DAILY_CATEGORIES: DailyCategory[] = [
   {
     key: 'advanced',
     label: '중고수 전략',
-    author: '크리에이터랩 전략팀',
+    author: '안주영',
     tag: '채널전략',
     audience: '이미 콘텐츠를 올리고 있지만 성장 정체, 포맷 피로, 브랜딩 혼선을 해결하려는 운영자',
     promise: '감이 아니라 구조, 포맷, 시청자층, 반복 가능한 실험 단위로 채널을 다시 설계하는 것',

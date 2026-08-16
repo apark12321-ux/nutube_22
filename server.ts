@@ -294,9 +294,9 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
   xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
   xml += `<channel>\n`;
-  xml += `  <title>NuTube Premium Core Hub</title>\n`;
+  xml += `  <title>나우크리에이터랩 (Now Creator Lab)</title>\n`;
   xml += `  <link>${baseUrl}/</link>\n`;
-  xml += `  <description>${escapeXml('유튜브 조회수 & 수익 구조 최강 무적 비책 보관소')}</description>\n`;
+  xml += `  <description>${escapeXml('유튜브, 틱톡, 인스타그램, 구글 애드센스 SEO 및 크리에이터 수익화 실전 노하우 가이드')}</description>\n`;
   xml += `  <language>ko-kr</language>\n`;
   xml += `  <lastBuildDate>${currentUTC}</lastBuildDate>\n`;
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;

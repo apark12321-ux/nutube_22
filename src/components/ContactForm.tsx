@@ -135,7 +135,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ theme }) => {
           <h1 className="font-heading text-2xl sm:text-4xl font-black tracking-tight">제휴 제안 & 문의하기</h1>
           <p className={`mt-2.5 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
             콘텐츠 오류 제보, 최신 정책 제언, 비즈니스 및 광고 제휴 관련 문의를 접수하실 수 있습니다. 
-            접수된 문의는 본사 운영 전담팀에서 정밀 검토한 후 24시간 이내에 입력하신 이메일로 회신해 드립니다.
+            접수된 문의는 확인 후 24시간 이내에 입력하신 이메일로 직접 회신해 드립니다.
           </p>
         </div>
 
@@ -341,7 +341,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ theme }) => {
                   </div>
                   <div className="flex items-center gap-1.5 font-tag text-xs font-bold text-emerald-500">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>전담팀 검토 중</span>
+                    <span>확인 및 검토 중</span>
                   </div>
                 </div>
                 <h3 className="font-heading text-sm font-bold text-slate-900 dark:text-white truncate mb-1">

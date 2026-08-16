@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, Clock, FileText, List } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, FileText, List } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
+import { formatPostDateTime } from '../utils/dateFormatter';
 
 interface GuideReaderProps {
   post: GuidePost;
@@ -183,12 +184,8 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           "dateModified": formattedModifiedDate,
           "author": {
             "@type": "Person",
-            "name": post.author || "Now Creator Lab Editorial",
-            "jobTitle": "콘텐츠 전략 컨설턴트",
-            "worksFor": {
-              "@type": "Organization",
-              "name": "Now Creator Lab"
-            }
+            "name": post.author || "안주영",
+            "jobTitle": "1인 크리에이터 & 콘텐츠 디렉터"
           },
           "publisher": {
             "@type": "Organization",
@@ -453,40 +450,27 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             {post.subtitle}
           </p>
 
-          {/* Author Details Profile Row */}
-          <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t pt-4.5 border-b pb-4.5 ${
+          {/* Post Published Date and Time Row */}
+          <div className={`flex items-center justify-between border-t pt-4 border-b pb-4 ${
             dark ? 'border-purple-950/40' : 'border-slate-100'
           }`}>
-            <div className="flex items-center gap-3" itemProp="author" itemScope itemType="https://schema.org/Person">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 border border-cyan-200/40 dark:border-cyan-900/40 text-xl shrink-0">
-                🧑‍💻
-              </span>
-              <div className="flex flex-col">
-                <span className={`font-subheading text-sm sm:text-base font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`} itemProp="name">
-                  {post.author || '크리에이터랩'}
-                </span>
-                <span className="font-tag text-xs sm:text-sm text-cyan-400 font-semibold">나우크리에이터랩 수석 컨설턴트</span>
-              </div>
+            <div className="flex items-center gap-2 font-tag text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-400">
+              <Calendar className="h-4 w-4 text-purple-400 shrink-0" />
+              <span>발행일시:</span>
+              <time itemProp="datePublished" dateTime={post.publishedAt} className="font-mono text-slate-600 dark:text-slate-300 font-bold">
+                {formatPostDateTime(post.publishedAt, post.slug)}
+              </time>
             </div>
-
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-tag text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-purple-400" />
-                <span>{post.readTime || '6분'} 읽기</span>
-              </span>
-              <span className="text-slate-300 dark:text-purple-900">|</span>
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" />
-                <time itemProp="datePublished" dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-              </span>
-            </div>
+            <span className="font-tag rounded-md bg-purple-500/10 px-2.5 py-1 text-xs font-bold text-[#7C3AED] dark:text-purple-300">
+              실전 가이드
+            </span>
           </div>
         </header>
 
         {/* Hero image banner */}
         <ImageFigure image={post.thumbnail} />
 
-        {/* 19년차 마케터 핵심 요약 Card */}
+        {/* 핵심 요약 Card */}
         <section className={`mb-10 rounded-2xl border p-6 sm:p-8 transition-all ${
           dark ? 'border-purple-900/50 bg-gradient-to-br from-[#1b0d38] via-[#13082a] to-[#100624]' : 'border-purple-100 bg-gradient-to-br from-purple-50/60 via-indigo-50/30 to-white shadow-xs'
         }`} id="aeo-quick-answer-card">
@@ -496,11 +480,11 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 ⚡
               </span>
               <h2 className={`font-heading text-lg sm:text-xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
-                19년차 마케터의 실전 3초 핵심 요약
+                실전 핵심 요약
               </h2>
             </div>
             <span className="font-tag rounded-full bg-purple-500/10 border border-purple-500/20 px-3.5 py-1 text-xs sm:text-sm font-bold text-[#7C3AED] dark:text-purple-300">
-              실전 마케팅 핵심 포인트
+              핵심 포인트
             </span>
           </div>
 
