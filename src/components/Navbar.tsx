@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              가이드 라이브러리
+              가이드
             </button>
             <button
               onClick={() => handleNavTab('about')}
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              문의하기
+              문의
             </button>
           </nav>
 
@@ -174,7 +174,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-left hover:bg-slate-800 text-slate-200"
                     >
                       <FileText className="h-4 w-4 text-cyan-400" />
-                      <span>가이드 라이브러리</span>
+                      <span>가이드</span>
                     </button>
 
                     <button
@@ -190,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-left hover:bg-slate-800 text-slate-200"
                     >
                       <Mail className="h-4 w-4 text-cyan-400" />
-                      <span>문의하기</span>
+                      <span>문의</span>
                     </button>
                   </div>
 

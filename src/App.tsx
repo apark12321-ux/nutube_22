@@ -379,7 +379,7 @@ export default function App() {
             {/* Header Title Block - Crisp Typography */}
             <div className="mb-6 sm:mb-8">
               <h1 className={dark ? 'font-heading text-3xl sm:text-5xl font-black text-white tracking-tight' : 'font-heading text-3xl sm:text-5xl font-black text-slate-900 tracking-tight'}>
-                크리에이터 실무 가이드
+                나우크리에이터랩
               </h1>
               <p className={dark ? 'mt-3 text-base sm:text-lg text-slate-300 font-medium font-subheading' : 'mt-3 text-base sm:text-lg text-slate-600 font-medium font-subheading'}>
                 유튜브 알고리즘, 숏폼 수익화, 구글 애드센스 SEO 및 지식자산화 노하우
@@ -609,7 +609,7 @@ export default function App() {
 
           <div className="mb-6 flex flex-wrap justify-center gap-6 font-bold text-sm text-slate-200">
             <button onClick={() => go('about')} className="hover:text-cyan-400 transition-colors cursor-pointer">소개</button>
-            <button onClick={() => go('contact')} className="hover:text-cyan-400 transition-colors cursor-pointer">제휴 제안 &amp; 문의</button>
+            <button onClick={() => go('contact')} className="hover:text-cyan-400 transition-colors cursor-pointer">문의</button>
             <button onClick={() => go('privacy')} className="hover:text-cyan-400 transition-colors cursor-pointer">개인정보처리방침</button>
             <button onClick={() => go('terms')} className="hover:text-cyan-400 transition-colors cursor-pointer">이용약관</button>
           </div>
