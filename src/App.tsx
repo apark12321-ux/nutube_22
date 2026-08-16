@@ -375,20 +375,20 @@ export default function App() {
       />
       <main>
         {tab === 'guides' && (
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            {/* Header Title Block - Compact & Info-focused */}
-            <div className="mb-6">
-              <h1 className={dark ? 'text-2xl sm:text-3xl font-extrabold text-white tracking-tight' : 'text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight'}>
+          <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-6 sm:py-8 w-full min-w-0">
+            {/* Header Title Block - Crisp Typography */}
+            <div className="mb-6 sm:mb-8">
+              <h1 className={dark ? 'font-heading text-3xl sm:text-5xl font-black text-white tracking-tight' : 'font-heading text-3xl sm:text-5xl font-black text-slate-900 tracking-tight'}>
                 크리에이터 실무 가이드
               </h1>
-              <p className={dark ? 'mt-1 text-xs sm:text-sm text-slate-400' : 'mt-1 text-xs sm:text-sm text-slate-600'}>
+              <p className={dark ? 'mt-3 text-base sm:text-lg text-slate-300 font-medium font-subheading' : 'mt-3 text-base sm:text-lg text-slate-600 font-medium font-subheading'}>
                 유튜브 알고리즘, 숏폼 수익화, 구글 애드센스 SEO 및 지식자산화 노하우
               </p>
             </div>
 
             {/* Mobile-optimized Horizontal Category Pill Scroller */}
-            <div className="mb-6">
-              <div id="category-scroller" className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <div className="mb-6 sm:mb-8 w-full overflow-hidden">
+              <div id="category-scroller" className="flex items-center gap-2.5 overflow-x-auto pb-2.5 scrollbar-none w-full touch-pan-x">
                 {[
                   { key: null, label: '전체 콘텐츠' },
                   { key: 'youtube', label: '유튜브' },
@@ -403,14 +403,14 @@ export default function App() {
                     <button
                       key={cat.key === null ? 'all' : cat.key}
                       onClick={() => selectCategory(cat.key)}
-                      className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
+                      className={`font-tag shrink-0 rounded-full px-4.5 py-2.5 text-sm sm:text-base font-bold transition-all cursor-pointer border ${
                         isSelected
                           ? dark
                             ? 'bg-cyan-500 text-slate-950 border-cyan-400 font-black shadow-sm'
                             : 'bg-[#7C3AED] text-white border-purple-600 font-black shadow-sm'
                           : dark
-                            ? 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
-                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-slate-900'
+                            ? 'bg-slate-900/90 text-slate-200 border-slate-800 hover:border-slate-700 hover:text-white'
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-slate-900 shadow-2xs'
                       }`}
                     >
                       {cat.label}
@@ -420,46 +420,48 @@ export default function App() {
               </div>
             </div>
 
-            {/* Filter Info Bar & Mobile Search */}
+            {/* Filter Info Bar & Mobile Search - Fully Wrap-Safe */}
             <div className={dark 
-              ? 'mb-6 flex flex-col gap-3 rounded-xl border border-slate-800 bg-[#0c1424] p-4 sm:flex-row sm:items-center sm:justify-between' 
-              : 'mb-6 flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between shadow-xs'
+              ? 'mb-6 flex flex-col gap-3.5 rounded-2xl border border-slate-800 bg-[#0c1424] p-4.5 sm:p-5 sm:flex-row sm:items-center sm:justify-between' 
+              : 'mb-6 flex flex-col gap-3.5 rounded-2xl border border-slate-200 bg-white p-4.5 sm:p-5 sm:flex-row sm:items-center sm:justify-between shadow-xs'
             }>
-              <div className="flex items-center justify-between sm:justify-start gap-3">
-                <span className={dark ? 'text-xs font-bold text-cyan-400' : 'text-xs font-bold text-[#7C3AED]'}>
+              <div className="flex items-center justify-between sm:justify-start gap-3.5">
+                <span className={`font-subheading text-sm sm:text-base font-extrabold ${dark ? 'text-cyan-400' : 'text-[#7C3AED]'}`}>
                   {selectedCategory ? `${selectedCategory.label} (${posts.length}개)` : `전체 가이드 (${posts.length}개)`}
                 </span>
-                <span className={dark ? 'text-[11px] text-slate-400' : 'text-[11px] text-slate-500'}>
+                <span className={`font-tag text-xs sm:text-sm font-semibold ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
                   페이지 {currentPage} / {totalPages}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                 <div className="relative flex-1 sm:w-64">
-                  <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                  <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                   <input 
                     value={query} 
                     onChange={(e) => setQuery(e.target.value)} 
-                    placeholder="검색어 입력..." 
+                    placeholder="가이드 검색어 입력..." 
                     className={dark 
-                      ? 'w-full rounded-lg border border-slate-800 bg-[#080d18] py-1.5 pl-8 pr-3 text-xs text-white outline-none focus:border-cyan-500' 
-                      : 'w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs text-slate-900 outline-none focus:border-purple-500'
+                      ? 'w-full rounded-xl border border-slate-700 bg-[#080d18] py-2.5 pl-10 pr-3.5 text-sm sm:text-base text-white placeholder-slate-400 outline-none focus:border-cyan-500 font-body' 
+                      : 'w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none focus:border-purple-500 font-body'
                     } 
                   />
                 </div>
-                <div className="flex items-center gap-1 shrink-0">
+                <div className="flex items-center justify-end gap-1.5 shrink-0">
+                  <span className={`font-tag text-xs sm:text-sm font-bold mr-1 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>표시:</span>
                   {[12, 24, 36].map((size) => (
                     <button
                       key={size}
                       onClick={() => setPageSize(size)}
-                      className={pageSize === size
-                        ? dark
-                          ? 'rounded-md bg-cyan-500 px-2 py-1 text-[10px] font-black text-slate-950'
-                          : 'rounded-md bg-[#7C3AED] px-2 py-1 text-[10px] font-black text-white'
-                        : dark
-                          ? 'rounded-md border border-slate-800 bg-[#080d18] px-2 py-1 text-[10px] font-bold text-slate-400 hover:text-white'
-                          : 'rounded-md border border-slate-200 bg-white px-2 py-1 text-[10px] font-bold text-slate-600 hover:bg-slate-50'
-                      }
+                      className={`font-tag px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
+                        pageSize === size
+                          ? dark
+                            ? 'bg-cyan-500 text-slate-950 font-black'
+                            : 'bg-[#7C3AED] text-white font-black'
+                          : dark
+                            ? 'border border-slate-800 bg-[#080d18] text-slate-300 hover:text-white'
+                            : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                      }`}
                     >
                       {size}개
                     </button>
@@ -482,8 +484,8 @@ export default function App() {
                 ))}
               </section>
             ) : (
-              <div className={dark ? 'rounded-xl border border-slate-800 bg-[#0c1424] p-8 text-center' : 'rounded-xl border border-slate-200 bg-white p-8 text-center'}>
-                <p className={dark ? 'text-xs sm:text-sm text-slate-300 font-medium' : 'text-xs sm:text-sm text-slate-600 font-medium'}>
+              <div className={dark ? 'rounded-2xl border border-slate-800 bg-[#0c1424] p-8 text-center' : 'rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-xs'}>
+                <p className={dark ? 'text-sm sm:text-base text-slate-300 font-medium' : 'text-sm sm:text-base text-slate-600 font-medium'}>
                   일치하는 가이드 포스팅이 없습니다.
                 </p>
                 <button
@@ -491,21 +493,21 @@ export default function App() {
                     setQuery('');
                     setCategory(null);
                   }}
-                  className="mt-3 inline-flex items-center gap-1 rounded-lg bg-cyan-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 shadow-xs hover:bg-cyan-400 transition-colors"
+                  className="mt-4 inline-flex items-center gap-1 rounded-xl bg-cyan-500 px-4 py-2 text-sm font-bold text-slate-950 shadow-xs hover:bg-cyan-400 transition-colors cursor-pointer"
                 >
                   필터 초기화
                 </button>
               </div>
             )}
 
-              {/* Pagination controls */}
+              {/* Pagination controls with mobile wrap */}
               {totalPages > 1 && (
                 <div className="mt-10 flex flex-col items-center justify-between gap-4 sm:flex-row border-t border-slate-200/80 dark:border-purple-950/80 pt-6">
-                  <div className={dark ? 'text-xs text-slate-400 font-medium' : 'text-xs text-slate-600 font-medium'}>
+                  <div className={`font-tag text-xs sm:text-sm font-semibold ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
                     페이지 <span className="font-black text-[#7C3AED] dark:text-purple-400">{currentPage}</span> / {totalPages} (총 <span className="font-bold">{posts.length}</span>개 가이드)
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-full">
                     <button
                       onClick={() => handlePageChange(1)}
                       disabled={currentPage === 1}
@@ -542,12 +544,13 @@ export default function App() {
                         <button
                           key={`page-${p}`}
                           onClick={() => handlePageChange(p as number)}
-                          className={isCurrent
-                            ? 'rounded-lg bg-[#7C3AED] text-white px-3 py-1.5 text-xs font-black shadow-xs'
-                            : dark
-                              ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 hover:border-purple-700'
-                              : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50'
-                          }
+                          className={`min-w-[34px] rounded-lg px-3 py-1.5 text-xs font-bold cursor-pointer transition-all ${
+                            isCurrent
+                              ? 'bg-[#7C3AED] text-white font-black shadow-xs'
+                              : dark
+                                ? 'border border-purple-950 bg-[#120822] text-slate-300 hover:border-purple-700'
+                                : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                          }`}
                         >
                           {p}
                         </button>
@@ -628,33 +631,33 @@ function InfoPage({ page, theme }: { page: { title: string; intro: string; updat
         ? 'rounded-2xl border border-purple-950 bg-[#120822] p-7 shadow-xl sm:p-10' 
         : 'rounded-2xl border border-slate-100 bg-white p-7 shadow-xs sm:p-10'
       }>
-        <p className="text-xs font-bold text-[#7C3AED] dark:text-purple-400">최종 수정일: {page.updated}</p>
-        <h1 className={dark ? 'mt-3 text-2xl sm:text-3xl font-black text-white' : 'mt-3 text-2xl sm:text-3xl font-black text-slate-900'}>{page.title}</h1>
-        <p className={dark ? 'mt-4 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-4 text-xs sm:text-sm leading-relaxed text-slate-600'}>{page.intro}</p>
+        <p className="font-tag text-xs sm:text-sm font-bold text-[#7C3AED] dark:text-purple-400">최종 수정일: {page.updated}</p>
+        <h1 className={dark ? 'mt-3 font-heading text-2xl sm:text-4xl font-black text-white tracking-tight' : 'mt-3 font-heading text-2xl sm:text-4xl font-black text-slate-900 tracking-tight'}>{page.title}</h1>
+        <p className={dark ? 'mt-4 font-body text-base sm:text-lg leading-relaxed text-slate-300' : 'mt-4 font-body text-base sm:text-lg leading-relaxed text-slate-600'}>{page.intro}</p>
         <div className="mt-8 space-y-6">
           {page.sections.map((section) => (
-            <section key={section.heading} className={dark ? 'rounded-xl border border-purple-950 bg-[#090314] p-5' : 'rounded-xl border border-slate-50 bg-[#F8FAFC] p-5'}>
-              <h2 className={dark ? 'text-sm font-extrabold text-white' : 'text-sm font-extrabold text-slate-900'}>{section.heading}</h2>
+            <section key={section.heading} className={dark ? 'rounded-xl border border-purple-950 bg-[#090314] p-6' : 'rounded-xl border border-slate-50 bg-[#F8FAFC] p-6'}>
+              <h2 className={dark ? 'font-heading text-lg sm:text-xl font-extrabold text-white' : 'font-heading text-lg sm:text-xl font-extrabold text-slate-900'}>{section.heading}</h2>
               {section.body?.map((paragraph) => (
-                <p key={paragraph} className={dark ? 'mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600'}>{paragraph}</p>
+                <p key={paragraph} className={dark ? 'mt-3 font-body text-base sm:text-[17px] leading-relaxed text-slate-300' : 'mt-3 font-body text-base sm:text-[17px] leading-relaxed text-slate-600'}>{paragraph}</p>
               ))}
               {section.items && (
-                <ul className={dark ? 'mt-3 space-y-1.5 text-xs sm:text-sm leading-relaxed text-slate-300' : 'mt-3 space-y-1.5 text-xs sm:text-sm leading-relaxed text-slate-600'}>
+                <ul className={dark ? 'mt-3.5 space-y-2 font-body text-base sm:text-[17px] leading-relaxed text-slate-300' : 'mt-3.5 space-y-2 font-body text-base sm:text-[17px] leading-relaxed text-slate-600'}>
                   {section.items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" /> 
+                    <li key={item} className="flex gap-2.5">
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" /> 
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               )}
               {section.table && (
-                <div className="mt-4 overflow-x-auto rounded-xl border border-purple-200/60 dark:border-purple-900/60 bg-white dark:bg-[#120822]/80">
-                  <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                <div className="mt-5 overflow-x-auto rounded-xl border border-purple-200/60 dark:border-purple-900/60 bg-white dark:bg-[#120822]/80">
+                  <table className="w-full text-left text-sm sm:text-base border-collapse">
                     <thead className={dark ? 'bg-purple-950/80 text-purple-200 border-b border-purple-900' : 'bg-purple-50 text-slate-800 border-b border-purple-100'}>
                       <tr>
                         {section.table.headers.map((h, idx) => (
-                          <th key={idx} className="px-3.5 py-2.5 font-extrabold whitespace-nowrap">{h}</th>
+                          <th key={idx} className="font-heading px-4 py-3 font-extrabold whitespace-nowrap">{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -662,7 +665,7 @@ function InfoPage({ page, theme }: { page: { title: string; intro: string; updat
                       {section.table.rows.map((row, rIdx) => (
                         <tr key={rIdx} className={`border-b last:border-0 ${dark ? 'border-purple-950/40 hover:bg-purple-950/30' : 'border-slate-100 hover:bg-slate-50/80'}`}>
                           {row.map((cell, cIdx) => (
-                            <td key={cIdx} className={`px-3.5 py-2.5 ${dark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            <td key={cIdx} className={`font-body px-4 py-3 ${dark ? 'text-slate-300' : 'text-slate-700'}`}>
                               {cell}
                             </td>
                           ))}

@@ -1,10 +1,13 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-  --font-display: "Black Han Sans", "Pretendard Variable", "Pretendard", "Noto Sans KR", sans-serif;
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-heading: "Noto Sans KR", "Pretendard Variable", "Pretendard", sans-serif;
+  --font-display: "Black Han Sans", "Outfit", "Plus Jakarta Sans", "Pretendard", sans-serif;
+  --font-sub: "Plus Jakarta Sans", "Pretendard", "Noto Sans KR", sans-serif;
+  --font-tag: "Outfit", "Plus Jakarta Sans", "Pretendard", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -14,23 +17,52 @@ html {
   -webkit-text-size-adjust: 100%;
   font-feature-settings: "cv05", "cv08", "cv11";
   scroll-behavior: smooth;
-}
-
-.font-impact {
-  font-family: 'Black Han Sans', 'Pretendard', sans-serif;
-  letter-spacing: -0.02em;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   font-family: var(--font-sans);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   word-break: keep-all;
   overflow-wrap: break-word;
-  letter-spacing: -0.02em;
-  line-height: 1.85;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  letter-spacing: -0.015em;
+  line-height: 1.75;
+  transition: background-color 0.25s ease, color 0.25s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Specific Font Classes for Rich Diversity & Superior Hierarchy */
+.font-impact {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+}
+
+.font-subheading {
+  font-family: var(--font-sub);
+  letter-spacing: -0.02em;
+}
+
+.font-tag {
+  font-family: var(--font-tag);
+  letter-spacing: -0.005em;
+}
+
+.font-body {
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+}
+
+.font-code {
+  font-family: var(--font-mono);
 }
 
 a,
@@ -41,129 +73,119 @@ select {
   font-family: inherit;
 }
 
+/* Prevent auto zoom on iOS Safari inputs while ensuring legible typography */
+input, select, textarea {
+  font-size: 16px;
+}
+@media (min-width: 640px) {
+  input, select, textarea {
+    font-size: 15px;
+  }
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 포스팅 본문 가독성 최적화 전용 타이포그래피 규칙 */
+/* Responsive Guide Markdown Body Styling with High Legibility (18px ~ 20px body font) */
 #guide-markdown-body p {
-  font-size: 1.0625rem; /* 17px */
-  line-height: 1.9;
-  letter-spacing: -0.018em;
-  margin-bottom: 1.35rem;
+  font-size: 1.125rem; /* 18px on mobile for effortless reading */
+  line-height: 1.95;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.75rem;
 }
 
 @media (min-width: 640px) {
   #guide-markdown-body p {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.92;
+    font-size: 1.25rem; /* 20px on tablet/desktop */
+    line-height: 2.0;
   }
 }
 
 #guide-markdown-body li {
-  font-size: 1rem; /* 16px */
-  line-height: 1.85;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.9;
   letter-spacing: -0.015em;
 }
 
 @media (min-width: 640px) {
   #guide-markdown-body li {
-    font-size: 1.0625rem; /* 17px */
+    font-size: 1.1875rem; /* 19px */
+    line-height: 1.95;
   }
 }
 
 #guide-markdown-body h2 {
-  font-size: 1.5rem; /* 24px */
-  line-height: 1.4;
-  letter-spacing: -0.025em;
+  font-family: var(--font-heading);
+  font-size: 1.625rem; /* 26px */
+  line-height: 1.35;
+  letter-spacing: -0.03em;
   font-weight: 900;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  #guide-markdown-body h2 {
+    font-size: 2rem; /* 32px */
+    line-height: 1.3;
+  }
+}
+
+#guide-markdown-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  font-weight: 800;
   margin-top: 2.25rem;
   margin-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
-  #guide-markdown-body h2 {
-    font-size: 1.75rem; /* 28px */
-  }
-}
-
-#guide-markdown-body h3 {
-  font-size: 1.25rem; /* 20px */
-  line-height: 1.45;
-  letter-spacing: -0.02em;
-  font-weight: 800;
-  margin-top: 1.75rem;
-  margin-bottom: 0.75rem;
-}
-
-@media (min-width: 640px) {
   #guide-markdown-body h3 {
-    font-size: 1.375rem; /* 22px */
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.35;
   }
 }
 
-/* 스크롤바 커스텀 */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-scroll-track, #031424);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-scroll-thumb, #0a3d62);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-scroll-thumb-hover, #3c6382);
+  background: rgba(148, 163, 184, 0.6);
 }
 
-.font-display {
-  font-family: var(--font-display);
+/* Horizontal Category Scroller smooth touch scrolling */
+#category-scroller {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
-/* Category Filter Cards Hover Scale & Subtle Cyan Glow Animation */
 #category-scroller button {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
 }
 
-#category-scroller button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 14px rgba(34, 211, 238, 0.25);
+#category-scroller button:active {
+  transform: scale(0.96);
 }
 
-#category-scroller button.is-active {
-  border-color: rgba(34, 211, 238, 0.75) !important;
-  background-color: rgba(6, 182, 212, 0.22) !important;
-  color: #67e8f9 !important;
-  box-shadow: 0 0 18px rgba(34, 211, 238, 0.32) !important;
-  font-weight: 800;
-}
-
-/* Custom Keyframe Animations for Dynamic & Sleek UI */
-@keyframes glowShift {
-  0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.35));
-  }
-  50% {
-    filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.75));
-  }
-}
-
-@keyframes floatSmooth {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -171,35 +193,6 @@ a {
   }
 }
 
-@keyframes buttonShine {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.animate-glow-shift {
-  animation: glowShift 3s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: floatSmooth 4s ease-in-out infinite;
-}
-
 .animate-fade-in-up {
-  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
-.shine-button {
-  background-size: 200% 100%;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.shine-button:hover {
-  background-position: -100% 0;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
-}
-

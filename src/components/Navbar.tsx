@@ -47,22 +47,22 @@ export const Navbar: React.FC<NavbarProps> = ({
         ? 'sticky top-0 z-50 border-b border-slate-800 bg-[#090d16]/90 backdrop-blur-md text-white' 
         : 'sticky top-0 z-50 border-b border-slate-200 bg-[#0d1527] text-white shadow-sm'
       }>
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
           {/* Left: Brand Logo */}
           <button 
             type="button"
             onClick={handleLogoClick} 
-            className="flex items-center gap-2.5 text-left hover:opacity-90 transition-opacity cursor-pointer"
+            className="flex items-center gap-2 text-left hover:opacity-90 transition-opacity cursor-pointer shrink-0"
             id="nav-logo-btn"
           >
             <div className="flex items-center gap-1.5 font-impact text-xl sm:text-2xl tracking-tight leading-none">
-              <span className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded font-black">NOW</span>
-              <span className="text-white font-black">크리에이터랩</span>
+              <span className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded font-black text-xs sm:text-sm border border-cyan-400/20">NOW</span>
+              <span className="text-white font-black text-lg sm:text-2xl">크리에이터랩</span>
             </div>
           </button>
 
           {/* Center: Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-bold">
+          <nav className="hidden md:flex items-center gap-7 font-subheading text-base font-bold">
             <button
               onClick={handleLogoClick}
               className={`transition-colors py-1 cursor-pointer ${
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Inline Search Toggle */}
             <div className="relative flex items-center">
               {showSearchInput && (
@@ -105,34 +105,34 @@ export const Navbar: React.FC<NavbarProps> = ({
                   placeholder="가이드 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="mr-2 w-36 sm:w-52 rounded-xl border border-cyan-500/40 bg-slate-900/90 px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                  className="mr-1.5 w-28 sm:w-48 rounded-xl border border-cyan-500/40 bg-slate-900 px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
                   autoFocus
                 />
               )}
               <button
                 onClick={() => setShowSearchInput(!showSearchInput)}
-                className="p-2 rounded-lg transition-colors hover:bg-slate-800 text-slate-200 cursor-pointer"
+                className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-slate-800 text-slate-200 cursor-pointer"
                 title="검색"
                 id="nav-search-toggle"
               >
-                <Search className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Search className="h-5 w-5" />
               </button>
             </div>
 
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg transition-colors hover:bg-slate-800 text-amber-400 cursor-pointer"
+              className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-slate-800 text-amber-400 cursor-pointer"
               title="테마 전환"
               id="nav-theme-toggle"
             >
-              {dark ? <Sun className="h-4 w-4 sm:h-5 sm:w-5" /> : <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-200" />}
+              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5 text-slate-200" />}
             </button>
 
             {/* Mobile Hamburger Drawer Icon */}
             <button
               onClick={() => setIsDrawerOpen(true)}
-              className="md:hidden p-2 rounded-lg transition-colors hover:bg-slate-800 text-slate-200 cursor-pointer"
+              className="md:hidden flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-slate-800 text-slate-200 cursor-pointer"
               id="nav-drawer-toggle"
             >
               <Menu className="h-5 w-5" />

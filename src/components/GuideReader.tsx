@@ -386,7 +386,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         <div className="mb-8 flex items-center justify-between gap-4">
           <button 
             onClick={onBack} 
-            className={`group flex items-center gap-2 text-sm font-bold transition-colors cursor-pointer ${
+            className={`font-subheading group flex items-center gap-2 text-sm sm:text-base font-bold transition-colors cursor-pointer ${
               dark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-[#7C3AED]'
             }`}
           >
@@ -419,14 +419,24 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         {/* Article Title, Author & Stats Header */}
         <header className="mb-8 break-keep">
           {/* Top category label */}
-          <p className="text-xs font-extrabold tracking-wider uppercase text-[#7C3AED] dark:text-purple-400 mb-2.5" itemProp="articleSection">
-            {post.categoryLabel}
-          </p>
+          <div className="mb-3.5">
+            <span 
+              className="font-tag inline-block rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-black tracking-wide uppercase"
+              style={{ 
+                color: dark ? '#c084fc' : '#7C3AED', 
+                backgroundColor: dark ? 'rgba(124, 58, 237, 0.2)' : '#F3E8FF',
+                border: `1px solid ${dark ? 'rgba(124, 58, 237, 0.4)' : '#E9D5FF'}`
+              }}
+              itemProp="articleSection"
+            >
+              {post.categoryLabel}
+            </span>
+          </div>
           
           {/* Title */}
           <h1 
             itemProp="headline"
-            className={`text-[26px] sm:text-[35px] font-black leading-[1.3] tracking-tight mb-4 ${
+            className={`font-heading text-3xl sm:text-4xl md:text-5xl font-black leading-tight sm:leading-tight tracking-tight mb-5 ${
               dark ? 'text-white' : 'text-slate-900'
             }`}
           >
@@ -436,7 +446,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           {/* Subtitle */}
           <p 
             itemProp="description"
-            className={`text-[15px] sm:text-[17px] leading-[1.7] mb-6 font-medium ${
+            className={`font-subheading text-base sm:text-xl leading-relaxed mb-6 font-medium ${
               dark ? 'text-slate-300' : 'text-slate-600'
             }`}
           >
@@ -444,29 +454,29 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           </p>
 
           {/* Author Details Profile Row */}
-          <div className={`flex flex-col gap-3.5 border-t pt-4 border-b pb-4 ${
-            dark ? 'border-purple-950/30' : 'border-slate-100'
+          <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t pt-4.5 border-b pb-4.5 ${
+            dark ? 'border-purple-950/40' : 'border-slate-100'
           }`}>
-            <div className="flex items-center gap-2" itemProp="author" itemScope itemType="https://schema.org/Person">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 border border-cyan-200/40 dark:border-cyan-900/40 text-lg">
+            <div className="flex items-center gap-3" itemProp="author" itemScope itemType="https://schema.org/Person">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-100 dark:bg-slate-800 border border-cyan-200/40 dark:border-cyan-900/40 text-xl shrink-0">
                 🧑‍💻
               </span>
               <div className="flex flex-col">
-                <span className={`text-[13px] font-extrabold ${dark ? 'text-white' : 'text-slate-800'}`} itemProp="name">
+                <span className={`font-subheading text-sm sm:text-base font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`} itemProp="name">
                   {post.author || '크리에이터랩'}
                 </span>
-                <span className="text-[10px] text-cyan-400 font-medium">나우크리에이터랩 수석 컨설턴트</span>
+                <span className="font-tag text-xs sm:text-sm text-cyan-400 font-semibold">나우크리에이터랩 수석 컨설턴트</span>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11.5px] font-medium text-slate-400 dark:text-slate-500">
-              <span className="flex items-center gap-1">
-                <Clock className="h-3.5 w-3.5 text-purple-400" />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-tag text-xs sm:text-sm font-semibold text-slate-400 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4 text-purple-400" />
                 <span>{post.readTime || '6분'} 읽기</span>
               </span>
-              <span className="text-slate-200 dark:text-purple-950">|</span>
-              <span className="flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5" />
+              <span className="text-slate-300 dark:text-purple-900">|</span>
+              <span className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4" />
                 <time itemProp="datePublished" dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
               </span>
             </div>
@@ -477,66 +487,68 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         <ImageFigure image={post.thumbnail} />
 
         {/* 19년차 마케터 핵심 요약 Card */}
-        <section className={`mb-8 rounded-2xl border p-5 sm:p-6 transition-all ${
+        <section className={`mb-10 rounded-2xl border p-6 sm:p-8 transition-all ${
           dark ? 'border-purple-900/50 bg-gradient-to-br from-[#1b0d38] via-[#13082a] to-[#100624]' : 'border-purple-100 bg-gradient-to-br from-purple-50/60 via-indigo-50/30 to-white shadow-xs'
         }`} id="aeo-quick-answer-card">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-purple-500/10">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#7C3AED] text-white text-xs font-black shadow-xs">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-purple-500/10 flex-wrap gap-2">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#7C3AED] text-white text-base font-black shadow-xs shrink-0">
                 ⚡
               </span>
-              <h2 className={`text-sm font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>
+              <h2 className={`font-heading text-lg sm:text-xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
                 19년차 마케터의 실전 3초 핵심 요약
               </h2>
             </div>
-            <span className="rounded-full bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-[#7C3AED] dark:text-purple-300">
+            <span className="font-tag rounded-full bg-purple-500/10 border border-purple-500/20 px-3.5 py-1 text-xs sm:text-sm font-bold text-[#7C3AED] dark:text-purple-300">
               실전 마케팅 핵심 포인트
             </span>
           </div>
 
-          <div className="grid gap-3.5 text-[13px] leading-relaxed">
-            <div className={`p-3 rounded-xl border ${dark ? 'bg-purple-950/30 border-purple-900/30 text-slate-200' : 'bg-white/80 border-purple-100 text-slate-800'}`}>
-              <span className="font-extrabold text-[#7C3AED] dark:text-purple-300 mr-2">🎯 핵심 결론:</span>
-              <span>{renderFormattedText(post.summary || `${post.title}의 핵심은 구체적인 타겟 시청자 요구를 충족하고 체류 시간을 극대화하는 정교한 가치 제안에 있습니다.`)}</span>
+          <div className="grid gap-4 text-base sm:text-lg leading-relaxed">
+            <div className={`p-4 sm:p-5 rounded-xl border ${dark ? 'bg-purple-950/40 border-purple-900/40 text-slate-200' : 'bg-white/90 border-purple-100 text-slate-800'}`}>
+              <span className="font-extrabold text-[#7C3AED] dark:text-purple-300 mr-2 block sm:inline mb-1 sm:mb-0">🎯 핵심 결론:</span>
+              <span className="font-body">{renderFormattedText(post.summary || `${post.title}의 핵심은 구체적인 타겟 시청자 요구를 충족하고 체류 시간을 극대화하는 정교한 가치 제안에 있습니다.`)}</span>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-3">
-              <div className={`p-3 rounded-xl border ${dark ? 'bg-purple-950/20 border-purple-900/20 text-slate-300' : 'bg-white/60 border-slate-100 text-slate-700'}`}>
-                <span className="font-bold text-emerald-500 dark:text-emerald-400 mr-1.5">📌 적용 카테고리:</span>
-                <span>{post.categoryLabel}</span>
+            <div className="grid sm:grid-cols-2 gap-3.5">
+              <div className={`p-4 rounded-xl border ${dark ? 'bg-purple-950/20 border-purple-900/20 text-slate-300' : 'bg-white/70 border-slate-100 text-slate-700'}`}>
+                <span className="font-bold text-emerald-500 dark:text-emerald-400 mr-1.5 font-tag">📌 적용 카테고리:</span>
+                <span className="font-semibold font-tag">{post.categoryLabel}</span>
               </div>
-              <div className={`p-3 rounded-xl border ${dark ? 'bg-purple-950/20 border-purple-900/20 text-slate-300' : 'bg-white/60 border-slate-100 text-slate-700'}`}>
-                <span className="font-bold text-amber-500 dark:text-amber-400 mr-1.5">⏱️ 권장 소요시간:</span>
-                <span>실전 적용 15분 이내</span>
+              <div className={`p-4 rounded-xl border ${dark ? 'bg-purple-950/20 border-purple-900/20 text-slate-300' : 'bg-white/70 border-slate-100 text-slate-700'}`}>
+                <span className="font-bold text-amber-500 dark:text-amber-400 mr-1.5 font-tag">⏱️ 권장 소요시간:</span>
+                <span className="font-semibold font-tag">실전 적용 15분 이내</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* Core dynamic summary and table of contents */}
-        <section className="mb-8 grid gap-6 md:grid-cols-2" id="guide-overview-section">
+        <section className="mb-10 grid gap-6 md:grid-cols-2" id="guide-overview-section">
           {/* Guide summary block */}
-          <div className={`rounded-2xl border p-5 sm:p-6 flex flex-col ${
+          <div className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between ${
             dark ? 'border-purple-950 bg-[#110724]' : 'border-slate-100 bg-white shadow-xs'
           }`}>
-            <div className="flex items-center gap-2 mb-4">
-              <FileText className="h-5 w-5 text-[#7C3AED]" />
-              <h2 className={`text-sm font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📝 가이드 개요 및 목적</h2>
+            <div>
+              <div className="flex items-center gap-2.5 mb-4">
+                <FileText className="h-6 w-6 text-[#7C3AED] shrink-0" />
+                <h2 className={`font-heading text-lg sm:text-xl font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📝 가이드 개요 및 목적</h2>
+              </div>
+              <p className={`font-body text-base sm:text-[17px] leading-relaxed font-normal ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                {renderFormattedText(post.summary || `${post.title}에 대한 핵심 요약 내용입니다. 아래 본문에서 구체적인 실행 계획을 상세하게 다룹니다.`)}
+              </p>
             </div>
-            <p className={`text-[13px] leading-relaxed font-medium ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-              {renderFormattedText(post.summary || `${post.title}에 대한 핵심 요약 내용입니다. 아래 본문에서 구체적인 실행 계획을 상세하게 다룹니다.`)}
-            </p>
           </div>
 
           {/* Guide Table of Contents */}
-          <div className={`rounded-2xl border p-5 sm:p-6 flex flex-col ${
+          <div className={`rounded-2xl border p-6 sm:p-7 flex flex-col ${
             dark ? 'border-purple-950 bg-[#110724]' : 'border-slate-100 bg-white shadow-xs'
           }`}>
-            <div className="flex items-center gap-2 mb-4">
-              <List className="h-5 w-5 text-[#7C3AED]" />
-              <h2 className={`text-sm font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📋 가이드 목차</h2>
+            <div className="flex items-center gap-2.5 mb-4">
+              <List className="h-6 w-6 text-[#7C3AED] shrink-0" />
+              <h2 className={`font-heading text-lg sm:text-xl font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>📋 가이드 목차</h2>
             </div>
-            <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+            <ul className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
               {blocks
                 .map((block, idx) => ({ block, idx }))
                 .filter(({ block }) => {
@@ -557,7 +569,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                         onClick={() => {
                           const element = document.getElementById(`heading-${idx}`);
                           if (element) {
-                            const headerOffset = 140;
+                            const headerOffset = 100;
                             const elementPosition = element.getBoundingClientRect().top;
                             const offsetPosition = elementPosition + window.scrollY - headerOffset;
                             window.scrollTo({
@@ -566,14 +578,14 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                             });
                           }
                         }}
-                        className={`text-left text-xs transition-colors hover:underline hover:cursor-pointer flex items-center gap-1.5 ${
+                        className={`text-left text-sm sm:text-base transition-colors hover:underline hover:cursor-pointer flex items-center gap-2.5 ${
                           isH3
                             ? `${dark ? 'text-slate-400 hover:text-purple-400' : 'text-slate-500 hover:text-[#7C3AED]'} font-normal py-0.5`
-                            : `${dark ? 'text-slate-200 hover:text-purple-400' : 'text-slate-800 hover:text-[#7C3AED]'} font-bold py-1 mt-1`
+                            : `${dark ? 'text-slate-200 hover:text-purple-400' : 'text-slate-800 hover:text-[#7C3AED]'} font-bold py-1 mt-0.5`
                         }`}
                       >
-                        <span className={`inline-block rounded-full bg-purple-400 shrink-0 ${isH3 ? 'h-1 w-1' : 'h-1.5 w-1.5'}`} />
-                        <span className="truncate">{block.lines[0]}</span>
+                        <span className={`inline-block rounded-full bg-purple-400 shrink-0 ${isH3 ? 'h-1.5 w-1.5' : 'h-2 w-2'}`} />
+                        <span className="truncate font-subheading">{block.lines[0]}</span>
                       </button>
                     </li>
                   );
@@ -582,10 +594,10 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           </div>
         </section>
 
-        {/* Article Body Content */}
+        {/* Article Body Content with Rich Hierarchy */}
         <article 
           itemProp="articleBody"
-          className={`space-y-6 break-keep text-[17px] sm:text-[18.5px] leading-[1.9] ${
+          className={`space-y-7 break-keep text-lg sm:text-xl leading-[1.9] sm:leading-[2.0] ${
             dark ? 'text-slate-100' : 'text-slate-900'
           }`} 
           id="guide-markdown-body"
@@ -596,7 +608,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 <h2 
                   key={index} 
                   id={`heading-${index}`} 
-                  className={`border-b pb-3 pt-8 text-[22px] sm:text-[28px] font-black tracking-tight leading-snug ${
+                  className={`font-heading border-b pb-3.5 pt-10 text-2xl sm:text-3xl font-black tracking-tight leading-snug ${
                     dark ? 'border-purple-950/60 text-white' : 'border-slate-200 text-slate-900'
                   }`}
                 >
@@ -609,23 +621,23 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 <h3 
                   key={index} 
                   id={`heading-${index}`} 
-                  className={`flex items-center gap-2.5 pt-6 text-[19px] sm:text-[22px] font-extrabold ${
+                  className={`font-heading flex items-center gap-3 pt-8 text-xl sm:text-2xl font-extrabold ${
                     dark ? 'text-purple-300' : 'text-[#7C3AED]'
                   }`}
                 >
-                  <span className="inline-block h-4 w-1.5 rounded-full bg-[#7C3AED] dark:bg-purple-400 shrink-0" />
+                  <span className="inline-block h-5 w-2 rounded-full bg-[#7C3AED] dark:bg-purple-400 shrink-0" />
                   {renderFormattedText(block.lines[0])}
                 </h3>
               );
             }
             if (block.type === 'divider') {
-              return <hr key={index} className={dark ? 'my-8 border-purple-950/40' : 'my-8 border-slate-200'} />;
+              return <hr key={index} className={dark ? 'my-10 border-purple-950/40' : 'my-10 border-slate-200'} />;
             }
             if (block.type === 'list') {
               return (
                 <ul 
                   key={index} 
-                  className={`space-y-3 rounded-2xl border p-6 pl-8 text-[15.5px] sm:text-[17px] leading-[1.85] font-medium my-6 ${
+                  className={`space-y-3.5 rounded-2xl border p-6 sm:p-8 pl-8 sm:pl-10 font-body text-base sm:text-lg leading-[1.9] font-normal my-8 ${
                     dark 
                       ? 'border-purple-950/50 bg-[#120822]/60 text-slate-200' 
                       : 'border-purple-100/80 bg-purple-50/30 text-slate-700'
@@ -643,13 +655,13 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
               const bodyRows = rawRows.slice(1).filter(row => !row.every(c => /^:?-+:?$/.test(c.replace(/\s+/g, ''))));
 
               return (
-                <div key={index} className="my-8 overflow-x-auto rounded-2xl border border-purple-200/80 dark:border-purple-900/60 shadow-xs bg-white dark:bg-[#120822]/80 p-1">
-                  <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                <div key={index} className="my-10 overflow-x-auto rounded-2xl border border-purple-200/80 dark:border-purple-900/60 shadow-xs bg-white dark:bg-[#120822]/80 p-1 w-full max-w-full touch-pan-x">
+                  <table className="w-full text-left text-sm sm:text-base border-collapse min-w-full">
                     {header.length > 0 && (
                       <thead className={dark ? 'bg-purple-950/90 text-purple-200 border-b border-purple-900' : 'bg-purple-50 text-slate-800 border-b border-purple-100'}>
                         <tr>
                           {header.map((col, cIdx) => (
-                            <th key={cIdx} className="px-4 py-3 font-extrabold whitespace-nowrap">
+                            <th key={cIdx} className="font-heading px-4 sm:px-5 py-3.5 font-extrabold whitespace-nowrap">
                               {renderFormattedText(col)}
                             </th>
                           ))}
@@ -660,7 +672,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                       {bodyRows.map((row, rIdx) => (
                         <tr key={rIdx} className={`border-b last:border-0 ${dark ? 'border-purple-950/40 hover:bg-purple-950/30' : 'border-slate-100 hover:bg-slate-50/80'}`}>
                           {row.map((cell, cIdx) => (
-                            <td key={cIdx} className={`px-4 py-3 font-medium ${dark ? 'text-slate-200' : 'text-slate-700'}`}>
+                            <td key={cIdx} className={`font-body px-4 sm:px-5 py-3.5 font-medium ${dark ? 'text-slate-200' : 'text-slate-700'}`}>
                               {renderFormattedText(cell)}
                             </td>
                           ))}
@@ -673,7 +685,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             }
             if (block.type === 'code') {
               return (
-                <pre key={index} className="overflow-x-auto rounded-xl border border-purple-950 bg-slate-950 p-4.5 text-sm font-mono leading-relaxed text-purple-300 shadow-sm my-6">
+                <pre key={index} className="overflow-x-auto rounded-xl border border-purple-950 bg-slate-950 p-4 sm:p-6 text-sm sm:text-base font-code leading-relaxed text-purple-300 shadow-sm my-8 max-w-full touch-pan-x">
                   <code>{block.lines.join('\n')}</code>
                 </pre>
               );
@@ -681,7 +693,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
             paragraphCount += 1;
             return (
               <React.Fragment key={index}>
-                <p className="font-normal text-[17px] sm:text-[18.5px] leading-[1.9] tracking-[-0.015em] mb-6">
+                <p className="font-body font-normal text-lg sm:text-xl leading-[1.95] sm:leading-[2.0] tracking-[-0.015em] mb-7">
                   {renderFormattedText(block.lines.join('\n'))}
                 </p>
                 {paragraphCount === 2 ? <ImageFigure image={post.bodyImages?.[0]} /> : null}
@@ -692,17 +704,17 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         </article>
 
         {/* GEO FAQ Section (Generative Engine Optimization) */}
-        <section className="mt-12 pt-8 border-t border-slate-100 dark:border-purple-950/40" id="geo-faq-section">
-          <div className="flex items-center gap-2 mb-6">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white text-xs font-black">
+        <section className="mt-14 pt-10 border-t border-slate-100 dark:border-purple-950/40" id="geo-faq-section">
+          <div className="flex items-center gap-3 mb-7">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white text-base font-black shrink-0">
               ❓
             </span>
-            <h2 className={`text-lg font-extrabold ${dark ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`font-heading text-xl sm:text-2xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
               자주 묻는 질문 & AI 답변 (GEO FAQ)
             </h2>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {geoFaqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
@@ -714,20 +726,20 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer"
+                    className="w-full text-left p-4 sm:p-6 flex items-center justify-between gap-4 cursor-pointer"
                   >
-                    <span className={`text-xs sm:text-sm font-bold leading-snug ${dark ? 'text-purple-200' : 'text-slate-800'}`}>
+                    <span className={`font-subheading text-base sm:text-lg font-bold leading-snug ${dark ? 'text-purple-200' : 'text-slate-800'}`}>
                       Q{idx + 1}. {faq.q}
                     </span>
-                    <span className={`shrink-0 text-xs font-bold px-2 py-0.5 rounded-full ${
-                      isOpen ? 'bg-purple-500 text-white' : dark ? 'bg-purple-950 text-purple-400' : 'bg-slate-100 text-slate-500'
+                    <span className={`font-tag shrink-0 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full ${
+                      isOpen ? 'bg-purple-500 text-white' : dark ? 'bg-purple-950 text-purple-400' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {isOpen ? '닫기' : '답변 보기'}
                     </span>
                   </button>
 
                   {isOpen && (
-                    <div className={`px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-[13px] leading-relaxed border-t ${
+                    <div className={`font-body px-4 sm:px-6 pb-6 pt-2 text-base sm:text-[17px] leading-relaxed border-t ${
                       dark ? 'border-purple-950/40 text-slate-300 bg-[#110724]/50' : 'border-slate-50 text-slate-600 bg-purple-50/20'
                     }`}>
                       {faq.a}
@@ -740,16 +752,16 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
         </section>
 
         {/* Tag Badges */}
-        <div className={`mt-10 flex flex-wrap gap-2 border-t pt-6 ${
+        <div className={`mt-12 flex flex-wrap gap-2.5 border-t pt-8 ${
           dark ? 'border-purple-950/30' : 'border-slate-100'
         }`}>
           {(post.tags || []).map((tag) => (
             <span 
               key={tag} 
-              className={`rounded-lg px-2.5 py-1 text-[11px] font-bold ${
+              className={`font-tag rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold ${
                 dark 
                   ? 'bg-purple-950/30 text-purple-300 border border-purple-900/30' 
-                  : 'border border-slate-100 bg-slate-50 text-slate-500'
+                  : 'border border-slate-100 bg-slate-50 text-slate-600'
               }`}
             >
               #{tag}
@@ -757,17 +769,17 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           ))}
         </div>
 
-        {/* Back navigation button */}
-        <div className="mt-12 text-center">
+        {/* Bottom Navigation Button */}
+        <div className="mt-14 text-center">
           <button 
             onClick={onBack} 
-            className={`inline-flex rounded-full border px-6 py-2.5 text-xs font-bold transition-all hover:-translate-y-0.5 cursor-pointer shadow-xs ${
+            className={`font-subheading inline-flex rounded-full border px-8 py-3.5 text-sm sm:text-base font-extrabold transition-all hover:-translate-y-0.5 cursor-pointer shadow-xs ${
               dark 
                 ? 'border-purple-950 bg-[#140b2a] text-slate-300 hover:bg-[#1f113f] hover:text-white' 
                 : 'border-slate-100 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-200'
             }`}
           >
-            가이드 목록으로 돌아가기
+            ← 전체 가이드 목록으로 돌아가기
           </button>
         </div>
 
