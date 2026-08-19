@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight } from 'lucide-react';
+import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
@@ -481,19 +481,126 @@ export default function App() {
                 ))}
               </section>
             ) : (
-              <div className={dark ? 'rounded-2xl border border-slate-800 bg-[#0c1424] p-8 text-center' : 'rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-xs'}>
-                <p className={dark ? 'text-sm sm:text-base text-slate-300 font-medium' : 'text-sm sm:text-base text-slate-600 font-medium'}>
-                  일치하는 가이드 포스팅이 없습니다.
+              <div className={`rounded-3xl border p-8 sm:p-10 text-center ${
+                dark ? 'border-purple-950/80 bg-[#100722]/90 shadow-2xl' : 'border-slate-200/90 bg-white shadow-sm'
+              }`}>
+                {/* Visual Icon */}
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-500/10 dark:bg-purple-900/30 text-[#7C3AED] dark:text-purple-400 mb-5 border border-purple-200/50 dark:border-purple-800/40">
+                  <Search className="h-8 w-8" />
+                </div>
+
+                <h3 className={`font-heading text-xl sm:text-2xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  {query ? `'${query}' 검색 결과가 없습니다` : '일치하는 가이드 포스팅이 없습니다'}
+                </h3>
+                <p className={`mt-2.5 text-sm sm:text-base max-w-lg mx-auto ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                  {query 
+                    ? '원하시는 핵심 노하우를 구글 검색 엔진에서 최적화된 고급 검색 연산자(site: 등)로 즉시 찾아보실 수 있습니다.' 
+                    : '선택하신 카테고리에 등록된 포스트가 없거나 검색 조건과 일치하지 않습니다.'}
                 </p>
-                <button
-                  onClick={() => {
-                    setQuery('');
-                    setCategory(null);
-                  }}
-                  className="mt-4 inline-flex items-center gap-1 rounded-xl bg-cyan-500 px-4 py-2 text-sm font-bold text-slate-950 shadow-xs hover:bg-cyan-400 transition-colors cursor-pointer"
-                >
-                  필터 초기화
-                </button>
+
+                {/* Highly Refined Google External Search Card */}
+                {query.trim() && (() => {
+                  const rawQuery = query.trim();
+                  const siteQuery = `site:nutube.kr ${rawQuery}`;
+                  const deepSearchQuery = `${rawQuery} (유튜브 OR 숏폼 OR 애드센스 OR 릴스 OR 틱톡 OR 수익화)`;
+                  const googleSiteUrl = `https://www.google.com/search?q=${encodeURIComponent(siteQuery)}`;
+                  const googleDeepUrl = `https://www.google.com/search?q=${encodeURIComponent(deepSearchQuery)}`;
+
+                  return (
+                    <div className={`mt-7 max-w-xl mx-auto rounded-2xl border p-5 sm:p-6 text-left ${
+                      dark ? 'border-purple-900/50 bg-[#160b2e]/70' : 'border-purple-100 bg-purple-50/50'
+                    }`}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Globe className={`h-4 w-4 ${dark ? 'text-cyan-400' : 'text-[#7C3AED]'}`} />
+                        <span className={`font-subheading text-xs sm:text-sm font-bold ${dark ? 'text-purple-200' : 'text-purple-900'}`}>
+                          정밀 매칭 구글 외부 검색 옵션
+                        </span>
+                      </div>
+
+                      <div className="space-y-3">
+                        {/* 1. Precision Site Search */}
+                        <a
+                          href={googleSiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:-translate-y-0.5 cursor-pointer ${
+                            dark 
+                              ? 'border-purple-800/40 bg-purple-950/40 hover:bg-purple-900/40 text-slate-200' 
+                              : 'border-white bg-white shadow-2xs hover:shadow-xs text-slate-800'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400 font-bold text-xs">
+                              1
+                            </span>
+                            <div className="min-w-0">
+                              <p className="font-subheading text-xs sm:text-sm font-extrabold truncate">
+                                크리에이터랩 사이트 정밀 검색
+                              </p>
+                              <p className={`font-mono text-[11px] truncate ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {siteQuery}
+                              </p>
+                            </div>
+                          </div>
+                          <ExternalLink className="h-4 w-4 shrink-0 text-cyan-400 ml-2" />
+                        </a>
+
+                        {/* 2. Topic-Expanded Knowledge Search */}
+                        <a
+                          href={googleDeepUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:-translate-y-0.5 cursor-pointer ${
+                            dark 
+                              ? 'border-purple-800/40 bg-purple-950/40 hover:bg-purple-900/40 text-slate-200' 
+                              : 'border-white bg-white shadow-2xs hover:shadow-xs text-slate-800'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#7C3AED]/20 text-purple-400 font-bold text-xs">
+                              2
+                            </span>
+                            <div className="min-w-0">
+                              <p className="font-subheading text-xs sm:text-sm font-extrabold truncate">
+                                전체 웹 알고리즘 &amp; 수익화 심층 검색
+                              </p>
+                              <p className={`font-mono text-[11px] truncate ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {deepSearchQuery}
+                              </p>
+                            </div>
+                          </div>
+                          <ExternalLink className="h-4 w-4 shrink-0 text-purple-400 ml-2" />
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* Action Buttons */}
+                <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    onClick={() => {
+                      setQuery('');
+                      setCategory(null);
+                    }}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-cyan-500 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-xs hover:bg-cyan-400 transition-colors cursor-pointer"
+                  >
+                    전체 가이드 다시보기
+                  </button>
+
+                  {query && (
+                    <button
+                      onClick={() => setQuery('')}
+                      className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors cursor-pointer border ${
+                        dark 
+                          ? 'border-slate-800 bg-slate-900 text-slate-300 hover:text-white' 
+                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      검색어 지우기
+                    </button>
+                  )}
+                </div>
               </div>
             )}
 
