@@ -56,8 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="nav-logo-btn"
           >
             <div className="flex items-center gap-1.5 font-impact text-xl sm:text-2xl tracking-tight leading-none">
-              <span className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded font-black text-xs sm:text-sm border border-cyan-400/20">NOW</span>
-              <span className="text-white font-black text-lg sm:text-2xl">크리에이터랩</span>
+              <span className="text-white font-black text-xl sm:text-2xl tracking-tighter">크리에이터랩</span>
             </div>
           </button>
 
@@ -155,9 +154,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex h-full flex-col overflow-y-auto py-6 shadow-2xl">
                   {/* Drawer Header */}
                   <div className="px-5 flex items-center justify-between border-b pb-4 border-slate-800">
-                    <div className="flex items-center gap-1.5 font-impact text-lg">
-                      <span className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded font-black">NOW</span>
-                      <span className="text-white font-black">크리에이터랩</span>
+                    <div className="flex items-center gap-1.5 font-impact text-xl">
+                      <span className="text-white font-black tracking-tight">크리에이터랩</span>
                     </div>
                     <button
                       onClick={() => setIsDrawerOpen(false)}
@@ -196,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   {/* Drawer Footer */}
                   <div className="px-5 border-t pt-4 border-slate-800 text-center">
-                    <p className="text-[11px] text-slate-400">© 나우크리에이터랩 All rights reserved.</p>
+                    <p className="text-[11px] text-slate-400">© 크리에이터랩 All rights reserved.</p>
                   </div>
                 </div>
               </div>

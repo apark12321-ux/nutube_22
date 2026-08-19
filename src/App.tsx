@@ -99,16 +99,16 @@ const initialRoute = (): RouteState => {
 
 const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
-    title: '소개 | 나우크리에이터랩 (Now Creator Lab)',
-    updated: '2026년 8월 13일',
-    intro: '나우크리에이터랩(Now Creator Lab)은 예비 창작자부터 전업 크리에이터, 디지털 마케터를 위한 유튜브, 틱톡, 인스타그램, 구글 애드센스 SEO 및 지식 비즈니스 종합 정보 전문 미디어입니다. 신뢰할 수 있는 플랫폼 실전 가이드라인을 정직하게 안내합니다.',
+    title: '소개 | 크리에이터랩 (Creator Lab)',
+    updated: '2026년 8월 19일',
+    intro: '크리에이터랩(Creator Lab)은 예비 창작자부터 전업 크리에이터, 디지털 마케터를 위한 유튜브, 틱톡, 인스타그램, 구글 애드센스 SEO 및 지식 비즈니스 종합 정보 전문 미디어입니다. 신뢰할 수 있는 플랫폼 실전 가이드라인을 정직하게 안내합니다.',
     sections: [
       {
         heading: '1. 사이트 운영 주체 및 서비스 목적',
         body: [
-          '운영 매체: 나우크리에이터랩 (Now Creator Lab)',
+          '운영 매체: 크리에이터랩 (Creator Lab)',
           '공식 이메일: apark12321@gmail.com',
-          '나우크리에이터랩은 유튜브, 구글 서치콘솔, 국세청 등 공식 플랫폼 발표 가이드라인을 정밀 검증하여 전달합니다.',
+          '크리에이터랩은 유튜브, 구글 서치콘솔, 국세청 등 공식 플랫폼 발표 가이드라인을 정밀 검증하여 전달합니다.',
           '단순한 알고리즘 카더라 정보를 지양하고, 실제 채널을 성장시키고 안정적인 구글 애드센스 수익화와 지식 자산을 구축할 수 있는 실무 가이드를 제공합니다.'
         ]
       },
@@ -122,7 +122,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
       {
         heading: '3. 매체 운영 및 고객지원 센터',
         body: [
-          '매체명: 나우크리에이터랩 (Now Creator Lab)',
+          '매체명: 크리에이터랩 (Creator Lab)',
           '주요 전문 분야: 비디오 플랫폼 수익화, 소셜 미디어 브랜딩, 구글 애드센스 SEO/AEO/GEO, AI 콘텐츠 자동화, 지식 비즈니스',
           '고객 응답 시간: 평일 09:00 ~ 18:00 (공휴일 제외, 접수 후 영업일 기준 24시간 이내 회신)',
           '공식 문의 주소: apark12321@gmail.com'
@@ -140,7 +140,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
       {
         heading: '5. 카테고리 계층 구조 및 실전 포스팅 라이브러리',
         body: [
-          '나우크리에이터랩은 검색엔진 수집 로봇의 크롤링 효율성을 높이고 방문자의 탐색 만족도를 극대화하기 위해 명확한 5대 카테고리로 정리되어 있습니다.'
+          '크리에이터랩은 검색엔진 수집 로봇의 크롤링 효율성을 높이고 방문자의 탐색 만족도를 극대화하기 위해 명확한 5대 카테고리로 정리되어 있습니다.'
         ],
         table: {
           headers: ['분야', '카테고리명', '핵심 내용', '추천 실전 포스팅 주제'],
@@ -181,14 +181,14 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
     ]
   },
   contact: {
-    title: '제휴 및 문의 | 나우크리에이터랩 (Now Creator Lab)',
-    updated: '2026년 8월 13일',
-    intro: '나우크리에이터랩(Now Creator Lab) 플랫폼 이용 관련 문의, 보도자료 전달, 광고 및 비즈니스 제휴 제안은 아래 공식 소통 창구를 통해 접수하실 수 있습니다.',
+    title: '제휴 및 문의 | 크리에이터랩 (Creator Lab)',
+    updated: '2026년 8월 19일',
+    intro: '크리에이터랩(Creator Lab) 플랫폼 이용 관련 문의, 보도자료 전달, 광고 및 비즈니스 제휴 제안은 아래 공식 소통 창구를 통해 접수하실 수 있습니다.',
     sections: [
       {
         heading: '1. 공식 소통 창구 및 운영 정보',
         body: [
-          '운영 매체: 나우크리에이터랩 (Now Creator Lab)',
+          '운영 매체: 크리에이터랩 (Creator Lab)',
           '공식 이메일: apark12321@gmail.com',
           '응답 시간: 평일 09:00 ~ 18:00 (공휴일 제외, 접수 후 24시간 이내 답변)'
         ]
@@ -196,20 +196,20 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
     ]
   },
   terms: {
-    title: '이용약관 | 나우크리에이터랩 (Now Creator Lab)',
-    updated: '2026년 8월 13일',
-    intro: '본 약관은 나우크리에이터랩(Now Creator Lab) 웹사이트가 제공하는 지식 콘텐츠 및 솔루션 이용 조건과 절차를 규정합니다.',
+    title: '이용약관 | 크리에이터랩 (Creator Lab)',
+    updated: '2026년 8월 19일',
+    intro: '본 약관은 크리에이터랩(Creator Lab) 웹사이트가 제공하는 지식 콘텐츠 및 솔루션 이용 조건과 절차를 규정합니다.',
     sections: [
       {
         heading: '제1조 (목적)',
-        body: ['본 약관은 나우크리에이터랩이 제공하는 정보 서비스 이용 조건 및 절차, 이용자와 매체 간 권리와 의무를 규정함을 목적으로 합니다.']
+        body: ['본 약관은 크리에이터랩이 제공하는 정보 서비스 이용 조건 및 절차, 이용자와 매체 간 권리와 의무를 규정함을 목적으로 합니다.']
       }
     ]
   },
   privacy: {
-    title: '개인정보처리방침 | 나우크리에이터랩 (Now Creator Lab)',
-    updated: '2026년 8월 13일',
-    intro: '나우크리에이터랩(Now Creator Lab)은 방문자의 개인정보를 보호하고 관련 법령 및 구글 애드센스 정책을 엄격히 준수합니다.',
+    title: '개인정보처리방침 | 크리에이터랩 (Creator Lab)',
+    updated: '2026년 8월 19일',
+    intro: '크리에이터랩(Creator Lab)은 방문자의 개인정보를 보호하고 관련 법령 및 구글 애드센스 정책을 엄격히 준수합니다.',
     sections: [
       {
         heading: '1. 수집하는 개인정보 항목 및 이용 목적',
@@ -229,7 +229,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
       {
         heading: '3. 개인정보 보호책임자 및 제휴 문의처',
         body: [
-          '운영 매체: 나우크리에이터랩 (Now Creator Lab)',
+          '운영 매체: 크리에이터랩 (Creator Lab)',
           '공식 이메일: apark12321@gmail.com',
           '개인정보 보호 관련 문의사항은 공식 이메일로 접수해 주시면 지체 없이 신속하게 답변해 드립니다.'
         ]
@@ -377,10 +377,10 @@ export default function App() {
             {/* Header Title Block - Crisp Typography */}
             <div className="mb-6 sm:mb-8">
               <h1 className={dark ? 'font-heading text-3xl sm:text-5xl font-black text-white tracking-tight' : 'font-heading text-3xl sm:text-5xl font-black text-slate-900 tracking-tight'}>
-                나우크리에이터랩
+                크리에이터랩
               </h1>
               <p className={dark ? 'mt-3 text-base sm:text-lg text-slate-300 font-medium font-subheading' : 'mt-3 text-base sm:text-lg text-slate-600 font-medium font-subheading'}>
-                유튜브 알고리즘, 숏폼 수익화, 구글 애드센스 SEO 및 지식자산화 노하우
+                유튜브 알고리즘, 숏폼 수익화, 구글 애드센스 SEO 및 지식자산화 실전 가이드
               </p>
             </div>
 
@@ -394,7 +394,6 @@ export default function App() {
                   { key: 'tiktok', label: '틱톡' },
                   { key: 'blog', label: '구글 애드센스 & SEO' },
                   { key: 'digital_biz', label: '지식창업' },
-                  { key: 'monetization', label: '고수익 파이프라인' },
                 ].map((cat) => {
                   const isSelected = category === cat.key;
                   return (
@@ -599,8 +598,7 @@ export default function App() {
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-col items-center justify-center gap-2 mb-6">
             <div className="flex items-center gap-1.5 font-impact text-2xl">
-              <span className="text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-lg border border-cyan-400/30 font-black">NOW</span>
-              <span className="text-white font-black">크리에이터랩</span>
+              <span className="text-white font-black tracking-tight text-2xl sm:text-3xl">크리에이터랩</span>
             </div>
             <span className="text-xs text-slate-300 font-medium">1인 창작자 &amp; 비디오 채널 성장을 위한 전문 라이브러리</span>
           </div>
@@ -613,7 +611,7 @@ export default function App() {
           </div>
 
           <p className="mt-4 font-medium text-slate-400 text-xs tracking-wide">
-            © 나우크리에이터랩 (Now Creator Lab) All rights reserved.
+            © 크리에이터랩 (Creator Lab) All rights reserved.
           </p>
         </div>
       </footer>

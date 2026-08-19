@@ -1,6 +1,6 @@
 {
-  "name": "나우크리에이터랩",
-  "description": "2026년 최신 추천 알고리즘과 채널 수익 구조를 정밀 공략하는 46편의 비책 보관소 및 쇼츠 대본과 썸네일 연출을 고속 인출하는 AI 분석 기획 어시스턴트",
+  "name": "크리에이터랩",
+  "description": "유튜브, 틱톡, 인스타그램 릴스, 구글 애드센스 SEO 및 지식 비즈니스 창작자를 위한 채널 성장 및 디지털 수익화 전문 실전 가이드 미디어",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

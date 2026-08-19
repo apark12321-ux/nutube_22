@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, FileText, List } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, FileText, List, Tag } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
+import { updateDynamicPostSeoMeta, resetDefaultSeoMeta, extractTopSeoKeywords } from '../utils/seoAnalyzer';
 
 interface GuideReaderProps {
   post: GuidePost;
@@ -169,6 +170,10 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
       }
     ];
 
+    // Dynamically extract top 10 SEO keywords and update index.html meta tags in DOM
+    const topKeywords = updateDynamicPostSeoMeta(post);
+    const keywordsString = topKeywords ? topKeywords.join(', ') : (post.tags || []).join(', ');
+
     const jsonLdData = {
       "@context": "https://schema.org",
       "@graph": [
@@ -189,7 +194,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           },
           "publisher": {
             "@type": "Organization",
-            "name": "나우크리에이터랩",
+            "name": "크리에이터랩",
             "url": "https://nutube.kr/",
             "logo": {
               "@type": "ImageObject",
@@ -198,7 +203,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           },
           "image": post.thumbnail?.src || "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
           "articleSection": post.categoryLabel,
-          "keywords": (post.tags || []).join(", "),
+          "keywords": keywordsString,
           "speakable": {
             "@type": "SpeakableSpecification",
             "xpath": [
@@ -256,6 +261,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
     return () => {
       const scriptToRemove = document.getElementById(scriptId);
       if (scriptToRemove) scriptToRemove.remove();
+      resetDefaultSeoMeta();
     };
   }, [post]);
 
@@ -735,22 +741,31 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, categorySpec, on
           </div>
         </section>
 
-        {/* Tag Badges */}
-        <div className={`mt-12 flex flex-wrap gap-2.5 border-t pt-8 ${
+        {/* Dynamic SEO Keywords & Tag Badges */}
+        <div className={`mt-12 space-y-4 border-t pt-8 ${
           dark ? 'border-purple-950/30' : 'border-slate-100'
         }`}>
-          {(post.tags || []).map((tag) => (
-            <span 
-              key={tag} 
-              className={`font-tag rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold ${
-                dark 
-                  ? 'bg-purple-950/30 text-purple-300 border border-purple-900/30' 
-                  : 'border border-slate-100 bg-slate-50 text-slate-600'
-              }`}
-            >
-              #{tag}
+          <div className="flex items-center gap-2">
+            <Tag className={`h-4 w-4 ${dark ? 'text-purple-400' : 'text-[#7C3AED]'}`} />
+            <span className={`font-subheading text-xs sm:text-sm font-bold ${dark ? 'text-slate-300' : 'text-slate-700'}`}>
+              본문 실시간 추출 SEO 메타 키워드 (Top 10)
             </span>
-          ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {extractTopSeoKeywords(post, 10).map((kw, kwIdx) => (
+              <span 
+                key={kw} 
+                className={`font-tag inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-bold ${
+                  dark 
+                    ? 'bg-purple-950/40 text-purple-200 border border-purple-800/40 hover:border-purple-600/60' 
+                    : 'border border-purple-100 bg-purple-50/70 text-[#7C3AED] hover:bg-purple-100/80'
+                }`}
+              >
+                <span className="text-[10px] opacity-60 font-mono">#{kwIdx + 1}</span>
+                {kw}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Bottom Navigation Button */}
