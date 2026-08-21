@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass } from 'lucide-react';
+import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass, Mail, ChevronRight, Filter } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
@@ -99,145 +99,101 @@ const initialRoute = (): RouteState => {
 
 const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
-    title: '소개 | 크리에이터랩 (Creator Lab)',
-    updated: '2026년 8월 19일',
-    intro: '크리에이터랩(Creator Lab)은 예비 창작자부터 전업 크리에이터, 디지털 마케터를 위한 유튜브, 틱톡, 인스타그램, 구글 애드센스 SEO 및 지식 비즈니스 종합 정보 전문 미디어입니다. 신뢰할 수 있는 플랫폼 실전 가이드라인을 정직하게 안내합니다.',
+    title: '블로그 소개 | 크리에이터랩',
+    updated: '2026년 8월 20일',
+    intro: '크리에이터랩은 유튜브, 인스타그램, 틱톡 등 숏폼·롱폼 영상 플랫폼 운영과 구글 애드센스 SEO, 디지털 지식 비즈니스를 실전 중심으로 연구하고 기록하는 미디어 지식 블로그입니다.',
     sections: [
       {
-        heading: '1. 사이트 운영 주체 및 서비스 목적',
+        heading: '1. 블로그 운영 목적 및 방향성',
         body: [
-          '운영 매체: 크리에이터랩 (Creator Lab)',
-          '공식 이메일: apark12321@gmail.com',
-          '크리에이터랩은 유튜브, 구글 서치콘솔, 국세청 등 공식 플랫폼 발표 가이드라인을 정밀 검증하여 전달합니다.',
-          '단순한 알고리즘 카더라 정보를 지양하고, 실제 채널을 성장시키고 안정적인 구글 애드센스 수익화와 지식 자산을 구축할 수 있는 실무 가이드를 제공합니다.'
+          '크리에이터랩은 단순한 이론이나 추측성 정보가 아닌, 실제 크리에이터 생태계의 알고리즘 변화와 수익화 파이프라인 구축 과정을 체계적으로 정리하여 공유합니다.',
+          '무분별한 정보 속에서 크리에이터와 웹 퍼블리셔가 즉시 실행할 수 있는 실질적인 가이드라인을 제공하는 것을 목표로 합니다.'
         ]
       },
       {
-        heading: '2. 편집 기준 및 투명성 고지 (E-E-A-T 검증 원칙)',
+        heading: '2. 구글 E-E-A-T 품질 기준 준수',
         body: [
-          '본 플랫폼의 모든 포스팅과 정보는 2026년 구글 검색엔진 최적화(SEO) 및 E-E-A-T(경험, 전문성, 권위성, 신뢰성) 원칙에 따라 철저히 작성됩니다.',
-          '실제 경험에 기초한 단골 실수와 해결 방법, 단계별 실무 타임라인, 비교 요약 표(Table) 및 자주 묻는 질문(FAQ)을 포함하여 독자 여러분의 안전한 창작 활동을 보장합니다.'
+          '본 블로그의 모든 글은 구글의 검색 품질 평가 기준(E-E-A-T: 경험, 전문성, 권위성, 신뢰성)을 충실히 반영합니다.',
+          '실제 채널 기획, 시청지속률 개선, 썸네일 A/B 테스트, 애드센스 승인 및 색인 최적화 과정에서 검증된 핵심 체크리스트와 상세 실행법을 단계별로 안내합니다.'
         ]
       },
       {
-        heading: '3. 매체 운영 및 고객지원 센터',
-        body: [
-          '매체명: 크리에이터랩 (Creator Lab)',
-          '주요 전문 분야: 비디오 플랫폼 수익화, 소셜 미디어 브랜딩, 구글 애드센스 SEO/AEO/GEO, AI 콘텐츠 자동화, 지식 비즈니스',
-          '고객 응답 시간: 평일 09:00 ~ 18:00 (공휴일 제외, 접수 후 영업일 기준 24시간 이내 회신)',
-          '공식 문의 주소: apark12321@gmail.com'
-        ]
-      },
-      {
-        heading: '4. 핵심 전문 분야',
+        heading: '3. 주요 다루는 카테고리',
         items: [
-          '유튜브, 틱톡, 인스타그램 채널 추천 알고리즘 및 시청지속률 극대화 기획',
-          '구글 애드센스 원스톱 승인 및 검색엔진 상위점유 SEO/AEO 전략',
-          'AI 도구를 활용한 대본 작성 및 숏폼 비디오 시각 연출',
-          'PDF 전자책, 유료 뉴스레터 및 패시브 인컴 지식창업'
+          '유튜브 & 유튜브 쇼츠: 알고리즘 로직 분석, CTR 극대화 썸네일 및 오프닝 훅 구조화',
+          '인스타그램 & 릴스: 저장/공유 유발 콘텐츠 기획 및 계정 성장 전략',
+          '틱톡: 바이럴 트렌드 포착 및 숏폼 영상 편집 프레임워크',
+          '블로그 & 애드센스: 구글 검색엔진 최적화(SEO), 서치콘솔 색인 및 애드센스 고수익 배치',
+          '지식창업: 전자책, 템플릿, 온라인 강의 등 디지털 지식 자산화 전략'
         ]
       },
       {
-        heading: '5. 카테고리 계층 구조 및 실전 포스팅 라이브러리',
+        heading: '4. 문의 및 제안',
         body: [
-          '크리에이터랩은 검색엔진 수집 로봇의 크롤링 효율성을 높이고 방문자의 탐색 만족도를 극대화하기 위해 명확한 5대 카테고리로 정리되어 있습니다.'
-        ],
-        table: {
-          headers: ['분야', '카테고리명', '핵심 내용', '추천 실전 포스팅 주제'],
-          rows: [
-            [
-              '🎥 비디오 수익화',
-              '유튜브 수익화 (youtube)',
-              '쇼츠/롱폼 알고리즘, RPM, 시청 세션',
-              '1. 유튜브 쇼츠 RPM 300% 폭발 성장 공식 / 2. 첫 10초 시청 이탈 방지 후킹 템플릿 / 3. 알고리즘 타겟 시청자 정복법'
-            ],
-            [
-              '🎥 비디오 수익화',
-              '틱톡 수익화 (tiktok)',
-              '3초 후킹, CRP 프로그램, 바이럴',
-              '1. 틱톡 크리에이터 리워드(CRP) 수익 5배 증대법 / 2. 3초 바이럴 알고리즘 및 트렌드 음악 / 3. 틱톡 숏폼 무인 자동화'
-            ],
-            [
-              '📸 소셜 브랜딩',
-              '인스타그램 수익화 (instagram)',
-              '릴스 바이럴, 퍼스널 브랜딩, 협찬',
-              '1. 인스타그램 릴스 추천 탭 상단 점유 노하우 / 2. 팔로워 1천 명으로 월 200만 원 협찬 유치법 / 3. 고전환율 카드뉴스 기획'
-            ],
-            [
-              '📝 애드센스 & SEO',
-              '구글 애드센스 & SEO (blog)',
-              '애드센스 승인, 서치콘솔, SEO',
-              '1. 구글 애드센스 거절 없는 고품질 글 쓰기 7계명 / 2. 서치콘솔 색인 누락 24시간 내 해결 가이드 / 3. 워드프레스/티스토리 최적화'
-            ],
-            [
-              '💼 지식 비즈니스',
-              '지식창업 & 뉴스레터 (digital_biz)',
-              'PDF 전자책, 유료 뉴스레터, 무인 판매',
-              '1. 경험을 PDF 전자책으로 출판 자동 판매 시스템 / 2. 유료 뉴스레터 오픈율 40% 달성 공식 / 3. 고전환 카피라이팅'
-            ]
-          ]
-        }
+          '블로그 게시글에 대한 질문, 피드백, 제휴 제안은 문의 페이지(Contact)를 통해 보내주시면 신속하고 성실하게 검토하겠습니다.'
+        ]
       }
     ]
   },
   contact: {
-    title: '제휴 및 문의 | 크리에이터랩 (Creator Lab)',
-    updated: '2026년 8월 19일',
-    intro: '크리에이터랩(Creator Lab) 플랫폼 이용 관련 문의, 보도자료 전달, 광고 및 비즈니스 제휴 제안은 아래 공식 소통 창구를 통해 접수하실 수 있습니다.',
+    title: '문의 및 피드백 | 크리에이터랩',
+    updated: '2026년 8월 20일',
+    intro: '크리에이터랩에 게시된 콘텐츠에 대한 질문, 수정 제보, 비즈니스 협업 제안은 아래 소통 창구를 통해 접수하실 수 있습니다.',
     sections: [
       {
-        heading: '1. 공식 소통 창구 및 운영 정보',
+        heading: '1. 문의 창구 안내',
         body: [
-          '운영 매체: 크리에이터랩 (Creator Lab)',
-          '공식 이메일: apark12321@gmail.com',
-          '응답 시간: 평일 09:00 ~ 18:00 (공휴일 제외, 접수 후 24시간 이내 답변)'
+          '공식 접수처: 크리에이터랩 온라인 문의 양식',
+          '응답 시간: 평일 09:00 ~ 18:00 (접수 후 순차적 검토 및 회신)'
         ]
       }
     ]
   },
   terms: {
-    title: '이용약관 | 크리에이터랩 (Creator Lab)',
-    updated: '2026년 8월 19일',
-    intro: '본 약관은 크리에이터랩(Creator Lab) 웹사이트가 제공하는 지식 콘텐츠 및 솔루션 이용 조건과 절차를 규정합니다.',
+    title: '이용약관 | 크리에이터랩',
+    updated: '2026년 8월 20일',
+    intro: '본 약관은 크리에이터랩 블로그의 지식 정보 및 콘텐츠 이용에 관한 기본적인 사항을 안내합니다.',
     sections: [
       {
         heading: '제1조 (목적)',
-        body: ['본 약관은 크리에이터랩이 제공하는 정보 서비스 이용 조건 및 절차, 이용자와 매체 간 권리와 의무를 규정함을 목적으로 합니다.']
+        body: ['본 약관은 크리에이터랩 블로그가 제공하는 정보 및 콘텐츠의 이용 조건과 방문자의 권리·의무 사항을 규정함을 목적으로 합니다.']
+      },
+      {
+        heading: '제2조 (콘텐츠 저작권 및 이용 제한)',
+        body: ['크리에이터랩에 게시된 모든 콘텐츠와 가이드는 저작권법의 보호를 받으며, 비상업적 목적의 출처 표기 인용 외 무단 전재 및 상업적 도용을 금합니다.']
       }
     ]
   },
   privacy: {
-    title: '개인정보처리방침 | 크리에이터랩 (Creator Lab)',
-    updated: '2026년 8월 19일',
-    intro: '크리에이터랩(Creator Lab)은 방문자의 개인정보를 보호하고 관련 법령 및 구글 애드센스 정책을 엄격히 준수합니다.',
+    title: '개인정보처리방침 | 크리에이터랩',
+    updated: '2026년 8월 20일',
+    intro: '크리에이터랩은 방문자의 개인정보를 소중히 여기며 관련 법령 및 구글 애드센스 개인정보 정책을 철저히 준수합니다.',
     sections: [
       {
-        heading: '1. 수집하는 개인정보 항목 및 이용 목적',
+        heading: '1. 개인정보의 수집 및 이용 목적',
         body: [
-          '본 웹사이트는 별도의 회원가입 없이 모든 포스팅과 지식 솔루션 가이드를 자유롭게 이용할 수 있는 오픈 미디어 플랫폼입니다.',
-          '서비스 개선, 웹사이트 이용 통계 분석 및 보안 유지를 위해 방문 기록(쿠키, IP 주소, 브라우저 종류, 방문 일시)이 자동 생성되어 수집될 수 있습니다.'
+          '본 블로그는 회원가입 없이 모든 콘텐츠를 자유롭게 열람할 수 있는 공개 블로그입니다.',
+          '방문 통계 분석 및 서비스 안정성 유지를 위해 쿠키(Cookie) 및 표준 접속 로그가 활용될 수 있습니다.'
         ]
       },
       {
-        heading: '2. 구글 애드센스(Google AdSense) 및 제3자 쿠키(Cookie) 고지',
+        heading: '2. 구글 애드센스(Google AdSense) 및 제3자 쿠키 안내',
         body: [
-          '본 웹사이트는 구글(Google)을 포함한 제3자 광고 공급업체를 통해 사용자 맞춤형 광고를 게재합니다.',
-          '구글은 쿠키(Cookie) 기술을 사용하여 방문자의 과거 웹사이트 방문 기록을 기반으로 관련성 높은 맞춤형 광고를 제공합니다.',
-          '방문자는 구글 광고 설정 페이지(https://www.google.com/settings/ads)에서 맞춤형 광고 수집을 거부할 수 있습니다.'
+          '본 블로그는 Google을 포함한 제3자 광고 공급업체를 통해 관련성 높은 맞춤형 광고를 게재할 수 있습니다.',
+          'Google은 DART 쿠키를 사용하여 사용자의 이전 웹사이트 방문 기록을 기반으로 유용한 광고를 게재합니다.',
+          '사용자는 Google 광고 설정(https://www.google.com/settings/ads)을 통해 맞춤형 광고 수신을 언제든지 거부하거나 변경할 수 있습니다.'
         ]
       },
       {
-        heading: '3. 개인정보 보호책임자 및 제휴 문의처',
+        heading: '3. 개인정보 보호 문의처',
         body: [
-          '운영 매체: 크리에이터랩 (Creator Lab)',
-          '공식 이메일: apark12321@gmail.com',
-          '개인정보 보호 관련 문의사항은 공식 이메일로 접수해 주시면 지체 없이 신속하게 답변해 드립니다.'
+          '운영: 크리에이터랩 편집실',
+          '접수: 온라인 문의(Contact) 양식'
         ]
       }
     ]
   }
 };
-
 
 const getPageNumbers = (current: number, total: number): (number | string)[] => {
   if (total <= 7) {
@@ -260,7 +216,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(route.category);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(10); // Clean blog page size
 
   useEffect(() => {
     setPage(1);
@@ -295,11 +251,9 @@ export default function App() {
     return posts.slice(start, start + pageSize);
   }, [posts, currentPage, pageSize]);
 
-  const selectedCategory = category ? CATEGORIES_LIST.find((item) => item.key === category) : null;
-
   const scrollToPosts = () => {
     window.setTimeout(() => {
-      const target = document.getElementById('related-posts-section');
+      const target = document.getElementById('blog-posts-feed');
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -360,7 +314,7 @@ export default function App() {
   const dark = theme === 'dark';
 
   return (
-    <div className={dark ? 'min-h-screen bg-[#090314] text-slate-100' : 'min-h-screen bg-[#F8FAFC] text-slate-900'}>
+    <div className={dark ? 'min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans' : 'min-h-screen bg-[#fcfcfd] text-slate-900 flex flex-col font-sans'}>
       <Navbar 
         currentTab={tab} 
         setTab={go} 
@@ -370,29 +324,41 @@ export default function App() {
         setCategory={selectCategory}
         searchQuery={query}
         setSearchQuery={setQuery}
+        posts={POSTS}
+        onSelectPost={openPost}
       />
-      <main>
+
+      <main className="flex-1">
         {tab === 'guides' && (
-          <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-6 sm:py-8 w-full min-w-0">
-            {/* Header Title Block - Crisp Typography */}
-            <div className="mb-6 sm:mb-8">
-              <h1 className={dark ? 'font-heading text-3xl sm:text-5xl font-black text-white tracking-tight' : 'font-heading text-3xl sm:text-5xl font-black text-slate-900 tracking-tight'}>
-                크리에이터랩
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12">
+            
+            {/* Editorial Introduction Banner */}
+            <div className={`mb-8 p-6 rounded-2xl border transition-all ${
+              dark ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200/80 bg-white shadow-2xs'
+            }`}>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+                  Creator Lab
+                </span>
+                <span className="text-xs text-slate-400 font-mono">실전 가이드 아카이브</span>
+              </div>
+              <h1 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                1인 미디어 제작 &amp; 디지털 수익화 연구소
               </h1>
-              <p className={dark ? 'mt-3 text-base sm:text-lg text-slate-300 font-medium font-subheading' : 'mt-3 text-base sm:text-lg text-slate-600 font-medium font-subheading'}>
-                유튜브 알고리즘, 숏폼 수익화, 구글 애드센스 SEO 및 지식자산화 실전 가이드
+              <p className={`text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                유튜브, 인스타그램, 틱톡 숏폼 기획부터 구글 애드센스 SEO, 전자책 지식창업까지 실전에서 검증된 체계적인 가이드를 제공합니다.
               </p>
             </div>
 
-            {/* Mobile-optimized Horizontal Category Pill Scroller */}
-            <div className="mb-6 sm:mb-8 w-full overflow-hidden">
-              <div id="category-scroller" className="flex items-center gap-2.5 overflow-x-auto pb-2.5 scrollbar-none w-full touch-pan-x">
+            {/* Clean Category Filter Tabs */}
+            <div className="mb-8 border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
                 {[
-                  { key: null, label: '전체 콘텐츠' },
+                  { key: null, label: '전체 글' },
                   { key: 'youtube', label: '유튜브' },
                   { key: 'instagram', label: '인스타그램' },
                   { key: 'tiktok', label: '틱톡' },
-                  { key: 'blog', label: '구글 애드센스 & SEO' },
+                  { key: 'blog', label: '애드센스·SEO' },
                   { key: 'digital_biz', label: '지식창업' },
                 ].map((cat) => {
                   const isSelected = category === cat.key;
@@ -400,14 +366,14 @@ export default function App() {
                     <button
                       key={cat.key === null ? 'all' : cat.key}
                       onClick={() => selectCategory(cat.key)}
-                      className={`font-tag shrink-0 rounded-full px-4.5 py-2.5 text-sm sm:text-base font-bold transition-all cursor-pointer border ${
+                      className={`text-xs sm:text-sm px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer whitespace-nowrap ${
                         isSelected
                           ? dark
-                            ? 'bg-cyan-500 text-slate-950 border-cyan-400 font-black shadow-sm'
-                            : 'bg-[#7C3AED] text-white border-purple-600 font-black shadow-sm'
+                            ? 'bg-slate-800 text-purple-300 font-bold border border-slate-700'
+                            : 'bg-slate-900 text-white font-bold'
                           : dark
-                            ? 'bg-slate-900/90 text-slate-200 border-slate-800 hover:border-slate-700 hover:text-white'
-                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-slate-900 shadow-2xs'
+                            ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                       }`}
                     >
                       {cat.label}
@@ -415,60 +381,16 @@ export default function App() {
                   );
                 })}
               </div>
+
+              {/* Total count */}
+              <span className="text-xs text-slate-400 font-mono">
+                총 {posts.length}편의 글
+              </span>
             </div>
 
-            {/* Filter Info Bar & Mobile Search - Fully Wrap-Safe */}
-            <div className={dark 
-              ? 'mb-6 flex flex-col gap-3.5 rounded-2xl border border-slate-800 bg-[#0c1424] p-4.5 sm:p-5 sm:flex-row sm:items-center sm:justify-between' 
-              : 'mb-6 flex flex-col gap-3.5 rounded-2xl border border-slate-200 bg-white p-4.5 sm:p-5 sm:flex-row sm:items-center sm:justify-between shadow-xs'
-            }>
-              <div className="flex items-center justify-between sm:justify-start gap-3.5">
-                <span className={`font-subheading text-sm sm:text-base font-extrabold ${dark ? 'text-cyan-400' : 'text-[#7C3AED]'}`}>
-                  {selectedCategory ? `${selectedCategory.label} (${posts.length}개)` : `전체 가이드 (${posts.length}개)`}
-                </span>
-                <span className={`font-tag text-xs sm:text-sm font-semibold ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                  페이지 {currentPage} / {totalPages}
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-                <div className="relative flex-1 sm:w-64">
-                  <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <input 
-                    value={query} 
-                    onChange={(e) => setQuery(e.target.value)} 
-                    placeholder="가이드 검색어 입력..." 
-                    className={dark 
-                      ? 'w-full rounded-xl border border-slate-700 bg-[#080d18] py-2.5 pl-10 pr-3.5 text-sm sm:text-base text-white placeholder-slate-400 outline-none focus:border-cyan-500 font-body' 
-                      : 'w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none focus:border-purple-500 font-body'
-                    } 
-                  />
-                </div>
-                <div className="flex items-center justify-end gap-1.5 shrink-0">
-                  <span className={`font-tag text-xs sm:text-sm font-bold mr-1 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>표시:</span>
-                  {[12, 24, 36].map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setPageSize(size)}
-                      className={`font-tag px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                        pageSize === size
-                          ? dark
-                            ? 'bg-cyan-500 text-slate-950 font-black'
-                            : 'bg-[#7C3AED] text-white font-black'
-                          : dark
-                            ? 'border border-slate-800 bg-[#080d18] text-slate-300 hover:text-white'
-                            : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      {size}개
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
+            {/* Main Blog Post List Feed */}
             {paginatedPosts.length > 0 ? (
-              <section id="related-posts-section" className="scroll-mt-20 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <section id="blog-posts-feed" className="divide-y divide-slate-100 dark:divide-slate-800/80">
                 {paginatedPosts.map((item) => (
                   <PostCard 
                     key={item.slug} 
@@ -481,245 +403,147 @@ export default function App() {
                 ))}
               </section>
             ) : (
-              <div className={`rounded-3xl border p-8 sm:p-10 text-center ${
-                dark ? 'border-purple-950/80 bg-[#100722]/90 shadow-2xl' : 'border-slate-200/90 bg-white shadow-sm'
+              /* No search results state */
+              <div className={`rounded-2xl border p-8 text-center my-8 ${
+                dark ? 'border-slate-800 bg-slate-900/40 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-600'
               }`}>
-                {/* Visual Icon */}
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-500/10 dark:bg-purple-900/30 text-[#7C3AED] dark:text-purple-400 mb-5 border border-purple-200/50 dark:border-purple-800/40">
-                  <Search className="h-8 w-8" />
-                </div>
-
-                <h3 className={`font-heading text-xl sm:text-2xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  {query ? `'${query}' 검색 결과가 없습니다` : '일치하는 가이드 포스팅이 없습니다'}
+                <Search className="w-8 h-8 mx-auto text-slate-400 mb-3" />
+                <h3 className={`text-lg font-bold mb-1 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  {query ? `'${query}'에 대한 글을 찾지 못했습니다.` : '등록된 글이 없습니다.'}
                 </h3>
-                <p className={`mt-2.5 text-sm sm:text-base max-w-lg mx-auto ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                  {query 
-                    ? '원하시는 핵심 노하우를 구글 검색 엔진에서 최적화된 고급 검색 연산자(site: 등)로 즉시 찾아보실 수 있습니다.' 
-                    : '선택하신 카테고리에 등록된 포스트가 없거나 검색 조건과 일치하지 않습니다.'}
+                <p className="text-sm text-slate-500 mb-6">
+                  다른 키워드로 검색하시거나 전체 글 목록을 확인해 보세요.
                 </p>
 
-                {/* Highly Refined Google External Search Card */}
                 {query.trim() && (() => {
                   const rawQuery = query.trim();
                   const siteQuery = `site:nutube.kr ${rawQuery}`;
-                  const deepSearchQuery = `${rawQuery} (유튜브 OR 숏폼 OR 애드센스 OR 릴스 OR 틱톡 OR 수익화)`;
                   const googleSiteUrl = `https://www.google.com/search?q=${encodeURIComponent(siteQuery)}`;
-                  const googleDeepUrl = `https://www.google.com/search?q=${encodeURIComponent(deepSearchQuery)}`;
 
                   return (
-                    <div className={`mt-7 max-w-xl mx-auto rounded-2xl border p-5 sm:p-6 text-left ${
-                      dark ? 'border-purple-900/50 bg-[#160b2e]/70' : 'border-purple-100 bg-purple-50/50'
-                    }`}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Globe className={`h-4 w-4 ${dark ? 'text-cyan-400' : 'text-[#7C3AED]'}`} />
-                        <span className={`font-subheading text-xs sm:text-sm font-bold ${dark ? 'text-purple-200' : 'text-purple-900'}`}>
-                          정밀 매칭 구글 외부 검색 옵션
-                        </span>
-                      </div>
-
-                      <div className="space-y-3">
-                        {/* 1. Precision Site Search */}
-                        <a
-                          href={googleSiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:-translate-y-0.5 cursor-pointer ${
-                            dark 
-                              ? 'border-purple-800/40 bg-purple-950/40 hover:bg-purple-900/40 text-slate-200' 
-                              : 'border-white bg-white shadow-2xs hover:shadow-xs text-slate-800'
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 min-w-0">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400 font-bold text-xs">
-                              1
-                            </span>
-                            <div className="min-w-0">
-                              <p className="font-subheading text-xs sm:text-sm font-extrabold truncate">
-                                크리에이터랩 사이트 정밀 검색
-                              </p>
-                              <p className={`font-mono text-[11px] truncate ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                {siteQuery}
-                              </p>
-                            </div>
-                          </div>
-                          <ExternalLink className="h-4 w-4 shrink-0 text-cyan-400 ml-2" />
-                        </a>
-
-                        {/* 2. Topic-Expanded Knowledge Search */}
-                        <a
-                          href={googleDeepUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:-translate-y-0.5 cursor-pointer ${
-                            dark 
-                              ? 'border-purple-800/40 bg-purple-950/40 hover:bg-purple-900/40 text-slate-200' 
-                              : 'border-white bg-white shadow-2xs hover:shadow-xs text-slate-800'
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 min-w-0">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#7C3AED]/20 text-purple-400 font-bold text-xs">
-                              2
-                            </span>
-                            <div className="min-w-0">
-                              <p className="font-subheading text-xs sm:text-sm font-extrabold truncate">
-                                전체 웹 알고리즘 &amp; 수익화 심층 검색
-                              </p>
-                              <p className={`font-mono text-[11px] truncate ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                {deepSearchQuery}
-                              </p>
-                            </div>
-                          </div>
-                          <ExternalLink className="h-4 w-4 shrink-0 text-purple-400 ml-2" />
-                        </a>
-                      </div>
+                    <div className="max-w-md mx-auto mb-6 p-4 rounded-xl border border-purple-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-left">
+                      <p className="text-xs font-bold text-purple-700 dark:text-purple-300 mb-1">
+                        구글 외부 검색 도움말
+                      </p>
+                      <p className="text-xs text-slate-500 mb-3">
+                        구글 검색 엔진에서 블로그 전체 색인 문서를 검색합니다.
+                      </p>
+                      <a
+                        href={googleSiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline"
+                      >
+                        <span>'{siteQuery}' 구글에서 검색</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
                     </div>
                   );
                 })()}
 
-                {/* Action Buttons */}
-                <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  onClick={() => {
+                    setQuery('');
+                    setCategory(null);
+                  }}
+                  className="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90"
+                >
+                  전체 글 보기
+                </button>
+              </div>
+            )}
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-xs text-slate-500">
+                  {currentPage} / {totalPages} 페이지
+                </span>
+
+                <div className="flex items-center gap-1">
                   <button
-                    onClick={() => {
-                      setQuery('');
-                      setCategory(null);
-                    }}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-cyan-500 px-5 py-2.5 text-sm font-bold text-slate-950 shadow-xs hover:bg-cyan-400 transition-colors cursor-pointer"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1.5 text-xs font-bold rounded-md border border-slate-200 dark:border-slate-700 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                   >
-                    전체 가이드 다시보기
+                    이전
                   </button>
 
-                  {query && (
-                    <button
-                      onClick={() => setQuery('')}
-                      className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors cursor-pointer border ${
-                        dark 
-                          ? 'border-slate-800 bg-slate-900 text-slate-300 hover:text-white' 
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      검색어 지우기
-                    </button>
-                  )}
+                  {getPageNumbers(currentPage, totalPages).map((p, idx) => {
+                    if (p === '...') {
+                      return <span key={`ell-${idx}`} className="px-2 text-xs text-slate-400">...</span>;
+                    }
+                    const isCurrent = p === currentPage;
+                    return (
+                      <button
+                        key={`page-${p}`}
+                        onClick={() => handlePageChange(p as number)}
+                        className={`min-w-[32px] h-8 text-xs font-bold rounded-md transition-colors cursor-pointer ${
+                          isCurrent
+                            ? 'bg-slate-900 text-white dark:bg-purple-600 dark:text-white'
+                            : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    );
+                  })}
+
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1.5 text-xs font-bold rounded-md border border-slate-200 dark:border-slate-700 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  >
+                    다음
+                  </button>
                 </div>
               </div>
             )}
 
-              {/* Pagination controls with mobile wrap */}
-              {totalPages > 1 && (
-                <div className="mt-10 flex flex-col items-center justify-between gap-4 sm:flex-row border-t border-slate-200/80 dark:border-purple-950/80 pt-6">
-                  <div className={`font-tag text-xs sm:text-sm font-semibold ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
-                    페이지 <span className="font-black text-[#7C3AED] dark:text-purple-400">{currentPage}</span> / {totalPages} (총 <span className="font-bold">{posts.length}</span>개 가이드)
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-full">
-                    <button
-                      onClick={() => handlePageChange(1)}
-                      disabled={currentPage === 1}
-                      className={dark
-                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-2.5 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
-                        : 'rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
-                      }
-                      title="첫 페이지"
-                    >
-                      « 처음
-                    </button>
-                    <button
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className={dark
-                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
-                        : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
-                      }
-                    >
-                      ‹ 이전
-                    </button>
-
-                    {/* Numbered page buttons */}
-                    {getPageNumbers(currentPage, totalPages).map((p, idx) => {
-                      if (p === '...') {
-                        return (
-                          <span key={`ellipsis-${idx}`} className="px-1.5 text-xs text-slate-400 font-bold">
-                            ...
-                          </span>
-                        );
-                      }
-                      const isCurrent = p === currentPage;
-                      return (
-                        <button
-                          key={`page-${p}`}
-                          onClick={() => handlePageChange(p as number)}
-                          className={`min-w-[34px] rounded-lg px-3 py-1.5 text-xs font-bold cursor-pointer transition-all ${
-                            isCurrent
-                              ? 'bg-[#7C3AED] text-white font-black shadow-xs'
-                              : dark
-                                ? 'border border-purple-950 bg-[#120822] text-slate-300 hover:border-purple-700'
-                                : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      );
-                    })}
-
-                    <button
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className={dark
-                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-3 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
-                        : 'rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
-                      }
-                    >
-                      다음 ›
-                    </button>
-                    <button
-                      onClick={() => handlePageChange(totalPages)}
-                      disabled={currentPage === totalPages}
-                      className={dark
-                        ? 'rounded-lg border border-purple-950 bg-[#120822] px-2.5 py-1.5 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:border-purple-700'
-                        : 'rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50'
-                      }
-                      title="마지막 페이지"
-                    >
-                      끝 »
-                    </button>
-                  </div>
-                </div>
-              )}
           </div>
         )}
-        {tab === 'guide-detail' && post && <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={handleBack} theme={theme} />}
+
+        {tab === 'guide-detail' && post && (
+          <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={handleBack} theme={theme} />
+        )}
+        
         {tab === 'about' && <InfoPage page={PAGE_CONTENT.about} theme={theme} />}
         {tab === 'contact' && <ContactForm theme={theme} />}
         {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}
         {tab === 'privacy' && <InfoPage page={PAGE_CONTENT.privacy} theme={theme} />}
         {tab === 'search-console' && (
-          <div className="mx-auto max-w-6xl px-4 py-10">
+          <div className="mx-auto max-w-4xl px-4 py-10">
             <SearchConsoleManager theme={theme} />
           </div>
         )}
       </main>
-      <footer className={dark 
-        ? 'border-t border-slate-800 bg-[#060b14] px-4 py-10 text-center text-xs text-slate-400' 
-        : 'border-t border-slate-200 bg-[#0d1527] px-4 py-10 text-center text-xs text-slate-300 shadow-sm'
-      }>
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col items-center justify-center gap-2 mb-6">
-            <div className="flex items-center gap-1.5 font-impact text-2xl">
-              <span className="text-white font-black tracking-tight text-2xl sm:text-3xl">크리에이터랩</span>
+
+      {/* Clean Editorial Blog Footer */}
+      <footer className={`mt-auto border-t py-10 text-xs transition-colors ${
+        dark ? 'border-slate-800 bg-slate-950 text-slate-400' : 'border-slate-200 bg-slate-50 text-slate-500'
+      }`}>
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/60 dark:border-slate-800/80">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
+                랩
+              </div>
+              <span className="font-bold text-slate-900 dark:text-white">크리에이터랩</span>
+              <span className="text-slate-400">| 1인 미디어 &amp; 수익화 연구 가이드</span>
             </div>
-            <span className="text-xs text-slate-300 font-medium">1인 창작자 &amp; 비디오 채널 성장을 위한 전문 라이브러리</span>
+
+            <div className="flex items-center gap-4 text-xs font-medium">
+              <button onClick={() => go('about')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">블로그 소개</button>
+              <button onClick={() => go('contact')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">문의</button>
+              <button onClick={() => go('privacy')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">개인정보처리방침</button>
+              <button onClick={() => go('terms')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">이용약관</button>
+            </div>
           </div>
 
-          <div className="mb-6 flex flex-wrap justify-center gap-6 font-bold text-sm text-slate-200">
-            <button onClick={() => go('about')} className="hover:text-cyan-400 transition-colors cursor-pointer">소개</button>
-            <button onClick={() => go('contact')} className="hover:text-cyan-400 transition-colors cursor-pointer">문의</button>
-            <button onClick={() => go('privacy')} className="hover:text-cyan-400 transition-colors cursor-pointer">개인정보처리방침</button>
-            <button onClick={() => go('terms')} className="hover:text-cyan-400 transition-colors cursor-pointer">이용약관</button>
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
+            <p>© 2026 크리에이터랩 (Creator Lab). All rights reserved.</p>
+            <p>디지털 미디어 &amp; 웹 수익화 실전 가이드</p>
           </div>
-
-          <p className="mt-4 font-medium text-slate-400 text-xs tracking-wide">
-            © 크리에이터랩 (Creator Lab) All rights reserved.
-          </p>
         </div>
       </footer>
     </div>
@@ -729,54 +553,32 @@ export default function App() {
 function InfoPage({ page, theme }: { page: { title: string; intro: string; updated: string; sections: PageSection[] }; theme: 'light' | 'dark' }) {
   const dark = theme === 'dark';
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <article className={dark 
-        ? 'rounded-2xl border border-purple-950 bg-[#120822] p-7 shadow-xl sm:p-10' 
-        : 'rounded-2xl border border-slate-100 bg-white p-7 shadow-xs sm:p-10'
-      }>
-        <p className="font-tag text-xs sm:text-sm font-bold text-[#7C3AED] dark:text-purple-400">최종 수정일: {page.updated}</p>
-        <h1 className={dark ? 'mt-3 font-heading text-2xl sm:text-4xl font-black text-white tracking-tight' : 'mt-3 font-heading text-2xl sm:text-4xl font-black text-slate-900 tracking-tight'}>{page.title}</h1>
-        <p className={dark ? 'mt-4 font-body text-base sm:text-lg leading-relaxed text-slate-300' : 'mt-4 font-body text-base sm:text-lg leading-relaxed text-slate-600'}>{page.intro}</p>
+    <div className="mx-auto max-w-3xl px-4 py-10">
+      <article className={`rounded-2xl border p-6 sm:p-8 ${
+        dark ? 'border-slate-800 bg-slate-900/60 text-slate-200' : 'border-slate-200 bg-white text-slate-800 shadow-2xs'
+      }`}>
+        <p className="text-xs font-semibold text-purple-600 dark:text-purple-400">최종 수정일: {page.updated}</p>
+        <h1 className={`mt-2 font-heading text-2xl sm:text-3xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>{page.title}</h1>
+        <p className={`mt-4 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{page.intro}</p>
+        
         <div className="mt-8 space-y-6">
           {page.sections.map((section) => (
-            <section key={section.heading} className={dark ? 'rounded-xl border border-purple-950 bg-[#090314] p-6' : 'rounded-xl border border-slate-50 bg-[#F8FAFC] p-6'}>
-              <h2 className={dark ? 'font-heading text-lg sm:text-xl font-extrabold text-white' : 'font-heading text-lg sm:text-xl font-extrabold text-slate-900'}>{section.heading}</h2>
+            <section key={section.heading} className={`p-5 rounded-xl border ${
+              dark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-100 bg-slate-50/70'
+            }`}>
+              <h2 className={`font-heading text-base sm:text-lg font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>{section.heading}</h2>
               {section.body?.map((paragraph) => (
-                <p key={paragraph} className={dark ? 'mt-3 font-body text-base sm:text-[17px] leading-relaxed text-slate-300' : 'mt-3 font-body text-base sm:text-[17px] leading-relaxed text-slate-600'}>{paragraph}</p>
+                <p key={paragraph} className={`mt-2.5 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{paragraph}</p>
               ))}
               {section.items && (
-                <ul className={dark ? 'mt-3.5 space-y-2 font-body text-base sm:text-[17px] leading-relaxed text-slate-300' : 'mt-3.5 space-y-2 font-body text-base sm:text-[17px] leading-relaxed text-slate-600'}>
+                <ul className={`mt-3 space-y-1.5 text-sm sm:text-base ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
                   {section.items.map((item) => (
-                    <li key={item} className="flex gap-2.5">
-                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" /> 
+                    <li key={item} className="flex gap-2 items-start">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" /> 
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              )}
-              {section.table && (
-                <div className="mt-5 overflow-x-auto rounded-xl border border-purple-200/60 dark:border-purple-900/60 bg-white dark:bg-[#120822]/80">
-                  <table className="w-full text-left text-sm sm:text-base border-collapse">
-                    <thead className={dark ? 'bg-purple-950/80 text-purple-200 border-b border-purple-900' : 'bg-purple-50 text-slate-800 border-b border-purple-100'}>
-                      <tr>
-                        {section.table.headers.map((h, idx) => (
-                          <th key={idx} className="font-heading px-4 py-3 font-extrabold whitespace-nowrap">{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {section.table.rows.map((row, rIdx) => (
-                        <tr key={rIdx} className={`border-b last:border-0 ${dark ? 'border-purple-950/40 hover:bg-purple-950/30' : 'border-slate-100 hover:bg-slate-50/80'}`}>
-                          {row.map((cell, cIdx) => (
-                            <td key={cIdx} className={`font-body px-4 py-3 ${dark ? 'text-slate-300' : 'text-slate-700'}`}>
-                              {cell}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               )}
             </section>
           ))}

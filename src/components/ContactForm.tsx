@@ -130,7 +130,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ theme }) => {
         <div className="mb-8">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/10 px-3 py-1 font-tag text-xs font-black text-purple-400 border border-purple-500/20 mb-3">
             <Mail className="h-3.5 w-3.5" />
-            <span>나우크리에이터랩 공식 접수처</span>
+            <span>크리에이터랩 공식 접수처</span>
           </div>
           <h1 className="font-heading text-2xl sm:text-4xl font-black tracking-tight">제휴 제안 & 문의하기</h1>
           <p className={`mt-2.5 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
