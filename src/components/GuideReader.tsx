@@ -622,9 +622,31 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
             })}
           </article>
 
+          {/* Author & Creator Note Card */}
+          <div className={`mt-10 p-5 sm:p-6 rounded-2xl border ${
+            dark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200/90 bg-slate-50/80'
+          }`}>
+            <div className="flex items-center gap-3 mb-2.5">
+              <div className="w-10 h-10 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-black text-sm shadow-2xs">
+                나
+              </div>
+              <div>
+                <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  기록자: 1인 크리에이터의 실전 일지
+                </h4>
+                <p className="text-xs text-slate-400">
+                  직접 겪은 시행착오와 테스트 데이터, 수익화 경험만을 팩트대로 기록합니다.
+                </p>
+              </div>
+            </div>
+            <p className={`text-xs sm:text-sm leading-relaxed mt-2 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+              이론이나 교과서적인 설명이 아닌, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 수치를 바탕으로 작성한 글입니다. 궁금한 점이나 피드백은 문의 페이지를 통해 편하게 남겨주세요.
+            </p>
+          </div>
+
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
+            <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span key={tag} className={`text-xs px-2.5 py-1 rounded-md ${
                   dark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'

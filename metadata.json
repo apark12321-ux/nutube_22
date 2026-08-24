@@ -1,6 +1,6 @@
 {
   "name": "크리에이터랩",
-  "description": "유튜브, 틱톡, 인스타그램 릴스, 구글 애드센스 SEO 및 지식 비즈니스 창작자를 위한 채널 성장 및 디지털 수익화 전문 실전 가이드 미디어",
+  "description": "1인 크리에이터가 직접 겪은 유튜브 쇼츠 100만 뷰의 실체, 애드센스 승인과 SEO, 디지털 지식창업 수익화 실전 일지",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

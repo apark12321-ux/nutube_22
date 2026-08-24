@@ -100,79 +100,78 @@ const initialRoute = (): RouteState => {
 const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
     title: '블로그 소개',
-    updated: '2026년 8월 20일',
-    intro: '유튜브, 인스타그램, 틱톡 등 숏폼·롱폼 영상 제작 팁과 검색 유입, 온라인 지식 창업 노하우를 직접 경험하고 정리하는 개인 블로그입니다.',
+    updated: '2026년 8월 24일',
+    intro: '안녕하세요. 혼자 유튜브와 블로그를 운영하며 겪은 실패와 성공, 실제 정산 수치와 테스트 데이터를 솔직하게 기록하는 1인 크리에이터의 일지입니다.',
     sections: [
       {
-        heading: '1. 블로그 소개',
+        heading: '1. 내가 이 블로그를 시작한 이유',
         body: [
-          '실제 채널을 운영하고 다양한 콘텐츠를 만들어보며 겪은 시행착오와 유용한 팁들을 기록하고 있습니다.',
-          '복잡한 이론보다는 바로 적용해볼 수 있는 실용적인 방법 위주로 다룹니다.'
+          '처음 유튜브 쇼츠를 올리고 블로그에 글을 쓸 때, 인터넷에는 온통 "월 1,000만 원 보장" 같은 과장된 강의나 알맹이 없는 이론뿐이었습니다.',
+          '직접 부딪혀보며 쇼츠 100만 뷰를 찍어도 왜 15만 원밖에 안 들어오는지, 애드센스는 왜 3번이나 거절당했는지, 그리고 어떻게 극복했는지를 있는 그대로의 팩트와 수치로 기록하고 공유하고자 이 공간을 만들었습니다.'
         ]
       },
       {
-        heading: '2. 주요 주제',
+        heading: '2. 주로 다루는 4가지 주제',
         items: [
-          '유튜브 & 쇼츠: 기획, 썸네일, 편집 및 채널 성장 팁',
-          '인스타그램 & 릴스: 반응 좋은 콘텐츠 구성과 계정 운영',
-          '틱톡: 트렌드 활용과 숏폼 제작 팁',
-          '블로그 운영: 검색 유입 늘리기와 글 작성 노하우',
-          '디지털 지식 비즈니스: 전자책 및 템플릿 제작 경험'
+          '유튜브·쇼츠 기록: 시청 지속률 훅 설계, 썸네일 A/B 테스트, 쇼츠-롱폼 연계 수익화',
+          '블로그·애드센스 일지: 3번 거절 딛고 7일 만에 승인받은 글쓰기, 구글 서치콘솔 색인 해결',
+          '지식창업·부수입: PDF 전자책 크몽 100만 원 판매기, 노션 템플릿, 무인 자동화 파이프라인',
+          '도구 & 장비 리뷰: 캡컷, 미드저니, 일레븐랩스, 마이크 등 내 돈 쓰고 검증한 실전 도구'
         ]
       },
       {
-        heading: '3. 소통 및 문의',
+        heading: '3. 소통 및 피드백',
         body: [
-          '글 내용에 대한 궁금한 점이나 피드백, 제안 사항이 있으시면 문의 페이지를 통해 편하게 남겨주세요.'
+          '글 내용에 대한 질문이나 여러분이 겪고 계신 크리에이터 고민이 있다면 문의 페이지를 통해 언제든 편하게 남겨주세요. 제가 아는 선에서 정성껏 답변드리겠습니다.'
         ]
       }
     ]
   },
   contact: {
-    title: '문의하기',
-    updated: '2026년 8월 20일',
-    intro: '블로그 콘텐츠에 대한 질문이나 제안, 나누고 싶은 이야기가 있다면 언제든 남겨주세요.',
+    title: '문의 및 제휴',
+    updated: '2026년 8월 24일',
+    intro: '블로그에 기록된 내용에 대해 궁금한 점이 있거나 협업, 제안 사항이 있으시다면 언제든 편하게 남겨주세요.',
     sections: [
       {
         heading: '문의 안내',
         body: [
           '접수: 온라인 문의 양식',
-          '확인 후 입력해주신 이메일로 답변을 보내드립니다.'
+          '확인 후 남겨주신 이메일로 24~48시간 이내에 직접 회신드립니다.'
         ]
       }
     ]
   },
   terms: {
     title: '이용안내',
-    updated: '2026년 8월 20일',
-    intro: '블로그를 방문해 주셔서 감사합니다. 콘텐츠 이용과 관련된 기본 안내입니다.',
+    updated: '2026년 8월 24일',
+    intro: '제 블로그를 찾아주셔서 감사합니다. 콘텐츠 열람 및 인용에 관한 간단한 안내입니다.',
     sections: [
       {
-        heading: '콘텐츠 이용 안내',
+        heading: '콘텐츠 이용 및 인용',
         body: [
-          '본 블로그에 작성된 글은 개인적인 경험과 학습을 바탕으로 작성되었습니다.',
-          '비상업적인 목적의 출처 표기 인용은 환영하며, 무단 복제 및 상업적 도용은 자제 부탁드립니다.'
+          '본 블로그의 모든 글은 제가 직접 경험하고 테스트한 데이터를 바탕으로 작성되었습니다.',
+          '비상업적인 목적의 출처 표기 인용(링크 포함)은 언제든 환영하며, 무단 복제 및 상업적 재판매는 자제 부탁드립니다.'
         ]
       }
     ]
   },
   privacy: {
     title: '개인정보처리방침',
-    updated: '2026년 8월 20일',
-    intro: '방문자의 개인정보 보호 및 쿠키 사용 관련 안내입니다.',
+    updated: '2026년 8월 24일',
+    intro: '방문자의 개인정보 보호 및 브라우저 쿠키 관련 안내입니다.',
     sections: [
       {
-        heading: '1. 개인정보 수집 및 쿠키 안내',
+        heading: '1. 개인정보 및 쿠키 안내',
         body: [
-          '본 블로그는 회원가입 없이 누구나 자유롭게 이용할 수 있습니다.',
-          '원활한 서비스 제공 및 방문 통계 분석을 위해 기본적인 접속 로그와 쿠키가 사용될 수 있습니다.'
+          '본 블로그는 회원가입 없이 누구나 자유롭게 모든 글을 읽으실 수 있습니다.',
+          '원활한 접속 환경 제공과 방문 통계 확인을 위한 최소한의 접속 로그 및 쿠키가 활용될 수 있습니다.'
         ]
       },
       {
         heading: '2. 제3자 쿠키 및 광고 안내',
         body: [
           '구글 등 제3자 제공업체는 쿠키를 사용하여 사용자의 웹사이트 방문 기록을 바탕으로 관련 광고를 게재할 수 있습니다.',
-          '사용자는 구글 광고 설정(https://www.google.com/settings/ads)에서 맞춤형 광고 설정을 직접 변경할 수 있습니다.'
+          '맞춤형 광고 설정 변경은 구글 광고 설정(https://www.google.com/settings/ads)에서 직접 관리하실 수 있습니다.'
         ]
       }
     ]
@@ -322,15 +321,15 @@ export default function App() {
             }`}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
-                  Creator Lab
+                  Creator Note
                 </span>
-                <span className="text-xs text-slate-400 font-mono">실전 가이드 아카이브</span>
+                <span className="text-xs text-slate-400 font-mono">1인 크리에이터 실전 일지</span>
               </div>
               <h1 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                1인 미디어 제작 &amp; 디지털 수익화 연구소
+                내가 직접 부딪히며 배운 1인 미디어 &amp; 수익화 기록
               </h1>
               <p className={`text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                유튜브, 인스타그램, 틱톡 숏폼 기획부터 구글 애드센스 SEO, 전자책 지식창업까지 실전에서 검증된 체계적인 가이드를 제공합니다.
+                유튜브 쇼츠 100만 뷰의 실체부터 애드센스 3번 거절 극복기, 전자책 자동 판매까지 직접 겪은 팩트와 수치만 솔직하게 기록합니다.
               </p>
             </div>
 
@@ -339,11 +338,10 @@ export default function App() {
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
                 {[
                   { key: null, label: '전체 글' },
-                  { key: 'youtube', label: '유튜브' },
-                  { key: 'instagram', label: '인스타그램' },
-                  { key: 'tiktok', label: '틱톡' },
-                  { key: 'blog', label: '애드센스·SEO' },
-                  { key: 'digital_biz', label: '지식창업' },
+                  { key: 'youtube', label: '유튜브·쇼츠 기록' },
+                  { key: 'blog', label: '블로그·애드센스 일지' },
+                  { key: 'digital_biz', label: '지식창업·부수입' },
+                  { key: 'workflow', label: '도구 & 장비 리뷰' },
                 ].map((cat) => {
                   const isSelected = category === cat.key;
                   return (
@@ -368,7 +366,7 @@ export default function App() {
 
               {/* Total count */}
               <span className="text-xs text-slate-400 font-mono">
-                총 {posts.length}편의 글
+                총 {posts.length}편의 기록
               </span>
             </div>
 

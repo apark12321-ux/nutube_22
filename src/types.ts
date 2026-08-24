@@ -1,38 +1,24 @@
 export type CategoryKey = 
   | 'youtube' 
-  | 'instagram' 
-  | 'tiktok' 
   | 'blog' 
   | 'digital_biz'
+  | 'workflow'
   | 'algorithm'
-  | 'senior'
-  | 'aitools'
-  | 'monetization'
   | 'beginner'
-  | 'advanced';
+  | 'senior'
+  | 'monetization'
+  | 'aitools'
+  | 'advanced'
+  | 'tiktok'
+  | 'instagram';
 
-export type ParentCategoryKey = 
-  | 'video_platform'
-  | 'social_media'
-  | 'search_adsense'
-  | 'digital_business';
-
-export interface ParentCategorySpec {
-  key: ParentCategoryKey;
-  label: string;
-  icon: string;
-  description: string;
-  badge: string;
-  subCategories: CategoryKey[];
-}
+export type PrimaryCategoryKey = 'youtube' | 'blog' | 'digital_biz' | 'workflow';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface CategorySpec {
   key: CategoryKey;
   label: string;
-  parentKey?: ParentCategoryKey;
-  parentLabel?: string;
   icon: string;
   gradient: string;
   description: string;
