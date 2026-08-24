@@ -104,7 +104,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
     intro: '안녕하세요. 혼자 유튜브와 블로그를 운영하며 겪은 실패와 성공, 실제 정산 수치와 테스트 데이터를 솔직하게 기록하는 1인 크리에이터의 일지입니다.',
     sections: [
       {
-        heading: '1. 내가 이 블로그를 시작한 이유',
+        heading: '1. 이 블로그를 시작한 이유',
         body: [
           '처음 유튜브 쇼츠를 올리고 블로그에 글을 쓸 때, 인터넷에는 온통 "월 1,000만 원 보장" 같은 과장된 강의나 알맹이 없는 이론뿐이었습니다.',
           '직접 부딪혀보며 쇼츠 100만 뷰를 찍어도 왜 15만 원밖에 안 들어오는지, 애드센스는 왜 3번이나 거절당했는지, 그리고 어떻게 극복했는지를 있는 그대로의 팩트와 수치로 기록하고 공유하고자 이 공간을 만들었습니다.'
@@ -326,7 +326,7 @@ export default function App() {
                 <span className="text-xs text-slate-400 font-mono">1인 크리에이터 실전 일지</span>
               </div>
               <h1 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                내가 직접 부딪히며 배운 1인 미디어 &amp; 수익화 기록
+                직접 부딪히며 배운 1인 미디어 &amp; 수익화 실전 기록
               </h1>
               <p className={`text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
                 유튜브 쇼츠 100만 뷰의 실체부터 애드센스 3번 거절 극복기, 전자책 자동 판매까지 직접 겪은 팩트와 수치만 솔직하게 기록합니다.
