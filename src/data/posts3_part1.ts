@@ -8,7 +8,7 @@ export const POSTS_GROUP_3_part1: GuidePost[] = [
     category: 'algorithm',
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-05-29T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['EEAT', '콘텐츠품질', '구글가이드라인', '신뢰성', '2026년'],
     summary: '구글이 콘텐츠 품질을 평가하는 네 기준, E-E-A-T를 유튜브 운영자 입장에서 정리했어요. 경험, 전문성, 권위성, 신뢰성을 영상에 어떻게 녹일지 짚어드릴게요.',
     authorityUrl: 'https://developers.google.com/search/blog/2022/12/google-raters-guidelines-e-e-a-t',
@@ -34,7 +34,7 @@ export const POSTS_GROUP_3_part1: GuidePost[] = [
 
 - 직접 써본 도구·기기에 대해서만 후기를 만들기
 - 실제 운영하면서 마주친 시행착오를 솔직히 공유
-- "이론적으로는"이 아니라 "제가 해봤을 때는"으로 말하기
+- "이론적으로는"이 아니라 "직접 해봤을 때는"으로 말하기
 
 작은 디테일이지만, 시청자는 이런 차이를 본능적으로 알아채요.
 
@@ -111,7 +111,7 @@ E-E-A-T는 구글이 만든 평가 기준이지만, 본질은 "사람이 신뢰�
     category: 'beginner',
     categoryLabel: '왕초보 출발',
     publishedAt: '2026-05-28T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['발행전점검', '수익화', '저작권', '왕초보', '2026년'],
     summary: '2026년 유튜브에 업로드 전 위반 가능성을 미리 알려주는 점검 도구가 확대됐어요. 초보일수록 꼭 챙겨야 할 기능을 정리했어요.',
     authorityUrl: 'https://support.google.com/youtube',
@@ -198,7 +198,7 @@ E-E-A-T는 구글이 만든 평가 기준이지만, 본질은 "사람이 신뢰�
     category: 'monetization',
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-05-27T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['유튜브쇼핑', '제휴마케팅', '커머스수익', '2026년', '어필리에이트'],
     summary: '2026년 유튜브 쇼핑 제휴 프로그램이 확대됐어요. YPP에 가입돼 있으면 브랜드 상품을 태그하고 판매 수수료를 받을 수 있습니다.',
     authorityUrl: 'https://support.google.com/youtube/answer/12387723',
@@ -289,7 +289,7 @@ E-E-A-T는 구글이 만든 평가 기준이지만, 본질은 "사람이 신뢰�
     category: 'aitools',
     categoryLabel: 'AI 도구',
     publishedAt: '2026-05-26T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['AI표시의무', '합성콘텐츠', '수익화정책', '2026년', 'AI정책'],
     summary: '2026년 유튜브는 AI 사용 자체보다 표시하지 않는 것을 더 강하게 단속해요. 어디까지 표시해야 하는지 기준을 정리했어요.',
     authorityUrl: 'https://support.google.com/youtube/answer/14328491',
@@ -378,7 +378,7 @@ AI 도구를 적극 쓰는 채널일수록 표시 습관을 처음부터 들이�
     category: 'algorithm',
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-05-25T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['쇼츠광고', '댓글참여', '알고리즘신호', '2026년', '쇼츠'],
     summary: '2026년 쇼츠 광고에 댓글 참여 옵션이 추가됐어요. 댓글이 알고리즘 신호로 중요해진 흐름과 함께 정리합니다.',
     authorityUrl: 'https://www.youtube.com/shorts',
@@ -455,7 +455,7 @@ AI 도구를 적극 쓰는 채널일수록 표시 습관을 처음부터 들이�
     category: 'monetization',
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-05-24T18:00:10.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['라이브방송', '실시간수익화', '스폰서전용', '2026년', '라이브광고'],
     summary: '2026년 라이브 방송 수익화 방식이 크게 늘었어요. 방송 중 스폰서 전용으로 전환하거나, 화면을 가리지 않는 새 광고로 수익을 올릴 수 있습니다.',
     authorityUrl: 'https://support.google.com/youtube/answer/2474026',
@@ -546,7 +546,7 @@ AI 도구를 적극 쓰는 채널일수록 표시 습관을 처음부터 들이�
     category: 'algorithm',
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-05-21T12:49:12.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['브라우즈피드', '마이크로니치', '추천알고리즘', '2026년', '클러스터'],
     summary: '2026년 브라우즈 피드가 큰 주제 분류에서 시청 이력 클러스터 기반으로 바뀌었습니다. 좁고 명확한 니치가 유리해진 구조를 정리합니다.',
     authorityUrl: 'https://blog.youtube/',
@@ -633,7 +633,7 @@ AI 도구를 적극 쓰는 채널일수록 표시 습관을 처음부터 들이�
     category: 'monetization',
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-05-22T10:54:46.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['YPP', '수익화조건', '파트너프로그램', '2026년', '쇼츠수익화'],
     summary: '2026년 유튜브 파트너 프로그램 진입 문턱이 더 낮아졌어요. 구독자 500명, 영상 3개, 시청 3,000시간이면 일부 수익 기능을 먼저 쓸 수 있습니다.',
     authorityUrl: 'https://support.google.com/youtube/answer/72851',
@@ -731,7 +731,7 @@ AI 양산과 단순 짜깁기가 주 단속 대상입니다. 본인 관점이 �
     category: 'aitools',
     categoryLabel: 'AI 도구',
     publishedAt: '2026-05-23T11:54:28.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['유튜브스튜디오', 'AI도구', '저작권음원', '댓글관리', '2026년'],
     summary: '2026년 YouTube 스튜디오에 유용한 도구가 여럿 추가됐어요. 저작권 음원을 대체하는 음악 생성, 댓글 대량 관리 등 실제로 쓸 만한 기능을 정리했어요.',
     authorityUrl: 'https://support.google.com/youtube',
@@ -810,7 +810,7 @@ AI 양산과 단순 짜깁기가 주 단속 대상입니다. 본인 관점이 �
     category: 'monetization',
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-05-12T21:58:31.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['수익다각화', '수익종류', '전략'],
     summary: '유튜브 수익 종류가 많아 어떤 것부터 시작해야 할지 헷갈리시는 분이 많습니다. 우선순위와 도입 시점을 정리해드립니다. 광고·멤버십·슈퍼챗·협찬·어필리에이트 등 단계별 도입 가이드.',
     authorityUrl: 'https://www.ftc.go.kr/',

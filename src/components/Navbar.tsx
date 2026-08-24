@@ -228,15 +228,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2.5 text-left hover:opacity-80 transition-opacity cursor-pointer shrink-0"
             id="nav-logo-btn"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-black text-sm shadow-2xs">
-              랩
+            <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs shadow-2xs">
+              기록
             </div>
             <div className="flex flex-col">
-              <span className={`font-heading font-black text-lg tracking-tight leading-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
-                크리에이터랩
+              <span className={`font-heading font-bold text-base sm:text-lg tracking-tight leading-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
+                크리에이터 노트
               </span>
               <span className={`text-[11px] font-normal leading-none ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                1인 미디어 &amp; 수익화 가이드
+                1인 미디어 &amp; 수익화 일지
               </span>
             </div>
           </button>
@@ -552,10 +552,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {/* Drawer Header */}
                   <div className="px-5 flex items-center justify-between border-b pb-4 border-slate-100 dark:border-slate-800">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-black text-xs">
-                        랩
+                      <div className="w-7 h-7 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
+                        기록
                       </div>
-                      <span className="font-heading text-base font-black tracking-tight">크리에이터랩</span>
+                      <span className="font-heading text-base font-bold tracking-tight">크리에이터 노트</span>
                     </div>
                     <button
                       onClick={() => setIsDrawerOpen(false)}
@@ -594,7 +594,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   {/* Drawer Footer */}
                   <div className="px-5 border-t pt-4 border-slate-100 dark:border-slate-800 text-center">
-                    <p className="text-[11px] text-slate-400">© 크리에이터랩 All rights reserved.</p>
+                    <p className="text-[11px] text-slate-400">© 크리에이터 노트 All rights reserved.</p>
                   </div>
                 </div>
               </div>

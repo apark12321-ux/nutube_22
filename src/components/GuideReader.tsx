@@ -247,13 +247,13 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
           "datePublished": formattedPublishedDate,
           "dateModified": formattedModifiedDate,
           "author": {
-            "@type": "Organization",
-            "name": "크리에이터랩",
+            "@type": "Person",
+            "name": post.author || "민우",
             "url": "https://nutube.kr/"
           },
           "publisher": {
             "@type": "Organization",
-            "name": "크리에이터랩",
+            "name": "크리에이터 노트",
             "url": "https://nutube.kr/"
           },
           "image": post.thumbnail?.src || DEFAULT_REMOTE_IMAGE,
@@ -640,7 +640,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               </div>
             </div>
             <p className={`text-xs sm:text-sm leading-relaxed mt-2 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-              이론이나 교과서적인 설명이 아닌, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 수치를 바탕으로 작성한 글입니다. 궁금한 점이나 피드백은 문의 페이지를 통해 편하게 남겨주세요.
+              이론이나 교과서적인 설명이 아닌, 직접 채널과 블로그를 운영하며 겪었던 시행착오와 수치를 바탕으로 정리한 기록입니다. 궁금한 점이나 피드백은 문의 페이지를 통해 편하게 남겨주세요.
             </p>
           </div>
 

@@ -115,14 +115,14 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
         items: [
           '유튜브·쇼츠 기록: 시청 지속률 훅 설계, 썸네일 A/B 테스트, 쇼츠-롱폼 연계 수익화',
           '블로그·애드센스 일지: 3번 거절 딛고 7일 만에 승인받은 글쓰기, 구글 서치콘솔 색인 해결',
-          '지식창업·부수입: PDF 전자책 크몽 100만 원 판매기, 노션 템플릿, 무인 자동화 파이프라인',
+          '지식창업·부수입: PDF 전자책 크몽 100만 원 판매기, 노션 템플릿, 자동 발송 판매 노하우',
           '도구 & 장비 리뷰: 캡컷, 미드저니, 일레븐랩스, 마이크 등 내 돈 쓰고 검증한 실전 도구'
         ]
       },
       {
         heading: '3. 소통 및 피드백',
         body: [
-          '글 내용에 대한 질문이나 여러분이 겪고 계신 크리에이터 고민이 있다면 문의 페이지를 통해 언제든 편하게 남겨주세요. 제가 아는 선에서 정성껏 답변드리겠습니다.'
+          '글 내용에 대한 질문이나 겪고 계신 크리에이터 고민이 있다면 문의 페이지를 통해 언제든 편하게 남겨주세요. 아는 선에서 정성껏 답변드리겠습니다.'
         ]
       }
     ]
@@ -144,12 +144,12 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
   terms: {
     title: '이용안내',
     updated: '2026년 8월 24일',
-    intro: '제 블로그를 찾아주셔서 감사합니다. 콘텐츠 열람 및 인용에 관한 간단한 안내입니다.',
+    intro: '블로그를 찾아주셔서 감사합니다. 콘텐츠 열람 및 인용에 관한 간단한 안내입니다.',
     sections: [
       {
         heading: '콘텐츠 이용 및 인용',
         body: [
-          '본 블로그의 모든 글은 제가 직접 경험하고 테스트한 데이터를 바탕으로 작성되었습니다.',
+          '본 블로그의 모든 글은 직접 경험하고 테스트한 데이터를 바탕으로 작성되었습니다.',
           '비상업적인 목적의 출처 표기 인용(링크 포함)은 언제든 환영하며, 무단 복제 및 상업적 재판매는 자제 부탁드립니다.'
         ]
       }
@@ -508,10 +508,10 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/60 dark:border-slate-800/80">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
-                랩
+                기록
               </div>
-              <span className="font-bold text-slate-900 dark:text-white">크리에이터랩</span>
-              <span className="text-slate-400">| 1인 미디어 &amp; 수익화 연구 가이드</span>
+              <span className="font-bold text-slate-900 dark:text-white">크리에이터 노트</span>
+              <span className="text-slate-400">| 1인 미디어 &amp; 수익화 실전 일지</span>
             </div>
 
             <div className="flex items-center gap-4 text-xs font-medium">
@@ -523,8 +523,8 @@ export default function App() {
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 크리에이터랩 (Creator Lab). All rights reserved.</p>
-            <p>디지털 미디어 &amp; 웹 수익화 실전 가이드</p>
+            <p>© 2026 크리에이터 노트 (Creator Note). All rights reserved.</p>
+            <p>1인 크리에이터의 실전 경험과 팩트 중심 기록</p>
           </div>
         </div>
       </footer>

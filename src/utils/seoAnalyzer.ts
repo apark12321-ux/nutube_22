@@ -104,7 +104,7 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
   const keywordsString = keywords.join(', ');
 
   // 1. Update Title
-  const pageTitle = `${post.title} | 크리에이터랩`;
+  const pageTitle = `${post.title} | 크리에이터 노트`;
   document.title = pageTitle;
 
   // 2. Helper to set/update meta tag
@@ -123,7 +123,7 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
   // 3. Meta Keywords & Description
   setMetaTag('name', 'keywords', keywordsString);
   setMetaTag('name', 'description', description);
-  setMetaTag('name', 'author', post.author || '크리에이터랩');
+  setMetaTag('name', 'author', post.author || '크리에이터 노트');
 
   // 4. Open Graph
   setMetaTag('property', 'og:title', post.title);
@@ -149,7 +149,7 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
 export function resetDefaultSeoMeta() {
   if (typeof document === 'undefined') return;
 
-  document.title = '크리에이터랩 (Creator Lab) | 크리에이터 채널 성장 & 디지털 수익화 실전 가이드';
+  document.title = '크리에이터 노트 | 1인 미디어 운영 & 수익화 실전 일지';
 
   const setMetaTag = (attrName: string, attrValue: string, content: string) => {
     const element = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
@@ -158,11 +158,11 @@ export function resetDefaultSeoMeta() {
     }
   };
 
-  setMetaTag('name', 'keywords', '크리에이터랩, Creator Lab, 유튜브 알고리즘, 유튜브 수익화, 쇼츠 수익화, 구글 애드센스, 블로그 SEO, 틱톡 수익화, 인스타그램 릴스, 지식창업, 1인 미디어');
-  setMetaTag('name', 'description', '크리에이터랩(Creator Lab)은 유튜브, 틱톡, 인스타그램 릴스, 구글 애드센스 SEO 및 지식 비즈니스 창작자를 위한 채널 성장·수익화 전문 실전 가이드 미디어입니다.');
-  setMetaTag('property', 'og:title', '크리에이터랩 (Creator Lab) | 크리에이터 채널 성장 & 디지털 수익화 실전 가이드');
-  setMetaTag('property', 'og:description', '유튜브, 틱톡, 인스타그램 릴스, 구글 애드센스 SEO 및 지식 비즈니스 창작자를 위한 채널 성장·수익화 전문 실전 가이드 미디어');
+  setMetaTag('name', 'keywords', '크리에이터 노트, 유튜브 쇼츠 수익, 애드센스 승인, 구글 검색 노출, 블로그 글쓰기, 1인 크리에이터, 부수입, 전자책 판매');
+  setMetaTag('name', 'description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오, 애드센스 승인과 수익화 과정의 경험을 솔직하게 기록한 블로그입니다.');
+  setMetaTag('property', 'og:title', '크리에이터 노트 | 1인 미디어 운영 & 수익화 실전 일지');
+  setMetaTag('property', 'og:description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오와 실전 팁을 솔직하게 기록한 블로그');
   setMetaTag('property', 'og:url', 'https://nutube.kr/');
-  setMetaTag('name', 'twitter:title', '크리에이터랩 (Creator Lab) | 크리에이터 실전 가이드');
-  setMetaTag('name', 'twitter:description', '유튜브 알고리즘, 구글 애드센스 SEO, 틱톡·릴스 성장 및 크리에이터 비즈니스 실전 가이드라이브러리');
+  setMetaTag('name', 'twitter:title', '크리에이터 노트 | 1인 크리에이터 실전 일지');
+  setMetaTag('name', 'twitter:description', '유튜브 쇼츠, 구글 애드센스, 블로그 운영과 지식창업 실전 기록');
 }

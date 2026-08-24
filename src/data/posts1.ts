@@ -9,7 +9,7 @@ export const POSTS_GROUP_1: GuidePost[] = [
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-04-28T19:26:46.000Z',
     updatedAt: '2026-05-12T09:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['유튜브알고리즘', '추천시스템', '노출', '시청패턴'],
     summary: '유튜브가 2025년 말부터 강조하는 시청 패턴 신호와 신규 채널 가속 정책을 정리했다. 노출 결정 요인 5가지와 운영자가 챙길 것. 결론부터.',
     authorityUrl: 'https://www.youtube.com/@YouTubeCreatorInsider',
@@ -133,7 +133,7 @@ NUTUBE에서 시니어 사연 채널을 운영하며 가장 크게 체감한 변
     category: 'senior',
     categoryLabel: '시니어 사연 쇼츠',
     publishedAt: '2026-04-28T09:56:21.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['시니어쇼츠', '스토리텔링', '사연', '구조'],
     summary: '쇼츠는 짧지만 감정의 깊이는 길어야 합니다. 60초를 다섯 단계로 나눠서 설계하는 방법. 60초 안에 감정을 만드는 구조. 시니어 사연 쇼츠를 처음 만들 때 가장 헷갈리는 게 \'60초 안에 어떻게 다 담지?\' 라는 점이에요.',
     authorityUrl: 'https://www.youtube.com/howyoutubeworks/policies/community-guidelines/',
@@ -233,7 +233,7 @@ NUTUBE에서 시니어 사연 채널을 운영하며 가장 크게 체감한 변
     category: 'monetization',
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-04-28T20:58:23.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['수익화', 'YPP', '파트너프로그램'],
     summary: '2026년 현재 유튜브 파트너 프로그램의 진입 요건과 단계별 수익화 옵션을 정리했습니다. YPP 진입 요건과 단계별 수익화 옵션. 유튜브 수익화를 준비하시는 분께서 가장 먼저 확인하셔야 할 것이 파트너 프로그램(YPP) 진입 요건입니다.',
     authorityUrl: 'https://support.google.com/youtube/answer/72851',
@@ -370,7 +370,7 @@ NUTUBE에서 시니어 사연 채널을 운영하며 가장 크게 체감한 변
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-04-29T14:01:26.000Z',
     updatedAt: '2026-05-08T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     authorityUrl: 'https://support.google.com/youtube/answer/9314486?hl=ko',
     authorityLabel: 'YouTube 노출수·시청 시간 확인',
     content: `먼저 짚을 게 있어요.
@@ -480,7 +480,7 @@ CTR을 올리는 가장 빠른 방법은 시청자가 어떤 썸네일을 거르
     category: 'aitools',
     categoryLabel: 'AI 도구',
     publishedAt: '2026-04-29T14:01:39.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['AI도구', 'ChatGPT', 'Claude', '대본'],
     summary: '한국어 유튜브 대본 작성 관점에서 네 가지 AI를 실제로 써보고 비교한 결과를 정리했어요. ChatGPT, Claude, Gemini, Notion AI - 뭐가 제일 잘 써질까.',
     authorityUrl: 'https://www.ftc.go.kr/',
@@ -624,7 +624,7 @@ AI 대본은 그대로 쓰면 어색해요. AI 초안 + 본인 손길이 진짜 
     category: 'beginner',
     categoryLabel: '왕초보 출발',
     publishedAt: '2026-04-29T15:27:06.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['유튜브입문', '채널개설', '왕초보', '시작하기'],
     summary: '유튜브를 처음 시작하는 분이 가장 막막해하는 게 채널 개설이에요. 계정 만들기부터 채널아트까지, 딱 필요한 것만 순서대로 정리해드릴게요.',
     authorityUrl: 'https://support.google.com/youtube',
@@ -723,7 +723,7 @@ Canva 같은 무료 도구에 유튜브 템플릿이 있으니 그걸 쓰시면 
     categoryLabel: '시니어 사연 쇼츠',
     publishedAt: '2026-04-30T10:49:06.000Z',
     updatedAt: '2026-05-06T09:30:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['시니어채널', '니치', '포지셔닝'],
     summary: '시니어 사연 채널이 늘어났지만 아직 빈자리는 있습니다. 어디를 보면 될지 정리해드릴게요. 포화된 시니어 사연 시장에서 빈자리를 찾는 법. 시니어 사연 쇼츠 채널을 시작하시려는 분이 가장 자주 묻는 질문이 "이미 너무 많지 않나요?" 예요. 솔직히 말씀드리면, 많긴 합니다.',
     authorityUrl: 'https://www.youtube.com/howyoutubeworks/policies/community-guidelines/',
@@ -817,7 +817,7 @@ Canva 같은 무료 도구에 유튜브 템플릿이 있으니 그걸 쓰시면 
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-04-30T08:32:55.000Z',
     updatedAt: '2026-05-20T10:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['평균시청지속시간', 'AVD', '이탈률', '분석'],
     summary: '시청 그래프를 3개 구간으로 쪼개서 각각의 개선 포인트를 찾는 방법. 도입 30초·중간 이탈·종료 부메랑의 세 구간을 분리해서 본다 결론부터.',
     authorityUrl: 'https://www.youtube.com/@YouTubeCreatorInsider',
@@ -925,7 +925,7 @@ AVD는 한 덩어리가 아니다. 도입·본론·종료 세 구간을 따로 �
     category: 'algorithm',
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-05-01T20:58:50.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['쇼츠', '롱폼', '구독자전환', '채널설계'],
     summary: '쇼츠는 잘 되는데 롱폼이 안 돌아가는 채널이 겪는 구조적 문제와 해법. 쇼츠 구독자가 롱폼을 안 보는 이유와 그걸 깨는 설계. 결론부터.',
     authorityUrl: 'https://www.youtube.com/@YouTubeCreatorInsider',
@@ -1036,7 +1036,7 @@ AVD는 한 덩어리가 아니다. 도입·본론·종료 세 구간을 따로 �
     category: 'aitools',
     categoryLabel: 'AI 도구',
     publishedAt: '2026-05-01T08:42:18.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['AI음성', 'TTS', '내레이션'],
     summary: '한국어 AI 음성을 시니어 사연 채널 관점에서 비교해봤어요. 따뜻한 톤이 잘 나오는 게 어떤 거죠?. 한국어 TTS 6개 실제 들어본 후기 직접 녹음이 부담스러운 분이 많죠. 마이크 사기도 그렇고, 녹음 공간 만들기도 그렇고요.',
     authorityUrl: 'https://support.google.com/youtube/answer/14328491',
@@ -1205,7 +1205,7 @@ AI 음성은 기본적으로 한 톤으로 읽어요. **문장 사이를 끊거�
     categoryLabel: '영상 채널 수익화',
     publishedAt: '2026-05-01T16:00:17.000Z',
     updatedAt: '2026-05-12T11:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['CPM', 'RPM', '광고수익'],
     summary: 'CPM과 RPM은 다른 지표입니다. 두 지표의 차이와 본인 채널 분석법을 정리했습니다. 수익 구조를 이해해야 채널 운영 방향이 보입니다 광고 수익을 본격적으로 운영하시려면 CPM과 RPM의 차이를 정확히 이해하셔야 합니다.',
     authorityUrl: 'https://www.nts.go.kr/',
@@ -1362,7 +1362,7 @@ CPM은 광고 시장 가격, RPM은 운영자 실수령액입니다. RPM은 카�
     category: 'senior',
     categoryLabel: '시니어 사연 쇼츠',
     publishedAt: '2026-05-02T13:49:24.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     authorityUrl: 'https://support.google.com/youtube/answer/10059070?hl=ko',
     authorityLabel: 'YouTube Shorts 만들기 안내',
     tags: ['대본', '스크립트', '시니어쇼츠', '글쓰기'],
@@ -1415,7 +1415,7 @@ B블록에서는 구체적 디테일을 풀어요. \'왜 그게 마음에 남았
 - 시청자가 그 장면을 상상할 수 있음
 
 예시:
-> "어머니는 항상 강했어요. 제가 어릴 적 다리를 다쳐 울고 있을 때도 '울지 마, 약하게 굴면 안 돼' 라고만 하셨거든요. 그래서 저는 어머니 앞에서는 한 번도 약한 모습을 보인 적이 없었어요. 그게 우리 사이의 거리였죠."
+> "어머니는 항상 강했어요. 어릴 적 다리를 다쳐 울고 있을 때도 '울지 마, 약하게 굴면 안 돼' 라고만 하셨거든요. 그래서 어머니 앞에서는 한 번도 약한 모습을 보인 적이 없었어요. 그게 우리 사이의 거리였죠."
 
 ### C블록 - 절정·전환
 
@@ -1426,7 +1426,7 @@ C블록은 변화의 순간이에요. 갈등이 풀리거나, 새로운 깨달�
 - **우연한 발견** ("그날 우연히 보게 된 편지에서")
 - **다른 사람의 말** ("동생이 한 마디 하더라고요")
 - **작은 행동의 깨달음** ("어머니가 제 손을 잡으셨어요. 처음으로요")
-- **본인의 변화** ("그제서야 제가 어머니를 닮았다는 걸 깨달았어요")
+- **본인의 변화** ("그제서야 어머니를 닮았다는 걸 깨달았어요")
 
 ### D블록 - 마무리·여운
 
@@ -1475,7 +1475,7 @@ D블록은 **한 줄 깨달음 + 댓글 유도** 구조예요.
     category: 'beginner',
     categoryLabel: '왕초보 출발',
     publishedAt: '2026-05-02T18:47:08.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     authorityUrl: 'https://www.youtube.com/intl/ALL_kr/creators/',
     authorityLabel: 'YouTube 크리에이터 아카데미',
     tags: ['첫영상', '업로드', '왕초보', '체크리스트'],
@@ -1565,7 +1565,7 @@ D블록은 **한 줄 깨달음 + 댓글 유도** 구조예요.
     category: 'algorithm',
     categoryLabel: '유튜브 알고리즘',
     publishedAt: '2026-05-03T07:39:11.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['니치', '채널포지셔닝', '초기설계'],
     summary: '넓게 시작하면 안 된다. 처음에는 좁히고, 자리잡은 후에 넓혀야 한다. 유튜브 시작 단계에서 가장 중요한 결정. 결론부터.',
     authorityUrl: 'https://support.google.com/youtube/answer/9314415',
@@ -1658,7 +1658,7 @@ D블록은 **한 줄 깨달음 + 댓글 유도** 구조예요.
     categoryLabel: 'AI 도구',
     publishedAt: '2026-05-03T11:38:08.000Z',
     updatedAt: '2026-05-12T11:00:00.000Z',
-    author: 'NuTube 편집팀',
+    author: '민우',
     tags: ['AI썸네일', 'Midjourney', 'DALL-E', 'Canva'],
     summary: '썸네일 매번 만드는 게 진짜 일이거든요. 하루에 영상 한 편 만드는 것도 힘든데 썸네일까지 디자인하려면 시간이 모자라요. 어떤 게 유튜브 썸네일에 잘 맞는지 정리했어요.',
     authorityUrl: 'https://www.ftc.go.kr/',
