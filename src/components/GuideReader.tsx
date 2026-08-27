@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, Clock, ChevronRight, List, ArrowUp, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, Clock, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
@@ -10,6 +10,8 @@ interface GuideReaderProps {
   categorySpec: CategorySpec;
   onBack: () => void;
   theme?: 'light' | 'dark';
+  allPosts?: GuidePost[];
+  onSelectPost?: (slug: string) => void;
 }
 
 interface ContentBlock {
@@ -126,14 +128,32 @@ const ImageFigure: React.FC<{ image?: PostImage }> = ({ image }) => {
   );
 };
 
-export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 'light' }) => {
+export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 'light', allPosts = [], onSelectPost }) => {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [shareToast, setShareToast] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
   const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const dark = theme === 'dark';
 
   const blocks = useMemo(() => parseContentToBlocks(post.content), [post.content]);
+
+  // Find Previous and Next Posts in the roadmap
+  const prevPost = useMemo(() => {
+    if (post.prevPostSlug && allPosts.length > 0) {
+      return allPosts.find((p) => p.slug === post.prevPostSlug);
+    }
+    const idx = allPosts.findIndex((p) => p.slug === post.slug);
+    return idx > 0 ? allPosts[idx - 1] : undefined;
+  }, [post, allPosts]);
+
+  const nextPost = useMemo(() => {
+    if (post.nextPostSlug && allPosts.length > 0) {
+      return allPosts.find((p) => p.slug === post.nextPostSlug);
+    }
+    const idx = allPosts.findIndex((p) => p.slug === post.slug);
+    return idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : undefined;
+  }, [post, allPosts]);
 
   // Extract H2 and H3 headings for the Table of Contents
   const tocItems = useMemo<TocItem[]>(() => {
@@ -233,58 +253,75 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     const topKeywords = updateDynamicPostSeoMeta(post);
     const keywordsString = topKeywords ? topKeywords.join(', ') : (post.tags || []).join(', ');
 
+    const graphElements: any[] = [
+      {
+        "@type": "BlogPosting",
+        "@id": `${postUrl}#article`,
+        "headline": post.title,
+        "alternativeHeadline": post.subtitle,
+        "description": post.summary || post.title,
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": postUrl,
+        "datePublished": formattedPublishedDate,
+        "dateModified": formattedModifiedDate,
+        "author": {
+          "@type": "Person",
+          "name": post.author || "민우",
+          "url": "https://nutube.kr/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "크리에이터 노트",
+          "url": "https://nutube.kr/"
+        },
+        "image": post.thumbnail?.src || DEFAULT_REMOTE_IMAGE,
+        "articleSection": post.categoryLabel,
+        "keywords": keywordsString
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${postUrl}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "홈",
+            "item": "https://nutube.kr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": post.categoryLabel,
+            "item": `https://nutube.kr/?category=${post.category}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": post.title,
+            "item": postUrl
+          }
+        ]
+      }
+    ];
+
+    if (post.faqList && post.faqList.length > 0) {
+      graphElements.push({
+        "@type": "FAQPage",
+        "@id": `${postUrl}#faq`,
+        "mainEntity": post.faqList.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      });
+    }
+
     const jsonLdData = {
       "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "BlogPosting",
-          "@id": `${postUrl}#article`,
-          "headline": post.title,
-          "alternativeHeadline": post.subtitle,
-          "description": post.summary || post.title,
-          "inLanguage": "ko-KR",
-          "mainEntityOfPage": postUrl,
-          "datePublished": formattedPublishedDate,
-          "dateModified": formattedModifiedDate,
-          "author": {
-            "@type": "Person",
-            "name": post.author || "민우",
-            "url": "https://nutube.kr/"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "크리에이터 노트",
-            "url": "https://nutube.kr/"
-          },
-          "image": post.thumbnail?.src || DEFAULT_REMOTE_IMAGE,
-          "articleSection": post.categoryLabel,
-          "keywords": keywordsString
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${postUrl}#breadcrumb`,
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "홈",
-              "item": "https://nutube.kr/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": post.categoryLabel,
-              "item": `https://nutube.kr/?category=${post.category}`
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": post.title,
-              "item": postUrl
-            }
-          ]
-        }
-      ]
+      "@graph": graphElements
     };
 
     const script = document.createElement('script');
@@ -476,6 +513,44 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
           {/* Hero image */}
           <ImageFigure image={post.thumbnail} />
 
+          {/* AEO / GEO Direct Answer Box (Quick Key Takeaways) */}
+          {post.quickAnswer && (
+            <div className={`my-8 p-5 sm:p-6 rounded-2xl border ${
+              dark 
+                ? 'border-purple-500/30 bg-purple-950/20 shadow-lg shadow-purple-950/30' 
+                : 'border-purple-200 bg-purple-50/70 shadow-sm'
+            }`}>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 rounded-lg bg-purple-600 text-white">
+                  <Lightbulb className="w-4 h-4" />
+                </div>
+                <h3 className={`text-sm sm:text-base font-extrabold tracking-tight ${dark ? 'text-purple-200' : 'text-purple-900'}`}>
+                  바쁜 크리에이터를 위한 30초 핵심 정답 (AEO 요약)
+                </h3>
+              </div>
+
+              <ul className="space-y-2 mb-4">
+                {post.quickAnswer.summary.map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm leading-relaxed">
+                    <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${dark ? 'text-purple-400' : 'text-purple-600'}`} />
+                    <span className={dark ? 'text-slate-200' : 'text-slate-800'}>{point}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className={`p-3 rounded-xl border text-xs sm:text-sm font-semibold flex items-center gap-2 ${
+                dark 
+                  ? 'border-purple-500/40 bg-purple-900/40 text-purple-200' 
+                  : 'border-purple-300 bg-white text-purple-900 shadow-2xs'
+              }`}>
+                <span className="shrink-0 px-2 py-0.5 rounded text-[11px] font-bold bg-purple-600 text-white">
+                  핵심 결론
+                </span>
+                <span>{post.quickAnswer.keyTakeaway}</span>
+              </div>
+            </div>
+          )}
+
           {/* Mobile / Tablet Collapsible Quick TOC (Visible on < lg screens) */}
           {tocItems.length > 0 && (
             <div className="my-6 lg:hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/60 p-4 transition-all">
@@ -621,6 +696,111 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               );
             })}
           </article>
+
+          {/* GEO / AEO FAQ Accordion Section */}
+          {post.faqList && post.faqList.length > 0 && (
+            <section className={`mt-10 p-6 sm:p-7 rounded-2xl border ${
+              dark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-200 bg-slate-50/70'
+            }`} itemScope itemType="https://schema.org/FAQPage">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="p-1.5 rounded-lg bg-purple-600 text-white">
+                  <HelpCircle className="w-4 h-4" />
+                </div>
+                <h3 className={`font-heading text-lg sm:text-xl font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  자주 묻는 질문 (FAQ)
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                {post.faqList.map((faq, fIdx) => {
+                  const isOpen = openFaqIndex === fIdx;
+                  return (
+                    <div 
+                      key={fIdx} 
+                      className={`rounded-xl border transition-all ${
+                        dark 
+                          ? isOpen ? 'border-purple-500/50 bg-slate-900' : 'border-slate-800 bg-slate-900/40'
+                          : isOpen ? 'border-purple-200 bg-white shadow-xs' : 'border-slate-200/80 bg-white/60'
+                      }`}
+                      itemScope 
+                      itemProp="mainEntity" 
+                      itemType="https://schema.org/Question"
+                    >
+                      <button
+                        onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}
+                        className="w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left font-bold text-sm sm:text-base cursor-pointer"
+                      >
+                        <span itemProp="name" className={dark ? 'text-slate-100' : 'text-slate-900'}>
+                          Q. {faq.question}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-purple-600' : 'text-slate-400'}`} />
+                      </button>
+
+                      {isOpen && (
+                        <div 
+                          className="px-4 pb-4 pt-1 text-xs sm:text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800"
+                          itemScope 
+                          itemProp="acceptedAnswer" 
+                          itemType="https://schema.org/Answer"
+                        >
+                          <p itemProp="text" className={dark ? 'text-slate-300' : 'text-slate-700'}>
+                            {faq.answer}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* Step-by-Step Roadmap Navigation (Previous / Next Guide) */}
+          {(prevPost || nextPost) && (
+            <nav aria-label="단계별 로드맵 이동" className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {prevPost ? (
+                <button
+                  onClick={() => onSelectPost ? onSelectPost(prevPost.slug) : onBack()}
+                  className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all group cursor-pointer ${
+                    dark 
+                      ? 'border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-slate-900' 
+                      : 'border-slate-200 bg-white hover:border-purple-300 hover:shadow-md'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 mb-2">
+                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                    <span>이전 가이드</span>
+                  </div>
+                  <h4 className={`text-sm sm:text-base font-bold line-clamp-2 leading-snug ${
+                    dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
+                  }`}>
+                    {prevPost.title}
+                  </h4>
+                </button>
+              ) : <div />}
+
+              {nextPost ? (
+                <button
+                  onClick={() => onSelectPost ? onSelectPost(nextPost.slug) : onBack()}
+                  className={`p-4 sm:p-5 rounded-2xl border text-right flex flex-col justify-between transition-all group cursor-pointer ${
+                    dark 
+                      ? 'border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-slate-900' 
+                      : 'border-slate-200 bg-white hover:border-purple-300 hover:shadow-md'
+                  }`}
+                >
+                  <div className="flex items-center justify-end gap-1.5 text-xs font-semibold text-purple-600 dark:text-purple-400 mb-2">
+                    <span>다음 단계 가이드</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <h4 className={`text-sm sm:text-base font-bold line-clamp-2 leading-snug ${
+                    dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
+                  }`}>
+                    {nextPost.title}
+                  </h4>
+                </button>
+              ) : null}
+            </nav>
+          )}
 
           {/* Author & Creator Note Card */}
           <div className={`mt-10 p-5 sm:p-6 rounded-2xl border ${

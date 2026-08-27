@@ -315,33 +315,68 @@ export default function App() {
         {tab === 'guides' && (
           <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12">
             
-            {/* Editorial Introduction Banner */}
-            <div className={`mb-8 p-6 rounded-2xl border transition-all ${
-              dark ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200/80 bg-white shadow-2xs'
+            {/* Editorial Introduction Banner - 4-Step Roadmap */}
+            <div className={`mb-8 p-6 sm:p-8 rounded-3xl border transition-all ${
+              dark ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200/80 bg-white shadow-xs'
             }`}>
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
-                  Creator Note
+                <span className="text-xs font-extrabold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+                  YouTube Roadmap
                 </span>
-                <span className="text-xs text-slate-400 font-mono">1인 크리에이터 실전 일지</span>
+                <span className="text-xs text-slate-400 font-mono">왕초보부터 고수까지 단계별 실전 가이드</span>
               </div>
-              <h1 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                직접 부딪히며 배운 1인 미디어 &amp; 수익화 실전 기록
+              <h1 className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight mb-2.5 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                1인 유튜브 채널 성장 &amp; 월 100만 원 수익화 로드맵
               </h1>
-              <p className={`text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                유튜브 쇼츠 100만 뷰의 실체부터 애드센스 3번 거절 극복기, 전자책 자동 판매까지 직접 겪은 팩트와 수치만 솔직하게 기록합니다.
+              <p className={`text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                장비병 없는 스마트폰 세팅부터 10초 훅 기획, 캡컷 무료 30분 컷편집, 추천 알고리즘 돌파, 8분 미드롤 및 지식창업 자동 수익화까지 순서대로 따라하는 단계별 가이드입니다.
               </p>
+
+              {/* 4-Step Quick Selector */}
+              <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                {CATEGORIES_LIST.map((spec) => {
+                  const isSelected = category === spec.key;
+                  return (
+                    <button
+                      key={spec.key}
+                      onClick={() => selectCategory(spec.key)}
+                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? dark
+                            ? 'border-purple-500 bg-purple-950/40 shadow-xs'
+                            : 'border-purple-500 bg-purple-50/80 shadow-xs'
+                          : dark
+                            ? 'border-slate-800 bg-slate-900/40 hover:border-slate-700'
+                            : 'border-slate-200 bg-slate-50/60 hover:border-purple-200 hover:bg-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="text-[10px] sm:text-[11px] font-bold text-purple-600 dark:text-purple-400">
+                          {spec.levelBadge}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-400">
+                          {spec.count}개
+                        </span>
+                      </div>
+                      <div className={`text-xs font-bold truncate ${
+                        isSelected 
+                          ? dark ? 'text-white' : 'text-purple-900' 
+                          : dark ? 'text-slate-200' : 'text-slate-800'
+                      }`}>
+                        {spec.shortLabel || spec.label}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Clean Category Filter Tabs */}
             <div className="mb-8 border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
                 {[
-                  { key: null, label: '전체 글' },
-                  { key: 'youtube', label: '유튜브·쇼츠 기록' },
-                  { key: 'blog', label: '블로그·애드센스 일지' },
-                  { key: 'digital_biz', label: '지식창업·부수입' },
-                  { key: 'workflow', label: '도구 & 장비 리뷰' },
+                  { key: null, label: '전체 로드맵' },
+                  ...CATEGORIES_LIST.map((c) => ({ key: c.key, label: c.label }))
                 ].map((cat) => {
                   const isSelected = category === cat.key;
                   return (
@@ -366,7 +401,7 @@ export default function App() {
 
               {/* Total count */}
               <span className="text-xs text-slate-400 font-mono">
-                총 {posts.length}편의 기록
+                총 {posts.length}개의 가이드
               </span>
             </div>
 
@@ -486,7 +521,17 @@ export default function App() {
         )}
 
         {tab === 'guide-detail' && post && (
-          <GuideReader post={post} categorySpec={CATEGORY_SPECS[post.category]} onBack={handleBack} theme={theme} />
+          <GuideReader 
+            post={post} 
+            categorySpec={CATEGORY_SPECS[post.category]} 
+            onBack={handleBack} 
+            theme={theme} 
+            allPosts={POSTS}
+            onSelectPost={(slug) => {
+              const targetPost = POSTS.find((p) => p.slug === slug);
+              if (targetPost) openPost(targetPost);
+            }}
+          />
         )}
         
         {tab === 'about' && <InfoPage page={PAGE_CONTENT.about} theme={theme} />}

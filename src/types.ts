@@ -1,10 +1,14 @@
 export type CategoryKey = 
+  | 'step1_starter'      // 1단계: 왕초보 · 시작과 세팅
+  | 'step2_creator'      // 2단계: 초보 · 기획과 첫 제작
+  | 'step3_growth'       // 3단계: 중급 · 알고리즘과 성장
+  | 'step4_master'       // 4단계: 고수 · 수익화와 자동화
   | 'youtube' 
   | 'blog' 
   | 'digital_biz'
   | 'workflow'
-  | 'algorithm'
   | 'beginner'
+  | 'algorithm'
   | 'senior'
   | 'monetization'
   | 'aitools'
@@ -12,13 +16,16 @@ export type CategoryKey =
   | 'tiktok'
   | 'instagram';
 
-export type PrimaryCategoryKey = 'youtube' | 'blog' | 'digital_biz' | 'workflow';
+export type PrimaryCategoryKey = 'step1_starter' | 'step2_creator' | 'step3_growth' | 'step4_master';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface CategorySpec {
   key: CategoryKey;
+  stepNumber?: number;
   label: string;
+  shortLabel?: string;
+  levelBadge?: string;
   icon: string;
   gradient: string;
   description: string;
@@ -33,16 +40,29 @@ export interface PostImage {
   caption?: string;
 }
 
+export interface QuickAnswer {
+  summary: string[];
+  keyTakeaway: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface GuidePost {
   slug: string;
   title: string;
   subtitle: string;
   category: CategoryKey;
   categoryLabel: string;
+  stepNumber?: number;
   publishedAt: string;
   updatedAt?: string;
   author: string;
   summary?: string;
+  quickAnswer?: QuickAnswer;
+  faqList?: FaqItem[];
   content: string;
   tags?: string[];
   readTime?: string;
@@ -52,6 +72,8 @@ export interface GuidePost {
   thumbnail?: PostImage;
   bodyImages?: [PostImage, PostImage];
   level?: DifficultyLevel;
+  nextPostSlug?: string;
+  prevPostSlug?: string;
 }
 
 export interface TitleSuggestion {

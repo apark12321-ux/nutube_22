@@ -1,4 +1,5 @@
 import { CategorySpec, GuidePost, CategoryKey } from './types';
+import { ROADMAP_POSTS } from './data/roadmapPosts';
 import { POSTS_GROUP_1 } from './data/posts1';
 import { POSTS_GROUP_2 } from './data/posts2';
 import { POSTS_GROUP_3_part1 } from './data/posts3_part1';
@@ -538,144 +539,67 @@ const JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK: GuidePost = {
 3. **URL 검사 도구로 개별 요청:** 사이트맵이 적용되기 전까지는 급한 글부터 서치콘솔 상단 URL 검사창에 넣고 [색인 생성 요청]을 수동으로 넣어두면 24시간 내에 색인이 뚫린다.`
 };
 
-const RAW_POSTS: GuidePost[] = [
-  JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY,
-  JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK,
-  JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE,
-  JUNE_16_COMMUNITY_ENGAGEMENT_GUIDE,
-  JUNE_15_AI_VISUAL_STORYTELLING_GUIDE,
-  JUNE_14_SHORTS_RPM_GUIDE,
-  JUNE_11_SEARCH_CONSOLE_GUIDE,
-  PREMIUM_ADSENSE_GUIDE,
-  JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE,
-  INSTAGRAM_REELS_ALGORITHM_GUIDE,
-  INSTAGRAM_SPONSORSHIP_GUIDE,
-  TIKTOK_CRP_GUIDE,
-  DIGITAL_BIZ_EBOOK_GUIDE,
-  ...EXTRA_POSTS,
-  ...POSTS_GROUP_1,
-  ...POSTS_GROUP_2,
-  ...POSTS_GROUP_3_part1,
-  ...POSTS_GROUP_3_part2,
-  ...POSTS_GROUP_3_part3
-];
-
-function mapPostToNewCategoryAndLevel(post: GuidePost): GuidePost {
-  let mappedCategory: CategoryKey = 'youtube';
-  let mappedLevel: 'beginner' | 'intermediate' | 'advanced' = post.level || 'intermediate';
-  let mappedCategoryLabel = '유튜브·쇼츠 기록';
-
-  const slug = (post.slug || '').toLowerCase();
-  const title = (post.title || '').toLowerCase();
-  const cat = (post.category as string || '').toLowerCase();
-
-  if (
-    cat === 'blog' ||
-    slug.includes('adsense') ||
-    slug.includes('sitemap') ||
-    slug.includes('search') ||
-    slug.includes('seo') ||
-    title.includes('애드센스') ||
-    title.includes('서치콘솔') ||
-    title.includes('블로그') ||
-    title.includes('사이트맵') ||
-    title.includes('색인')
-  ) {
-    mappedCategory = 'blog';
-    mappedCategoryLabel = '블로그·애드센스 일지';
-  } else if (
-    cat === 'digital_biz' ||
-    slug.includes('ebook') ||
-    slug.includes('kmon') ||
-    slug.includes('biz') ||
-    slug.includes('passive') ||
-    slug.includes('sponsorship') ||
-    title.includes('전자책') ||
-    title.includes('지식창업') ||
-    title.includes('크몽') ||
-    title.includes('뉴스레터') ||
-    title.includes('협찬') ||
-    title.includes('부수입')
-  ) {
-    mappedCategory = 'digital_biz';
-    mappedCategoryLabel = '지식창업·부수입 기록';
-  } else if (
-    cat === 'aitools' ||
-    cat === 'workflow' ||
-    slug.includes('midjourney') ||
-    slug.includes('elevenlabs') ||
-    slug.includes('tool') ||
-    slug.includes('camera') ||
-    slug.includes('mic') ||
-    slug.includes('capcut') ||
-    title.includes('미드저니') ||
-    title.includes('일레븐랩스') ||
-    title.includes('도구') ||
-    title.includes('장비') ||
-    title.includes('마이크') ||
-    title.includes('AI')
-  ) {
-    mappedCategory = 'workflow';
-    mappedCategoryLabel = '도구 & 장비 리뷰';
-  } else {
-    mappedCategory = 'youtube';
-    mappedCategoryLabel = '유튜브·쇼츠 기록';
-  }
-
-  const mappedAuthor = '1인 크리에이터';
-
-  return {
-    ...post,
-    author: mappedAuthor,
-    category: mappedCategory,
-    categoryLabel: mappedCategoryLabel,
-    level: mappedLevel
-  };
-}
-
-export const ALL_POSTS: GuidePost[] = RAW_POSTS.map(mapPostToNewCategoryAndLevel);
+// Pure 4-Step Single-Topic Roadmap Posts
+export const ALL_POSTS: GuidePost[] = ROADMAP_POSTS;
 
 export const CATEGORY_SPECS: Record<string, CategorySpec> = {
-  youtube: {
-    key: 'youtube',
-    label: '유튜브·쇼츠 기록',
-    icon: 'Play',
-    gradient: 'from-red-500 to-rose-600',
-    description: '직접 채널을 운영하며 겪은 조회수 정체 극복기, 썸네일 테스트, 시청 지속률 훅 설계와 실제 수익 일지',
-    count: ALL_POSTS.filter((p) => p.category === 'youtube').length,
-    persona: '유튜브 실전 기록: "실패했던 수십 편의 영상 끝에 알게 된 진짜 시청 지속률과 알고리즘 팩트"',
-    accentColor: '#ef4444'
-  },
-  blog: {
-    key: 'blog',
-    label: '블로그·애드센스 일지',
-    icon: 'BookOpen',
-    gradient: 'from-emerald-500 to-teal-600',
-    description: '3번의 애드센스 거절을 딛고 승인받은 경험, 서치콘솔 색인 해결, 키워드 검색 유입과 실전 수익 기록',
-    count: ALL_POSTS.filter((p) => p.category === 'blog').length,
-    persona: '블로그 실전 기록: "이론이 아닌 직접 겪어본 애드센스 승인과 서치콘솔 색인 최적화의 모든 것"',
-    accentColor: '#10b981'
-  },
-  digital_biz: {
-    key: 'digital_biz',
-    label: '지식창업·부수입 기록',
-    icon: 'DollarSign',
-    gradient: 'from-amber-500 to-orange-600',
-    description: 'PDF 전자책 20부 완판기, 템플릿 판매, 뉴스레터 발행하며 자동 수익 파이프라인을 만든 생생한 기록',
-    count: ALL_POSTS.filter((p) => p.category === 'digital_biz').length,
-    persona: '부수입 실전 기록: "직장인 퇴근 후 1인 지식 상품으로 월 100만 원 자동화 파이프라인 만든 여정"',
+  step1_starter: {
+    key: 'step1_starter',
+    stepNumber: 1,
+    label: '1단계: 왕초보 시작·세팅',
+    shortLabel: '1단계: 시작·세팅',
+    levelBadge: '입문 (Lv.1)',
+    icon: 'Sparkles',
+    gradient: 'from-amber-500 to-orange-500',
+    description: '구글 브랜드 계정 생성부터 스마트폰+2만 원 마이크 촬영 세팅, 캔바 채널 아트까지 첫 걸음 필수 가이드',
+    count: ALL_POSTS.filter((p) => p.category === 'step1_starter').length,
+    persona: '왕초보 입문: "장비병 없이 스마트폰 하나로 시작하는 1인 유튜브 첫걸음"',
     accentColor: '#f59e0b'
   },
-  workflow: {
-    key: 'workflow',
-    label: '도구 & 장비 리뷰',
-    icon: 'Zap',
-    gradient: 'from-purple-500 to-indigo-600',
-    description: '캡컷, 미드저니, 마이크/조명 등 실제로 사서 테스트해보며 건진 가성비 장비와 작업 시간 단축 노하우',
-    count: ALL_POSTS.filter((p) => p.category === 'workflow').length,
-    persona: '도구 실전 기록: "편집 시간을 4시간에서 40분으로 줄여준 진짜 쓸만한 도구들과 가성비 장비들"',
+  step2_creator: {
+    key: 'step2_creator',
+    stepNumber: 2,
+    label: '2단계: 초보 기획·제작',
+    shortLabel: '2단계: 기획·제작',
+    levelBadge: '초급 (Lv.2)',
+    icon: 'PlayCircle',
+    gradient: 'from-blue-500 to-indigo-600',
+    description: '이탈률을 40% 줄이는 10초 훅 기획, 3단 대본 템플릿, 캡컷 무료 30분 컷편집과 썸네일 공식',
+    count: ALL_POSTS.filter((p) => p.category === 'step2_creator').length,
+    persona: '초보 기획/제작: "촬영이 쉬워지는 3단 대본과 30분 캡컷 편집 실전 루틴"',
+    accentColor: '#3b82f6'
+  },
+  step3_growth: {
+    key: 'step3_growth',
+    stepNumber: 3,
+    label: '3단계: 중급 알고리즘·성장',
+    shortLabel: '3단계: 알고리즘·성장',
+    levelBadge: '중급 (Lv.3)',
+    icon: 'TrendingUp',
+    gradient: 'from-emerald-500 to-teal-600',
+    description: '평균 시청 지속 시간(AVD) 50% 방어, 클릭률(CTR) 8% A/B 테스트, 쇼츠-롱폼 연계 및 정체기 돌파법',
+    count: ALL_POSTS.filter((p) => p.category === 'step3_growth').length,
+    persona: '중급 성장 공략: "알고리즘 추천 피드를 뚫어내는 시청 지속률과 클릭률 공식"',
+    accentColor: '#10b981'
+  },
+  step4_master: {
+    key: 'step4_master',
+    stepNumber: 4,
+    label: '4단계: 고수 수익화·자동화',
+    shortLabel: '4단계: 수익화·자동화',
+    levelBadge: '고급 (Lv.4)',
+    icon: 'BadgePercent',
+    gradient: 'from-purple-500 to-violet-600',
+    description: '8분 미드롤 광고 RPM 3배 극대화, 유튜브 멤버십, 쿠팡 제휴마케팅, PDF 전자책 무인 판매 시스템',
+    count: ALL_POSTS.filter((p) => p.category === 'step4_master').length,
+    persona: '고수 수익화 마스터: "조회수 의존을 넘어 월 수백만 원 고정 수입 만드는 1인 비즈니스"',
     accentColor: '#8b5cf6'
   }
 };
 
-export const CATEGORIES_LIST: CategorySpec[] = Object.values(CATEGORY_SPECS).filter((c) => c.count > 0);
+export const CATEGORIES_LIST: CategorySpec[] = [
+  CATEGORY_SPECS.step1_starter,
+  CATEGORY_SPECS.step2_creator,
+  CATEGORY_SPECS.step3_growth,
+  CATEGORY_SPECS.step4_master
+];
