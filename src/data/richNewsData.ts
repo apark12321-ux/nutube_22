@@ -154,8 +154,6 @@ ${faqSection}`;
     author: category.author,
     summary: config.summary,
     tags: [category.tag, '영상채널운영', '콘텐츠기획', '운영전략', '크리에이터가이드', '최신뉴스'],
-    readTime: '12분',
-    likes: 0,
     authorityLabel: 'Creator Guide Lab Editorial',
     content,
   };

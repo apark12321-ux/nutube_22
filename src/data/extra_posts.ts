@@ -15,8 +15,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '민우',
     summary: '애드센스 승인 통과 후 첫 $100 기준액 달성 시 필수적으로 완료해야 하는 PIN 번호 입력, 은행 SWIFT 식별 코드 매핑, 미국 원천세 세금 양식 작성법 및 수수료 절감형 외화 통장 개설 팁을 완벽 해부합니다.',
     tags: ['애드센스수익', '외화통장', 'SWIFT수수료', '미국세금양식', '달러인출'],
-    readTime: '10분',
-    likes: 312,
     level: 'intermediate',
     content: `## 구글에서 보내주는 달러, 한 푼도 흘리지 않고 내 통장으로 수령하는 법
 
@@ -68,8 +66,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '정기 유료 구독형 뉴스레터를 설계하는 실전 가이드입니다. 스티비(Stibee), 메일러라이트(MailerLite) 세팅부터 무료 리드 마그넷을 통한 첫 1,000명 확보 전술을 공개합니다.',
     tags: ['뉴스레터', '이메일마케팅', '지식창업', '구독모델', '리드마그넷'],
-    readTime: '11분',
-    likes: 312,
     level: 'advanced',
     content: `## 알고리즘 탈출: 이메일 구독 비즈니스의 정수
 
@@ -106,8 +102,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '소수의 고관여 고객에게 프리미엄 가치를 전달하는 고단가 1:1 컨설팅 기획 기법입니다. 고객 인터뷰, 진단 설문지(Application) 세팅법, 가격 저항선 해제 전술을 다룹니다.',
     tags: ['고단가컨설팅', '무자본창업', '설득퍼널', '지식창업', '고객클로징'],
-    readTime: '12분',
-    likes: 295,
     level: 'advanced',
     content: `## 1회성에 그치지 않는 고단가 컨설팅의 작동 원리
 
@@ -142,8 +136,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '에버그린 웨비나(Evergreen Webinar) 실전 가이드입니다. 예약 발송, 영상 시청 상태 추적, 강의 자동 오픈까지 완전히 손을 대지 않는 1인 지식 기업 구축 방법을 공개합니다.',
     tags: ['자동화웨비나', '무인판매', '강의자동화', '에버그린퍼널', '수익자동화'],
-    readTime: '13분',
-    likes: 340,
     level: 'advanced',
     content: `## 무한 복제 가능한 시간의 레버리지
 
@@ -179,8 +171,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '개인 브랜딩 채널로서의 텍스트 미디어 최적화 기법을 학습합니다. 1가지 명확한 키워드로 본인만의 독창적인 슬로건과 톤앤매너를 수립하는 비법을 제안합니다.',
     tags: ['퍼스널브랜딩', '네이버블로그', '브런치', '출간기획', '1인기업가'],
-    readTime: '9분',
-    likes: 270,
     level: 'intermediate',
     content: `## "당신의 이름을 검색했을 때 무엇이 나오는가?"
 
@@ -214,8 +204,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '노션(Notion) 공식 크리에이터가 전수하는 노션 템플릿 비즈니스 실무 가이드입니다. 해외 검로드(Gumroad) 및 롤리(Rowly) 플랫폼에 입점하여 글로벌 정산 지갑을 연결하는 프로세스를 점검합니다.',
     tags: ['노션템플릿', '검로드', '롤리', '글로벌부업', '생산성가이드'],
-    readTime: '8분',
-    likes: 245,
     level: 'beginner',
     content: `## 노션 템플릿 하나로 전 세계에서 달러 벌기
 
@@ -247,8 +235,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '웹사이트 및 랜딩페이지 전환율을 비약적으로 올리기 위한 카피라이팅 작성 가이드입니다. 헤드라인 훅, 고통의 구체화, 혜택 제시, 신뢰 증명, 긴박감 제안 단계별 가이드를 전해드립니다.',
     tags: ['카피라이팅', '랜딩페이지', '설득심리학', '구매전환율', '마케팅공식'],
-    readTime: '10분',
-    likes: 310,
     level: 'intermediate',
     content: `## 좋은 글이 아니라, 행동을 유도하는 글을 써라
 
@@ -275,8 +261,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '지속 가능한 유료 멤버십 커뮤니티 운영 방안입니다. 디스코드 채널 권한 분리, 게릴라 미션, 네이버 카페 등급제 설정을 이용해 충성도 높은 실무자 팬덤을 구축하는 노하우입니다.',
     tags: ['유료커뮤니티', '디스코드', '네이버카페', '멤버십비즈니스', '팬덤마케팅'],
-    readTime: '11분',
-    likes: 285,
     level: 'intermediate',
     content: `## 평생 고객을 만드는 커뮤니티의 힘
 
@@ -303,8 +287,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '지식 창업가들이 흔히 범하는 저가 경쟁에서 벗어나는 법을 설명합니다. 3가지 가격 옵션 프레이밍, 닻 내림 효과(Anchoring), 가치 기반 가격 책정 모델을 실전 적용해 봅니다.',
     tags: ['가격책정', '심리마케팅', '프레이밍', '고단가전략', '지식상품화'],
-    readTime: '9분',
-    likes: 265,
     level: 'advanced',
     content: `## 가격은 가치의 척도이다
 
@@ -332,8 +314,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '레오',
     summary: '웹훅(Webhook)과 노코드 툴을 연동하여 개발자 없이 완벽히 24시간 작동하는 자동 발송 시스템을 세팅하는 실전 지침서입니다.',
     tags: ['자동화시스템', 'Zapier', 'Make', '노코드', '무인정산'],
-    readTime: '11분',
-    likes: 310,
     level: 'advanced',
     content: `## 잠을 자고 있는 동안에도 쉼 없이 굴러가는 1인 기업
 
@@ -363,8 +343,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '인스타 릴스 추천 알고리즘의 핵심인 초반 시청 지속률(Retention)을 끌어올리기 위해, 전 세계 1,000만 뷰어 크리에이터들이 쓰는 비주얼 및 텍스트 후크 기법을 해설합니다.',
     tags: ['릴스후크', '인스타알고리즘', '숏폼기획', '동영상편집', '바이럴콘텐츠'],
-    readTime: '8분',
-    likes: 422,
     level: 'beginner',
     content: `## 첫 1.5초가 조회수의 99%를 결정한다
 
@@ -396,8 +374,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '인스타그램 프로필 페이지 유입 대비 팔로우 버튼 클릭 비율(Conversion Rate)을 최고치로 끌어올리는 레이아웃 최적화 지침입니다.',
     tags: ['프로필최적화', '팔로워증가', '인스타프로필', '브랜딩퍼널', '프로필사진'],
-    readTime: '7분',
-    likes: 380,
     level: 'beginner',
     content: `## 아무리 릴스 조회수가 잘 나와도 팔로워가 안 느는 진짜 이유
 
@@ -426,8 +402,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '메타(Meta) 공식 API 파트너인 매니챗(ManyChat) 솔루션을 활용하여 릴스의 유기적 도달을 복리로 늘리고 상시 판매 자동화를 연동하는 마케팅 실무입니다.',
     tags: ['매니챗', 'ManyChat', 'DM자동화', '인스타자동화', '댓글마케팅'],
-    readTime: '10분',
-    likes: 415,
     level: 'intermediate',
     content: `## 프로필 링크 클릭의 시대는 끝났습니다: 댓글-DM 혁명
 
@@ -453,8 +427,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '단순 팔로워 숫자를 뛰어넘는 마이크로 타겟 채널의 압도적인 반응성(Engagement Rate) 데이터 증명법과 실제 기업에 먼저 발송할 수 있는 콜드메일 제안서 템플릿입니다.',
     tags: ['브랜드협찬', '인플루언서마케팅', '광고제안서', '콜드메일', '피칭포맷'],
-    readTime: '9분',
-    likes: 310,
     level: 'intermediate',
     content: `## 대행사들이 환장하는 마이크로 채널의 세일즈 강점
 
@@ -479,8 +451,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '인스타그램 피드의 3열 가둑 배치를 심리학적으로 정돈하는 그리드 가이드입니다. 시각적 어지러움을 최소화하고 가독성을 확보하는 핵심 원리를 다룹니다.',
     tags: ['인스타디자인', '피드정리', '그리드레이아웃', '컬러팔레트', '비주얼브랜딩'],
-    readTime: '8분',
-    likes: 275,
     level: 'beginner',
     content: `## 피드는 당신의 잡지가 되어야 한다
 
@@ -505,8 +475,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '캐러셀(Carousel, 카드뉴스) 게시물의 핵심 지표인 저장(Save)과 DM 공유(Share)를 수치적으로 올리는 구성 레이아웃 포맷입니다.',
     tags: ['인스타카드뉴스', '캐러셀기획', '인스타알고리즘', '저장률올리기', '바이럴마케팅'],
-    readTime: '9분',
-    likes: 312,
     level: 'intermediate',
     content: `## 릴스만큼 무서운 다중 이미지 슬라이드(Carousel)의 힘
 
@@ -532,8 +500,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '릴스 추천 알고리즘의 작동 원리와 핵심 평가 신호를 상세히 분석합니다. 체류 시간 증가를 유도하는 루프 비디오 기법과 해시태그 배치 공식에 대해 연구합니다.',
     tags: ['릴스알고리즘', '탐색탭노출', '체류시간극대화', '해시태그전략', '바이럴성장'],
-    readTime: '11분',
-    likes: 395,
     level: 'advanced',
     content: `## 알고리즘은 인간의 시각 집중 시간을 추적한다
 
@@ -559,8 +525,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '에이미',
     summary: '수수료 기반의 강력한 인스타 유통 사업인 공동구매 프로세스를 처음부터 끝까지 다룹니다. 도매 소싱처 물색법, 브랜드 수수료 조율 팁, 스토리 판매 스크립트를 공유합니다.',
     tags: ['인스타공동구매', '인스타공구', '소싱기법', '스토리마케팅', '수익다각화'],
-    readTime: '12분',
-    likes: 310,
     level: 'advanced',
     content: `## 유통 마진의 극대화: 크리에이터 공구 세일즈
 
@@ -589,8 +553,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '틱톡의 초기 도달 시스템과 AI 분류 엔진의 가중치 채점 원리를 상세 분석하여 조회수 200회 미만에 갇히는 원인을 속 시원히 해결해 드립니다.',
     tags: ['틱톡알고리즘', '초기노출', '계정활성화', '섀도우밴', '숏폼성장'],
-    readTime: '8분',
-    likes: 375,
     level: 'beginner',
     content: `## 왜 내 영상은 항상 조회수 200회에서 멈출까?
 
@@ -616,8 +578,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '캡컷 편집 앱의 실무 노하우를 바탕으로, 모바일 화면을 뚫고 나오는 역동적인 컷 전환 비디오 기법과 텍스트 추적 모션 그래픽 편집 가이드를 제공합니다.',
     tags: ['비디오편집', '캡컷', 'CapCut', '틱톡편집', '동영상효과'],
-    readTime: '8분',
-    likes: 312,
     level: 'beginner',
     content: `## 틱톡의 속도는 일반 유튜브 쇼츠보다 1.5배 빠르다
 
@@ -642,8 +602,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '미국 및 동남아 시장을 휩쓸고 있는 틱톡 숍 제휴 마케팅(TikTok Shop Affiliate)의 완전 무인 마진 설계법과 해외 타겟 영상 기획 전술을 안내합니다.',
     tags: ['틱톡숍', '제휴마케팅', '글로벌부업', '무자본수익', '달러수익'],
-    readTime: '10분',
-    likes: 388,
     level: 'intermediate',
     content: `## 물건 없이 유통 재벌이 되는 틱톡 숍의 파괴력
 
@@ -668,8 +626,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '틱톡 CRP 수익을 받기 위한 최고의 조건인 완독 수치를 향상시키는 기획 공식입니다. 반전 설계, 중반부 요약 루프 장치를 정립합니다.',
     tags: ['틱톡CRP', '완독률올리기', '체류시간가중치', '스토리기획', '동영상제작'],
-    readTime: '9분',
-    likes: 298,
     level: 'advanced',
     content: `## 60초 이상의 마라톤에서 승리하는 틱톡의 새로운 공식
 
@@ -694,8 +650,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '한국 GPS 기기 장벽을 극복하고 고수익을 보장하는 미국 틱톡 CRP 및 크레이티브 에코시스템 트랙에 가입하기 위한 글로벌 세팅 전술을 소개합니다.',
     tags: ['글로벌틱톡', '미국틱톡', '프록시우회', '해외유심', '수익극대화'],
-    readTime: '11분',
-    likes: 345,
     level: 'advanced',
     content: `## 단가 자체가 다르다: 글로벌 시장 공략
 
@@ -723,8 +677,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '정기 라이브 방송의 필수 요소인 리액션 양식 수립, 시청자 미션 판 짜기, 후원 보상 시퀀스 세팅 등을 체계화합니다.',
     tags: ['틱톡라이브', '스트리밍기획', '기프팅수익', '시청자소통', '팬덤형성'],
-    readTime: '9분',
-    likes: 245,
     level: 'intermediate',
     content: `## 생방송의 짜릿한 도파민을 현금 가치로 환원하라
 
@@ -749,8 +701,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '틱톡 뮤직 트렌드를 선점하는 법과, 브랜드나 개인 지식 크리에이터가 진지한 정보성 채널임에도 유행 음원을 세련되게 음소거 매칭하는 우회 비법을 전수합니다.',
     tags: ['인기음원', '틱톡트렌드', '트렌드재킹', '음원마케팅', '조회수치트키'],
-    readTime: '7분',
-    likes: 290,
     level: 'beginner',
     content: `## 틱톡은 소리로 세상을 지배한다
 
@@ -775,8 +725,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '지식 브랜드의 핵심 가치를 대변할 채널 마스코트 설정, 유니폼 배정, 고유 말투 수립을 통해 시청자 뇌리에 본인을 완전히 낙인찍는 캐릭터 엔지니어링 강의입니다.',
     tags: ['캐릭터브랜딩', '페르소나설계', '퍼스널브랜딩', '틱톡컨셉', '1인기업컨셉'],
-    readTime: '8분',
-    likes: 232,
     level: 'intermediate',
     content: `## 평범한 인포그래픽은 잊혀진다: 페르소나의 매력
 
@@ -801,8 +749,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '제이',
     summary: '공식 마켓플레이스 입점 요건과, 조회수를 기반으로 한 합리적이고 높은 개별 브랜디드 광고 수수료(CPM/CPV) 협상 템플릿입니다.',
     tags: ['틱톡마켓플레이스', 'TTCM', '브랜드제휴', '광고단가', '협상가이드'],
-    readTime: '10분',
-    likes: 280,
     level: 'advanced',
     content: `## 틱톡이 밀어주는 크리에이터 비즈니스의 심장
 
@@ -831,8 +777,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '민우',
     summary: '애드센스 고시를 한 번에 끝내는 실무 공식집입니다. 구글 텍스트 분석 알고리즘이 선호하는 1,500자 완성 포맷과 이미지 ALT 태그 세팅 가이드를 전해드립니다.',
     tags: ['애드센스승인', '구글SEO', '애드센스고시', '블로그글쓰기', '검색최적화'],
-    readTime: '10분',
-    likes: 395,
     level: 'beginner',
     content: `## 애드센스 승인은 감정이 아닌 기계적 규칙의 수용이다
 
@@ -860,8 +804,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '민우',
     summary: '경쟁 없이 안정적인 트래픽 연금을 가져다주는 틈새 키워드 분석 설계안입니다. 롱테일 키워드 배치 공식과 검색 노출 지배력을 다룹니다.',
     tags: ['키워드분석', '황금키워드', '롱테일SEO', '블로그마케팅', '검색엔진최적화'],
-    readTime: '9분',
-    likes: 310,
     level: 'intermediate',
     content: `## 레드오션에서 승부하지 마라: 황금 키워드의 비밀
 
@@ -886,8 +828,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '민우',
     summary: '구글 모바일 친화도 점수를 높여 상단 고정 노출 가중치를 확보하기 위한 서버 엔진 튜닝 비결서입니다. 플러그인 경량화와 CDN 세팅법을 안내합니다.',
     tags: ['워드프레스', '페이지속도', '구글SEO', '최적화튜닝', 'CDN설정'],
-    readTime: '11분',
-    likes: 295,
     level: 'advanced',
     content: `## 구글은 빠른 웹사이트를 우선적으로 배포한다
 
@@ -913,8 +853,6 @@ export const EXTRA_POSTS: GuidePost[] = [
     author: '민우',
     summary: '구글 애널리틱스 4(GA4) 연동을 통해 무효 클릭 IP를 탐지해 내고 구글 클라우드에 신고하거나 자체 자바스크립트로 광고 숨김 처리를 구성하는 방어 백서입니다.',
     tags: ['애드센스보안', '무효클릭', 'IP차단', '광고제한방지', '블로그보안'],
-    readTime: '10분',
-    likes: 310,
     level: 'advanced',
     content: `## 공들여 쌓은 탑을 단번에 날려버리는 무효 클릭 공격의 공포
 

@@ -65,8 +65,6 @@ export interface GuidePost {
   faqList?: FaqItem[];
   content: string;
   tags?: string[];
-  readTime?: string;
-  likes?: number;
   authorityUrl?: string;
   authorityLabel?: string;
   thumbnail?: PostImage;

@@ -408,7 +408,7 @@ export default function App() {
             {/* Main Blog Post List Feed */}
             {paginatedPosts.length > 0 ? (
               <section id="blog-posts-feed" className="divide-y divide-slate-100 dark:divide-slate-800/80">
-                {paginatedPosts.map((item) => (
+                {paginatedPosts.map((item, idx) => (
                   <PostCard 
                     key={item.slug} 
                     post={item} 
@@ -416,6 +416,7 @@ export default function App() {
                     theme={theme} 
                     accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} 
                     onSelect={openPost} 
+                    index={idx}
                   />
                 ))}
               </section>

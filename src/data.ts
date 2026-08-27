@@ -18,8 +18,6 @@ const JUNE_14_SHORTS_RPM_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '유튜브 쇼츠 조회수 100만을 찍고 신나서 애드센스 정산창을 열었을 때 손에 쥔 돈은 겨우 15만 원이었습니다. 숏폼 광고 단가(RPM)의 한계를 뼈저리게 느끼고, 롱폼 전환과 멤버십, 제휴 링크로 실질 수익을 만든 과정을 솔직하게 공유합니다.',
   tags: ['쇼츠수익화', 'RPM상승', '유튜브수익', '숏폼공략', '제휴마케팅'],
-  readTime: '10분',
-  likes: 497,
   authorityLabel: '실제 채널 운영 데이터',
   content: `## 100만 뷰의 기쁨 뒤에 찾아온 15만 원의 충격
 
@@ -86,8 +84,6 @@ const JUNE_15_AI_VISUAL_STORYTELLING_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '처음 AI 쇼츠를 만들 때 장면마다 주인공 얼굴이 바뀌고 기계음이 너무 티 나서 시청자들이 3초 만에 이탈했습니다. 미드저니 --cref 파라미터와 일레븐랩스 감정 조절로 작업 시간을 6시간에서 1시간으로 줄인 작업 워크플로우를 정리했습니다.',
   tags: ['AI스토리', '미드저니', '일레븐랩스', '4K숏폼', '자동화제작'],
-  readTime: '9분',
-  likes: 452,
   authorityLabel: '직접 검증한 워크플로우',
   content: `## 얼굴이 계속 바뀌어서 버린 영상만 수십 편이었다
 
@@ -152,8 +148,6 @@ const JUNE_16_COMMUNITY_ENGAGEMENT_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '채널 초기, 댓글이 달릴 때마다 좋아요만 띡 누르고 지나쳤던 실수를 반성하고, 진심을 담은 질문형 답글로 전환한 뒤 채널 체류 시간과 다음 영상 조회수가 폭발적으로 늘어난 경험을 나눕니다.',
   tags: ['유튜브소통', '댓글관리', '팬덤구축', '알고리즘노출', '체류시간증가'],
-  readTime: '8분',
-  likes: 615,
   authorityLabel: '실제 채널 소통 실험',
   content: `## 하트만 누르고 도망치던 시절의 반성문
 
@@ -193,8 +187,6 @@ const JUNE_11_SEARCH_CONSOLE_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '정성껏 쓴 10편의 블로그 글이 한 달이 지나도록 구글 검색 결과에 단 하나도 뜨지 않았습니다. 서치콘솔의 ‘발견됨’과 ‘크롤링됨’ 상태 코드를 분석하고 사이트맵과 색인 요청으로 24시간 만에 구글 1페이지에 올린 실전 기록입니다.',
   tags: ['SEO', '구글색인', '서치콘솔', '사이트맵', '테크니컬SEO'],
-  readTime: '8분',
-  likes: 384,
   authorityLabel: '실제 블로그 색인 해결 기록',
   content: `## 왜 글이 구글에서 아무리 검색해도 안 나올까?
 
@@ -245,8 +237,6 @@ const PREMIUM_ADSENSE_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '구글 애드센스 신청 후 ‘가치 없는 콘텐츠’로 연달아 3번 거절 메일을 받고 좌절했던 순간, 글 15편의 서식과 분량을 대대적으로 개편하고 카테고리를 단일화하여 단 7일 만에 최종 승인받은 실제 경험을 모두 공개합니다.',
   tags: ['애드센스승인', '수익화전략', '가치없는콘텐츠', '재승인공략', '실전경험담'],
-  readTime: '11분',
-  likes: 428,
   authorityLabel: '직접 겪은 애드센스 승인기',
   content: `## "가입이 거절되었습니다" 메일만 3번 받은 날
 
@@ -289,8 +279,6 @@ const INSTAGRAM_REELS_ALGORITHM_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '인스타그램에서 아무리 감성 사진을 올려도 팔로워가 늘지 않던 상황에서, 릴스 숏폼 중심으로 전환하고 첫 2초 텍스트 배치와 저장 유도 템플릿을 적용해 첫 15만 조회를 달성한 노하우를 정리했습니다.',
   tags: ['인스타수익화', '릴스알고리즘', '인스타그램', '숏폼바이럴', '퍼스널브랜딩'],
-  readTime: '7분',
-  likes: 423,
   authorityLabel: '실제 릴스 테스트 데이터',
   content: `## 예쁜 사진만 올리다 팔로워 80명에서 멈췄던 시절
 
@@ -322,8 +310,6 @@ const INSTAGRAM_SPONSORSHIP_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '팔로워가 만 명은 넘어야 협찬을 받을 수 있다는 편견을 깨고, 팔로워 1,200명 시절에 타겟 브랜드에 먼저 DM과 제안서를 보내 제품 협찬과 30만 원의 원고료를 유치했던 실전 경험담입니다.',
   tags: ['마이크로인플루언서', '인스타협찬', 'DM제안', '수익화전략', '공동구매'],
-  readTime: '7분',
-  likes: 312,
   authorityLabel: '실제 제안서 발송 경험',
   content: `## 기다리기만 하면 아무도 먼저 연락해주지 않는다
 
@@ -364,8 +350,6 @@ const TIKTOK_CRP_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '틱톡에서 15초짜리 챌린지만 하다가 1분 이상 정보성 영상으로 전환하여 크리에이터 리워드 프로그램(CRP)에 가입하고 실제로 달러 수익을 정산받은 과정을 기록했습니다.',
   tags: ['틱톡수익화', 'CRP', '틱톡알고리즘', '1분영상', '바이럴숏폼'],
-  readTime: '8분',
-  likes: 388,
   authorityLabel: '실제 틱톡 정산 기록',
   content: `## 15초 춤추던 틱톡은 끝났다: 1분 영상의 힘
 
@@ -391,8 +375,6 @@ const DIGITAL_BIZ_EBOOK_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '재고도 없고 택배 포장도 필요 없는 100% 순마진의 PDF 전자책을 직접 기획하고 집필하여, 크몽 플랫폼 승인을 거쳐 잠자는 동안에도 통장에 돈이 들어오는 자동 판매망을 구축한 실제 이야기입니다.',
   tags: ['전자책수익', '지식창업', '패시브인컴', '크몽판매', '자동화수익'],
-  readTime: '10분',
-  likes: 411,
   authorityLabel: '실제 전자책 판매 경험담',
   content: `## 사소한 경험도 누군가에게는 돈을 주고 살 지식이었다
 
@@ -430,8 +412,6 @@ const JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '유튜브에 영상을 올리면 추천 피드에 안 뜨면 그대로 죽어버리던 채널. 검색창에 검색했을 때 꾸준히 조회수가 들어오도록 만든 유튜브 SEO 업로드 체크리스트를 공개합니다.',
   tags: ['유튜브SEO', '알고리즘최적화', '업로드전략', '검색엔진최적화', '채널브랜딩'],
-  readTime: '9분',
-  likes: 475,
   authorityLabel: '실제 검색 유입 달성기',
   content: `## 알고리즘 추천만 기다리다 지친 크리에이터들에게
 
@@ -459,8 +439,6 @@ const JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE: GuidePost = {
   author: '1인 크리에이터',
   summary: '형광색 테두리의 화려한 예능 자막을 도배하던 쇼츠 영상들이 왜 3초 만에 넘겨졌는지 깨닫고, 눈이 편안한 미니멀 자막과 첫 3초 시선 집중 연출로 시청 지속시간을 끌어올린 경험담입니다.',
   tags: ['숏폼디자인', '자막스타일', '초입후킹', '가독성', '시청지속시간'],
-  readTime: '7분',
-  likes: 418,
   authorityLabel: '실제 디자인 개선 테스트',
   content: `## 자막이 화려할수록 시청자는 더 빨리 도망갔다
 
@@ -490,8 +468,6 @@ const JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY: GuidePost = {
   author: '1인 크리에이터',
   summary: '구글 애드센스 심사에서 가장 무서운 거절 사유인 ‘가치가 별로 없는 콘텐츠(Low-value content)’. 다른 블로그 글 요약해서 쓰던 나쁜 버릇을 버리고, 진짜 경험과 통계 데이터를 녹여 단 일주일 만에 승인 통과한 과정을 기록합니다.',
   tags: ['애드센스거절', '가치가별로없는콘텐츠', '재승인기록', '구글봇통과', '수익형블로그'],
-  readTime: '9분',
-  likes: 896,
   authorityLabel: '실제 거절 극복 수기',
   content: `## 작성한 글이 왜 '가치가 별로 없다'는 걸까?
 
@@ -521,8 +497,6 @@ const JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK: GuidePost = {
   author: '1인 크리에이터',
   summary: '구글 서치콘솔에 사이트맵을 제출했는데도 계속 빨간색 ‘가져올 수 없음(Could not fetch)’ 오류가 떠서 밤을 새웠던 경험과, 실제 백엔드 XML 라우팅을 고쳐 단번에 초록색 ‘성공’으로 바꾼 실전 해결기입니다.',
   tags: ['구글서치콘솔', '가져올수없음', '사이트맵수정', 'XML문파싱', '서치콘솔오류'],
-  readTime: '8분',
-  likes: 724,
   authorityLabel: '실제 에러 트러블슈팅',
   content: `## 제출할 때마다 빨간색 '가져올 수 없음'이 뜰 때의 답답함
 

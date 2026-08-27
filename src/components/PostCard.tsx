@@ -1,6 +1,7 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { GuidePost } from '../types';
-import { Calendar, User, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 
@@ -10,9 +11,10 @@ interface PostCardProps {
   accentColor: string;
   href: string;
   theme?: 'light' | 'dark';
+  index?: number;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme = 'light' }) => {
+export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme = 'light', index = 0 }) => {
   const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -23,7 +25,18 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
   const dark = theme === 'dark';
 
   return (
-    <article id={`post-card-${post.slug}`} className="group py-6 first:pt-0 last:pb-0 border-b border-slate-200/80 dark:border-slate-800 transition-colors">
+    <motion.article
+      id={`post-card-${post.slug}`}
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{
+        duration: 0.4,
+        delay: Math.min((index % 6) * 0.06, 0.3),
+        ease: [0.25, 0.1, 0.25, 1.0],
+      }}
+      className="group py-6 first:pt-0 last:pb-0 border-b border-slate-200/80 dark:border-slate-800 transition-colors"
+    >
       <a
         href={href}
         onClick={handleClick}
@@ -87,6 +100,6 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
           </div>
         </div>
       </a>
-    </article>
+    </motion.article>
   );
 };
