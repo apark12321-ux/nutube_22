@@ -4,7 +4,7 @@ export const POSTS_GROUP_3_part3: GuidePost[] = [
   {
     slug: 'advanced-revenue-diversification-strategy',
     title: '광고 수익에만 기대지 않는 채널이 오래갑니다',
-    subtitle: '수익원 다각화의 단계별 설계',
+    subtitle: '수익원 다각화의 맞춤 설계',
     category: 'advanced',
     categoryLabel: '중고수 전략',
     publishedAt: '2026-05-17T10:10:33.000Z',
@@ -37,11 +37,11 @@ YouTube 쇼핑, 자체 제품, 굿즈입니다. 리뷰·하울·일상 채널에
 
 브랜드 협찬, 강의, 컨설팅, 어필리에이트입니다. 채널을 기반으로 채널 밖에서 수익을 만드는 방식입니다. 단가가 가장 높습니다.
 
-## 단계별 도입 순서
+## 순차적 도입 순서
 
 한 번에 다 하려 하지 마십시오. 순서가 있습니다.
 
-1. **광고 수익 안정화** (수익화 조건 충족)
+1. **광고 수익 안정화** (파트너 프로그램 조건 충족)
 2. **팬 펀딩 추가** (멤버십·슈퍼챗 활성화)
 3. **협찬 시작** (구독자 1만 전후부터 제안 유입)
 4. **커머스·외부 수익** (브랜드가 확립된 후)
@@ -365,13 +365,13 @@ YouTube 쇼핑, 자체 제품, 굿즈입니다. 리뷰·하울·일상 채널에
   },
   {
     slug: 'youtube-monetization-may-checkpoint',
-    title: '5월 수익화 점검, 지금 채널이 어디쯤인지 확인하세요',
+    title: '5월 채널 점검, 지금 채널이 어디쯤인지 확인하세요',
     subtitle: '분기 중간 시점, 운영자가 챙겨야 할 7가지 지표',
     category: 'monetization',
-    categoryLabel: '영상 채널 수익화',
+    categoryLabel: '채널 운영 가이드',
     publishedAt: '2026-05-19T10:09:02.000Z',
     author: '민우',
-    tags: ['수익화점검', '5월', '분기점검', '광고수익', 'RPM'],
+    tags: ['채널점검', '5월', '분기점검', '광고수익', 'RPM'],
     summary: '5월 중순은 분기 중간 점검에 가장 좋은 시점입니다. 광고 수익, 채널 멤버십, 시청자 인구 통계를 짚어가면서 하반기 전략을 다시 잡으시기 바랍니다.',
     authorityUrl: 'https://support.google.com/youtube/answer/72851',
     authorityLabel: 'YouTube 파트너 프로그램',
@@ -604,7 +604,7 @@ YouTube Studio → 통계 → 시청자 → 신규 vs 재방문에서 확인하�
     title: '커뮤니티 탭, 영상만큼 채널을 키우는 공간입니다',
     subtitle: '게시물·설문·이미지로 시청자와 관계를 쌓는 법',
     category: 'advanced',
-    categoryLabel: '고급 전략',
+    categoryLabel: '심화 전략',
     publishedAt: '2026-05-30T11:00:00.000Z',
     author: '민우',
     tags: ['커뮤니티탭', '시청자소통', '채널운영', '참여율', '2026년'],
@@ -661,7 +661,7 @@ YouTube Studio → 통계 → 시청자 → 신규 vs 재방문에서 확인하�
     title: '최종 화면과 카드, 조회수를 이어주는 장치입니다',
     subtitle: '영상 끝에서 시청자를 다음 영상으로 자연스럽게',
     category: 'advanced',
-    categoryLabel: '고급 전략',
+    categoryLabel: '심화 전략',
     publishedAt: '2026-05-31T14:00:00.000Z',
     author: '민우',
     tags: ['최종화면', '카드', '세션시간', '추천연결', '2026년'],
@@ -683,7 +683,7 @@ YouTube Studio → 통계 → 시청자 → 신규 vs 재방문에서 확인하�
 - 다음 추천 영상 1개 (이 영상과 연관된 주제)
 - 구독 버튼 1개
 
-추천 영상은 "시청자가 방금 본 영상과 이어지는 것"을 골라야 해요. 전혀 다른 주제를 추천하면 클릭률이 떨어져요. 예를 들어 입문 영상을 봤으면 그 다음 단계 영상을 추천하는 식이에요.
+추천 영상은 "시청자가 방금 본 영상과 이어지는 것"을 골라야 해요. 전혀 다른 주제를 추천하면 클릭률이 떨어져요. 예를 들어 기초 영상을 봤으면 그 다음 심화 영상을 추천하는 식이에요.
 
 ## 카드 활용법
 
@@ -716,7 +716,7 @@ YouTube Studio → 통계 → 시청자 → 신규 vs 재방문에서 확인하�
     title: '업로드 시간, 언제 올리는 게 좋을까요',
     subtitle: '초보자가 발행 시간을 정하는 현실적인 기준',
     category: 'beginner',
-    categoryLabel: '입문 가이드',
+    categoryLabel: '기초 가이드',
     publishedAt: '2026-06-01T10:00:00.000Z',
     author: '민우',
     tags: ['업로드시간', '발행전략', '초보', '시청자활동', '2026년'],
@@ -829,7 +829,7 @@ YouTube Studio → 통계 → 시청자 → 신규 vs 재방문에서 확인하�
     title: '클릭을 부르는 썸네일, 무료 도구로 만드는 기초',
     subtitle: '초보자가 비싼 프로그램 없이 시작하는 썸네일 만들기',
     category: 'beginner',
-    categoryLabel: '입문 가이드',
+    categoryLabel: '기초 가이드',
     publishedAt: '2026-06-08T10:00:00.000Z',
     author: '민우',
     tags: ['썸네일', '초보', '캔바', '클릭률', '2026년'],

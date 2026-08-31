@@ -65,7 +65,7 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
 
   const TITLE_OPTIMIZATION_MAP: Record<string, string> = {
     // src/data.ts posts
-    '쇼츠 RPM 300% 폭발 성장 공식: 롱폼 제휴와 멤버십 연동형 고수익 오토메이션 기법': '유튜브 쇼츠 RPM 상승을 위한 고단가 수익화 전략',
+    '쇼츠 RPM 300% 폭발 성장 공식: 롱폼 제휴와 멤버십 연동형 고수익 오토메이션 기법': '유튜브 쇼츠 RPM 상승을 위한 고단가 채널 비즈니스 전략',
     'ElevenLabs & Midjourney 초고속 시각 스토리텔링: 1시간 만에 4K 숏폼 다큐 제작법': 'AI 도구를 활용한 고품질 숏폼 다큐멘터리 제작법',
     '댓글 점수를 폭등시키는 시니어 팬덤 소통 공역: 시청 지속 시간을 늘리는 감성 댓글 매뉴얼': '유튜브 시니어 채널 활성화를 위한 댓글 소통 전략',
     '구글 서치콘솔 색인 등록 100% 성공 보증서: 동적 URL 매핑과 사이트맵 수동 개조 전략': '구글 서치콘솔 색인 생성 오류 원인과 등록 방법',
@@ -77,10 +77,10 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
 
     // Static posts with dates/hype
     '2026 유튜브 추천 알고리즘, 무엇이 바뀌었나': '유튜브 추천 알고리즘 최근 변화와 대응 가이드',
-    '유튜브 수익화 자격 조건, 2026년 변경된 기준 정리': '유튜브 수익화 자격 조건과 최신 기준 정리',
+    '유튜브 파트너 자격 조건, 2026년 변경된 기준 정리': '유튜브 파트너 프로그램 자격 조건과 최신 기준 정리',
     '쇼츠 알고리즘, 2026년엔 \'재시청률\'이 핵심입니다': '유튜브 쇼츠 알고리즘 핵심 노출 지표 분석',
     '2026년 2분기, 추천 시스템 가중치가 또 바뀌었다': '유튜브 추천 시스템 가중치 변화와 노출 분석',
-    '5월 수익화 점검, 지금 채널이 어디쯤인지 확인하세요': '유튜브 수익화 조건 점검과 채널 성장 지표',
+    '5월 채널 점검, 지금 채널이 어디쯤인지 확인하세요': '유튜브 파트너 프로그램 조건 점검과 채널 성장 지표',
     '시니어 사연 쇼츠 댓글이 증가하는 한 줄, 이 패턴이에요': '시니어 채널 시청자 댓글과 참여율을 늘리는 방법',
     'YouTube Studio 분석, 진짜 봐야 할 지표는 따로 있습니다': '유튜브 스튜디오 핵심 데이터 분석 및 주요 지표',
     '장비, 처음부터 비싼 거 살 필요 없어요': '유튜브 초보자를 위한 가성비 촬영 장비 가이드',
@@ -95,7 +95,7 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
     '시청자의 자발적인 참여를 이끌어내고 알고리즘 노출을 극대화하는 실전 답글 작법': '시청자 참여율을 높이고 커뮤니티 활성화를 유도하는 실전 답글 가이드',
     '포털 크롤러를 내 사이트로 무조건 자석처럼 끌어당기는 고유 캐노니컬 태그 설계와 네이버/구글 동시 색인 기각 해소법': '발견됨 또는 크롤링됨 현재 색인 생성되지 않음 원인과 해결책',
     '가치 없는 콘텐츠와 중복 계정 탈락 사슬을 정면 돌파하고 광고 수익 채널 활성화하기': '가치 없는 콘텐츠 해결 및 실전 경험 중심 글쓰기 강화',
-    '기획에 쏟는 열정만큼 중요한 업로드 최적화 세팅 — 검색 상위 노출과 고관여 체류시간을 창출하는 핵심 디바이스': '검색 상위 노출과 시청 지속 시간을 확보하는 단계별 체크리스트',
+    '기획에 쏟는 열정만큼 중요한 업로드 최적화 세팅 — 검색 상위 노출과 고관여 체류시간을 창출하는 핵심 디바이스': '검색 상위 노출과 시청 지속 시간을 확보하는 필수 체크리스트',
     '산만하고 과한 풀컬러 예능형 자막을 버리고, 시청자 지속시간을 복리로 잠그는 고감도 미니멀 서체 구성안': '미니멀한 자막 배치와 시각적 후킹을 활용한 시청 유지 전략',
     '알고리즘이 분류하는 무가치 필터 우회 공식과 실시간 index.html 경로 봇 접근 승인 프로세스': '애드센스 승인을 위한 콘텐츠 개편 가이드와 Ads.txt 문제 해결',
     '서버-클라우드 포트 대칭 매핑과 2중 XML 통합 규격 개조법으로 구글 크롤러 즉각 소집 가속하기': '검색엔진 크롤링을 정상화하여 수집률을 개선하는 사이트맵 구성',
@@ -128,7 +128,7 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
     '예산 없이 시작하는 AI 이미지 활용법': '썸네일 배경 및 일러스트용 무료 AI 이미지 생성 팁',
     '2채널·팀 운영·외주의 판단 기준': '채널 활성화 이후 멀티 채널 운영 및 분업 의사결정',
     '60초 안에 감정을 만드는 구조': '시청자 이탈을 방지하는 숏폼 기둥식 5단계 구성법',
-    'YPP 진입 요건과 단계별 수익화 옵션': '유튜브 파트너 프로그램 자격 요건 및 수익 신청 절차',
+    'YPP 진입 요건과 맞춤 파트너 옵션': '유튜브 파트너 프로그램 자격 요건 및 수익 신청 절차',
     '썸네일을 보자마자 거른다고 한 시청자들의 실제 이유': '클릭률 저조 썸네일의 유형 분석과 가독성 강화',
     'ChatGPT, Claude, Gemini, Notion AI - 뭐가 제일 잘 써질까': 'AI 모델별 대본 작성 스타일 및 프롬프트 요령',
     '계정 생성부터 채널아트까지 30분 완성': '시각 디자인 전문가 없이 채널의 첫인상을 설계하는 법',
@@ -158,7 +158,7 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
       .replace(/\b2025년\s*/g, '최근 ')
       .replace(/\b5월\s*둘째\s*주\s*이후/g, '최근')
       .replace(/\b5월\s*들어/g, '최근')
-      .replace(/\b5월\s*수익화/g, '수익화')
+      .replace(/\b5월\s*채널점검/g, '파트너 프로그램 점검')
       .replace(/\b5월\s*기준/g, '최근 기준')
       .replace(/\b6월\s*기준/g, '최근 기준')
       .replace(/오늘\s*\(2026년\s*6월\s*19일\)/g, '최근')
@@ -218,23 +218,23 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
       if (oldCat === 'beginner') {
         mappedCategory = 'youtube';
         mappedLevel = 'beginner';
-        mappedCategoryLabel = '유튜브 수익화';
+        mappedCategoryLabel = '채널 개설 & 스마트폰 세팅';
       } else if (oldCat === 'algorithm') {
         mappedCategory = 'youtube';
         mappedLevel = 'intermediate';
-        mappedCategoryLabel = '유튜브 수익화';
+        mappedCategoryLabel = '10초 훅 기획 & 캡컷 컷편집';
       } else if (oldCat === 'monetization') {
         mappedCategory = 'youtube';
         mappedLevel = 'advanced';
-        mappedCategoryLabel = '유튜브 수익화';
+        mappedCategoryLabel = '알고리즘 분석 & 채널 성장';
       } else if (oldCat === 'senior') {
         mappedCategory = 'youtube';
         mappedLevel = 'beginner';
-        mappedCategoryLabel = '유튜브 수익화';
+        mappedCategoryLabel = '채널 개설 & 스마트폰 세팅';
       } else if (oldCat === 'advanced') {
         mappedCategory = 'youtube';
         mappedLevel = 'advanced';
-        mappedCategoryLabel = '유튜브 수익화';
+        mappedCategoryLabel = '다중 파이프라인 & 자동화';
       }
 
       return {

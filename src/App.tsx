@@ -101,7 +101,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
   about: {
     title: '운영자 소개 & 블로그 철학',
     updated: '2026년 8월 30일',
-    intro: '안녕하세요, 1인 미디어와 콘텐츠 엔지니어링을 기록하는 운영자 민우입니다. 300만 원짜리 장비 욕심으로 시작했다가 쓰라린 실패를 맛본 뒤, 스마트폰 한 대로 0에서부터 다시 쌓아 올린 실전 크리에이터의 일지입니다.',
+    intro: '안녕하세요, 1인 미디어와 콘텐츠 엔지니어링을 전달하는 운영자 민우입니다. 300만 원짜리 장비 욕심으로 시작했다가 쓰라린 실패를 맛본 뒤, 스마트폰 한 대로 0에서부터 다시 쌓아 올린 실전 크리에이터의 이야기입니다.',
     sections: [
       {
         heading: '1. 장비 욕심으로 300만 원 날리고 얻은 교훈',
@@ -111,10 +111,10 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
         ]
       },
       {
-        heading: '2. 왜 이 기록 공간을 만들었는가',
+        heading: '2. 왜 이 공유 공간을 만들었는가',
         body: [
           '유튜브와 블로그를 키우는 과정에서 인터넷에 넘쳐나는 "하루 10분으로 월 천만 원" 같은 허황된 강의와 자극적인 어그로에 지쳤습니다.',
-          '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 찍힌 정산금(15만 원)의 실체, 애드센스 3번 연속 거절당하고 4번째에 단번에 뚫어낸 글쓰기 공식, 전자책 100만 원 매출을 낸 퍼널 구조 등 제가 직접 돈 쓰고 시간 써서 겪은 팩트와 수치 데이터만을 가감 없이 기록하기 위해 이 블로그를 만들었습니다.'
+          '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 찍힌 정산금(15만 원)의 실체, 애드센스 3번 연속 거절당하고 4번째에 단번에 뚫어낸 글쓰기 공식, 전자책 100만 원 매출을 낸 퍼널 구조 등 제가 직접 돈 쓰고 시간 써서 겪은 팩트와 수치 데이터만을 가감 없이 정리하기 위해 이 블로그를 만들었습니다.'
         ]
       },
       {
@@ -136,7 +136,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
   contact: {
     title: '문의 및 피드백',
     updated: '2026년 8월 30일',
-    intro: '크리에이터 노트에 기록된 가이드 내용에 대한 피드백, 제휴 제안, 혹은 유튜브/블로그 운영 중 겪는 고민이 있으시다면 언제든 편하게 남겨주세요.',
+    intro: '크리에이터 노트에 담긴 가이드 내용에 대한 피드백, 제휴 제안, 혹은 유튜브/블로그 운영 중 겪는 고민이 있으시다면 언제든 편하게 남겨주세요.',
     sections: [
       {
         heading: '1. 온라인 문의 안내',
@@ -198,7 +198,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
         heading: '2. 쿠키(Cookie) 및 구글 애드센스(Google AdSense) 광고 게재 고지',
         body: [
           '본 블로그는 구글(Google LLC)을 포함한 제3자 광고 사업자가 제공하는 광고 서비스(Google AdSense)를 이용합니다.',
-          '구글 및 제3자 제공업체는 쿠키(DART 쿠키 등)를 사용하여 사용자의 본 사이트 및 다른 웹사이트 방문 기록을 바탕으로 관심사 기반의 맞춤형 광고를 게재할 수 있습니다.',
+          '구글 및 제3자 제공업체는 쿠키(DART 쿠키 등)를 사용하여 사용자의 본 사이트 및 다른 웹사이트 방문 내역을 바탕으로 관심사 기반의 맞춤형 광고를 게재할 수 있습니다.',
           '사용자는 원치 않을 경우 광고 설정(https://www.google.com/settings/ads) 페이지를 방문하여 구글의 개인 맞춤 광고 설정을 직접 해제(Opt-out)하거나 관리하실 수 있습니다.',
           '또한 www.aboutads.info 사이트를 방문하여 제3자 공급업체의 맞춤형 광고용 쿠키 사용을 선택적으로 비활성화할 수 있습니다.'
         ]
@@ -362,15 +362,15 @@ export default function App() {
             }`}>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="text-xs font-extrabold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
-                  민우의 크리에이터 노트
+                  민우의 크리에이터 가이드
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">5년 차 1인 크리에이터의 시행착오 실전 일지</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">5년 차 1인 크리에이터의 시행착오 실전 가이드</span>
               </div>
               <h1 className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight mb-3 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                스마트폰 하나로 시작해 월 100만 원 만드는 1인 유튜브 실전 기록
+                스마트폰 하나로 시작해 월 100만 원 만드는 1인 유튜브 실전 가이드
               </h1>
               <p className={`text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                300만 원짜리 장비 욕심으로 첫 채널을 날린 뒤, 스마트폰 1대와 5천 원짜리 거치대로 다시 시작해 월 100만 원 복합 파이프라인을 구축한 5년간의 팩트 데이터와 시행착오를 가감 없이 정리한 일지입니다.
+                300만 원짜리 장비 욕심으로 첫 채널을 날린 뒤, 스마트폰 1대와 5천 원짜리 거치대로 다시 시작해 월 100만 원 복합 파이프라인을 구축한 5년간의 팩트 데이터와 시행착오를 가감 없이 정리한 실전자료입니다.
               </p>
 
               {/* 4-Step Quick Selector */}
@@ -595,10 +595,10 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/60 dark:border-slate-800/80">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
-                기록
+                가이드
               </div>
-              <span className="font-bold text-slate-900 dark:text-white">크리에이터 노트</span>
-              <span className="text-slate-400">| 1인 미디어 &amp; 수익화 실전 일지</span>
+              <span className="font-bold text-slate-900 dark:text-white">크리에이터 가이드</span>
+              <span className="text-slate-400">| 1인 미디어 운영 실전 노하우</span>
             </div>
 
             <div className="flex items-center gap-4 text-xs font-medium">
@@ -610,8 +610,8 @@ export default function App() {
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 크리에이터 노트 (Creator Note). All rights reserved.</p>
-            <p>1인 크리에이터의 실전 경험과 팩트 중심 기록</p>
+            <p>© 2026 크리에이터 가이드 (Creator Guide). All rights reserved.</p>
+            <p>1인 크리에이터의 실전 경험과 팩트 중심 가이드</p>
           </div>
         </div>
       </footer>

@@ -12,12 +12,12 @@ const JUNE_14_SHORTS_RPM_GUIDE: GuidePost = {
   title: '쇼츠 조회수 100만 찍고도 정산금 15만 원 받고 충격받아 바꾼 3가지 수익 전략',
   subtitle: '단순 조회수만 좇다가 현타 온 뒤, 관련 동영상 연동과 고정 댓글로 실질 수익 10배 끌어올린 실전 경험담',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-06-14T10:00:00Z',
   updatedAt: '2026-06-14T10:30:00Z',
   author: '1인 크리에이터',
   summary: '유튜브 쇼츠 조회수 100만을 찍고 신나서 애드센스 정산창을 열었을 때 손에 쥔 돈은 겨우 15만 원이었습니다. 숏폼 광고 단가(RPM)의 한계를 뼈저리게 느끼고, 롱폼 전환과 멤버십, 제휴 링크로 실질 수익을 만든 과정을 솔직하게 공유합니다.',
-  tags: ['쇼츠수익화', 'RPM상승', '유튜브수익', '숏폼공략', '제휴마케팅'],
+  tags: ['쇼츠성장전략', 'RPM상승', '유튜브수익', '숏폼공략', '제휴마케팅'],
   authorityLabel: '실제 채널 운영 데이터',
   content: `## 100만 뷰의 기쁨 뒤에 찾아온 15만 원의 충격
 
@@ -27,7 +27,7 @@ const JUNE_14_SHORTS_RPM_GUIDE: GuidePost = {
 
 조회수 1,000회당 떨어지는 수익(RPM)은 고작 **0.15원**이었다. 영상 하나 만드느라 주말 내내 쏟아부은 시간과 노력을 생각하면 시급 5,000원도 안 되는 수준이었다. "단순히 쇼츠 조회수만 올려서는 절대 지속 가능한 1인 비즈니스를 만들 수 없겠구나"라는 뼈아픈 깨달음을 얻은 순간이었다.
 
-그날 이후 단순 조회수 경쟁을 멈추고, 쇼츠를 채널의 **'가장 강력한 무료 입구(Traffic Magnet)'**로 활용하는 3단계 수익화 파이프라인으로 구조를 뜯어고쳤다.
+그날 이후 단순 조회수 경쟁을 멈추고, 쇼츠를 채널의 **'가장 강력한 무료 입구(Traffic Magnet)'**로 활용하는 3개 축 파이프라인으로 구조를 뜯어고쳤다.
 
 ---
 
@@ -142,7 +142,7 @@ const JUNE_16_COMMUNITY_ENGAGEMENT_GUIDE: GuidePost = {
   title: '댓글 하나하나 진심으로 답글 달았더니 시청 지속시간과 조회수가 2배 뛴 이유',
   subtitle: '기계적인 복붙 답변 대신 독자 이름을 부르고 질문을 던지며 진성 팬덤을 만든 실전 소통 방식',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-06-16T12:00:00Z',
   updatedAt: '2026-06-16T12:15:00Z',
   author: '1인 크리에이터',
@@ -181,13 +181,13 @@ const JUNE_11_SEARCH_CONSOLE_GUIDE: GuidePost = {
   title: '작성한 글이 3주 동안 구글에 안 뜰 때 서치콘솔에서 색인 뚫어낸 방법',
   subtitle: '‘발견됨 - 현재 색인 생성되지 않음’ 오류에 갇혔다가 캐노니컬 태그와 사이트맵 수리로 24시간 만에 노출시킨 과정',
   category: 'blog',
-  categoryLabel: '블로그·애드센스 일지',
+  categoryLabel: '블로그·애드센스 가이드',
   publishedAt: '2026-06-11T09:00:00Z',
   updatedAt: '2026-06-11T10:00:00Z',
   author: '1인 크리에이터',
-  summary: '정성껏 쓴 10편의 블로그 글이 한 달이 지나도록 구글 검색 결과에 단 하나도 뜨지 않았습니다. 서치콘솔의 ‘발견됨’과 ‘크롤링됨’ 상태 코드를 분석하고 사이트맵과 색인 요청으로 24시간 만에 구글 1페이지에 올린 실전 기록입니다.',
+  summary: '정성껏 쓴 10편의 블로그 글이 한 달이 지나도록 구글 검색 결과에 단 하나도 뜨지 않았습니다. 서치콘솔의 ‘발견됨’과 ‘크롤링됨’ 상태 코드를 분석하고 사이트맵과 색인 요청으로 24시간 만에 구글 1페이지에 올린 실전 해결 사례입니다.',
   tags: ['SEO', '구글색인', '서치콘솔', '사이트맵', '테크니컬SEO'],
-  authorityLabel: '실제 블로그 색인 해결 기록',
+  authorityLabel: '실제 블로그 색인 해결 사례',
   content: `## 왜 글이 구글에서 아무리 검색해도 안 나올까?
 
 블로그를 개설하고 3주 동안 매일 2시간씩 땀 흘려 15편의 장문 글을 썼다. 당연히 구글에서 검색 유입이 일어날 줄 알았다.
@@ -231,12 +231,12 @@ const PREMIUM_ADSENSE_GUIDE: GuidePost = {
   title: '애드센스 ‘가치 없는 콘텐츠’ 3번 거절당한 뒤 7일 만에 승인받은 글쓰기 수정기',
   subtitle: '일기 쓰듯 짧게 쓴 글 15편 다 뜯어고치고, 카테고리 하나로 좁혀서 단번에 합격 통보받은 전 과정',
   category: 'blog',
-  categoryLabel: '블로그·애드센스 일지',
+  categoryLabel: '블로그·애드센스 가이드',
   publishedAt: '2026-06-09T08:00:00Z',
   updatedAt: '2026-06-09T08:30:00Z',
   author: '1인 크리에이터',
   summary: '구글 애드센스 신청 후 ‘가치 없는 콘텐츠’로 연달아 3번 거절 메일을 받고 좌절했던 순간, 글 15편의 서식과 분량을 대대적으로 개편하고 카테고리를 단일화하여 단 7일 만에 최종 승인받은 실제 경험을 모두 공개합니다.',
-  tags: ['애드센스승인', '수익화전략', '가치없는콘텐츠', '재승인공략', '실전경험담'],
+  tags: ['애드센스승인', '콘텐츠전략', '가치없는콘텐츠', '재승인공략', '실전경험담'],
   authorityLabel: '직접 겪은 애드센스 승인기',
   content: `## "가입이 거절되었습니다" 메일만 3번 받은 날
 
@@ -271,14 +271,14 @@ const PREMIUM_ADSENSE_GUIDE: GuidePost = {
 const INSTAGRAM_REELS_ALGORITHM_GUIDE: GuidePost = {
   slug: 'instagram-reels-algorithm-formula',
   title: '릴스 조회수 200회에서 15만 회로 터졌을 때 바꿨던 첫 2초 후킹과 저장 유도법',
-  subtitle: '예쁘게만 편집하던 피드 버리고, 사람들이 저장하고 공유하게 만든 콘텐츠 포맷 변경 기록',
+  subtitle: '예쁘게만 편집하던 피드 버리고, 사람들이 저장하고 공유하게 만든 콘텐츠 포맷 변경 사례',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-07-11T10:00:00Z',
   updatedAt: '2026-07-11T10:15:00Z',
   author: '1인 크리에이터',
   summary: '인스타그램에서 아무리 감성 사진을 올려도 팔로워가 늘지 않던 상황에서, 릴스 숏폼 중심으로 전환하고 첫 2초 텍스트 배치와 저장 유도 템플릿을 적용해 첫 15만 조회를 달성한 노하우를 정리했습니다.',
-  tags: ['인스타수익화', '릴스알고리즘', '인스타그램', '숏폼바이럴', '퍼스널브랜딩'],
+  tags: ['인스타성장', '릴스알고리즘', '인스타그램', '숏폼바이럴', '퍼스널브랜딩'],
   authorityLabel: '실제 릴스 테스트 데이터',
   content: `## 예쁜 사진만 올리다 팔로워 80명에서 멈췄던 시절
 
@@ -304,12 +304,12 @@ const INSTAGRAM_SPONSORSHIP_GUIDE: GuidePost = {
   title: '팔로워 1,200명일 때 브랜드에 먼저 DM 보내서 30만 원 원고료 협찬 따낸 방법',
   subtitle: '수만 팔로워 없어도 채널의 명확한 타겟을 증명하는 포트폴리오로 첫 유료 협업을 성사시킨 과정',
   category: 'digital_biz',
-  categoryLabel: '지식창업·부수입 기록',
+  categoryLabel: '지식창업·부수입 가이드',
   publishedAt: '2026-07-10T10:00:00Z',
   updatedAt: '2026-07-10T10:10:00Z',
   author: '1인 크리에이터',
   summary: '팔로워가 만 명은 넘어야 협찬을 받을 수 있다는 편견을 깨고, 팔로워 1,200명 시절에 타겟 브랜드에 먼저 DM과 제안서를 보내 제품 협찬과 30만 원의 원고료를 유치했던 실전 경험담입니다.',
-  tags: ['마이크로인플루언서', '인스타협찬', 'DM제안', '수익화전략', '공동구매'],
+  tags: ['마이크로인플루언서', '인스타협찬', 'DM제안', '비즈니스전략', '공동구매'],
   authorityLabel: '실제 제안서 발송 경험',
   content: `## 기다리기만 하면 아무도 먼저 연락해주지 않는다
 
@@ -344,13 +344,13 @@ const TIKTOK_CRP_GUIDE: GuidePost = {
   title: '틱톡 1분 이상 영상으로 크리에이터 리워드 신청하고 첫 달 정산금 확인한 후기',
   subtitle: '15초 챌린지 그만두고 1분짜리 정보형 영상으로 전환해 미국/국내 트래픽 잡은 실전 제작기',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-07-11T11:00:00Z',
   updatedAt: '2026-07-11T11:10:00Z',
   author: '1인 크리에이터',
-  summary: '틱톡에서 15초짜리 챌린지만 하다가 1분 이상 정보성 영상으로 전환하여 크리에이터 리워드 프로그램(CRP)에 가입하고 실제로 달러 수익을 정산받은 과정을 기록했습니다.',
-  tags: ['틱톡수익화', 'CRP', '틱톡알고리즘', '1분영상', '바이럴숏폼'],
-  authorityLabel: '실제 틱톡 정산 기록',
+  summary: '틱톡에서 15초짜리 챌린지만 하다가 1분 이상 정보성 영상으로 전환하여 크리에이터 리워드 프로그램(CRP)에 가입하고 실제로 달러 수익을 정산받은 과정을 정리했습니다.',
+  tags: ['틱톡성장', 'CRP', '틱톡알고리즘', '1분영상', '바이럴숏폼'],
+  authorityLabel: '실제 틱톡 정산 내역',
   content: `## 15초 춤추던 틱톡은 끝났다: 1분 영상의 힘
 
 틱톡은 이제 단순한 짧은 장난 영상 플랫폼이 아니다. 유튜브 롱폼을 잡기 위해 **1분 이상의 오리지널 가로/세로 영상**에 높은 리워드를 지급하는 '크리에이터 리워드 프로그램(CRP)'을 운영 중이다.
@@ -367,9 +367,9 @@ const TIKTOK_CRP_GUIDE: GuidePost = {
 const DIGITAL_BIZ_EBOOK_GUIDE: GuidePost = {
   slug: 'ebook-automation-kmon-strategy',
   title: '업무 노하우 정리한 28페이지 PDF 전자책으로 크몽에서 첫 100만 원 번 과정',
-  subtitle: '주제 선정부터 목차 구성, 크몽 1차 반려 극복 후 구글 드라이브 무인 자동 발송까지의 모든 기록',
+  subtitle: '주제 선정부터 목차 구성, 크몽 1차 반려 극복 후 구글 드라이브 무인 자동 발송까지의 모든 과정',
   category: 'digital_biz',
-  categoryLabel: '지식창업·부수입 기록',
+  categoryLabel: '지식창업·부수입 가이드',
   publishedAt: '2026-07-09T10:00:00Z',
   updatedAt: '2026-07-09T10:20:00Z',
   author: '1인 크리에이터',
@@ -389,7 +389,7 @@ const DIGITAL_BIZ_EBOOK_GUIDE: GuidePost = {
 ### 전자책 쓰면서 터득한 3대 핵심 노하우
 
 ### 1. 문제 해결형 제목 짓기
-- **실패했던 제목:** "노션 활용 일지" (클릭 0회)
+- **실패했던 제목:** "노션 활용법" (클릭 0회)
 - **성공했던 제목:** "야근을 반으로 줄여주는 실무 노션 템플릿 5종 & 업무 자동화 가이드"
 
 ### 2. 크몽 1차 승인 거절 극복하기
@@ -406,7 +406,7 @@ const JUNE_13_YOUTUBE_SEO_FORMULA_GUIDE: GuidePost = {
   title: '조회수 50회에 멈추던 영상이 유튜브 검색 1페이지에 꽂힌 7가지 업로드 세팅',
   subtitle: '제목 키워드 배치, 오프닝 45초 발음 매칭, 챕터 타임스탬프로 검색 유입을 만든 실전 루틴',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-06-13T09:00:00Z',
   updatedAt: '2026-06-13T09:30:00Z',
   author: '1인 크리에이터',
@@ -433,7 +433,7 @@ const JUNE_17_YOUTUBE_SHORTS_HOOK_GUIDE: GuidePost = {
   title: '화려한 예능 자막 버리고 폰트와 여백만 바꿨더니 쇼츠 평균 시청시간이 70% 넘은 이야기',
   subtitle: '정신없는 풀컬러 자막이 독이었음을 깨닫고, 깔끔한 명조 폰트와 3초 비언어 훅으로 바꾼 결과',
   category: 'youtube',
-  categoryLabel: '유튜브·쇼츠 기록',
+  categoryLabel: '유튜브·쇼츠 가이드',
   publishedAt: '2026-06-17T11:00:00Z',
   updatedAt: '2026-06-17T11:15:00Z',
   author: '1인 크리에이터',
@@ -462,12 +462,12 @@ const JUNE_19_ADSENSE_LOW_VALUE_RECOVERY_STRATEGY: GuidePost = {
   title: '‘가치가 별로 없는 콘텐츠’ 통보받고 멘붕 온 뒤 1주일 만에 애드센스 고시 합격한 비결',
   subtitle: '짜깁기 글 다 지우고 직접 겪은 실패와 수치 데이터를 채워 넣어 심사 봇 통과한 내역',
   category: 'blog',
-  categoryLabel: '블로그·애드센스 일지',
+  categoryLabel: '블로그·애드센스 가이드',
   publishedAt: '2026-06-19T10:00:00Z',
   updatedAt: '2026-06-19T10:25:00Z',
   author: '1인 크리에이터',
-  summary: '구글 애드센스 심사에서 가장 무서운 거절 사유인 ‘가치가 별로 없는 콘텐츠(Low-value content)’. 다른 블로그 글 요약해서 쓰던 나쁜 버릇을 버리고, 진짜 경험과 통계 데이터를 녹여 단 일주일 만에 승인 통과한 과정을 기록합니다.',
-  tags: ['애드센스거절', '가치가별로없는콘텐츠', '재승인기록', '구글봇통과', '수익형블로그'],
+  summary: '구글 애드센스 심사에서 가장 무서운 거절 사유인 ‘가치가 별로 없는 콘텐츠(Low-value content)’. 다른 블로그 글 요약해서 쓰던 나쁜 버릇을 버리고, 진짜 경험과 통계 데이터를 녹여 단 일주일 만에 승인 통과한 과정을 공유합니다.',
+  tags: ['애드센스거절', '가치가별로없는콘텐츠', '재승인사례', '구글봇통과', '실전블로그'],
   authorityLabel: '실제 거절 극복 수기',
   content: `## 작성한 글이 왜 '가치가 별로 없다'는 걸까?
 
@@ -491,7 +491,7 @@ const JUNE_18_LIVE_SITEMAP_INDEXING_FAST_TRACK: GuidePost = {
   title: '서치콘솔 사이트맵 ‘가져올 수 없음’ 빨간불 떴을 때 해결했던 3단계 점검법',
   subtitle: 'SPA 리액트 라우팅과 XML 응답 충돌을 잡아내고 봇 수집 정상화시킨 실전 개발/운영 메모',
   category: 'blog',
-  categoryLabel: '블로그·애드센스 일지',
+  categoryLabel: '블로그·애드센스 가이드',
   publishedAt: '2026-06-18T10:00:00Z',
   updatedAt: '2026-06-18T10:20:00Z',
   author: '1인 크리에이터',
@@ -520,53 +520,53 @@ export const CATEGORY_SPECS: Record<string, CategorySpec> = {
   step1_starter: {
     key: 'step1_starter',
     stepNumber: 1,
-    label: '1단계: 채널 개설 & 스마트폰 세팅',
-    shortLabel: '1단계: 채널·스마트폰',
-    levelBadge: '입문 (Lv.1)',
+    label: '채널 개설 & 스마트폰 세팅',
+    shortLabel: '채널·스마트폰',
+    levelBadge: 'Lv.1',
     icon: 'Sparkles',
     gradient: 'from-amber-500 to-orange-500',
     description: '구글 브랜드 계정 생성부터 2만 원 마이크 세팅, 캔바 채널 아트까지 0원으로 시작하는 1인 크리에이터 첫 단추',
     count: ALL_POSTS.filter((p) => p.category === 'step1_starter').length,
-    persona: '0원 입문: "장비병 버리고 스마트폰 하나로 시작하는 실전 첫걸음"',
+    persona: '"장비병 버리고 스마트폰 하나로 시작하는 실전 첫걸음"',
     accentColor: '#f59e0b'
   },
   step2_creator: {
     key: 'step2_creator',
     stepNumber: 2,
-    label: '2단계: 10초 훅 기획 & 캡컷 컷편집',
-    shortLabel: '2단계: 기획·캡컷편집',
-    levelBadge: '초급 (Lv.2)',
+    label: '10초 훅 기획 & 캡컷 컷편집',
+    shortLabel: '기획·캡컷편집',
+    levelBadge: 'Lv.2',
     icon: 'PlayCircle',
     gradient: 'from-blue-500 to-indigo-600',
     description: '시청자 이탈을 막는 10초 훅, 막힘없는 3단 대본 템플릿, 캡컷 무료 30분 컷편집과 썸네일 공식',
     count: ALL_POSTS.filter((p) => p.category === 'step2_creator').length,
-    persona: '기획/제작: "촬영이 쉬워지는 3단 대본과 30분 캡컷 편집 실전 루틴"',
+    persona: '"촬영이 쉬워지는 3단 대본과 30분 캡컷 편집 실전 루틴"',
     accentColor: '#3b82f6'
   },
   step3_growth: {
     key: 'step3_growth',
     stepNumber: 3,
-    label: '3단계: 클릭률·시청유지율 & 정체기 극복',
-    shortLabel: '3단계: 데이터·알고리즘',
-    levelBadge: '중급 (Lv.3)',
+    label: '클릭률·시청유지율 & 정체기 극복',
+    shortLabel: '데이터·알고리즘',
+    levelBadge: 'Lv.3',
     icon: 'TrendingUp',
     gradient: 'from-emerald-500 to-teal-600',
     description: '시청 지속 시간(AVD) 50% 방어법, 클릭률(CTR) 8% 썸네일 A/B 테스트, 조회수 정체기 뚫어내는 실전 팁',
     count: ALL_POSTS.filter((p) => p.category === 'step3_growth').length,
-    persona: '데이터 성장: "알고리즘 추천 피드를 뚫어내는 시청 유지율과 썸네일 테스트"',
+    persona: '"알고리즘 추천 피드를 뚫어내는 시청 유지율과 썸네일 테스트"',
     accentColor: '#10b981'
   },
   step4_master: {
     key: 'step4_master',
     stepNumber: 4,
-    label: '4단계: 월 100만 원 다중 수익화 & 파이프라인',
-    shortLabel: '4단계: 월100만 수익화',
-    levelBadge: '고급 (Lv.4)',
+    label: '월 100만 원 다중 파이프라인 구축',
+    shortLabel: '월100만 파이프라인',
+    levelBadge: 'Lv.4',
     icon: 'BadgePercent',
     gradient: 'from-purple-500 to-violet-600',
     description: '8분 미드롤 수동 광고 배치, 유튜브 멤버십, 쿠팡 파트너스 제휴, PDF 전자책 무인 판매 파이프라인 구축',
     count: ALL_POSTS.filter((p) => p.category === 'step4_master').length,
-    persona: '수익화 마스터: "조회수 의존을 넘어 월 100만 원 고정 수입 만드는 1인 비즈니스"',
+    persona: '"조회수 의존을 넘어 월 100만 원 고정 수입 만드는 1인 비즈니스"',
     accentColor: '#8b5cf6'
   }
 };

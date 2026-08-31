@@ -58,7 +58,7 @@ export const EXTRA_POSTS: GuidePost[] = [
   {
     slug: 'digital-biz-newsletter-guide',
     title: '이메일 뉴스레터 구독 모델 구축과 첫 1,000명 확보 전략: 유료 구독 비즈니스의 시작',
-    subtitle: '플랫폼 종속을 탈피하여 독점적인 시청 팬덤을 이메일로 확보하고 프리미엄 정기 결제 상품을 런칭하는 단계별 로드맵',
+    subtitle: '플랫폼 종속을 탈피하여 독점적인 시청 팬덤을 이메일로 확보하고 프리미엄 정기 결제 상품을 런칭하는 핵심 로드맵',
     category: 'digital_biz',
     categoryLabel: '지식창업 & 뉴스레터',
     publishedAt: '2026-07-10T10:00:00Z',
@@ -69,7 +69,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     level: 'advanced',
     content: `## 알고리즘 탈출: 이메일 구독 비즈니스의 정수
 
-대기업 소셜 플랫폼의 추천 알고리즘은 매달 변동됩니다. 어제 조회수 100만 회를 기록했더라도 오늘 알고리즘 추천 가중치가 떨어지면 노출이 줄어들 수 있습니다. 반면, **구독자의 이메일 주소**는 플랫폼 소유주에 휘둘리지 않는 크리에이터 본인만의 완벽한 독립 자산입니다.
+대기업 소셜 플랫폼의 추천 알고리즘은 매달 변동됩니다. 어제 조회수 100만 회를 달성했더라도 오늘 알고리즘 추천 가중치가 떨어지면 노출이 줄어들 수 있습니다. 반면, **구독자의 이메일 주소**는 플랫폼 소유주에 휘둘리지 않는 크리에이터 본인만의 완벽한 독립 자산입니다.
 
 ---
 
@@ -207,7 +207,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     level: 'beginner',
     content: `## 노션 템플릿 하나로 전 세계에서 달러 벌기
 
-노션은 전 세계적으로 사용되는 가장 강력한 협업 및 개인 생산성 툴입니다. 복잡한 일정 관리, 독서 기록, 재정 추적을 세련되게 설계한 대시보드 템플릿은 국내는 물론 해외에서도 강력한 구매 수요를 지니고 있습니다.
+노션은 전 세계적으로 사용되는 가장 강력한 협업 및 개인 생산성 툴입니다. 복잡한 일정 관리, 독서 목록, 재정 추적을 세련되게 설계한 대시보드 템플릿은 국내는 물론 해외에서도 강력한 구매 수요를 지니고 있습니다.
 
 ---
 
@@ -233,7 +233,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     publishedAt: '2026-06-25T14:00:00Z',
     updatedAt: '2026-06-25T14:20:00Z',
     author: '레오',
-    summary: '웹사이트 및 랜딩페이지 전환율을 비약적으로 올리기 위한 카피라이팅 작성 가이드입니다. 헤드라인 훅, 고통의 구체화, 혜택 제시, 신뢰 증명, 긴박감 제안 단계별 가이드를 전해드립니다.',
+    summary: '웹사이트 및 랜딩페이지 전환율을 비약적으로 올리기 위한 카피라이팅 작성 가이드입니다. 헤드라인 훅, 고통의 구체화, 혜택 제시, 신뢰 증명, 긴박감 제안 필수 가이드를 전해드립니다.',
     tags: ['카피라이팅', '랜딩페이지', '설득심리학', '구매전환율', '마케팅공식'],
     level: 'intermediate',
     content: `## 좋은 글이 아니라, 행동을 유도하는 글을 써라
@@ -330,14 +330,14 @@ export const EXTRA_POSTS: GuidePost[] = [
   },
 
   // ==========================================
-  // 인스타그램 수익화 (instagram) - 8 Posts
+  // 인스타그램 가이드 (instagram) - 8 Posts
   // ==========================================
   {
     slug: 'instagram-reels-hook-secrets',
     title: '인스타그램 릴스 조회수를 폭발시키는 첫 1.5초 비주얼 후킹 패턴 7선',
     subtitle: '스크롤을 무의식적으로 멈추게 만들고 끝까지 시청을 견인하는 실전 자막, 모션, 효과음 구성 전술',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-07-09T09:00:00Z',
     updatedAt: '2026-07-09T09:20:00Z',
     author: '에이미',
@@ -368,7 +368,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '팔로워 전환율을 5배 상승시키는 인스타그램 프로필 최적화 3단계 포뮬러',
     subtitle: '조회수가 팔로워로 연결되지 않는 고질적인 문제를 정교하게 고쳐 나가는 마케팅 퍼널 구성안',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-07-07T11:00:00Z',
     updatedAt: '2026-07-07T11:20:00Z',
     author: '에이미',
@@ -396,7 +396,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '매니챗(ManyChat)을 활용한 댓글-DM 자동화: 인스타 피드에서 구매 링크로 유입시키는 법',
     subtitle: '소비자가 "링크"라고 댓글을 다는 즉시, 인스타 공식 AI 봇이 결제 링크와 할인 쿠폰을 자동 발송하는 세팅',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-07-04T10:00:00Z',
     updatedAt: '2026-07-04T10:30:00Z',
     author: '에이미',
@@ -421,7 +421,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '팔로워 1천 명으로 고단가 브랜드 협찬/협업 제안서 쓰고 거래 성사시키는 피칭 전략',
     subtitle: '마이크로 인플루언서가 광고 대행사의 눈길을 끌고 첫 제안 메일을 성공적으로 발송하는 정형 포맷',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-07-01T14:00:00Z',
     updatedAt: '2026-07-01T14:25:00Z',
     author: '에이미',
@@ -445,7 +445,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '잠재 고객을 가두는 통일감 있는 인스타그램 그리드 디자인 및 비주얼 브랜딩 레이아웃',
     subtitle: '컬러 팔레트 수립, 일관된 타이포그래피 배치를 통해 프로필 유입자를 평생 팬으로 홀리는 레이아웃',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-06-27T09:00:00Z',
     updatedAt: '2026-06-27T09:25:00Z',
     author: '에이미',
@@ -454,7 +454,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     level: 'beginner',
     content: `## 피드는 당신의 잡지가 되어야 한다
 
-단발적인 영상만으로는 팔로워를 오래 묶어두기 힘듭니다. 릴스를 시청하다 호기심에 내 프로필 그리드를 눌렀을 때, 정갈하고 체계적인 배열이 한눈에 들어와야 "아, 여기는 정기적으로 이 고급 정보들을 모아서 볼 가치가 있는 백과사전 같은 곳이구나" 하고 인정받습니다.
+단발적인 영상만으로는 팔로워를 오래 묶어두기 힘듭니다. 릴스를 시청하다 호기심에 내 프로필 그리드를 눌렀을 때, 정갈하고 체계적인 배열이 한눈에 들어와야 "아, 여기는 정기적으로 이 핵심 정보들을 모아서 볼 가치가 있는 백과사전 같은 곳이구나" 하고 인정받습니다.
 
 ---
 
@@ -469,7 +469,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '저장률과 공유수를 극대화하는 인포그래픽형 카드뉴스(캐러셀) 기획 공식',
     subtitle: '인스타 AI 알고리즘 가중치를 가장 높게 받는 저장 점수를 폭발시키는 10장짜리 슬라이드 구성법',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-06-23T11:00:00Z',
     updatedAt: '2026-06-23T11:30:00Z',
     author: '에이미',
@@ -494,7 +494,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '릴스 알고리즘의 심장: 탐색 탭 노출 가중치 획득을 위한 시각 반응 점수 올리기',
     subtitle: '초기 도달률을 넘어서 비팔로워 90% 이상 유입되는 탐색 피드 안착을 위한 세션 유지 기법',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-06-18T15:00:00Z',
     updatedAt: '2026-06-18T15:30:00Z',
     author: '에이미',
@@ -519,7 +519,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '인스타그램 공동구매(공구) 소싱부터 기획전 오픈, 마케팅 프로모션 마스터가이드',
     subtitle: '두터운 오디언스 팬덤을 바탕으로 1주일간 월급 이상의 유통 수수료 마진 수익을 달성하는 기획 노하우',
     category: 'instagram',
-    categoryLabel: '인스타그램 수익화',
+    categoryLabel: '인스타그램 가이드',
     publishedAt: '2026-06-12T10:00:00Z',
     updatedAt: '2026-06-12T10:30:00Z',
     author: '에이미',
@@ -540,14 +540,14 @@ export const EXTRA_POSTS: GuidePost[] = [
   },
 
   // ==========================================
-  // 틱톡 수익화 (tiktok) - 9 Posts
+  // 틱톡 가이드 (tiktok) - 9 Posts
   // ==========================================
   {
     slug: 'tiktok-algorithm-seed-distribution',
     title: '틱톡 추천 알고리즘 완벽 해부: 첫 200회 조회수 허들을 넘는 세그먼트 배포 규칙',
     subtitle: '틱톡의 샌드박스 유기적 매커니즘을 이해하고 불이익 계정(Shadow-ban)에서 탈출하는 법',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-07-10T11:00:00Z',
     updatedAt: '2026-07-10T11:15:00Z',
     author: '제이',
@@ -572,7 +572,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '틱톡에서 팔로잉을 유도하는 3초 컷 비디오 편집 기법과 고몰입 이펙트 연출',
     subtitle: '틱톡 전용 모바일 툴인 캡컷(CapCut)을 사용하여 고가치 바이럴 비디오 템플릿 제작하기',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-07-08T10:00:00Z',
     updatedAt: '2026-07-08T10:20:00Z',
     author: '제이',
@@ -596,7 +596,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '틱톡 숍(TikTok Shop)과 파트너 크리에이터 제휴 마케팅으로 얼굴 없이 수익 내기',
     subtitle: '글로벌 유통 대란의 중심 틱톡 숍 연동을 활용해 상품을 직수입하지 않고도 수수료 달러를 벌어들이는 법',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-07-05T14:00:00Z',
     updatedAt: '2026-07-05T14:30:00Z',
     author: '제이',
@@ -620,7 +620,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '틱톡 1분 이상 장편 비디오 완독률(Retention)을 복리로 올리는 중반부 이탈 방지 공식',
     subtitle: '조회수당 고단가 크리에이터 리워드를 확보하기 위해 시청 지속 시간을 50% 이상 유지하는 법',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-07-02T13:00:00Z',
     updatedAt: '2026-07-02T13:25:00Z',
     author: '제이',
@@ -644,7 +644,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '해외 유저 타겟팅을 위한 틱톡 글로벌 계정 개설 및 프록시/유심 우회 설정 전술',
     subtitle: '조회수당 보상 단가가 한국보다 10배 높은 미국, 영국의 시청자 트래픽 피드에 내 영상 강제 침투시키기',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-06-28T16:00:00Z',
     updatedAt: '2026-06-28T16:30:00Z',
     author: '제이',
@@ -671,7 +671,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '틱톡 라이브 방송 기획: 시청자 후원(기프팅)과 선물 활성화를 유도하는 실시간 소통법',
     subtitle: '실시간 스트리밍 중 팬들의 리액션과 후원 리워드를 유기적으로 연계하여 매일 안정적 고정 급여 버는 가이드',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-06-24T10:00:00Z',
     updatedAt: '2026-06-24T10:25:00Z',
     author: '제이',
@@ -695,7 +695,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '최신 유행 오디오와 음원을 활용한 트렌드 재킹(Trend Jacking) 및 조회수 탑승 전략',
     subtitle: '바이럴 음원 필터를 정교하게 올라타서 평균 조회수 대비 최소 5배 이상의 신규 시청자 유입 끌어내기',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-06-19T09:00:00Z',
     updatedAt: '2026-06-19T09:20:00Z',
     author: '제이',
@@ -719,7 +719,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '숏폼 1인 기업가를 위한 틱톡 캐릭터 설정과 3요소 페르소나 설계법',
     subtitle: '수많은 얼굴들 사이에서 나만의 목소리, 자막 색상, 독보적인 마스코트를 각인시켜 재방문을 유도하는 캐릭터 기획',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-06-14T11:00:00Z',
     updatedAt: '2026-06-14T11:25:00Z',
     author: '제이',
@@ -728,7 +728,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     level: 'intermediate',
     content: `## 평범한 인포그래픽은 잊혀진다: 페르소나의 매력
 
-아무리 뛰어난 고급 정보를 제공하더라도, 목소리가 밋밋하거나 화면 속 캐릭터의 개성이 평범하면 유저는 "유용한 정보였네" 하고 그냥 넘어가며 당신의 브랜드를 전혀 기억하지 못합니다. 채널에 고유한 숨결과 매력적인 단점을 부여해야 팬덤이 달라붙습니다.
+아무리 뛰어난 핵심 정보를 제공하더라도, 목소리가 밋밋하거나 화면 속 캐릭터의 개성이 평범하면 유저는 "유용한 정보였네" 하고 그냥 넘어가며 당신의 브랜드를 전혀 기억하지 못합니다. 채널에 고유한 숨결과 매력적인 단점을 부여해야 팬덤이 달라붙습니다.
 
 ---
 
@@ -743,7 +743,7 @@ export const EXTRA_POSTS: GuidePost[] = [
     title: '틱톡 크리에이터 마켓플레이스(TTCM) 입점 및 글로벌 브랜드 제휴 협상 팁',
     subtitle: '틱톡 공식 스폰서십 플랫폼 입점 요건과 광고 대행사 단가를 책정하는 피칭 시나리오',
     category: 'tiktok',
-    categoryLabel: '틱톡 수익화',
+    categoryLabel: '틱톡 가이드',
     publishedAt: '2026-06-08T15:00:00Z',
     updatedAt: '2026-06-08T15:30:00Z',
     author: '제이',

@@ -149,7 +149,7 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
 export function resetDefaultSeoMeta() {
   if (typeof document === 'undefined') return;
 
-  document.title = '크리에이터 노트 | 1인 미디어 운영 & 수익화 실전 일지';
+  document.title = '크리에이터 가이드 | 1인 미디어 운영 & 성장 가이드';
 
   const setMetaTag = (attrName: string, attrValue: string, content: string) => {
     const element = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
@@ -158,11 +158,11 @@ export function resetDefaultSeoMeta() {
     }
   };
 
-  setMetaTag('name', 'keywords', '크리에이터 노트, 유튜브 쇼츠 수익, 애드센스 승인, 구글 검색 노출, 블로그 글쓰기, 1인 크리에이터, 부수입, 전자책 판매');
-  setMetaTag('name', 'description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오, 애드센스 승인과 수익화 과정의 경험을 솔직하게 기록한 블로그입니다.');
-  setMetaTag('property', 'og:title', '크리에이터 노트 | 1인 미디어 운영 & 수익화 실전 일지');
-  setMetaTag('property', 'og:description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오와 실전 팁을 솔직하게 기록한 블로그');
+  setMetaTag('name', 'keywords', '크리에이터 가이드, 유튜브 쇼츠 수익, 애드센스 승인, 구글 검색 노출, 블로그 글쓰기, 1인 크리에이터, 부수입, 전자책 판매');
+  setMetaTag('name', 'description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오, 애드센스 승인과 성장 과정의 경험을 솔직하게 담은 가이드입니다.');
+  setMetaTag('property', 'og:title', '크리에이터 가이드 | 1인 미디어 운영 & 성장 가이드');
+  setMetaTag('property', 'og:description', '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오와 실전 팁을 솔직하게 담은 가이드');
   setMetaTag('property', 'og:url', 'https://nutube.kr/');
-  setMetaTag('name', 'twitter:title', '크리에이터 노트 | 1인 크리에이터 실전 일지');
-  setMetaTag('name', 'twitter:description', '유튜브 쇼츠, 구글 애드센스, 블로그 운영과 지식창업 실전 기록');
+  setMetaTag('name', 'twitter:title', '크리에이터 가이드 | 1인 크리에이터 실전 가이드');
+  setMetaTag('name', 'twitter:description', '유튜브 쇼츠, 구글 애드센스, 블로그 운영과 지식창업 실전 노하우');
 }

@@ -1,8 +1,8 @@
 export type CategoryKey = 
-  | 'step1_starter'      // 1단계: 왕초보 · 시작과 세팅
-  | 'step2_creator'      // 2단계: 초보 · 기획과 첫 제작
-  | 'step3_growth'       // 3단계: 중급 · 알고리즘과 성장
-  | 'step4_master'       // 4단계: 고수 · 수익화와 자동화
+  | 'step1_starter'      // 시작과 세팅
+  | 'step2_creator'      // 기획과 첫 제작
+  | 'step3_growth'       // 알고리즘과 성장
+  | 'step4_master'       // 다중 파이프라인과 자동화
   | 'youtube' 
   | 'blog' 
   | 'digital_biz'

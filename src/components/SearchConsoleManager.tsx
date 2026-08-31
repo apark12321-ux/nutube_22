@@ -158,7 +158,7 @@ export const SearchConsoleManager: React.FC<SearchConsoleManagerProps> = ({ them
           </div>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-xl font-black text-indigo-500 dark:text-indigo-400">{status?.indexedLogsCount || 0}건</span>
-            <span className="text-[11px] text-slate-400">실시간 누적 기록</span>
+            <span className="text-[11px] text-slate-400">실시간 누적 내역</span>
           </div>
         </div>
       </div>
@@ -278,7 +278,7 @@ export const SearchConsoleManager: React.FC<SearchConsoleManagerProps> = ({ them
           </div>
         ) : (
           <div className={dark ? 'rounded-xl border border-purple-950 bg-[#120822] p-8 text-center text-xs text-slate-400' : 'rounded-xl border border-slate-100 bg-slate-50 p-8 text-center text-xs text-slate-500'}>
-            등록된 자동 색인 로그가 아직 없습니다. 포스팅이 새로 발행되면 이곳에 실시간 내역이 기록됩니다.
+            등록된 자동 색인 로그가 아직 없습니다. 포스팅이 새로 발행되면 이곳에 실시간 내역이 표시됩니다.
           </div>
         )}
       </div>

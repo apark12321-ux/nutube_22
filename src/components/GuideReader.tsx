@@ -757,7 +757,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
 
           {/* Step-by-Step Roadmap Navigation (Previous / Next Guide) */}
           {(prevPost || nextPost) && (
-            <nav aria-label="단계별 로드맵 이동" className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <nav aria-label="가이드 탐색" className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {prevPost ? (
                 <button
                   onClick={() => onSelectPost ? onSelectPost(prevPost.slug) : onBack()}

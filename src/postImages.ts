@@ -58,8 +58,8 @@ export const FALLBACK_IMAGE_DATA_URI = `data:image/svg+xml;charset=utf-8,${encod
   <circle cx="600" cy="300" r="180" fill="#4338ca" opacity="0.25"/>
   <rect x="520" y="220" width="160" height="110" rx="24" fill="url(#accent)"/>
   <polygon points="585,255 625,275 585,295" fill="#ffffff"/>
-  <text x="600" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="28" font-weight="bold" fill="#f8fafc" text-anchor="middle">민우의 크리에이터 노트</text>
-  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">1인 유튜브 실전 가이드 &amp; 데이터 일지</text>
+  <text x="600" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="28" font-weight="bold" fill="#f8fafc" text-anchor="middle">민우의 크리에이터 가이드</text>
+  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">1인 유튜브 실전 가이드 &amp; 데이터 노트</text>
 </svg>
 `)}`;
 
@@ -92,7 +92,7 @@ const makeBodyImage = (post: GuidePost, order: number): PostImage => ({
   alt: `${categoryLabel(post)} 관련 체크리스트를 설명하는 본문 참고 이미지 ${order}`,
   caption: order === 1
     ? '스마트폰 촬영과 컷편집 단계에서는 불필요한 호흡을 먼저 덜어내는 것이 중요합니다.'
-    : '업로드 후에는 조회수뿐 아니라 클릭률(CTR)과 평균 시청 지속 시간을 함께 기록합니다.',
+    : '업로드 후에는 조회수뿐 아니라 클릭률(CTR)과 평균 시청 지속 시간을 함께 분석합니다.',
 });
 
 export const addPostImages = (post: GuidePost): GuidePost => {
