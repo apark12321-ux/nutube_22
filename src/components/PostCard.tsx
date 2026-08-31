@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { GuidePost } from '../types';
 import { Calendar, ArrowRight } from 'lucide-react';
-import { DEFAULT_REMOTE_IMAGE } from '../postImages';
+import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 
 interface PostCardProps {
@@ -51,7 +51,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
             referrerPolicy="no-referrer"
             onError={(event) => {
               event.currentTarget.onerror = null;
-              event.currentTarget.src = DEFAULT_REMOTE_IMAGE;
+              event.currentTarget.src = FALLBACK_IMAGE_DATA_URI;
             }}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />

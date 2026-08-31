@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
 import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight } from 'lucide-react';
-import { DEFAULT_REMOTE_IMAGE } from '../postImages';
+import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
 
@@ -114,7 +114,7 @@ const ImageFigure: React.FC<{ image?: PostImage }> = ({ image }) => {
           referrerPolicy="no-referrer"
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = DEFAULT_REMOTE_IMAGE;
+            e.currentTarget.src = FALLBACK_IMAGE_DATA_URI;
           }}
           className="h-full w-full object-cover"
         />
