@@ -1,22 +1,10 @@
 export type CategoryKey = 
-  | 'step1_starter'      // 시작과 세팅
-  | 'step2_creator'      // 기획과 첫 제작
-  | 'step3_growth'       // 알고리즘과 성장
-  | 'step4_master'       // 다중 파이프라인과 자동화
-  | 'youtube' 
-  | 'blog' 
-  | 'digital_biz'
-  | 'workflow'
-  | 'beginner'
-  | 'algorithm'
-  | 'senior'
-  | 'monetization'
-  | 'aitools'
-  | 'advanced'
-  | 'tiktok'
-  | 'instagram';
+  | 'why_youtube'        // 왜 유튜브인가 & 시작법
+  | 'trends'             // 요즘 유튜브 트렌드
+  | 'ai_creator'         // AI 활용법과 주의점
+  | 'monetization';      // 유튜브 수익화의 모든 것
 
-export type PrimaryCategoryKey = 'step1_starter' | 'step2_creator' | 'step3_growth' | 'step4_master';
+export type PrimaryCategoryKey = CategoryKey;
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 

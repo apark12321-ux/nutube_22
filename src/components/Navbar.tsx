@@ -225,12 +225,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button 
             type="button"
             onClick={handleLogoClick} 
-            className="flex items-center gap-2.5 text-left hover:opacity-80 transition-opacity cursor-pointer shrink-0"
+            className="flex items-center text-left hover:opacity-80 transition-opacity cursor-pointer shrink-0"
             id="nav-logo-btn"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs shadow-2xs">
-              가이드
-            </div>
             <div className="flex flex-col">
               <span className={`font-heading font-bold text-base sm:text-lg tracking-tight leading-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
                 크리에이터 가이드
@@ -551,12 +548,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex h-full flex-col overflow-y-auto py-6 shadow-2xl">
                   {/* Drawer Header */}
                   <div className="px-5 flex items-center justify-between border-b pb-4 border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
-                        가이드
-                      </div>
-                      <span className="font-heading text-base font-bold tracking-tight">크리에이터 가이드</span>
-                    </div>
+                    <span className="font-heading text-base font-bold tracking-tight">크리에이터 가이드</span>
                     <button
                       onClick={() => setIsDrawerOpen(false)}
                       className="p-1.5 rounded-lg transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 cursor-pointer"

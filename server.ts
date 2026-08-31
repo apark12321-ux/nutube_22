@@ -4,7 +4,7 @@ import fs from 'fs';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
 import { ALL_POSTS } from './src/data';
-import { applyPostDateSchedule } from './src/postSchedule';
+import { applyPostDateSchedule, postTitleSegment, getPostPath } from './src/postSchedule';
 
 const getScheduledAllPosts = () => applyPostDateSchedule(ALL_POSTS);
 
@@ -256,11 +256,12 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
 
   uniquePosts.forEach(post => {
     const postDate = post.updatedAt || post.publishedAt || staticLastmod;
+    const postUrlPath = getPostPath(post);
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/guide/${post.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}${postUrlPath}</loc>\n`;
     xml += `    <lastmod>${postDate}</lastmod>\n`;
     xml += `    <changefreq>monthly</changefreq>\n`;
-    xml += `    <priority>0.6</priority>\n`;
+    xml += `    <priority>0.7</priority>\n`;
     xml += `  </url>\n`;
   });
 
@@ -294,9 +295,9 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
   xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
   xml += `<channel>\n`;
-  xml += `  <title>나우크리에이터랩 (Now Creator Lab)</title>\n`;
+  xml += `  <title>크리에이터 가이드 | 1인 미디어 운영 실전 노하우</title>\n`;
   xml += `  <link>${baseUrl}/</link>\n`;
-  xml += `  <description>${escapeXml('유튜브, 틱톡, 인스타그램, 구글 애드센스 SEO 및 크리에이터 수익화 실전 노하우 가이드')}</description>\n`;
+  xml += `  <description>${escapeXml('유튜브 채널 개설부터 스마트폰 촬영, 캡컷 컷편집, 알고리즘 분석, 월 100만 원 다중 파이프라인 구축까지 1인 크리에이터 실전 가이드')}</description>\n`;
   xml += `  <language>ko-kr</language>\n`;
   xml += `  <lastBuildDate>${currentUTC}</lastBuildDate>\n`;
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
@@ -312,7 +313,7 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   });
 
   uniquePosts.forEach(post => {
-    const guidUrl = `${baseUrl}/guide/${post.slug}`;
+    const guidUrl = `${baseUrl}${getPostPath(post)}`;
     const desc = post.summary || post.subtitle || '';
     const pubDate = new Date(post.publishedAt || '2026-06-18T12:00:00Z').toUTCString();
 
@@ -322,7 +323,7 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
     xml += `    <guid isPermaLink="true">${guidUrl}</guid>\n`;
     xml += `    <description>${escapeXml(desc)}</description>\n`;
     xml += `    <pubDate>${pubDate}</pubDate>\n`;
-    xml += `    <author>${escapeXml(post.author || 'BlogStudio AI')}</author>\n`;
+    xml += `    <author>${escapeXml(post.author || '민우 (1인 크리에이터)')}</author>\n`;
     xml += `  </item>\n`;
   });
 
@@ -1034,7 +1035,7 @@ const getSmartFallbackResponse = (personaKey: string, queryStr: string): string 
   
   if (personaKey === 'beginner') {
     if (msg.includes('장비') || msg.includes('얼굴 노출') || msg.includes('마이크') || msg.includes('카메라')) {
-      return `## 📸 장비 부담과 얼굴 노출 공포를 부수기 위한 팩트 체크
+      return `## 📸 장비 부담과 얼굴 노출 공포를 없애기 위한 현실 점검 & 꿀팁
 
 첫 채널 개설을 고질적으로 망가뜨리는 완벽주의 강박증을 무참히 파괴해 드립니다. **초보 딱지를 고속 도려내는 3대 진실**:
 

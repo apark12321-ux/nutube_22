@@ -114,7 +114,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
         heading: '2. 왜 이 공유 공간을 만들었는가',
         body: [
           '유튜브와 블로그를 키우는 과정에서 인터넷에 넘쳐나는 "하루 10분으로 월 천만 원" 같은 허황된 강의와 자극적인 어그로에 지쳤습니다.',
-          '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 찍힌 정산금(15만 원)의 실체, 애드센스 3번 연속 거절당하고 4번째에 단번에 뚫어낸 글쓰기 공식, 전자책 100만 원 매출을 낸 퍼널 구조 등 제가 직접 돈 쓰고 시간 써서 겪은 팩트와 수치 데이터만을 가감 없이 정리하기 위해 이 블로그를 만들었습니다.'
+          '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 들어온 정산금의 실체, 스마트폰 하나로 시작하는 0원 세팅, 캡컷으로 편집 시간 80% 줄이는 꿀팁, 전자책과 제휴로 월 100만 원 파이프라인을 만드는 법 등 제가 직접 겪으며 터득한 알짜배기 노하우를 누구나 알기 쉽게 전해드리기 위해 이 공간을 만들었습니다.'
         ]
       },
       {
@@ -364,13 +364,13 @@ export default function App() {
                 <span className="text-xs font-extrabold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
                   민우의 크리에이터 가이드
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">5년 차 1인 크리에이터의 시행착오 실전 가이드</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">1인 크리에이터의 쉽고 유익한 실전 이야기</span>
               </div>
               <h1 className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight mb-3 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                스마트폰 하나로 시작해 월 100만 원 만드는 1인 유튜브 실전 가이드
+                스마트폰 하나로 가볍게 시작하는 1인 크리에이터 실전 가이드
               </h1>
               <p className={`text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                300만 원짜리 장비 욕심으로 첫 채널을 날린 뒤, 스마트폰 1대와 5천 원짜리 거치대로 다시 시작해 월 100만 원 복합 파이프라인을 구축한 5년간의 팩트 데이터와 시행착오를 가감 없이 정리한 실전자료입니다.
+                왜 지금 유튜브를 해야 하는지부터 얼굴 없이 시작하는 법, 요즘 알고리즘 트렌드, 똑똑한 AI 활용법, 그리고 현실적인 수익화 파이프라인까지 누구나 쉽고 재미있게 읽을 수 있도록 핵심만 알차게 담았습니다.
               </p>
 
               {/* 4-Step Quick Selector */}
@@ -594,9 +594,6 @@ export default function App() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/60 dark:border-slate-800/80">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">
-                가이드
-              </div>
               <span className="font-bold text-slate-900 dark:text-white">크리에이터 가이드</span>
               <span className="text-slate-400">| 1인 미디어 운영 실전 노하우</span>
             </div>
@@ -611,7 +608,7 @@ export default function App() {
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
             <p>© 2026 크리에이터 가이드 (Creator Guide). All rights reserved.</p>
-            <p>1인 크리에이터의 실전 경험과 팩트 중심 가이드</p>
+            <p>1인 크리에이터의 쉽고 유익한 유튜브 실전 이야기</p>
           </div>
         </div>
       </footer>

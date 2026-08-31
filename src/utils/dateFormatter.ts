@@ -1,48 +1,56 @@
-// Seeded pseudo-random function based on post slug or publishedAt
-const getDeterministicTimeForPost = (isoDateString: string, slug: string = '') => {
-  const d = new Date(isoDateString);
-  
-  // If the date string already has a specific non-zero time (not 00:00:00 or default), use it
-  const hasSpecificTime = d.getUTCHours() !== 0 || d.getUTCMinutes() !== 0 || d.getUTCSeconds() !== 0;
-  
-  if (hasSpecificTime) {
-    // Generate deterministic Korean local time format
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const day = d.getDate();
-    const hours = pad(d.getHours());
-    const minutes = pad(d.getMinutes());
-    const seconds = pad(d.getSeconds());
-    return `${year}년 ${month}월 ${day}일 ${hours}:${minutes}:${seconds}`;
+// Date and Time Formatter ensuring Korean Standard Time (KST, UTC+9) & high-precision formatting
+export const formatPostDateTime = (isoDateString: string, _slug?: string): string => {
+  if (!isoDateString) return '';
+  try {
+    const d = new Date(isoDateString);
+    if (isNaN(d.getTime())) return isoDateString;
+
+    // Use Intl.DateTimeFormat with Asia/Seoul timezone for consistent representation
+    const parts = new Intl.DateTimeFormat('ko-KR', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).formatToParts(d);
+
+    const getPart = (type: string) => parts.find(p => p.type === type)?.value || '';
+
+    const year = getPart('year');
+    const month = getPart('month');
+    const day = getPart('day');
+    const hour = getPart('hour').padStart(2, '0');
+    const minute = getPart('minute').padStart(2, '0');
+    const second = getPart('second').padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일 ${hour}:${minute}:${second}`;
+  } catch {
+    return isoDateString;
   }
-
-  // Generate a deterministic pseudo-random hour/minute/second based on slug/date string
-  let hash = 0;
-  const seed = `${isoDateString}-${slug}`;
-  for (let i = 0; i < seed.length; i++) {
-    hash = (hash << 5) - hash + seed.charCodeAt(i);
-    hash |= 0;
-  }
-  
-  const absHash = Math.abs(hash);
-  // Spread upload hours between 08:00 and 22:59
-  const hour = 8 + (absHash % 15);
-  const minute = (absHash >> 4) % 60;
-  const second = (absHash >> 8) % 60;
-
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  const year = d.getFullYear();
-  const month = d.getMonth() + 1;
-  const day = d.getDate();
-  const hours = pad(hour);
-  const minutes = pad(minute);
-  const seconds = pad(second);
-
-  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes}:${seconds}`;
 };
 
-export const formatPostDateTime = (isoString: string, slug?: string): string => {
-  if (!isoString) return '';
-  return getDeterministicTimeForPost(isoString, slug);
+export const formatShortDate = (isoDateString: string): string => {
+  if (!isoDateString) return '';
+  try {
+    const d = new Date(isoDateString);
+    if (isNaN(d.getTime())) return isoDateString;
+
+    const parts = new Intl.DateTimeFormat('ko-KR', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(d);
+
+    const year = parts.find(p => p.type === 'year')?.value || '';
+    const month = parts.find(p => p.type === 'month')?.value || '';
+    const day = parts.find(p => p.type === 'day')?.value || '';
+
+    return `${year}.${month}.${day}`;
+  } catch {
+    return isoDateString;
+  }
 };
