@@ -802,25 +802,28 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
             </nav>
           )}
 
-          {/* Author & Creator Note Card */}
+          {/* Author & Creator Note Card (E-E-A-T Persona) */}
           <div className={`mt-10 p-5 sm:p-6 rounded-2xl border ${
             dark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200/90 bg-slate-50/80'
           }`}>
             <div className="flex items-center gap-3 mb-2.5">
-              <div className="w-10 h-10 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs shadow-2xs">
-                기록
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
+                민우
               </div>
               <div>
-                <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  기록자: 1인 크리에이터의 실전 일지
+                <h4 className={`text-sm font-bold flex items-center gap-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  <span>작성자: 민우 (1인 크리에이터)</span>
+                  <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300">
+                    실전 5년차
+                  </span>
                 </h4>
-                <p className="text-xs text-slate-400">
-                  직접 겪은 시행착오와 테스트 데이터, 수익화 경험만을 팩트대로 기록합니다.
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  고가 장비로 300만 원 날린 뒤, 스마트폰 1대로 다시 세운 월 100만 원 복합 파이프라인
                 </p>
               </div>
             </div>
-            <p className={`text-xs sm:text-sm leading-relaxed mt-2 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-              이론이나 교과서적인 설명이 아닌, 직접 채널과 블로그를 운영하며 겪었던 시행착오와 수치를 바탕으로 정리한 기록입니다. 궁금한 점이나 피드백은 문의 페이지를 통해 편하게 남겨주세요.
+            <p className={`text-xs sm:text-sm leading-relaxed mt-2.5 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+              이 글은 뻔한 교과서식 이론이 아니라, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 실패 경험을 바탕으로 썼습니다. 여러분의 시간과 돈을 아끼는 데 조금이라도 보탬이 되었으면 합니다. 궁금한 점은 언제든 문의 페이지에 남겨주세요!
             </p>
           </div>
 

@@ -261,7 +261,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : dark ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              블로그 소개
+              소개 (About)
             </button>
             <button
               onClick={() => handleNavTab('contact')}
@@ -580,7 +580,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-left hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 cursor-pointer"
                     >
                       <Info className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                      <span>블로그 소개</span>
+                      <span>소개 (About)</span>
                     </button>
 
                     <button
