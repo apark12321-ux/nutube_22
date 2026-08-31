@@ -37,7 +37,7 @@ export const generateRichDynamicPost = (config: DynamicPostConfig, category: Dai
 
   const expansion = `이번 영상이 끝나면 후속 기획으로 '${config.nextMove}'를 준비해 보세요. 시청자가 "이 채널은 내 고민을 계속 해결해 주는구나"라고 느낄 때 진정한 찐팬과 구독자가 생겨납니다.`;
 
-  const example = `### 📌 실전 적용 예시\n\n${config.practicalExample}`;
+  const example = `### ■ 실전 적용 예시\n\n${config.practicalExample}`;
 
   const conclusion = `${category.label} 채널의 지속적인 성장은 반짝 자극이 아니라, 시청자의 입장에서 '${config.coreTopic}'을 얼마나 꼼꼼하게 챙겼느냐에 달려 있습니다. 오늘 공유해 드린 팁을 기획 시트에 적어두고 바로 실전에 적용해 보세요!`;
 
@@ -106,13 +106,13 @@ ${example}
 
 ---
 
-## 🎯 민우의 실전 한 줄 & 오늘 해볼 일
+## [실전 액션] 민우의 핵심 한 줄과 오늘 할 일
 
 ${conclusion}
 
 ---
 
-## 💡 실전 심화 가이드라인
+## ◆ 실전 심화 가이드라인
 
 '${config.title}'을 내 채널에 완벽히 적용하기 위한 3단계 실천 체크리스트입니다.
 

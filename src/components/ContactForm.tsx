@@ -191,10 +191,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ theme }) => {
                       : 'border-slate-200 bg-slate-50 text-slate-800 focus:border-[#7C3AED]'
                   }`}
                 >
-                  <option value="alliance">🤝 협업 및 제휴 제안</option>
-                  <option value="content_edit">📝 내용 수정 및 의견 제보</option>
-                  <option value="ads">📈 광고 및 기타 제휴</option>
-                  <option value="general">❓ 일반 질문 및 소통</option>
+                  <option value="alliance">협업 및 제휴 제안</option>
+                  <option value="content_edit">내용 수정 및 의견 제보</option>
+                  <option value="ads">광고 및 기타 제휴</option>
+                  <option value="general">Q. 일반 질문 및 소통</option>
                 </select>
               </div>
 
