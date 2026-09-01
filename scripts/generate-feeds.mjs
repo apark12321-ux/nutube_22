@@ -3,163 +3,139 @@ import path from 'path';
 
 const SITE_URL = 'https://nutube.kr';
 const ROOT = process.cwd();
-const DAY_MS = 24 * 60 * 60 * 1000;
-const FILL_START_UTC = Date.UTC(2026, 4, 1, 1, 0, 0);
-const FILL_END_UTC = Date.UTC(2026, 6, 3, 1, 0, 0);
-const STATIC_LASTMOD = '2026-07-03';
 
-const DAILY_CATEGORIES = [
-  { key: 'beginner', label: '왕초보 출발', themes: ['첫 영상 주제 선택', '채널 소개 문장 설계', '첫 10초 도입부 구성', '촬영 전 대본 뼈대 만들기', '초보자가 버려야 할 완벽주의'], situations: ['무엇을 올려야 할지 몰라 제작을 미루는 상황', '초기 반응이 낮아도 계속 운영할 기준이 필요한 상황', '지인이 보는 것이 부담스러워 공개를 망설이는 상황'], angles: ['바로 따라 할 수 있는 단순성', '공감되는 진정성', '지속 가능한 운영 기준'] },
-  { key: 'algorithm', label: '유튜브 알고리즘', themes: ['클릭률이 낮은 영상의 원인 분석', '시청 지속 시간이 떨어지는 구간 찾기', '추천 흐름이 약해진 영상 복구', '제목 변경 전 확인할 데이터', '썸네일 테스트의 판단 기준'], situations: ['노출은 많은데 클릭이 적은 상황', '초반 반응은 빠른데 하루 뒤 멈추는 상황', '구독자는 늘었지만 다음 영상 반응이 약한 상황'], angles: ['지표를 행동으로 번역하는 관점', '흐름을 보는 분석 기준', '시리즈 단위 판단법'] },
-  { key: 'aitools', label: 'AI 도구', themes: ['AI 대본 초안을 사람 말투로 바꾸기', 'AI 음성 사용 전 감정선 점검', '자막 자동화 후 검수 기준', '썸네일 문구를 AI로 줄이는 방법', '자료 조사 프롬프트 설계'], situations: ['원고는 빨리 나오지만 말투가 딱딱한 상황', 'AI 음성이 내용을 잘 전달하지 못하는 상황', '비슷한 썸네일 문구가 반복되는 상황'], angles: ['검수 체계 중심 운영', '속도와 신뢰성을 함께 잡는 방식', '운영자 경험을 보강하는 방법'] },
-  { key: 'monetization', label: '영상 채널 수익화', themes: ['수익화 전 단계에서 준비할 신뢰 요소', '협찬 제안을 받기 전 채널 정리', '멤버십보다 먼저 필요한 팬 관계', '상품 소개 영상의 신뢰 문장', '설명란과 고정댓글의 역할'], situations: ['반응은 있지만 수익 구조가 없는 상황', '협찬을 받고 싶지만 채널 소개가 약한 상황', '정보 글과 판매성 표현의 경계가 애매한 상황'], angles: ['신뢰를 먼저 만드는 관점', '장기 재방문을 보는 관점', '정책 안정성을 지키는 방식'] },
-  { key: 'senior', label: '시니어 사연 쇼츠', themes: ['시니어 시청자가 끝까지 보는 도입부', '사연 영상의 감정선 조절', '큰 자막과 쉬운 문장 구성', '댓글 공감을 부르는 질문', '생활 정보와 사연의 결합'], situations: ['사연은 좋은데 초반에 이탈이 많은 상황', '댓글은 많지만 논쟁이 생기는 상황', '자막이 작아 모바일에서 읽기 어려운 상황'], angles: ['따뜻하지만 과장하지 않는 관점', '시청자 경험을 존중하는 문장', '모바일 가독성을 먼저 보는 방식'] },
-  { key: 'advanced', label: '중고수 전략', themes: ['성장 정체 구간의 원인 분리', '시리즈 포맷 재설계', '채널 브랜딩 문장 정리', '롱폼과 쇼츠의 역할 분리', 'A/B 테스트의 올바른 순서'], situations: ['구독자는 있는데 반응이 정체된 상황', '비슷한 포맷을 오래 써서 반응이 줄어든 상황', '인기 영상은 있지만 다음 주제로 확장하지 못한 상황'], angles: ['채널을 제품처럼 보는 관점', '성과를 구조별로 나누는 방식', '기존 자산을 재활용하는 전략'] },
-];
+// Load posts from category files
+const categoriesDir = path.join(ROOT, 'src', 'data', 'categories');
+const categoryFiles = fs.readdirSync(categoriesDir).filter(f => f.endsWith('.ts'));
 
-const hold = (...parts) => parts.join('-');
-const REVIEW_HOLD_SLUGS = new Set([
-  hold('shorts', 'rpm', 'maximization', 'strategy'),
-  hold('ai', 'visual', 'storytelling', 'production'),
-  hold('community', 'fandom', 'reputation', 'management'),
-  hold('google', 'search', 'console', 'seo', 'indexing'),
-  hold('ads', 'review', 'recovery'),
-  hold('youtube', 'zero', 'views', 'remedy', 'formula'),
-  hold('vintage', 'europe', 'aesthetic', 'shorts', 'hook'),
-  hold('low', 'value', 'content', 'solution'),
-  hold('search', 'console', 'sitemap', 'fetch', 'success'),
-]);
+let allPosts = [];
 
-const sourceFiles = [
-  path.join(ROOT, 'src', 'data.ts'),
-  ...fs.readdirSync(path.join(ROOT, 'src', 'data')).filter((name) => name.endsWith('.ts')).map((name) => path.join(ROOT, 'src', 'data', name)),
-];
-
-const escapeXml = (value = '') => String(value).replace(/[<>&'"]/g, (char) => {
-  switch (char) {
-    case '<': return '&lt;';
-    case '>': return '&gt;';
-    case '&': return '&amp;';
-    case "'": return '&apos;';
-    case '"': return '&quot;';
-    default: return char;
+for (const file of categoryFiles) {
+  const content = fs.readFileSync(path.join(categoriesDir, file), 'utf-8');
+  const equalIdx = content.indexOf('= [');
+  if (equalIdx !== -1) {
+    const jsonStart = equalIdx + 2;
+    const jsonEnd = content.lastIndexOf(']') + 1;
+    try {
+      const posts = JSON.parse(content.substring(jsonStart, jsonEnd));
+      allPosts = allPosts.concat(posts);
+    } catch (e) {
+      console.error(`Error parsing ${file}:`, e);
+    }
   }
-});
+}
 
-const postTitleSegment = (title) => String(title)
-  .trim()
-  .replace(/%/g, '퍼센트')
-  .replace(/[\\/#?]+/g, ' ')
-  .replace(/[\[\]@!$&'()*+,;=]+/g, ' ')
-  .replace(/\s+/g, '-')
-  .replace(/-+/g, '-')
-  .replace(/^-|-$/g, '');
+// Sort posts descending by publishedAt
+allPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
-const postUrl = (title) => `${SITE_URL}/post/${encodeURI(postTitleSegment(title))}`;
-const dateKey = (value) => new Date(value).toISOString().slice(0, 10);
-const formatKoreanDate = (date) => `${date.getUTCMonth() + 1}월 ${date.getUTCDate()}일`;
-const pick = (items, seed) => items[Math.abs(seed) % items.length];
-const dayIndex = (date) => Math.floor((date.getTime() - FILL_START_UTC) / DAY_MS);
-const dailyTitle = (category, date) => {
-  const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === category.key);
-  const seed = dayIndex(date) + categoryIndex * 11;
-  const theme = pick(category.themes, seed);
-  const situation = pick(category.situations, seed + 1).replace(/ 상황$/g, '');
-  const angle = pick(category.angles, seed + 3);
-  return `${category.label}: ${theme}으로 ${situation} 해결하는 ${angle}`;
-};
+console.log(`Loaded ${allPosts.length} posts for feed generation.`);
 
-const extractPosts = () => {
-  const posts = [];
-  sourceFiles.forEach((file) => {
-    const content = fs.readFileSync(file, 'utf-8');
-    const pattern = /slug:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?subtitle:\s*'([^']*)'[\s\S]*?category:\s*'([^']+)'[\s\S]*?publishedAt:\s*'([^']+)'/g;
-    let match;
-    while ((match = pattern.exec(content))) {
-      posts.push({ slug: match[1], title: match[2], subtitle: match[3], category: match[4], publishedAt: match[5] });
+function escapeXml(unsafe = '') {
+  return String(unsafe).replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+      default: return c;
     }
   });
+}
 
-  const seen = new Set();
-  return posts.filter((post) => {
-    if (!post.slug || REVIEW_HOLD_SLUGS.has(post.slug) || seen.has(post.slug)) return false;
-    seen.add(post.slug);
-    return true;
-  });
-};
-
-const makeDailyPost = (category, date) => {
-  const key = date.toISOString().slice(0, 10);
-  const title = dailyTitle(category, date);
-  const categoryIndex = DAILY_CATEGORIES.findIndex((item) => item.key === category.key);
-  const publishedAt = new Date(date);
-  publishedAt.setUTCHours(1 + categoryIndex, 0, 0, 0);
-  const updatedAt = new Date(publishedAt.getTime() + 45 * 60 * 1000);
-
-  return {
-    slug: `daily-${category.key}-${key}`,
-    title,
-    subtitle: `${category.label} 카테고리에서 ${formatKoreanDate(date)}에 다루기 좋은 실전형 운영 주제를 깊이 있게 정리했습니다.`,
-    category: category.key,
-    publishedAt: publishedAt.toISOString(),
-    updatedAt: updatedAt.toISOString(),
-    url: postUrl(title),
-  };
-};
-
-const fillMissingDailyCategoryPosts = (posts) => {
-  const normalized = posts.map((post) => {
-    const publishedAt = new Date(post.publishedAt);
-    const updatedAt = new Date(publishedAt.getTime() + 45 * 60 * 1000);
-    return { ...post, publishedAt: publishedAt.toISOString(), updatedAt: updatedAt.toISOString(), url: postUrl(post.title) };
-  });
-  const existing = new Set(normalized.map((post) => `${post.category}:${dateKey(post.publishedAt)}`));
-  const filled = [...normalized];
-
-  for (let time = FILL_START_UTC; time <= FILL_END_UTC; time += DAY_MS) {
-    const date = new Date(time);
-    const key = date.toISOString().slice(0, 10);
-    DAILY_CATEGORIES.forEach((category) => {
-      const pair = `${category.key}:${key}`;
-      if (!existing.has(pair)) {
-        filled.push(makeDailyPost(category, date));
-        existing.add(pair);
-      }
-    });
-  }
-  return filled;
-};
-
-const ensureDist = () => {
-  const dist = path.join(ROOT, 'dist');
-  if (!fs.existsSync(dist)) fs.mkdirSync(dist, { recursive: true });
-  return dist;
-};
-
-const buildSitemap = (posts) => {
+function buildSitemapXml(posts) {
   const staticPages = [
-    { loc: SITE_URL, lastmod: STATIC_LASTMOD, changefreq: 'daily', priority: '1.0' },
-    { loc: `${SITE_URL}/about`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.6' },
-    { loc: `${SITE_URL}/contact`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.5' },
-    { loc: `${SITE_URL}/terms`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.3' },
-    { loc: `${SITE_URL}/privacy`, lastmod: STATIC_LASTMOD, changefreq: 'monthly', priority: '0.3' },
+    { loc: `${SITE_URL}/`, lastmod: '2026-08-31', changefreq: 'daily', priority: '1.0' },
+    { loc: `${SITE_URL}/about`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.6' },
+    { loc: `${SITE_URL}/contact`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.5' },
+    { loc: `${SITE_URL}/terms`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' },
+    { loc: `${SITE_URL}/privacy`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' }
   ];
-  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
-  staticPages.forEach((page) => lines.push('  <url>', `    <loc>${escapeXml(page.loc)}</loc>`, `    <lastmod>${page.lastmod}</lastmod>`, `    <changefreq>${page.changefreq}</changefreq>`, `    <priority>${page.priority}</priority>`, '  </url>'));
-  [...posts].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).forEach((post) => lines.push('  <url>', `    <loc>${escapeXml(post.url)}</loc>`, `    <lastmod>${post.updatedAt.slice(0, 10)}</lastmod>`, '    <changefreq>weekly</changefreq>', '    <priority>0.7</priority>', '  </url>'));
-  lines.push('</urlset>');
-  return `${lines.join('\n')}\n`;
-};
 
-const buildRss = (posts) => {
-  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">', '  <channel>', '    <title>크리에이터 가이드랩 - 영상 채널 운영 실전 가이드</title>', `    <link>${SITE_URL}/</link>`, '    <description>영상 채널 운영자가 바로 적용할 수 있는 콘텐츠 기획, 쇼츠 제작, AI 도구, 수익화 준비 전략을 정리합니다.</description>', '    <language>ko-KR</language>', '    <lastBuildDate>Fri, 03 Jul 2026 10:00:00 +0900</lastBuildDate>', `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />`];
-  [...posts].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).forEach((post) => lines.push('    <item>', `      <title>${escapeXml(post.title)}</title>`, `      <link>${escapeXml(post.url)}</link>`, `      <guid isPermaLink="true">${escapeXml(post.url)}</guid>`, `      <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>`, `      <description>${escapeXml(post.subtitle || '영상 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.')}</description>`, '    </item>'));
-  lines.push('  </channel>', '</rss>');
-  return `${lines.join('\n')}\n`;
-};
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-const posts = fillMissingDailyCategoryPosts(extractPosts());
-const dist = ensureDist();
-fs.writeFileSync(path.join(dist, 'sitemap.xml'), buildSitemap(posts), 'utf-8');
-fs.writeFileSync(path.join(dist, 'rss.xml'), buildRss(posts), 'utf-8');
-console.log(`[feeds] generated sitemap.xml and rss.xml for ${posts.length} varied daily category posts`);
+  for (const page of staticPages) {
+    xml += '  <url>\n';
+    xml += `    <loc>${escapeXml(page.loc)}</loc>\n`;
+    xml += `    <lastmod>${page.lastmod}</lastmod>\n`;
+    xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+    xml += `    <priority>${page.priority}</priority>\n`;
+    xml += '  </url>\n';
+  }
+
+  for (const post of posts) {
+    const postUrl = `${SITE_URL}/post/${encodeURIComponent(post.slug)}`;
+    const lastmod = (post.updatedAt || post.publishedAt || '2026-08-31').slice(0, 10);
+    xml += '  <url>\n';
+    xml += `    <loc>${escapeXml(postUrl)}</loc>\n`;
+    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += '    <changefreq>weekly</changefreq>\n';
+    xml += '    <priority>0.8</priority>\n';
+    xml += '  </url>\n';
+  }
+
+  xml += '</urlset>\n';
+  return xml;
+}
+
+function buildRssXml(posts) {
+  const latestDate = posts.length > 0 ? new Date(posts[0].publishedAt).toUTCString() : new Date().toUTCString();
+
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">\n';
+  xml += '  <channel>\n';
+  xml += '    <title>NuTube - 1인 크리에이터 유튜브 실전 성장 가이드</title>\n';
+  xml += `    <link>${SITE_URL}/</link>\n`;
+  xml += '    <description>유튜브 채널 개설부터 스마트폰 촬영, 캡컷 컷편집, 알고리즘 분석, 월 100만 원 다중 파이프라인 구축까지 1인 크리에이터 실전 가이드</description>\n';
+  xml += '    <language>ko-KR</language>\n';
+  xml += `    <lastBuildDate>${latestDate}</lastBuildDate>\n`;
+  xml += `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />\n`;
+
+  // Naver & Google recommend recent 50~100 comprehensive items for optimal RSS parsing
+  const feedItems = posts.slice(0, 80);
+
+  for (const post of feedItems) {
+    const postUrl = `${SITE_URL}/post/${encodeURIComponent(post.slug)}`;
+    const pubDate = new Date(post.publishedAt).toUTCString();
+    const summary = post.summary || post.subtitle || '';
+    const contentHtml = `
+      <p><strong>${escapeXml(post.subtitle || '')}</strong></p>
+      <p>${escapeXml(post.summary || '')}</p>
+      <div>${escapeXml(post.content || '').replace(/\n/g, '<br/>')}</div>
+    `.trim();
+
+    xml += '    <item>\n';
+    xml += `      <title><![CDATA[${post.title}]]></title>\n`;
+    xml += `      <link>${postUrl}</link>\n`;
+    xml += `      <guid isPermaLink="true">${postUrl}</guid>\n`;
+    xml += `      <pubDate>${pubDate}</pubDate>\n`;
+    xml += `      <author>minwoo@nutube.kr (${escapeXml(post.author || '민우')})</author>\n`;
+    xml += `      <category><![CDATA[${post.categoryLabel || post.category || '가이드'}]]></category>\n`;
+    xml += `      <description><![CDATA[${summary}]]></description>\n`;
+    xml += `      <content:encoded><![CDATA[${contentHtml}]]></content:encoded>\n`;
+    xml += '    </item>\n';
+  }
+
+  xml += '  </channel>\n';
+  xml += '</rss>\n';
+  return xml;
+}
+
+const sitemapXml = buildSitemapXml(allPosts);
+const rssXml = buildRssXml(allPosts);
+
+// Write to both public and dist directories
+const publicDir = path.join(ROOT, 'public');
+const distDir = path.join(ROOT, 'dist');
+
+if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
+
+fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+fs.writeFileSync(path.join(publicDir, 'rss.xml'), rssXml, 'utf-8');
+
+fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+fs.writeFileSync(path.join(distDir, 'rss.xml'), rssXml, 'utf-8');
+
+console.log(`[feeds] Successfully wrote rich sitemap.xml and rss.xml to public/ and dist/ (${allPosts.length} posts)`);

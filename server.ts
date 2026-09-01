@@ -293,12 +293,12 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
   const currentUTC = new Date().toUTCString();
 
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
-  xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
+  xml += `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">\n`;
   xml += `<channel>\n`;
-  xml += `  <title>크리에이터 가이드 | 1인 미디어 운영 실전 노하우</title>\n`;
+  xml += `  <title>NuTube - 1인 크리에이터 유튜브 실전 성장 가이드</title>\n`;
   xml += `  <link>${baseUrl}/</link>\n`;
   xml += `  <description>${escapeXml('유튜브 채널 개설부터 스마트폰 촬영, 캡컷 컷편집, 알고리즘 분석, 월 100만 원 다중 파이프라인 구축까지 1인 크리에이터 실전 가이드')}</description>\n`;
-  xml += `  <language>ko-kr</language>\n`;
+  xml += `  <language>ko-KR</language>\n`;
   xml += `  <lastBuildDate>${currentUTC}</lastBuildDate>\n`;
   xml += `  <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />\n`;
 
@@ -312,18 +312,25 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
     return true;
   });
 
-  uniquePosts.forEach(post => {
+  uniquePosts.slice(0, 80).forEach(post => {
     const guidUrl = `${baseUrl}${getPostPath(post)}`;
     const desc = post.summary || post.subtitle || '';
     const pubDate = new Date(post.publishedAt || '2026-06-18T12:00:00Z').toUTCString();
+    const contentHtml = `
+      <p><strong>${escapeXml(post.subtitle || '')}</strong></p>
+      <p>${escapeXml(post.summary || '')}</p>
+      <div>${escapeXml(post.content || '').replace(/\n/g, '<br/>')}</div>
+    `.trim();
 
     xml += `  <item>\n`;
-    xml += `    <title>${escapeXml(post.title)}</title>\n`;
+    xml += `    <title><![CDATA[${post.title}]]></title>\n`;
     xml += `    <link>${guidUrl}</link>\n`;
     xml += `    <guid isPermaLink="true">${guidUrl}</guid>\n`;
-    xml += `    <description>${escapeXml(desc)}</description>\n`;
     xml += `    <pubDate>${pubDate}</pubDate>\n`;
-    xml += `    <author>${escapeXml(post.author || '민우 (1인 크리에이터)')}</author>\n`;
+    xml += `    <author>minwoo@nutube.kr (${escapeXml(post.author || '민우')})</author>\n`;
+    xml += `    <category><![CDATA[${post.categoryLabel || post.category || '가이드'}]]></category>\n`;
+    xml += `    <description><![CDATA[${desc}]]></description>\n`;
+    xml += `    <content:encoded><![CDATA[${contentHtml}]]></content:encoded>\n`;
     xml += `  </item>\n`;
   });
 
