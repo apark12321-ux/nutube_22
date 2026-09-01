@@ -214,7 +214,7 @@ app.get(['/app-ads.txt', '/api/app-ads.txt'], (req, res) => {
 
 // --- GOOGLE SEARCH CONSOLE SITEMAP.XML GENERATOR ---
 app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
-  const host = req.headers.host || 'nutube.kr';
+  const host = req.headers.host || 'www.nutube.kr';
   const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
 
@@ -273,7 +273,7 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
 
 // --- GOOGLE SEARCH CONSOLE RSS.XML FEED GENERATOR ---
 app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
-  const host = req.headers.host || 'nutube.kr';
+  const host = req.headers.host || 'www.nutube.kr';
   const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
 

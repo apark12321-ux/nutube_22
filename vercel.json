@@ -31,16 +31,6 @@
       ]
     }
   ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "host", "value": "www.nutube.kr" }
-      ],
-      "destination": "https://nutube.kr/:path*",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/((?!api/|assets/|thumbnails/|sitemap\\.xml|rss\\.xml|robots\\.txt|ads\\.txt|.*\\.[a-zA-Z0-9]+$).*)",

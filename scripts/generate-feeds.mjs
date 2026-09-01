@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const SITE_URL = 'https://nutube.kr';
+const SITE_URL = 'https://www.nutube.kr';
 const ROOT = process.cwd();
 
 // Load posts from category files
