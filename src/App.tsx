@@ -372,44 +372,6 @@ export default function App() {
               <p className={`text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
                 왜 지금 유튜브를 해야 하는지부터 얼굴 없이 시작하는 법, 요즘 알고리즘 트렌드, 똑똑한 AI 활용법, 그리고 현실적인 수익화 파이프라인까지 누구나 쉽고 재미있게 읽을 수 있도록 핵심만 알차게 담았습니다.
               </p>
-
-              {/* Category Quick Selector */}
-              <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                {CATEGORIES_LIST.map((spec) => {
-                  const isSelected = category === spec.key;
-                  return (
-                    <button
-                      key={spec.key}
-                      onClick={() => selectCategory(spec.key)}
-                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                        isSelected
-                          ? dark
-                            ? 'border-purple-500 bg-purple-950/40 shadow-xs'
-                            : 'border-purple-500 bg-purple-50/80 shadow-xs'
-                          : dark
-                            ? 'border-slate-800 bg-slate-900/40 hover:border-slate-700'
-                            : 'border-slate-200 bg-slate-50/60 hover:border-purple-200 hover:bg-white'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-1 mb-1">
-                        <span className="text-[10px] sm:text-[11px] font-bold text-purple-600 dark:text-purple-400">
-                          {spec.shortLabel || spec.label}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400">
-                          {spec.count}편
-                        </span>
-                      </div>
-                      <div className={`text-xs font-semibold truncate ${
-                        isSelected 
-                          ? dark ? 'text-white' : 'text-purple-900' 
-                          : dark ? 'text-slate-300' : 'text-slate-700'
-                      }`}>
-                        {spec.label}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
             </div>
 
             {/* Clean Category Filter Tabs */}

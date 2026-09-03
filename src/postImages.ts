@@ -2,28 +2,28 @@ import { GuidePost, PostImage } from './types';
 
 // Robust, high-speed creator-themed curated photos from Unsplash CDN
 const CATEGORY_IMAGE_POOLS: Record<string, string[]> = {
-  step1_starter: [
+  why_youtube: [
     'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=1200&q=80', // Smartphone recording & light
     'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80', // Microphone & audio
     'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80', // Camera gear
     'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=80', // Creator workspace
     'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?auto=format&fit=crop&w=1200&q=80', // Studio setup
   ],
-  step2_creator: [
+  trends: [
     'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80', // Video editing timeline
     'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200&q=80', // Video production monitor
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', // Creative editing setup
     'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80', // Production workflow
     'https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=1200&q=80', // Editing workstation
   ],
-  step3_algorithm: [
-    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80', // Analytics dashboard chart
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80', // Growth metrics & statistics
-    'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80', // Performance graphs
-    'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=1200&q=80', // Audience content planning
-    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80', // Tech analytics
+  ai_creator: [
+    'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80', // AI tech & neural compute
+    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', // Digital creative workflow
+    'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80', // Computer and tools
+    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80', // High tech cyber visual
+    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80', // Code matrix screen
   ],
-  step4_revenue: [
+  monetization: [
     'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80', // Revenue & pipeline finance
     'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80', // Business laptop & coffee
     'https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=1200&q=80', // Monetization dashboard
@@ -81,19 +81,29 @@ const getCuratedImageUrl = (post: GuidePost, slotOffset: number) => {
   return pool[index];
 };
 
-const makeThumbnail = (post: GuidePost): PostImage => ({
-  src: getCuratedImageUrl(post, 0),
-  alt: `${categoryLabel(post)} 주제의 영상 채널 운영 가이드 썸네일 이미지`,
-  caption: post.title,
-});
+const makeThumbnail = (post: GuidePost): PostImage => {
+  if (post.thumbnail && post.thumbnail.src) {
+    return post.thumbnail;
+  }
+  return {
+    src: getCuratedImageUrl(post, 0),
+    alt: `${categoryLabel(post)} 주제의 영상 채널 운영 가이드 썸네일 이미지`,
+    caption: post.title,
+  };
+};
 
-const makeBodyImage = (post: GuidePost, order: number): PostImage => ({
-  src: getCuratedImageUrl(post, order * 7 + 3),
-  alt: `${categoryLabel(post)} 관련 체크리스트를 설명하는 본문 참고 이미지 ${order}`,
-  caption: order === 1
-    ? '스마트폰 촬영과 컷편집 단계에서는 불필요한 호흡을 먼저 덜어내는 것이 중요합니다.'
-    : '업로드 후에는 조회수뿐 아니라 클릭률(CTR)과 평균 시청 지속 시간을 함께 분석합니다.',
-});
+const makeBodyImage = (post: GuidePost, order: number): PostImage => {
+  if (post.bodyImages && post.bodyImages[order - 1]?.src) {
+    return post.bodyImages[order - 1];
+  }
+  return {
+    src: getCuratedImageUrl(post, order * 7 + 3),
+    alt: `${categoryLabel(post)} 관련 체크리스트를 설명하는 본문 참고 이미지 ${order}`,
+    caption: order === 1
+      ? '스마트폰 촬영과 컷편집 단계에서는 불필요한 호흡을 먼저 덜어내는 것이 중요합니다.'
+      : '업로드 후에는 조회수뿐 아니라 클릭률(CTR)과 평균 시청 지속 시간을 함께 분석합니다.',
+  };
+};
 
 export const addPostImages = (post: GuidePost): GuidePost => {
   const thumbnail = makeThumbnail(post);
