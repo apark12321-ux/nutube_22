@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass, Mail, ChevronRight, Filter } from 'lucide-react';
+import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass, ChevronRight, Filter } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
-import { ContactForm } from './components/ContactForm';
 import { SearchConsoleManager } from './components/SearchConsoleManager';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 
-type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
 
 interface RouteState {
   tab: Tab;
@@ -74,7 +73,6 @@ const resolveRoute = (pathname: string): RouteState => {
   }
 
   if (path === '/about') return { tab: 'about', post: null, category: null };
-  if (path === '/contact') return { tab: 'contact', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
   if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
   if (path === '/search-console') return { tab: 'search-console', post: null, category: null };
@@ -85,7 +83,6 @@ const resolveRoute = (pathname: string): RouteState => {
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'guide-detail' && post) return getPostPath(post);
   if (tab === 'about') return '/about';
-  if (tab === 'contact') return '/contact';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
   if (tab === 'search-console') return '/search-console';
@@ -97,7 +94,7 @@ const initialRoute = (): RouteState => {
   return resolveRoute(window.location.pathname);
 };
 
-const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
+const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
     title: '운영자 소개 & 블로그 철학',
     updated: '2026년 8월 30일',
@@ -128,29 +125,7 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
       {
         heading: '4. 크리에이터 고민 & 소통',
         body: [
-          '혼자 채널을 운영하거나 블로그를 쓰다 보면 막막하고 외로울 때가 많습니다. 글 내용에 대해 궁금한 점이나 나누고 싶은 고민이 있다면 언제든 [문의] 페이지를 통해 편하게 남겨주세요. 제가 아는 선에서 진솔하게 답해드리겠습니다.'
-        ]
-      }
-    ]
-  },
-  contact: {
-    title: '문의 및 피드백',
-    updated: '2026년 8월 30일',
-    intro: '크리에이터 노트에 담긴 가이드 내용에 대한 피드백, 제휴 제안, 혹은 유튜브/블로그 운영 중 겪는 고민이 있으시다면 언제든 편하게 남겨주세요.',
-    sections: [
-      {
-        heading: '1. 온라인 문의 안내',
-        body: [
-          '블로그 내 [온라인 문의 양식]을 통해 성함, 이메일 주소, 문의 내용을 남겨주시면 작성자(민우)가 직접 확인합니다.',
-          '영업일 기준 24~48시간 이내에 기재해 주신 회신 이메일로 답변을 보내드립니다.'
-        ]
-      },
-      {
-        heading: '2. 문의 가능 분야',
-        items: [
-          '유튜브 채널 기획, 스마트폰 촬영 및 캡컷 컷편집 관련 질문',
-          '구글 애드센스 승인 및 블로그 글쓰기 피드백',
-          '전자책/디지털 상품 기획 및 1인 크리에이터 협업 제휴'
+          '혼자 채널을 운영하거나 블로그를 쓰다 보면 막막하고 외로울 때가 많습니다. 글 내용에 대해 궁금한 점이나 나누고 싶은 고민이 있다면 언제든 블로그의 다양한 실전 가이드 글들을 참고하시고 함께 성장해 나갔으면 좋겠습니다.'
         ]
       }
     ]
@@ -190,8 +165,8 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
       {
         heading: '1. 수집하는 개인정보 항목 및 수집 방법',
         body: [
-          '본 블로그는 별도의 회원가입 없이 누구나 모든 글과 자료를 열람할 수 있습니다.',
-          '방문자가 [문의하기] 양식을 통해 자발적으로 문의를 접수하는 경우에 한해 성함, 이메일 주소, 문의 내용이 수집되며, 이는 오직 문의에 대한 회신 목적으로만 사용된 후 파기됩니다.'
+          '본 블로그는 별도의 회원가입이나 개인정보 입력 없이 누구나 모든 글과 자료를 자유롭게 열람할 수 있습니다.',
+          '서버나 웹사이트 차원에서 이용자의 민감한 개인정보를 임의로 저장하거나 제3자에게 제공하지 않습니다.'
         ]
       },
       {
@@ -210,9 +185,9 @@ const PAGE_CONTENT: Record<'about' | 'contact' | 'privacy' | 'terms', { title: s
         ]
       },
       {
-        heading: '4. 개인정보 보호 책임자 및 문의처',
+        heading: '4. 개인정보 보호 책임자 안내',
         body: [
-          '개인정보 및 본 방침에 관한 문의사항이 있으실 경우 블로그 하단의 [문의] 페이지를 통해 접수해 주시면 성실히 처리해 드리겠습니다.'
+          '본 블로그의 개인정보 보호 및 운영에 관한 기본 방침은 관계 법령 및 구글 게시자 정책을 철저히 준수하여 안전하게 관리되고 있습니다.'
         ]
       }
     ]
@@ -539,7 +514,6 @@ export default function App() {
         )}
         
         {tab === 'about' && <InfoPage page={PAGE_CONTENT.about} theme={theme} />}
-        {tab === 'contact' && <ContactForm theme={theme} />}
         {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}
         {tab === 'privacy' && <InfoPage page={PAGE_CONTENT.privacy} theme={theme} />}
         {tab === 'search-console' && (
@@ -562,7 +536,6 @@ export default function App() {
 
             <div className="flex items-center gap-4 text-xs font-medium">
               <button onClick={() => go('about')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">블로그 소개</button>
-              <button onClick={() => go('contact')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">문의</button>
               <button onClick={() => go('privacy')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">개인정보처리방침</button>
               <button onClick={() => go('terms')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">이용약관</button>
             </div>

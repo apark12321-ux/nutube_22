@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Search, Menu, X, Sun, Moon, FileText, Info, Mail, Tag, ChevronRight, CornerDownLeft, ExternalLink } from 'lucide-react';
+import { Search, Menu, X, Sun, Moon, FileText, Info, Tag, ChevronRight, CornerDownLeft, ExternalLink } from 'lucide-react';
 import { GuidePost } from '../types';
 
-type Tab = 'guides' | 'about' | 'contact' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
 
 interface NavbarProps {
   currentTab: Tab;
@@ -259,16 +259,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               소개 (About)
-            </button>
-            <button
-              onClick={() => handleNavTab('contact')}
-              className={`transition-colors py-1 cursor-pointer ${
-                currentTab === 'contact'
-                  ? dark ? 'text-white font-bold border-b-2 border-purple-400' : 'text-slate-900 font-bold border-b-2 border-purple-600'
-                  : dark ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              문의·제휴
             </button>
           </nav>
 
@@ -573,14 +563,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     >
                       <Info className="h-4 w-4 text-purple-600 dark:text-purple-400" />
                       <span>소개 (About)</span>
-                    </button>
-
-                    <button
-                      onClick={() => handleNavTab('contact')}
-                      className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-left hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 cursor-pointer"
-                    >
-                      <Mail className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                      <span>문의·제휴</span>
                     </button>
                   </div>
 

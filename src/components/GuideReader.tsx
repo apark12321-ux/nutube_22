@@ -823,7 +823,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               </div>
             </div>
             <p className={`text-xs sm:text-sm leading-relaxed mt-2.5 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-              이 글은 뻔한 교과서식 이론이 아니라, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 실패 경험을 바탕으로 썼습니다. 여러분의 시간과 돈을 아끼는 데 조금이라도 보탬이 되었으면 합니다. 궁금한 점은 언제든 문의 페이지에 남겨주세요!
+              이 글은 뻔한 교과서식 이론이 아니라, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 실패 경험을 바탕으로 썼습니다. 여러분의 시간과 돈을 아끼는 데 조금이라도 보탬이 되었으면 합니다. 여러분의 크리에이터 도전을 진심으로 응원합니다!
             </p>
           </div>
 

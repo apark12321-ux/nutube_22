@@ -47,7 +47,6 @@ function buildSitemapXml(posts) {
   const staticPages = [
     { loc: `${SITE_URL}/`, lastmod: '2026-08-31', changefreq: 'daily', priority: '1.0' },
     { loc: `${SITE_URL}/about`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.6' },
-    { loc: `${SITE_URL}/contact`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.5' },
     { loc: `${SITE_URL}/terms`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' },
     { loc: `${SITE_URL}/privacy`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' }
   ];
