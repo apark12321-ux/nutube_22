@@ -193,11 +193,11 @@ app.get('/api/health', (req, res) => {
 
 // --- GOOGLE ADSENSE ADS.TXT INTEGRATION ENGINE ---
 // In-memory store for back-up when env is missing
-let globalAdSensePublisherId = "pub-9759242940251786";
+let globalAdSensePublisherId = "pub-9552509372228899";
 
 // Static crawl endpoints required by Google AdSense (support both direct and /api prefixes)
 app.get(['/ads.txt', '/api/ads.txt'], (req, res) => {
-  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9552509372228899";
   // Guarantee clean plain-text response format with no extra carriage returns
   const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
@@ -206,7 +206,7 @@ app.get(['/ads.txt', '/api/ads.txt'], (req, res) => {
 
 // App-ads.txt fallback
 app.get(['/app-ads.txt', '/api/app-ads.txt'], (req, res) => {
-  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+  const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9552509372228899";
   const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.send(`google.com, ${cleanPubId}, DIRECT, f08c47fec0942fa0\n`);
@@ -762,7 +762,7 @@ app.get('/api/check-adstxt', async (req, res) => {
   
   if (cleanDomain === 'localhost' || cleanDomain === '127.0.0.1' || cleanDomain === 'nutube.kr') {
     // nutube.kr는 현재 구동 중인 본 서버이므로, 설정된 pubId 기준 실시간 동기값 즉각 리턴하여 테스트 통과 처리
-    const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+    const pubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9552509372228899";
     const cleanPubId = pubId.trim().toLowerCase().startsWith('pub-') ? pubId.trim() : `pub-${pubId.trim()}`;
     return res.json({
       success: true,
@@ -810,7 +810,7 @@ app.get('/api/check-adstxt', async (req, res) => {
       }
     }
     
-    const targetPubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9759242940251786";
+    const targetPubId = process.env.ADSENSE_PUBLISHER_ID || globalAdSensePublisherId || "pub-9552509372228899";
     const cleanTargetPubId = targetPubId.trim().toLowerCase().startsWith('pub-') ? targetPubId.trim() : `pub-${targetPubId.trim()}`;
     
     if (foundText && foundText.trim().length > 0) {

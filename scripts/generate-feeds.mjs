@@ -133,8 +133,10 @@ if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml, 'utf-8');
 fs.writeFileSync(path.join(publicDir, 'rss.xml'), rssXml, 'utf-8');
+fs.writeFileSync(path.join(publicDir, 'ads.txt'), 'google.com, pub-9552509372228899, DIRECT, f08c47fec0942fa0\n', 'utf-8');
 
 fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
 fs.writeFileSync(path.join(distDir, 'rss.xml'), rssXml, 'utf-8');
+fs.writeFileSync(path.join(distDir, 'ads.txt'), 'google.com, pub-9552509372228899, DIRECT, f08c47fec0942fa0\n', 'utf-8');
 
-console.log(`[feeds] Successfully wrote rich sitemap.xml and rss.xml to public/ and dist/ (${allPosts.length} posts)`);
+console.log(`[feeds] Successfully wrote rich sitemap.xml, rss.xml and ads.txt to public/ and dist/ (${allPosts.length} posts)`);
