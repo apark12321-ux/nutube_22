@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight, User, ShieldCheck, Folder } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
+import { BlogComments } from './BlogComments';
 
 interface GuideReaderProps {
   post: GuidePost;
@@ -105,7 +106,7 @@ const parseContentToBlocks = (content: string): ContentBlock[] => {
 const ImageFigure: React.FC<{ image?: PostImage }> = ({ image }) => {
   if (!image || !image.src) return null;
   return (
-    <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-2xs">
+    <figure className="my-8 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-2xs">
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={image.src}
@@ -138,7 +139,19 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
 
   const blocks = useMemo(() => parseContentToBlocks(post.content), [post.content]);
 
-  // Find Previous and Next Posts in the roadmap
+  // Find category posts for Tistory "카테고리의 다른 글" Box
+  const categoryPosts = useMemo(() => {
+    if (!allPosts || allPosts.length === 0) return [];
+    const sameCat = allPosts.filter(p => p.category === post.category);
+    const currentIndex = sameCat.findIndex(p => p.slug === post.slug);
+    if (currentIndex === -1) return sameCat.slice(0, 5);
+    
+    // Pick 5 posts around the current post
+    const start = Math.max(0, currentIndex - 2);
+    return sameCat.slice(start, start + 5);
+  }, [allPosts, post.category, post.slug]);
+
+  // Previous & Next Posts
   const prevPost = useMemo(() => {
     if (post.prevPostSlug && allPosts.length > 0) {
       return allPosts.find((p) => p.slug === post.prevPostSlug);
@@ -190,7 +203,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     setIsMobileTocOpen(false);
   }, [post.slug]);
 
-  // ScrollSpy to highlight active heading in TOC
   useEffect(() => {
     if (tocItems.length === 0) return;
 
@@ -202,7 +214,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
       if (headingEls.length === 0) return;
 
       const scrollY = window.scrollY;
-      const offset = 130; // 130px offset for top header bar and visual threshold
+      const offset = 130;
 
       let current = headingEls[0].id;
       for (let i = 0; i < headingEls.length; i++) {
@@ -427,245 +439,210 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     return parts;
   };
 
+  const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
+
   return (
     <div className="relative pb-24" id={`guide-reader-${post.slug}`} itemScope itemType="https://schema.org/BlogPosting">
       {/* Scroll indicator bar */}
       <div className="fixed left-0 top-16 z-50 h-1 bg-purple-600 transition-all duration-100" style={{ width: `${scrollPercent}%` }} />
       
-      {/* Main Container with 2-column layout on large screens */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-6 flex justify-center gap-8 lg:gap-10 xl:gap-12">
+      {/* Main Container */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 flex justify-center gap-8 lg:gap-10 xl:gap-12">
         
-        {/* Article Main Column */}
+        {/* Article Main Column (Tistory / Naver Classic Article Layout) */}
         <div className="w-full max-w-3xl min-w-0">
           
-          {/* Navigation & Breadcrumbs */}
-          <div className="mb-6 flex items-center justify-between gap-4">
-            <button 
-              onClick={onBack} 
-              className={`group flex items-center gap-1.5 text-sm font-semibold transition-colors cursor-pointer ${
-                dark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-purple-700'
-              }`}
-            >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-              <span>목록으로 돌아가기</span>
+          {/* 1. Breadcrumbs (Tistory Style) */}
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <button onClick={onBack} className="hover:underline cursor-pointer">
+              홈
             </button>
-            
-            <div className="relative">
-              {shareToast && (
-                <div className="absolute -bottom-10 right-0 z-20 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-bold shadow-md border border-purple-200 bg-purple-50 text-purple-700 dark:bg-slate-800 dark:text-purple-300 dark:border-slate-700">
-                  링크가 복사되었습니다
-                </div>
-              )}
-              <button 
-                onClick={handleShare} 
-                className={`flex h-9 w-9 items-center justify-center rounded-lg border transition-colors cursor-pointer ${
-                  dark 
-                    ? 'border-slate-800 bg-slate-900 text-slate-300 hover:text-white' 
-                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                }`} 
-                title="글 공유하기"
-              >
-                <Share2 className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
+            <span>&gt;</span>
+            <span className="text-purple-600 dark:text-purple-400 font-medium">
+              {post.categoryLabel}
+            </span>
+          </nav>
 
-          {/* Article Header */}
-          <header className="mb-8 break-keep">
-            <div className="mb-3">
-              <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-bold uppercase ${
-                dark ? 'bg-slate-800 text-purple-300 border border-slate-700' : 'bg-purple-50 text-purple-700 border border-purple-100'
-              }`}>
-                {post.categoryLabel}
-              </span>
-            </div>
-            
-            <h1 itemProp="headline" className={`font-heading text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight mb-4 ${
-              dark ? 'text-white' : 'text-slate-900'
+          {/* 2. Article Header */}
+          <header className="mb-6 pb-6 border-b border-slate-200 dark:border-slate-800">
+            {/* Category tag */}
+            <span className={`inline-block text-xs font-bold px-2.5 py-1 rounded mb-3 ${
+              dark ? 'bg-slate-800 text-purple-300 border border-slate-700' : 'bg-purple-50 text-purple-700 border border-purple-100'
             }`}>
+              {post.categoryLabel}
+            </span>
+
+            {/* Title (H1) */}
+            <h1 className={`text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight leading-snug break-keep ${
+              dark ? 'text-white' : 'text-slate-900'
+            }`} itemProp="headline">
               {post.title}
             </h1>
 
+            {/* Subtitle / Key Hook */}
             {post.subtitle && (
-              <p itemProp="description" className={`text-base sm:text-lg leading-relaxed mb-5 font-normal ${
+              <p className={`mt-3 text-sm sm:text-base leading-relaxed break-keep font-medium ${
                 dark ? 'text-slate-300' : 'text-slate-600'
               }`}>
                 {post.subtitle}
               </p>
             )}
 
-            {/* Published Info Row */}
-            <div className={`flex flex-wrap items-center justify-between gap-3 py-3 border-y text-xs sm:text-sm ${
-              dark ? 'border-slate-800 text-slate-400' : 'border-slate-200 text-slate-500'
+            {/* Metadata Bar (Tistory / Naver Blog Style) */}
+            <div className={`mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-4 flex-wrap text-xs ${
+              dark ? 'text-slate-400' : 'text-slate-500'
             }`}>
-              <div className="flex items-center gap-2 font-mono">
-                <Calendar className="w-4 h-4 text-slate-400" />
-                <time itemProp="datePublished" dateTime={post.publishedAt}>
-                  {formatPostDateTime(post.publishedAt, post.slug)}
-                </time>
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="flex items-center gap-1 font-semibold text-slate-800 dark:text-slate-200">
+                  <User className="w-3.5 h-3.5 text-purple-600" />
+                  <span>민우 (운영자)</span>
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1 font-mono">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <time dateTime={new Date(post.publishedAt).toISOString()}>{formattedDateTime}</time>
+                </span>
               </div>
-              <span className="text-xs text-slate-400 font-medium">
-                크리에이터 실전 가이드
-              </span>
+
+              {/* Share Button */}
+              <button
+                onClick={handleShare}
+                className={`p-1.5 rounded-md border flex items-center gap-1 cursor-pointer transition-colors text-xs ${
+                  dark ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="글 링크 복사"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+                <span>공유</span>
+              </button>
             </div>
           </header>
 
-          {/* Hero image */}
-          <ImageFigure image={post.thumbnail} />
-
-          {/* AEO / GEO Direct Answer Box (Quick Key Takeaways) */}
-          {post.quickAnswer && (
-            <div className={`my-8 p-5 sm:p-6 rounded-2xl border ${
-              dark 
-                ? 'border-purple-500/30 bg-purple-950/20 shadow-lg shadow-purple-950/30' 
-                : 'border-purple-200 bg-purple-50/70 shadow-sm'
-            }`}>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-1.5 rounded-lg bg-purple-600 text-white">
-                  <Lightbulb className="w-4 h-4" />
-                </div>
-                <h3 className={`text-sm sm:text-base font-extrabold tracking-tight ${dark ? 'text-purple-200' : 'text-purple-900'}`}>
-                  바쁜 크리에이터를 위한 30초 핵심 정답 (AEO 요약)
-                </h3>
-              </div>
-
-              <ul className="space-y-2 mb-4">
-                {post.quickAnswer.summary.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm leading-relaxed">
-                    <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${dark ? 'text-purple-400' : 'text-purple-600'}`} />
-                    <span className={dark ? 'text-slate-200' : 'text-slate-800'}>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className={`p-3 rounded-xl border text-xs sm:text-sm font-semibold flex items-center gap-2 ${
-                dark 
-                  ? 'border-purple-500/40 bg-purple-900/40 text-purple-200' 
-                  : 'border-purple-300 bg-white text-purple-900 shadow-2xs'
-              }`}>
-                <span className="shrink-0 px-2 py-0.5 rounded text-[11px] font-bold bg-purple-600 text-white">
-                  핵심 결론
-                </span>
-                <span>{post.quickAnswer.keyTakeaway}</span>
-              </div>
+          {/* Share Toast */}
+          {shareToast && (
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg border border-slate-700 animate-fade-in">
+              글 링크가 클립보드에 복사되었습니다.
             </div>
           )}
 
-          {/* Mobile / Tablet Collapsible Quick TOC (Visible on < lg screens) */}
+          {/* 3. Table of Contents Box (Tistory TOC Plugin Style) */}
           {tocItems.length > 0 && (
-            <div className="my-6 lg:hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/60 p-4 transition-all">
-              <button
+            <div className={`mb-8 p-4 sm:p-5 rounded-xl border transition-colors ${
+              dark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'
+            }`}>
+              <div 
+                className="flex items-center justify-between cursor-pointer select-none"
                 onClick={() => setIsMobileTocOpen(!isMobileTocOpen)}
-                className="flex w-full items-center justify-between text-left font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-200 cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   <List className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  <span>글 목차 바로가기 ({tocItems.length}개 항목)</span>
+                  <span className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+                    목차 (Table of Contents)
+                  </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileTocOpen ? 'rotate-180' : ''}`} />
-              </button>
+                <span className="text-xs text-slate-400 flex items-center gap-1 font-mono">
+                  [{isMobileTocOpen ? '접기' : '펼치기'}]
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isMobileTocOpen ? 'rotate-180' : ''}`} />
+                </span>
+              </div>
 
               {isMobileTocOpen && (
-                <nav className="mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800 space-y-1 text-xs">
-                  {tocItems.map((item) => {
-                    const isActive = activeId === item.id;
-                    return (
+                <ol className="mt-3 pt-3 border-t border-slate-200/80 dark:border-slate-800 space-y-1.5 text-xs">
+                  {tocItems.map((item, idx) => (
+                    <li key={item.id} className={item.level === 3 ? 'pl-4 text-slate-500' : 'font-medium'}>
                       <a
-                        key={item.id}
                         href={`#${item.id}`}
                         onClick={(e) => scrollToHeading(item.id, e)}
-                        className={`block rounded-lg transition-colors py-1.5 ${
-                          item.level === 3 ? 'pl-5 text-[11.5px]' : 'pl-2 font-medium'
-                        } ${
-                          isActive
-                            ? 'text-purple-600 dark:text-purple-400 font-bold bg-purple-50/50 dark:bg-purple-950/40'
-                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                        className={`hover:underline cursor-pointer ${
+                          dark ? 'text-slate-300 hover:text-purple-300' : 'text-slate-700 hover:text-purple-700'
                         }`}
                       >
-                        {item.level === 3 && <span className="opacity-50 mr-1.5">•</span>}
-                        {item.text}
+                        {idx + 1}. {item.text}
                       </a>
-                    );
-                  })}
-                </nav>
+                    </li>
+                  ))}
+                </ol>
               )}
             </div>
           )}
 
-          {/* Article Body */}
-          <article 
-            itemProp="articleBody"
-            className={`space-y-6 break-keep text-base sm:text-[17px] leading-[1.9] font-normal ${
-              dark ? 'text-slate-200' : 'text-slate-800'
-            }`} 
-            id="guide-markdown-body"
-          >
+          {/* 5. Main Content Area */}
+          <div id="guide-markdown-body" className="space-y-6 leading-relaxed font-sans text-base sm:text-lg" itemProp="articleBody">
             {blocks.map((block, index) => {
               if (block.type === 'h2') {
+                const headingText = block.lines[0]?.replace(/\*\*/g, '').trim();
                 return (
-                  <h2 
-                    key={index} 
-                    id={`heading-${index}`} 
-                    className={`scroll-mt-24 font-heading text-xl sm:text-2xl font-bold leading-snug tracking-tight pt-8 pb-2 border-b mt-8 ${
-                      dark ? 'text-white border-slate-800' : 'text-slate-900 border-slate-200'
-                    }`}
-                  >
-                    {block.lines[0]}
-                  </h2>
+                  <div key={index} id={`heading-${index}`} className="pt-6 pb-2 scroll-mt-24">
+                    <h2 className={`text-xl sm:text-2xl font-bold tracking-tight border-l-4 pl-3.5 transition-colors ${
+                      dark ? 'border-purple-500 text-white' : 'border-slate-900 text-slate-900'
+                    }`}>
+                      {headingText}
+                    </h2>
+                  </div>
                 );
               }
+
               if (block.type === 'h3') {
+                const headingText = block.lines[0]?.replace(/\*\*/g, '').trim();
                 return (
-                  <h3 
-                    key={index} 
-                    id={`heading-${index}`} 
-                    className={`scroll-mt-24 font-heading text-lg sm:text-xl font-bold leading-snug pt-4 mt-4 ${
-                      dark ? 'text-purple-200' : 'text-purple-950'
-                    }`}
-                  >
-                    {block.lines[0]}
-                  </h3>
+                  <div key={index} id={`heading-${index}`} className="pt-4 pb-1 scroll-mt-24">
+                    <h3 className={`text-lg sm:text-xl font-bold tracking-tight ${
+                      dark ? 'text-slate-100' : 'text-slate-800'
+                    }`}>
+                      {headingText}
+                    </h3>
+                  </div>
                 );
               }
+
               if (block.type === 'divider') {
                 return (
-                  <hr key={index} className={`my-8 border-t ${dark ? 'border-slate-800' : 'border-slate-200'}`} />
+                  <hr key={index} className="my-8 border-t border-slate-200 dark:border-slate-800" />
                 );
               }
+
               if (block.type === 'list') {
                 return (
-                  <ul key={index} className="my-4 space-y-2 pl-5 list-disc">
-                    {block.lines.map((li, lIdx) => (
-                      <li key={lIdx} className="leading-relaxed">
-                        {renderFormattedText(li.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, ''))}
-                      </li>
-                    ))}
+                  <ul key={index} className="my-4 space-y-2 pl-2">
+                    {block.lines.map((item, idx) => {
+                      const cleanItem = item.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
+                      return (
+                        <li key={idx} className="flex gap-2.5 items-start text-sm sm:text-base leading-relaxed">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-600 dark:bg-purple-400" />
+                          <span className={dark ? 'text-slate-300' : 'text-slate-700'}>
+                            {renderFormattedText(cleanItem)}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 );
               }
+
               if (block.type === 'table') {
-                const tableRows = block.lines.map((r) => r.split('|').map((c) => c.trim()).filter(Boolean));
-                if (tableRows.length === 0) return null;
+                const tableRows = block.lines.map(row => 
+                  row.split('|').map(cell => cell.trim()).filter((_, i, arr) => i !== 0 && i !== arr.length - 1)
+                ).filter(row => row.length > 0);
+
+                if (tableRows.length < 2) return null;
                 const headers = tableRows[0];
                 const dataRows = tableRows.slice(2);
 
                 return (
-                  <div key={index} className="my-6 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
-                    <table className="w-full text-left text-sm">
-                      <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white font-bold border-b border-slate-200 dark:border-slate-800">
+                  <div key={index} className="my-6 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-left text-xs sm:text-sm">
+                      <thead className={`border-b ${dark ? 'bg-slate-800/80 text-slate-200 border-slate-700' : 'bg-slate-100 text-slate-800 border-slate-200'}`}>
                         <tr>
                           {headers.map((h, hIdx) => (
-                            <th key={hIdx} className="p-3">
-                              {renderFormattedText(h)}
-                            </th>
+                            <th key={hIdx} className="px-4 py-2.5 font-bold">{h}</th>
                           ))}
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                         {dataRows.map((row, rIdx) => (
-                          <tr key={rIdx} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                          <tr key={rIdx} className={dark ? 'hover:bg-slate-900/50' : 'hover:bg-slate-50'}>
                             {row.map((cell, cIdx) => (
-                              <td key={cIdx} className="p-3">
+                              <td key={cIdx} className={`px-4 py-2.5 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
                                 {renderFormattedText(cell)}
                               </td>
                             ))}
@@ -676,162 +653,60 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                   </div>
                 );
               }
+
               if (block.type === 'code') {
                 return (
-                  <pre key={index} className="my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs sm:text-sm text-slate-100">
-                    <code>{block.lines.join('\n')}</code>
-                  </pre>
+                  <div key={index} className="my-6 rounded-lg overflow-hidden border border-slate-800 bg-slate-950 p-4 font-mono text-xs sm:text-sm text-slate-200">
+                    <pre className="overflow-x-auto">{block.lines.join('\n')}</pre>
+                  </div>
                 );
               }
 
+              // Paragraphs
+              const paragraphText = block.lines.join(' ');
               paragraphCount += 1;
+
+              // Check if it's a Callout / Tip box (E-E-A-T Real Experience note)
+              const isTipBox = paragraphText.includes('실제 겪어본') || 
+                               paragraphText.includes('솔직 후기') || 
+                               paragraphText.includes('아쉬웠던 점') || 
+                               paragraphText.includes('실패담') || 
+                               paragraphText.includes('민우의');
+
+              if (isTipBox) {
+                return (
+                  <div key={index} className={`my-6 p-4 sm:p-5 rounded-xl border-l-4 transition-colors ${
+                    dark 
+                      ? 'bg-purple-950/20 border-purple-500 text-purple-200' 
+                      : 'bg-amber-50/70 border-amber-500 text-amber-950'
+                  }`}>
+                    <div className="flex items-center gap-2 mb-2 font-bold text-xs sm:text-sm">
+                      <Lightbulb className="w-4 h-4 text-amber-500" />
+                      <span>민우의 실전 코멘트 (E-E-A-T 시행착오 노트)</span>
+                    </div>
+                    <p className="text-xs sm:text-sm leading-relaxed">
+                      {renderFormattedText(paragraphText)}
+                    </p>
+                  </div>
+                );
+              }
+
               return (
-                <React.Fragment key={index}>
-                  <p className="mb-6 leading-[1.9]">
-                    {renderFormattedText(block.lines.join('\n'))}
-                  </p>
-                  {paragraphCount === 2 ? <ImageFigure image={post.bodyImages?.[0]} /> : null}
-                  {paragraphCount === 5 ? <ImageFigure image={post.bodyImages?.[1]} /> : null}
-                </React.Fragment>
+                <p key={index} className={`leading-relaxed text-sm sm:text-base mb-4 break-keep ${
+                  dark ? 'text-slate-300' : 'text-slate-700'
+                }`}>
+                  {renderFormattedText(paragraphText)}
+                </p>
               );
             })}
-          </article>
-
-          {/* GEO / AEO FAQ Accordion Section */}
-          {post.faqList && post.faqList.length > 0 && (
-            <section className={`mt-10 p-6 sm:p-7 rounded-2xl border ${
-              dark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-200 bg-slate-50/70'
-            }`} itemScope itemType="https://schema.org/FAQPage">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="p-1.5 rounded-lg bg-purple-600 text-white">
-                  <HelpCircle className="w-4 h-4" />
-                </div>
-                <h3 className={`font-heading text-lg sm:text-xl font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  자주 묻는 질문 (FAQ)
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                {post.faqList.map((faq, fIdx) => {
-                  const isOpen = openFaqIndex === fIdx;
-                  return (
-                    <div 
-                      key={fIdx} 
-                      className={`rounded-xl border transition-all ${
-                        dark 
-                          ? isOpen ? 'border-purple-500/50 bg-slate-900' : 'border-slate-800 bg-slate-900/40'
-                          : isOpen ? 'border-purple-200 bg-white shadow-xs' : 'border-slate-200/80 bg-white/60'
-                      }`}
-                      itemScope 
-                      itemProp="mainEntity" 
-                      itemType="https://schema.org/Question"
-                    >
-                      <button
-                        onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}
-                        className="w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left font-bold text-sm sm:text-base cursor-pointer"
-                      >
-                        <span itemProp="name" className={dark ? 'text-slate-100' : 'text-slate-900'}>
-                          Q. {faq.question}
-                        </span>
-                        <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-purple-600' : 'text-slate-400'}`} />
-                      </button>
-
-                      {isOpen && (
-                        <div 
-                          className="px-4 pb-4 pt-1 text-xs sm:text-sm leading-relaxed border-t border-slate-100 dark:border-slate-800"
-                          itemScope 
-                          itemProp="acceptedAnswer" 
-                          itemType="https://schema.org/Answer"
-                        >
-                          <p itemProp="text" className={dark ? 'text-slate-300' : 'text-slate-700'}>
-                            {faq.answer}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* Step-by-Step Roadmap Navigation (Previous / Next Guide) */}
-          {(prevPost || nextPost) && (
-            <nav aria-label="가이드 탐색" className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {prevPost ? (
-                <button
-                  onClick={() => onSelectPost ? onSelectPost(prevPost.slug) : onBack()}
-                  className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all group cursor-pointer ${
-                    dark 
-                      ? 'border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-slate-900' 
-                      : 'border-slate-200 bg-white hover:border-purple-300 hover:shadow-md'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 mb-2">
-                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-                    <span>이전 가이드</span>
-                  </div>
-                  <h4 className={`text-sm sm:text-base font-bold line-clamp-2 leading-snug ${
-                    dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
-                  }`}>
-                    {prevPost.title}
-                  </h4>
-                </button>
-              ) : <div />}
-
-              {nextPost ? (
-                <button
-                  onClick={() => onSelectPost ? onSelectPost(nextPost.slug) : onBack()}
-                  className={`p-4 sm:p-5 rounded-2xl border text-right flex flex-col justify-between transition-all group cursor-pointer ${
-                    dark 
-                      ? 'border-slate-800 bg-slate-900/60 hover:border-purple-500/50 hover:bg-slate-900' 
-                      : 'border-slate-200 bg-white hover:border-purple-300 hover:shadow-md'
-                  }`}
-                >
-                  <div className="flex items-center justify-end gap-1.5 text-xs font-semibold text-purple-600 dark:text-purple-400 mb-2">
-                    <span>다음 단계 가이드</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                  </div>
-                  <h4 className={`text-sm sm:text-base font-bold line-clamp-2 leading-snug ${
-                    dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
-                  }`}>
-                    {nextPost.title}
-                  </h4>
-                </button>
-              ) : null}
-            </nav>
-          )}
-
-          {/* Author & Creator Note Card (E-E-A-T Persona) */}
-          <div className={`mt-10 p-5 sm:p-6 rounded-2xl border ${
-            dark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200/90 bg-slate-50/80'
-          }`}>
-            <div className="flex items-center gap-3 mb-2.5">
-              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
-                민우
-              </div>
-              <div>
-                <h4 className={`text-sm font-bold flex items-center gap-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  <span>작성자: 민우 (1인 크리에이터)</span>
-                  <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300">
-                    실전 5년차
-                  </span>
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  고가 장비로 300만 원 날린 뒤, 스마트폰 1대로 다시 세운 월 100만 원 복합 파이프라인
-                </p>
-              </div>
-            </div>
-            <p className={`text-xs sm:text-sm leading-relaxed mt-2.5 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-              이 글은 뻔한 교과서식 이론이 아니라, 제가 직접 채널과 블로그를 운영하며 겪었던 시행착오와 실패 경험을 바탕으로 썼습니다. 여러분의 시간과 돈을 아끼는 데 조금이라도 보탬이 되었으면 합니다. 여러분의 크리에이터 도전을 진심으로 응원합니다!
-            </p>
           </div>
 
-          {/* Tags */}
+          {/* 5. Tags (Tistory Style) */}
           {post.tags && post.tags.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
+            <div className="mt-8 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-slate-400 font-semibold">태그:</span>
               {post.tags.map((tag) => (
-                <span key={tag} className={`text-xs px-2.5 py-1 rounded-md ${
+                <span key={tag} className={`px-2.5 py-1 rounded-md transition-colors ${
                   dark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'
                 }`}>
                   #{tag}
@@ -840,28 +715,118 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
             </div>
           )}
 
-          {/* Bottom Back Button */}
-          <div className="mt-12 text-center">
+          {/* 8. Copyright & Author Card (Tistory Signature) */}
+          <div className={`mt-8 p-5 rounded-xl border text-xs leading-relaxed ${
+            dark ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'
+          }`}>
+            <div className="flex items-center gap-2 mb-2 font-bold text-slate-800 dark:text-slate-200">
+              <ShieldCheck className="w-4 h-4 text-purple-600" />
+              <span>저작권 및 저작자표시 (CCL)</span>
+            </div>
+            <p>
+              본 콘텐츠는 <strong className="text-slate-800 dark:text-slate-200">크리에이터 노트 (운영자: 민우)</strong>에 저작권이 있습니다. 비영리적 목적의 출처 표기 인용은 자유로우나, 사전 동의 없는 무단 전문 복제 및 상업적 무단 배포는 엄격히 금지됩니다.
+            </p>
+          </div>
+
+          {/* 9. '카테고리의 다른 글' Box (Tistory Signature Widget) */}
+          {categoryPosts.length > 0 && (
+            <div className={`mt-8 p-5 rounded-xl border ${
+              dark ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'
+            }`}>
+              <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+                <Folder className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+                  '{post.categoryLabel}' 카테고리의 다른 글
+                </h4>
+              </div>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                {categoryPosts.map((catPost) => {
+                  const isCurrent = catPost.slug === post.slug;
+                  return (
+                    <li key={catPost.slug} className="flex items-center justify-between gap-3">
+                      <button
+                        onClick={() => {
+                          if (!isCurrent && onSelectPost) {
+                            onSelectPost(catPost.slug);
+                          }
+                        }}
+                        disabled={isCurrent}
+                        className={`text-left truncate transition-colors cursor-pointer ${
+                          isCurrent
+                            ? 'font-bold text-purple-600 dark:text-purple-400 underline underline-offset-4 cursor-default'
+                            : dark
+                              ? 'text-slate-300 hover:text-white'
+                              : 'text-slate-700 hover:text-purple-700'
+                        }`}
+                      >
+                        <span className="mr-1.5 opacity-60">•</span>
+                        {catPost.title} {isCurrent && <span className="text-[11px] font-bold text-purple-600 dark:text-purple-400">(현재글)</span>}
+                      </button>
+                      <span className="text-[11px] text-slate-400 font-mono shrink-0">
+                        {formatPostDateTime(catPost.publishedAt, catPost.slug).split(' ')[0]}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          {/* 10. Previous / Next Post Navigation (Tistory Style) */}
+          <nav className="mt-8 border-t border-b border-slate-200 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+            {prevPost && (
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-slate-400 font-semibold shrink-0">이전글</span>
+                <button
+                  onClick={() => onSelectPost ? onSelectPost(prevPost.slug) : onBack()}
+                  className={`truncate text-left font-medium hover:underline cursor-pointer ${
+                    dark ? 'text-slate-300 hover:text-purple-300' : 'text-slate-700 hover:text-purple-700'
+                  }`}
+                >
+                  {prevPost.title}
+                </button>
+              </div>
+            )}
+            {nextPost && (
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-slate-400 font-semibold shrink-0">다음글</span>
+                <button
+                  onClick={() => onSelectPost ? onSelectPost(nextPost.slug) : onBack()}
+                  className={`truncate text-left font-medium hover:underline cursor-pointer ${
+                    dark ? 'text-slate-300 hover:text-purple-300' : 'text-slate-700 hover:text-purple-700'
+                  }`}
+                >
+                  {nextPost.title}
+                </button>
+              </div>
+            )}
+          </nav>
+
+          {/* 11. Comments Section (Tistory / Naver Style Interactive Comments) */}
+          <BlogComments postSlug={post.slug} theme={theme} />
+
+          {/* 12. Bottom Back to List Button */}
+          <div className="mt-10 text-center">
             <button 
               onClick={onBack} 
-              className={`inline-flex items-center gap-2 rounded-xl border px-6 py-3 text-sm font-bold transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 dark 
                   ? 'border-slate-700 bg-slate-800 text-white hover:bg-slate-700' 
-                  : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-50'
+                  : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-100 shadow-2xs'
               }`}
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>전체 글 목록으로 가기</span>
+              <span>글 목록으로 돌아가기</span>
             </button>
           </div>
 
         </div>
 
-        {/* Desktop Sticky Table of Contents (TOC) Sidebar (Visible on >= lg screens) */}
+        {/* Desktop Sticky Table of Contents (TOC) Sidebar */}
         {tocItems.length > 0 && (
           <aside className="hidden lg:block w-64 xl:w-72 shrink-0">
             <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 pb-6 scrollbar-thin">
-              <div className={`p-4 rounded-2xl border ${
+              <div className={`p-4 rounded-xl border ${
                 dark ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
               }`}>
                 <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100 dark:border-slate-800">
@@ -870,11 +835,11 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                     <span className={`text-xs font-bold uppercase tracking-wider ${
                       dark ? 'text-slate-200' : 'text-slate-800'
                     }`}>
-                      목차 (TOC)
+                      본문 목차
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">
-                    {tocItems.length}개 항목
+                    {tocItems.length}개
                   </span>
                 </div>
 
@@ -886,7 +851,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                         key={item.id}
                         href={`#${item.id}`}
                         onClick={(e) => scrollToHeading(item.id, e)}
-                        className={`block rounded-lg transition-all leading-snug cursor-pointer ${
+                        className={`block rounded-md transition-all leading-snug cursor-pointer ${
                           item.level === 3 ? 'pl-5 py-1 text-[11.5px]' : 'pl-2.5 py-1.5 font-medium'
                         } ${
                           isActive
@@ -905,7 +870,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                   })}
                 </nav>
 
-                {/* Quick actions in TOC */}
                 <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                   <button
                     onClick={scrollToTop}
@@ -931,4 +895,3 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     </div>
   );
 };
-

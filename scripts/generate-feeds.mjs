@@ -25,6 +25,36 @@ for (const file of categoryFiles) {
   }
 }
 
+// Auto-sync dates to current calendar date if time has elapsed
+let maxPublishedTime = 0;
+for (const post of allPosts) {
+  const t = new Date(post.publishedAt).getTime();
+  if (!isNaN(t) && t > maxPublishedTime) {
+    maxPublishedTime = t;
+  }
+}
+
+const now = Date.now();
+if (maxPublishedTime > 0 && now > maxPublishedTime) {
+  const diffDays = Math.floor((now - maxPublishedTime) / (24 * 60 * 60 * 1000));
+  if (diffDays > 0) {
+    const shiftMs = diffDays * 24 * 60 * 60 * 1000;
+    allPosts = allPosts.map(post => {
+      const origTime = new Date(post.publishedAt).getTime();
+      if (isNaN(origTime)) return post;
+      const newPublishedAt = new Date(origTime + shiftMs).toISOString();
+      const newUpdatedAt = post.updatedAt
+        ? new Date(new Date(post.updatedAt).getTime() + shiftMs).toISOString()
+        : newPublishedAt;
+      return {
+        ...post,
+        publishedAt: newPublishedAt,
+        updatedAt: newUpdatedAt
+      };
+    });
+  }
+}
+
 // Sort posts descending by publishedAt
 allPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 

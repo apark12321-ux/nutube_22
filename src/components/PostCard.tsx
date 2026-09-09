@@ -1,49 +1,93 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { GuidePost } from '../types';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, User, Tag } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 
 interface PostCardProps {
   post: GuidePost;
   onSelect: (post: GuidePost) => void;
-  accentColor: string;
+  accentColor?: string;
   href: string;
   theme?: 'light' | 'dark';
   index?: number;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme = 'light', index = 0 }) => {
+export const PostCard: React.FC<PostCardProps> = ({ 
+  post, 
+  onSelect, 
+  href, 
+  theme = 'light' 
+}) => {
   const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
+  const dark = theme === 'dark';
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     onSelect(post);
   };
 
-  const dark = theme === 'dark';
+  const summaryText = (post.summary || post.subtitle || '1인 크리에이터의 실전 경험과 구체적인 해결책을 담은 글입니다.')
+    .replace(/\*\*/g, '')
+    .replace(/`/g, '');
 
   return (
-    <motion.article
-      id={`post-card-${post.slug}`}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{
-        duration: 0.4,
-        delay: Math.min((index % 6) * 0.06, 0.3),
-        ease: [0.25, 0.1, 0.25, 1.0],
-      }}
-      className="group py-6 first:pt-0 last:pb-0 border-b border-slate-200/80 dark:border-slate-800 transition-colors"
+    <article 
+      id={`post-item-${post.slug}`}
+      className={`py-6 border-b transition-colors ${
+        dark ? 'border-slate-800/80 hover:bg-slate-900/30' : 'border-slate-200/90 hover:bg-slate-50/60'
+      } px-2 sm:px-3 rounded-lg`}
     >
       <a
         href={href}
         onClick={handleClick}
-        className="flex flex-col sm:flex-row gap-5 items-start cursor-pointer group-hover:opacity-95"
+        className="flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 items-start cursor-pointer group"
       >
-        {/* Post Image Container (Clean 4:3 / 16:10 blog thumbnail) */}
-        <div className="w-full sm:w-48 md:w-56 aspect-[16/10] sm:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-200/60 dark:border-slate-800/80">
+        {/* Left: Content Text (Tistory Book Club / Naver Blog Style) */}
+        <div className="flex-1 min-w-0 flex flex-col justify-between">
+          <div>
+            {/* Category tag */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded ${
+                dark ? 'bg-slate-800 text-purple-300' : 'bg-slate-100 text-purple-700'
+              }`}>
+                {post.categoryLabel}
+              </span>
+            </div>
+
+            {/* Post Title */}
+            <h2 className={`text-base sm:text-lg md:text-xl font-bold leading-snug tracking-tight mb-2 group-hover:underline underline-offset-4 ${
+              dark ? 'text-slate-100 group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
+            }`}>
+              {post.title}
+            </h2>
+
+            {/* Post Summary (2 lines limit) */}
+            <p className={`text-xs sm:text-sm line-clamp-2 leading-relaxed mb-3 ${
+              dark ? 'text-slate-400' : 'text-slate-600'
+            }`}>
+              {summaryText}
+            </p>
+          </div>
+
+          {/* Metadata Footer: Author, Date, Comments */}
+          <div className={`flex items-center gap-3 sm:gap-4 text-xs ${
+            dark ? 'text-slate-500' : 'text-slate-400'
+          }`}>
+            <span className="flex items-center gap-1">
+              <User className="w-3.5 h-3.5" />
+              <span>민우</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1 font-mono">
+              <Calendar className="w-3.5 h-3.5" />
+              <time>{formattedDateTime.split(' ')[0]}</time>
+            </span>
+          </div>
+        </div>
+
+        {/* Right: Thumbnail Image (120x80 or 150x100 clean blog thumbnail) */}
+        <div className="w-full sm:w-44 md:w-48 aspect-[16/10] sm:aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-200/70 dark:border-slate-800">
           <img
             src={post.thumbnail?.src || DEFAULT_REMOTE_IMAGE}
             alt={post.thumbnail?.alt || post.title}
@@ -56,50 +100,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onSelect, href, theme 
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-
-        {/* Post Details (Pure Editorial Blog Layout) */}
-        <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
-          <div>
-            {/* Meta header: Category */}
-            <div className="flex items-center gap-2 mb-2 flex-wrap text-xs">
-              <span className={`font-bold px-2.5 py-0.5 rounded-md ${
-                dark ? 'bg-slate-800 text-purple-300 border border-slate-700' : 'bg-purple-50 text-purple-700 border border-purple-100'
-              }`}>
-                {post.categoryLabel}
-              </span>
-            </div>
-
-            {/* Post Title */}
-            <h3 className={`font-heading text-lg sm:text-xl font-bold leading-snug tracking-tight transition-colors break-keep mb-2 ${
-              dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
-            }`}>
-              {post.title}
-            </h3>
-
-            {/* Summary */}
-            <p className={`line-clamp-2 text-sm sm:text-base leading-relaxed break-keep ${
-              dark ? 'text-slate-300' : 'text-slate-600'
-            }`}>
-              {(post.summary || post.subtitle || '유튜브 채널 운영자가 바로 확인할 수 있는 실전 가이드입니다.').replace(/\*\*/g, '').replace(/`/g, '')}
-            </p>
-          </div>
-
-          {/* Footer Metadata */}
-          <div className={`mt-3.5 pt-2 flex items-center justify-between text-xs ${
-            dark ? 'text-slate-400' : 'text-slate-500'
-          }`}>
-            <span className="flex items-center gap-1.5 font-mono">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
-              <time>{formattedDateTime}</time>
-            </span>
-            <span className={`font-semibold flex items-center gap-1 transition-transform group-hover:translate-x-1 ${
-              dark ? 'text-purple-400' : 'text-purple-600'
-            }`}>
-              글 읽기 <ArrowRight className="w-3.5 h-3.5" />
-            </span>
-          </div>
-        </div>
       </a>
-    </motion.article>
+    </article>
   );
 };

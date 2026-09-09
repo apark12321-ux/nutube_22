@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search, Rocket, FileText, Zap, Image, DollarSign, CheckSquare, Sparkles, BookOpen, Video, Layers, Globe, ArrowUpRight, ExternalLink, Compass, ChevronRight, Filter } from 'lucide-react';
+import { Search, Folder, Calendar, User, ExternalLink, ArrowRight, Info, ShieldCheck, FileText } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
-import { SearchConsoleManager } from './components/SearchConsoleManager';
+import { BlogSidebar } from './components/BlogSidebar';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail' | 'search-console';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail';
 
 interface RouteState {
   tab: Tab;
@@ -75,7 +75,6 @@ const resolveRoute = (pathname: string): RouteState => {
   if (path === '/about') return { tab: 'about', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
   if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
-  if (path === '/search-console') return { tab: 'search-console', post: null, category: null };
 
   return { tab: 'guides', post: null, category: null };
 };
@@ -85,7 +84,6 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'about') return '/about';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
-  if (tab === 'search-console') return '/search-console';
   return '/';
 };
 
@@ -96,36 +94,36 @@ const initialRoute = (): RouteState => {
 
 const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
-    title: '운영자 소개 & 블로그 철학',
+    title: '운영자 소개 & 블로그 운영 철학',
     updated: '2026년 8월 30일',
-    intro: '안녕하세요, 1인 미디어와 콘텐츠 엔지니어링을 전달하는 운영자 민우입니다. 300만 원짜리 장비 욕심으로 시작했다가 쓰라린 실패를 맛본 뒤, 스마트폰 한 대로 0에서부터 다시 쌓아 올린 실전 크리에이터의 이야기입니다.',
+    intro: '안녕하세요, 1인 미디어와 애드센스 실전 노하우를 공유하는 블로그 운영자 민우입니다. 300만 원 상당의 고가 장비로 시작했다가 실패를 겪은 뒤, 스마트폰 한 대로 0에서부터 다시 구축한 실전 크리에이터의 진짜 이야기입니다.',
     sections: [
       {
-        heading: '1. 장비 욕심으로 300만 원 날리고 얻은 교훈',
+        heading: '1. 장비 욕심으로 300만 원 날리고 얻은 값진 교훈',
         body: [
           '처음 유튜브를 시작했을 때 "장비가 좋아야 구독자가 는다"는 생각에 미러리스 카메라와 무거운 삼각대, 80만 원짜리 조명부터 질렀습니다. 결과는 어땠을까요? 세팅하는 데 지쳐서 한 달에 영상 2개 올리기도 벅찼고, 조회수는 두 자릿수에 머물렀습니다.',
-          '방에 쌓인 장비를 중고로 처분하고, 주머니 속 스마트폰과 5천 원짜리 다이소 거치대 하나로 다시 시작했습니다. 그때 깨달았습니다. 시청자가 원하는 건 4K 화질이 아니라, "3초 안에 내 문제를 해결해 주는 알맹이"라는 사실을요.'
+          '결국 무거운 장비를 중고로 정리하고, 주머니 속 스마트폰과 5천 원짜리 다이소 거치대 하나로 다시 시작했습니다. 그때 깨달았습니다. 시청자가 원하는 건 4K 화질이 아니라, "3초 안에 내 문제를 해결해 주는 알맹이"라는 사실을요.'
         ]
       },
       {
-        heading: '2. 왜 이 공유 공간을 만들었는가',
+        heading: '2. 왜 이 블로그를 개설하고 기록하는가',
         body: [
-          '유튜브와 블로그를 키우는 과정에서 인터넷에 넘쳐나는 "하루 10분으로 월 천만 원" 같은 허황된 강의와 자극적인 어그로에 지쳤습니다.',
+          '인터넷에 넘쳐나는 "하루 10분으로 월 천만 원" 같은 허황된 강의와 자극적인 어그로에 지쳤습니다.',
           '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 들어온 정산금의 실체, 스마트폰 하나로 시작하는 0원 세팅, 캡컷으로 편집 시간 80% 줄이는 꿀팁, 전자책과 제휴로 월 100만 원 파이프라인을 만드는 법 등 제가 직접 겪으며 터득한 알짜배기 노하우를 누구나 알기 쉽게 전해드리기 위해 이 공간을 만들었습니다.'
         ]
       },
       {
-        heading: '3. 크리에이터 노트의 3대 운영 원칙',
+        heading: '3. 크리에이터 노트의 3대 운영 원칙 (E-E-A-T)',
         items: [
-          '직접 겪어보지 않은 뜬구름 잡는 이론이나 복붙성 정보는 절대 쓰지 않습니다.',
-          '모든 가이드에는 실제 적용해 보고 겪었던 실패 사례와 아쉬웠던 점(주관적 평가)을 함께 남깁니다.',
-          '독자 여러분이 글을 다 읽고 "그래서 오늘 당장 뭘 해야 하지?"라는 물음표가 남지 않도록 구체적인 실행 행동(Action Item)을 제시합니다.'
+          '직접 겪어보지 않은 뜬구름 잡는 이론이나 복사-붙여넣기식 정보는 절대 다루지 않습니다.',
+          '모든 가이드에는 실제 적용해 보고 겪었던 실패 사례와 아쉬웠던 점(주관적 평가)을 솔직하게 기록합니다.',
+          '글을 다 읽고 "그래서 오늘 당장 뭘 해야 하지?"라는 물음표가 남지 않도록 구체적인 실행 행동(Action Item)을 반드시 제시합니다.'
         ]
       },
       {
         heading: '4. 크리에이터 고민 & 소통',
         body: [
-          '혼자 채널을 운영하거나 블로그를 쓰다 보면 막막하고 외로울 때가 많습니다. 글 내용에 대해 궁금한 점이나 나누고 싶은 고민이 있다면 언제든 블로그의 다양한 실전 가이드 글들을 참고하시고 함께 성장해 나갔으면 좋겠습니다.'
+          '혼자 채널을 운영하거나 블로그를 쓰다 보면 막막하고 외로울 때가 많습니다. 글 내용에 대해 궁금한 점이나 나누고 싶은 고민이 있다면 언제든 각 포스팅의 댓글을 통해 자유롭게 질문해 주세요. 함께 성장해 나가겠습니다.'
         ]
       }
     ]
@@ -133,13 +131,13 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
   terms: {
     title: '이용약관 및 면책조항 (Terms of Service & Disclaimer)',
     updated: '2026년 8월 30일',
-    intro: '크리에이터 노트(Creator Note)를 방문해 주셔서 감사합니다. 본 사이트의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
+    intro: '크리에이터 노트(Creator Note)를 방문해 주셔서 감사합니다. 본 블로그의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
     sections: [
       {
         heading: '1. 저작권 및 콘텐츠 인용 규정',
         body: [
-          '본 블로그에 게시된 모든 텍스트, 데이터 차트, 이미지 캡션 및 실전 노하우는 작성자가 직접 연구하고 경험한 창작물입니다.',
-          '비상업적인 목적의 출처 표기 인용(본문 링크 포함)은 자유롭게 허용되나, 사전 동의 없는 무단 전문 복제, 상업적 재판매, 크롤링을 통한 2차 가공은 엄격히 금지됩니다.'
+          '본 블로그에 게시된 모든 텍스트, 차트, 이미지 캡션 및 실전 노하우는 작성자(민우)가 직접 연구하고 경험한 창작물입니다.',
+          '비상업적인 목적의 출처 표기 인용(본문 URL 링크 포함)은 자유롭게 허용되나, 사전 서면 동의 없는 무단 전문 복제, 상업적 재판매, 크롤링을 통한 2차 가공은 엄격히 금지됩니다.'
         ]
       },
       {
@@ -152,7 +150,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
       {
         heading: '3. 외부 링크 및 제3자 서비스에 관한 고지',
         body: [
-          '본 블로그에는 독자의 편의를 위해 유튜브 스튜디오, 구글 서치콘솔 등 외부 공식 서비스 링크가 포함될 수 있습니다. 외부 사이트의 정책 및 운영에 대해서는 해당 사이트의 약관이 적용됩니다.'
+          '본 블로그에는 독자의 편의를 위해 유튜브 스튜디오, 구글 서치콘솔 등 공식 서비스 링크가 포함될 수 있습니다. 외부 사이트의 정책 및 운영에 대해서는 해당 사이트의 약관이 적용됩니다.'
         ]
       }
     ]
@@ -181,7 +179,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
       {
         heading: '3. 웹사이트 트래픽 분석 (Google Analytics)',
         body: [
-          '본 블로그는 사이트 개선 및 독자 선호도 분석을 위해 구글 애널리틱스(Google Analytics) 등의 웹로그 분석 도구를 활용할 수 있습니다. 이는 익명화된 통계 정보(방문 페이지, 체류 시간, 유입 경로 등)만을 수집하며 개인을 식별하지 않습니다.'
+          '본 블로그는 사이트 개선 및 독자 선호도 분석을 위해 웹로그 분석 도구를 활용할 수 있습니다. 이는 익명화된 통계 정보(방문 페이지, 체류 시간, 유입 경로 등)만을 수집하며 개인을 식별하지 않습니다.'
         ]
       },
       {
@@ -215,7 +213,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(route.category);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10); // Clean blog page size
+  const [pageSize, setPageSize] = useState(10); // Standard blog page size
 
   useEffect(() => {
     setPage(1);
@@ -252,7 +250,7 @@ export default function App() {
 
   const scrollToPosts = () => {
     window.setTimeout(() => {
-      const target = document.getElementById('blog-posts-feed');
+      const target = document.getElementById('blog-main-content');
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -312,8 +310,11 @@ export default function App() {
 
   const dark = theme === 'dark';
 
+  const currentCategorySpec = category ? CATEGORY_SPECS[category] : null;
+
   return (
-    <div className={dark ? 'min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans' : 'min-h-screen bg-[#fcfcfd] text-slate-900 flex flex-col font-sans'}>
+    <div className={dark ? 'min-h-screen bg-[#0d1117] text-slate-100 flex flex-col font-sans' : 'min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans'}>
+      {/* 1. Header (Navbar) */}
       <Navbar 
         currentTab={tab} 
         setTab={go} 
@@ -327,178 +328,9 @@ export default function App() {
         onSelectPost={openPost}
       />
 
+      {/* 2. Main Content Area */}
       <main className="flex-1">
-        {tab === 'guides' && (
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12">
-            
-            {/* Editorial Introduction Banner - 4-Step Roadmap */}
-            <div className={`mb-8 p-6 sm:p-8 rounded-3xl border transition-all ${
-              dark ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200/80 bg-white shadow-xs'
-            }`}>
-              <div className="flex items-center gap-2 mb-2.5">
-                <span className="text-xs font-extrabold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
-                  민우의 크리에이터 가이드
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">1인 크리에이터의 쉽고 유익한 실전 이야기</span>
-              </div>
-              <h1 className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight mb-3 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                스마트폰 하나로 가볍게 시작하는 1인 크리에이터 실전 가이드
-              </h1>
-              <p className={`text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                왜 지금 유튜브를 해야 하는지부터 얼굴 없이 시작하는 법, 요즘 알고리즘 트렌드, 똑똑한 AI 활용법, 그리고 현실적인 수익화 파이프라인까지 누구나 쉽고 재미있게 읽을 수 있도록 핵심만 알차게 담았습니다.
-              </p>
-            </div>
-
-            {/* Clean Category Filter Tabs */}
-            <div className="mb-8 border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
-                {[
-                  { key: null, label: '전체 글' },
-                  ...CATEGORIES_LIST.map((c) => ({ key: c.key, label: c.label }))
-                ].map((cat) => {
-                  const isSelected = category === cat.key;
-                  return (
-                    <button
-                      key={cat.key === null ? 'all' : cat.key}
-                      onClick={() => selectCategory(cat.key)}
-                      className={`text-xs sm:text-sm px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer whitespace-nowrap ${
-                        isSelected
-                          ? dark
-                            ? 'bg-slate-800 text-purple-300 font-bold border border-slate-700'
-                            : 'bg-slate-900 text-white font-bold'
-                          : dark
-                            ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Total count */}
-              <span className="text-xs text-slate-400 font-mono">
-                총 {posts.length}개의 가이드
-              </span>
-            </div>
-
-            {/* Main Blog Post List Feed */}
-            {paginatedPosts.length > 0 ? (
-              <section id="blog-posts-feed" className="divide-y divide-slate-100 dark:divide-slate-800/80">
-                {paginatedPosts.map((item, idx) => (
-                  <PostCard 
-                    key={item.slug} 
-                    post={item} 
-                    href={getPostPath(item)} 
-                    theme={theme} 
-                    accentColor={CATEGORY_SPECS[item.category]?.accentColor || '#38bdf8'} 
-                    onSelect={openPost} 
-                    index={idx}
-                  />
-                ))}
-              </section>
-            ) : (
-              /* No search results state */
-              <div className={`rounded-2xl border p-8 text-center my-8 ${
-                dark ? 'border-slate-800 bg-slate-900/40 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-600'
-              }`}>
-                <Search className="w-8 h-8 mx-auto text-slate-400 mb-3" />
-                <h3 className={`text-lg font-bold mb-1 ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  {query ? `'${query}'에 대한 글을 찾지 못했습니다.` : '등록된 글이 없습니다.'}
-                </h3>
-                <p className="text-sm text-slate-500 mb-6">
-                  다른 키워드로 검색하시거나 전체 글 목록을 확인해 보세요.
-                </p>
-
-                {query.trim() && (() => {
-                  const rawQuery = query.trim();
-                  const siteQuery = `site:nutube.kr ${rawQuery}`;
-                  const googleSiteUrl = `https://www.google.com/search?q=${encodeURIComponent(siteQuery)}`;
-
-                  return (
-                    <div className="max-w-md mx-auto mb-6 p-4 rounded-xl border border-purple-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-left">
-                      <p className="text-xs font-bold text-purple-700 dark:text-purple-300 mb-1">
-                        구글 외부 검색 도움말
-                      </p>
-                      <p className="text-xs text-slate-500 mb-3">
-                        구글 검색 엔진에서 블로그 전체 색인 문서를 검색합니다.
-                      </p>
-                      <a
-                        href={googleSiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline"
-                      >
-                        <span>'{siteQuery}' 구글에서 검색</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
-                  );
-                })()}
-
-                <button
-                  onClick={() => {
-                    setQuery('');
-                    setCategory(null);
-                  }}
-                  className="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90"
-                >
-                  전체 글 보기
-                </button>
-              </div>
-            )}
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-xs text-slate-500">
-                  {currentPage} / {totalPages} 페이지
-                </span>
-
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-1.5 text-xs font-bold rounded-md border border-slate-200 dark:border-slate-700 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                  >
-                    이전
-                  </button>
-
-                  {getPageNumbers(currentPage, totalPages).map((p, idx) => {
-                    if (p === '...') {
-                      return <span key={`ell-${idx}`} className="px-2 text-xs text-slate-400">...</span>;
-                    }
-                    const isCurrent = p === currentPage;
-                    return (
-                      <button
-                        key={`page-${p}`}
-                        onClick={() => handlePageChange(p as number)}
-                        className={`min-w-[32px] h-8 text-xs font-bold rounded-md transition-colors cursor-pointer ${
-                          isCurrent
-                            ? 'bg-slate-900 text-white dark:bg-purple-600 dark:text-white'
-                            : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
-                        }`}
-                      >
-                        {p}
-                      </button>
-                    );
-                  })}
-
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-1.5 text-xs font-bold rounded-md border border-slate-200 dark:border-slate-700 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                  >
-                    다음
-                  </button>
-                </div>
-              </div>
-            )}
-
-          </div>
-        )}
-
+        {/* Post Detail View (Article Reader) */}
         {tab === 'guide-detail' && post && (
           <GuideReader 
             post={post} 
@@ -512,38 +344,223 @@ export default function App() {
             }}
           />
         )}
-        
-        {tab === 'about' && <InfoPage page={PAGE_CONTENT.about} theme={theme} />}
-        {tab === 'terms' && <InfoPage page={PAGE_CONTENT.terms} theme={theme} />}
-        {tab === 'privacy' && <InfoPage page={PAGE_CONTENT.privacy} theme={theme} />}
-        {tab === 'search-console' && (
-          <div className="mx-auto max-w-4xl px-4 py-10">
-            <SearchConsoleManager theme={theme} />
+
+        {/* Blog Post List View (Classic Tistory 2-Column Skin: Main Feed + Sidebar) */}
+        {tab === 'guides' && (
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+              
+              {/* Left Column: Post Feed */}
+              <div id="blog-main-content" className="flex-1 min-w-0 w-full">
+                
+                {/* Category Header Bar (Tistory Book Club / Odyssey Style) */}
+                <div className={`p-5 rounded-xl border mb-6 transition-colors ${
+                  dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
+                }`}>
+                  <div className="flex items-center justify-between gap-4 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <Folder className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                      <h1 className={`text-base sm:text-lg font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
+                        {category ? currentCategorySpec?.label : '전체 글'}
+                      </h1>
+                      <span className="text-xs font-mono text-purple-600 dark:text-purple-400 font-bold">
+                        ({posts.length})
+                      </span>
+                    </div>
+
+                    {category && (
+                      <button
+                        onClick={() => selectCategory(null)}
+                        className="text-xs text-slate-500 hover:text-purple-600 dark:hover:text-purple-400 underline cursor-pointer"
+                      >
+                        전체 글 보기
+                      </button>
+                    )}
+                  </div>
+
+                  <p className={`text-xs sm:text-sm mt-2 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    {category 
+                      ? currentCategorySpec?.description 
+                      : '스마트폰 하나로 가볍게 시작해 월 100만 원 수익 파이프라인을 구축하는 실전 크리에이터 가이드입니다.'}
+                  </p>
+                </div>
+
+                {/* Post List */}
+                {paginatedPosts.length > 0 ? (
+                  <div className={`rounded-xl border divide-y overflow-hidden transition-colors ${
+                    dark ? 'bg-slate-900/60 border-slate-800 divide-slate-800/80' : 'bg-white border-slate-200 divide-slate-100 shadow-2xs'
+                  }`}>
+                    {paginatedPosts.map((item, idx) => (
+                      <PostCard 
+                        key={item.slug} 
+                        post={item} 
+                        href={getPostPath(item)} 
+                        theme={theme} 
+                        onSelect={openPost} 
+                        index={idx}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  /* No search results state */
+                  <div className={`rounded-xl border p-8 text-center my-6 ${
+                    dark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-white text-slate-600'
+                  }`}>
+                    <Search className="w-8 h-8 mx-auto text-slate-400 mb-3" />
+                    <h3 className={`text-base font-bold mb-1 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                      {query ? `'${query}'에 대한 글을 찾지 못했습니다.` : '등록된 글이 없습니다.'}
+                    </h3>
+                    <p className="text-xs text-slate-500 mb-4">
+                      다른 키워드로 검색하시거나 카테고리 전체 글을 확인해 보세요.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setQuery('');
+                        selectCategory(null);
+                      }}
+                      className="px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 cursor-pointer"
+                    >
+                      전체 글 목록으로
+                    </button>
+                  </div>
+                )}
+
+                {/* Pagination (Classic Tistory Pagination) */}
+                {totalPages > 1 && (
+                  <div className="mt-8 pt-4 flex items-center justify-between flex-wrap gap-3">
+                    <span className="text-xs text-slate-500 font-mono">
+                      {currentPage} / {totalPages} 페이지
+                    </span>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-3 py-1.5 text-xs font-bold rounded border transition-colors cursor-pointer ${
+                          currentPage === 1 
+                            ? 'opacity-40 cursor-not-allowed border-slate-200 dark:border-slate-800' 
+                            : dark 
+                              ? 'border-slate-700 hover:bg-slate-800 text-slate-200' 
+                              : 'border-slate-300 hover:bg-slate-100 text-slate-700'
+                        }`}
+                      >
+                        이전
+                      </button>
+
+                      {getPageNumbers(currentPage, totalPages).map((p, idx) => {
+                        if (p === '...') {
+                          return <span key={`ell-${idx}`} className="px-1.5 text-xs text-slate-400">...</span>;
+                        }
+                        const isCurrent = p === currentPage;
+                        return (
+                          <button
+                            key={`page-${p}`}
+                            onClick={() => handlePageChange(p as number)}
+                            className={`min-w-[30px] h-7 text-xs font-bold rounded transition-colors cursor-pointer ${
+                              isCurrent
+                                ? 'bg-slate-900 text-white dark:bg-purple-600 dark:text-white'
+                                : dark 
+                                  ? 'border border-slate-800 hover:bg-slate-800 text-slate-300' 
+                                  : 'border border-slate-200 hover:bg-slate-100 text-slate-700'
+                            }`}
+                          >
+                            {p}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-3 py-1.5 text-xs font-bold rounded border transition-colors cursor-pointer ${
+                          currentPage === totalPages 
+                            ? 'opacity-40 cursor-not-allowed border-slate-200 dark:border-slate-800' 
+                            : dark 
+                              ? 'border-slate-700 hover:bg-slate-800 text-slate-200' 
+                              : 'border-slate-300 hover:bg-slate-100 text-slate-700'
+                        }`}
+                      >
+                        다음
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+
+              {/* Right Column: Tistory Blog Sidebar */}
+              <BlogSidebar 
+                currentCategory={category}
+                onSelectCategory={selectCategory}
+                posts={POSTS}
+                onSelectPost={openPost}
+                onOpenAbout={() => go('about')}
+                theme={theme}
+              />
+
+            </div>
+          </div>
+        )}
+
+        {/* Policy / About Pages (Rendered within 2-column layout for consistent Tistory look) */}
+        {(tab === 'about' || tab === 'terms' || tab === 'privacy') && (
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+              <div className="flex-1 min-w-0 w-full">
+                <InfoPage page={PAGE_CONTENT[tab]} theme={theme} />
+              </div>
+              <BlogSidebar 
+                currentCategory={category}
+                onSelectCategory={selectCategory}
+                posts={POSTS}
+                onSelectPost={openPost}
+                onOpenAbout={() => go('about')}
+                theme={theme}
+              />
+            </div>
           </div>
         )}
       </main>
 
-      {/* Clean Editorial Blog Footer */}
+      {/* 3. Footer (Classic Tistory / Naver Style) */}
       <footer className={`mt-auto border-t py-10 text-xs transition-colors ${
-        dark ? 'border-slate-800 bg-slate-950 text-slate-400' : 'border-slate-200 bg-slate-50 text-slate-500'
+        dark ? 'border-slate-800 bg-slate-950 text-slate-400' : 'border-slate-200 bg-white text-slate-500'
       }`}>
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/60 dark:border-slate-800/80">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-900 dark:text-white">크리에이터 가이드</span>
-              <span className="text-slate-400">| 1인 미디어 운영 실전 노하우</span>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/70 dark:border-slate-800/80">
+            <div>
+              <span className="font-bold text-slate-900 dark:text-white text-sm">
+                민우의 크리에이터 노트
+              </span>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                스마트폰 하나로 시작하는 1인 미디어 &amp; 구글 애드센스 실전 가이드
+              </p>
             </div>
 
             <div className="flex items-center gap-4 text-xs font-medium">
-              <button onClick={() => go('about')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">블로그 소개</button>
-              <button onClick={() => go('privacy')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">개인정보처리방침</button>
-              <button onClick={() => go('terms')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">이용약관</button>
+              <button onClick={() => go('about')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+                블로그 소개
+              </button>
+              <button onClick={() => go('privacy')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+                개인정보처리방침
+              </button>
+              <button onClick={() => go('terms')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+                이용약관
+              </button>
+              <a 
+                href="/sitemap.xml" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer"
+              >
+                사이트맵
+              </a>
             </div>
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 크리에이터 가이드 (Creator Guide). All rights reserved.</p>
-            <p>1인 크리에이터의 쉽고 유익한 유튜브 실전 이야기</p>
+            <p>© 2026 민우의 크리에이터 노트 (Creator Note). All rights reserved.</p>
+            <p>Designed for Google AdSense &amp; Tistory/Naver Blog Style Standards</p>
           </div>
         </div>
       </footer>
@@ -554,37 +571,45 @@ export default function App() {
 function InfoPage({ page, theme }: { page: { title: string; intro: string; updated: string; sections: PageSection[] }; theme: 'light' | 'dark' }) {
   const dark = theme === 'dark';
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <article className={`rounded-2xl border p-6 sm:p-8 ${
-        dark ? 'border-slate-800 bg-slate-900/60 text-slate-200' : 'border-slate-200 bg-white text-slate-800 shadow-2xs'
-      }`}>
-        <p className="text-xs font-semibold text-purple-600 dark:text-purple-400">최종 수정일: {page.updated}</p>
-        <h1 className={`mt-2 font-heading text-2xl sm:text-3xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>{page.title}</h1>
-        <p className={`mt-4 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{page.intro}</p>
-        
-        <div className="mt-8 space-y-6">
-          {page.sections.map((section) => (
-            <section key={section.heading} className={`p-5 rounded-xl border ${
-              dark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-100 bg-slate-50/70'
-            }`}>
-              <h2 className={`font-heading text-base sm:text-lg font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>{section.heading}</h2>
-              {section.body?.map((paragraph) => (
-                <p key={paragraph} className={`mt-2.5 text-sm sm:text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{paragraph}</p>
-              ))}
-              {section.items && (
-                <ul className={`mt-3 space-y-1.5 text-sm sm:text-base ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
-                  {section.items.map((item) => (
-                    <li key={item} className="flex gap-2 items-start">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" /> 
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          ))}
-        </div>
-      </article>
-    </div>
+    <article className={`rounded-xl border p-6 sm:p-8 transition-colors ${
+      dark ? 'border-slate-800 bg-slate-900 text-slate-200' : 'border-slate-200 bg-white text-slate-800 shadow-2xs'
+    }`}>
+      <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">
+        최종 수정일: {page.updated}
+      </span>
+      <h1 className={`mt-2 font-heading text-xl sm:text-2xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
+        {page.title}
+      </h1>
+      <p className={`mt-3 text-xs sm:text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+        {page.intro}
+      </p>
+      
+      <div className="mt-6 space-y-5">
+        {page.sections.map((section) => (
+          <section key={section.heading} className={`p-4 sm:p-5 rounded-lg border ${
+            dark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-100 bg-slate-50/70'
+          }`}>
+            <h2 className={`font-heading text-sm sm:text-base font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+              {section.heading}
+            </h2>
+            {section.body?.map((paragraph) => (
+              <p key={paragraph} className={`mt-2 text-xs sm:text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                {paragraph}
+              </p>
+            ))}
+            {section.items && (
+              <ul className={`mt-2.5 space-y-1 text-xs sm:text-sm ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                {section.items.map((item) => (
+                  <li key={item} className="flex gap-2 items-start">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" /> 
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </div>
+    </article>
   );
 }
