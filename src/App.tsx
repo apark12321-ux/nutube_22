@@ -547,14 +547,6 @@ export default function App() {
               <button onClick={() => go('terms')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                 이용약관
               </button>
-              <a 
-                href="/sitemap.xml" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                사이트맵
-              </a>
             </div>
           </div>
 
