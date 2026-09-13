@@ -4,7 +4,6 @@ import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, 
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDateTime } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
-import { BlogComments } from './BlogComments';
 
 interface GuideReaderProps {
   post: GuidePost;
@@ -876,10 +875,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
             )}
           </nav>
 
-          {/* 11. Comments Section (Tistory / Naver Style Interactive Comments) */}
-          <BlogComments postSlug={post.slug} theme={theme} />
-
-          {/* 12. Bottom Back to List Button */}
+          {/* Bottom Back to List Button */}
           <div className="mt-10 text-center">
             <button 
               onClick={onBack} 
