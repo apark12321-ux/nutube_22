@@ -56,41 +56,88 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className={`border-b sticky top-0 z-40 transition-colors ${
-      dark ? 'bg-slate-900/95 border-slate-800 text-slate-100 backdrop-blur-md' : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-md shadow-2xs'
+      dark ? 'bg-slate-900/98 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900 shadow-xs'
     }`}>
-      {/* 1. Top Bar: Blog Title & Subtitle + Search & Theme Toggle (Classic Tistory / Naver Style) */}
+      {/* 1. Main Navigation Bar (phongnhaexplorer clean style) */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between py-4 border-b border-slate-100 dark:border-slate-800/80">
-          {/* Blog Title and Subtitle */}
-          <div className="flex flex-col">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo & Site Title */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => handleNavCategory(null)}
-              className="text-left group cursor-pointer"
+              className="flex items-center gap-2.5 text-left group cursor-pointer"
             >
-              <span className={`text-xl sm:text-2xl font-black tracking-tight font-heading block ${
-                dark ? 'text-white group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
-              }`}>
-                민우의 크리에이터 노트
+              <span className="w-8 h-8 rounded-lg bg-blue-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
+                Q&A
               </span>
-              <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-normal">
-                스마트폰 하나로 시작하는 1인 미디어 & 애드센스 실전 가이드
-              </span>
+              <div className="flex flex-col">
+                <span className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${
+                  dark ? 'text-white group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'
+                }`}>
+                  크리에이터 노트
+                </span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:inline-block">
+                  질문과 답변 & 1인 미디어 실전 가이드
+                </span>
+              </div>
             </button>
           </div>
 
+          {/* Center/Right: Category Links (Desktop) */}
+          <nav className="hidden lg:flex items-center gap-1 text-sm font-semibold">
+            <button
+              onClick={() => handleNavCategory(null)}
+              className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                currentTab === 'guides' && category === null
+                  ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                  : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
+              }`}
+            >
+              홈
+            </button>
+
+            {CATEGORIES_LIST.map((cat) => {
+              const isSelected = currentTab === 'guides' && category === cat.key;
+              return (
+                <button
+                  key={cat.key}
+                  onClick={() => handleNavCategory(cat.key)}
+                  className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                    isSelected
+                      ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                      : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
+                  }`}
+                >
+                  {cat.shortLabel || cat.label}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={() => handleNavTab('about')}
+              className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                currentTab === 'about'
+                  ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                  : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
+              }`}
+            >
+              소개
+            </button>
+          </nav>
+
           {/* Right Side: Search Form & Theme Switch */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {/* Desktop Search Bar */}
             <form onSubmit={handleSearchSubmit} className="hidden sm:flex items-center relative">
               <input
                 type="text"
-                placeholder="블로그 내 검색..."
+                placeholder="가이드 & 질문 검색..."
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}
-                className={`w-44 md:w-56 text-xs pl-8 pr-3 py-1.5 rounded-full border transition-colors outline-none focus:ring-1 focus:ring-purple-500 ${
+                className={`w-40 md:w-52 text-xs pl-8 pr-3 py-1.5 rounded-lg border transition-colors outline-none focus:ring-1 focus:ring-blue-500 ${
                   dark 
                     ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-400' 
-                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
+                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:bg-white'
                 }`}
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
@@ -99,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Light/Dark Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-full border transition-colors cursor-pointer ${
+              className={`p-2 rounded-lg border transition-colors cursor-pointer ${
                 dark ? 'bg-slate-800 border-slate-700 text-amber-400 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
               title={dark ? '라이트 모드로 전환' : '다크 모드로 전환'}
@@ -111,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`sm:hidden p-2 rounded-lg border cursor-pointer ${
+              className={`lg:hidden p-2 rounded-lg border cursor-pointer ${
                 dark ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-slate-50 border-slate-200 text-slate-700'
               }`}
               aria-label="메뉴 열기"
@@ -121,71 +168,35 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* 2. Global Navigation Bar (Horizontal GNB - Tistory Book Club / Odyssey Style) */}
-        <nav className="hidden sm:flex items-center gap-1 overflow-x-auto py-2.5 text-xs font-semibold scrollbar-none">
+        {/* Category sub-navigation bar for tablet & mobile */}
+        <div className="lg:hidden flex items-center gap-1.5 overflow-x-auto py-2.5 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold scrollbar-none">
           <button
             onClick={() => handleNavCategory(null)}
-            className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+            className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap cursor-pointer ${
               currentTab === 'guides' && category === null
-                ? dark ? 'bg-slate-800 text-purple-300 font-bold' : 'bg-slate-900 text-white font-bold'
-                : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                : dark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'
             }`}
           >
-            전체 글
+            전체
           </button>
-
           {CATEGORIES_LIST.map((cat) => {
             const isSelected = currentTab === 'guides' && category === cat.key;
             return (
               <button
                 key={cat.key}
                 onClick={() => handleNavCategory(cat.key)}
-                className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap cursor-pointer ${
                   isSelected
-                    ? dark ? 'bg-slate-800 text-purple-300 font-bold' : 'bg-slate-900 text-white font-bold'
-                    : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                    : dark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'
                 }`}
               >
                 {cat.shortLabel || cat.label}
               </button>
             );
           })}
-
-          <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1 shrink-0" />
-
-          <button
-            onClick={() => handleNavTab('about')}
-            className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-              currentTab === 'about'
-                ? dark ? 'bg-slate-800 text-purple-300 font-bold' : 'bg-slate-900 text-white font-bold'
-                : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            블로그 소개
-          </button>
-
-          <button
-            onClick={() => handleNavTab('terms')}
-            className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-              currentTab === 'terms'
-                ? dark ? 'bg-slate-800 text-purple-300 font-bold' : 'bg-slate-900 text-white font-bold'
-                : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            이용약관
-          </button>
-
-          <button
-            onClick={() => handleNavTab('privacy')}
-            className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-              currentTab === 'privacy'
-                ? dark ? 'bg-slate-800 text-purple-300 font-bold' : 'bg-slate-900 text-white font-bold'
-                : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            개인정보처리방침
-          </button>
-        </nav>
+        </div>
       </div>
 
       {/* 3. Mobile Slide-down Drawer */}

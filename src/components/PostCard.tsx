@@ -31,38 +31,47 @@ export const PostCard: React.FC<PostCardProps> = ({
     .replace(/\*\*/g, '')
     .replace(/`/g, '');
 
+  // Estimate reading time in minutes based on content length
+  const readingMinutes = Math.max(3, Math.round(post.content.length / 500));
+
   return (
     <article 
       id={`post-item-${post.slug}`}
-      className={`py-6 border-b transition-colors ${
-        dark ? 'border-slate-800/80 hover:bg-slate-900/30' : 'border-slate-200/90 hover:bg-slate-50/60'
-      } px-2 sm:px-3 rounded-lg`}
+      className={`py-5 border-b transition-colors ${
+        dark ? 'border-slate-800/80 hover:bg-slate-900/40' : 'border-slate-100 hover:bg-slate-50/70'
+      } px-2 sm:px-4 rounded-lg`}
     >
       <a
         href={href}
         onClick={handleClick}
-        className="flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 items-start cursor-pointer group"
+        className="flex flex-col-reverse sm:flex-row gap-4 sm:gap-5 items-start cursor-pointer group"
       >
-        {/* Left: Content Text (Tistory Book Club / Naver Blog Style) */}
+        {/* Left: Content Text (phongnhaexplorer Q&A format) */}
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
-            {/* Category tag */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded ${
-                dark ? 'bg-slate-800 text-purple-300' : 'bg-slate-100 text-purple-700'
+            {/* Meta Tags: Status + Category + Reading Time */}
+            <div className="flex items-center gap-2 mb-2 flex-wrap text-xs">
+              <span className="font-bold px-2 py-0.5 rounded text-[11px] bg-blue-600 text-white shadow-2xs">
+                답변완료
+              </span>
+              <span className={`font-semibold px-2 py-0.5 rounded text-[11px] ${
+                dark ? 'bg-slate-800 text-blue-300' : 'bg-slate-100 text-slate-700'
               }`}>
                 {post.categoryLabel}
               </span>
+              <span className="text-[11px] text-slate-400 font-mono flex items-center gap-1">
+                <strong>{readingMinutes}분</strong> 읽기
+              </span>
             </div>
 
-            {/* Post Title */}
+            {/* Post Title (Question / Guide Header) */}
             <h2 className={`text-base sm:text-lg md:text-xl font-bold leading-snug tracking-tight mb-2 group-hover:underline underline-offset-4 ${
-              dark ? 'text-slate-100 group-hover:text-purple-300' : 'text-slate-900 group-hover:text-purple-700'
+              dark ? 'text-slate-100 group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'
             }`}>
               {post.title}
             </h2>
 
-            {/* Post Summary (2 lines limit) */}
+            {/* Post Summary (Clear Direct Answer Excerpt) */}
             <p className={`text-xs sm:text-sm line-clamp-2 leading-relaxed mb-3 ${
               dark ? 'text-slate-400' : 'text-slate-600'
             }`}>
@@ -70,13 +79,13 @@ export const PostCard: React.FC<PostCardProps> = ({
             </p>
           </div>
 
-          {/* Metadata Footer: Author, Date, Comments */}
-          <div className={`flex items-center gap-3 sm:gap-4 text-xs ${
+          {/* Metadata Footer: Author & Date */}
+          <div className={`flex items-center gap-3 text-xs ${
             dark ? 'text-slate-500' : 'text-slate-400'
           }`}>
             <span className="flex items-center gap-1">
               <User className="w-3.5 h-3.5" />
-              <span>민우</span>
+              <span>민우 (운영자)</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 font-mono">
@@ -86,8 +95,8 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
         </div>
 
-        {/* Right: Thumbnail Image (120x80 or 150x100 clean blog thumbnail) */}
-        <div className="w-full sm:w-44 md:w-48 aspect-[16/10] sm:aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-200/70 dark:border-slate-800">
+        {/* Right: Thumbnail Image */}
+        <div className="w-full sm:w-40 md:w-44 aspect-[16/10] sm:aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-200/70 dark:border-slate-800">
           <img
             src={post.thumbnail?.src || DEFAULT_REMOTE_IMAGE}
             alt={post.thumbnail?.alt || post.title}

@@ -3,7 +3,7 @@ import {
   User, 
   Folder, 
   Clock, 
-  Flame, 
+  Trophy, 
   Tag as TagIcon, 
   ChevronRight, 
   ExternalLink,
@@ -200,14 +200,14 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
         </div>
       </div>
 
-      {/* 5. Popular Posts Widget (Notice/Hot Posts) */}
+      {/* 5. Popular Posts Widget (phongnhaexplorer '가장 많이 본' style) */}
       <div className={`p-5 rounded-xl border transition-colors ${
         dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
       }`}>
         <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
-          <Flame className="w-4 h-4 text-orange-500" />
+          <Trophy className="w-4 h-4 text-amber-500" />
           <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
-            인기 추천 가이드 TOP 5
+            가장 많이 본 글
           </h4>
         </div>
         <ol className="space-y-2.5">
@@ -223,13 +223,13 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
               >
                 <span className={`w-5 h-5 rounded flex items-center justify-center font-bold text-[11px] shrink-0 ${
                   idx < 3 
-                    ? 'bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-300'
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'
                     : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
                 }`}>
                   {idx + 1}
                 </span>
                 <span className={`line-clamp-2 leading-snug transition-colors ${
-                  dark ? 'text-slate-300 group-hover:text-purple-300' : 'text-slate-700 group-hover:text-purple-700'
+                  dark ? 'text-slate-300 group-hover:text-blue-400' : 'text-slate-700 group-hover:text-blue-600'
                 }`}>
                   {post.title}
                 </span>

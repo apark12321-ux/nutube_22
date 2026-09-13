@@ -353,17 +353,17 @@ export default function App() {
               {/* Left Column: Post Feed */}
               <div id="blog-main-content" className="flex-1 min-w-0 w-full">
                 
-                {/* Category Header Bar (Tistory Book Club / Odyssey Style) */}
+                {/* Category Header Bar (phongnhaexplorer clean style) */}
                 <div className={`p-5 rounded-xl border mb-6 transition-colors ${
                   dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
                 }`}>
                   <div className="flex items-center justify-between gap-4 flex-wrap">
                     <div className="flex items-center gap-2">
-                      <Folder className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                      <Folder className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       <h1 className={`text-base sm:text-lg font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
-                        {category ? currentCategorySpec?.label : '전체 글'}
+                        {category ? currentCategorySpec?.label : '전체 질문과 가이드'}
                       </h1>
-                      <span className="text-xs font-mono text-purple-600 dark:text-purple-400 font-bold">
+                      <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold">
                         ({posts.length})
                       </span>
                     </div>
@@ -371,9 +371,9 @@ export default function App() {
                     {category && (
                       <button
                         onClick={() => selectCategory(null)}
-                        className="text-xs text-slate-500 hover:text-purple-600 dark:hover:text-purple-400 underline cursor-pointer"
+                        className="text-xs text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 underline cursor-pointer"
                       >
-                        전체 글 보기
+                        전체 질문·가이드 보기
                       </button>
                     )}
                   </div>
@@ -381,7 +381,7 @@ export default function App() {
                   <p className={`text-xs sm:text-sm mt-2 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
                     {category 
                       ? currentCategorySpec?.description 
-                      : '스마트폰 하나로 가볍게 시작해 월 100만 원 수익 파이프라인을 구축하는 실전 크리에이터 가이드입니다.'}
+                      : '스마트폰 하나로 가볍게 시작해 월 100만 원 수익 파이프라인을 구축하는 실전 크리에이터 가이드와 질문 답변입니다.'}
                   </p>
                 </div>
 
@@ -538,20 +538,20 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-4 text-xs font-medium">
-              <button onClick={() => go('about')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+              <button onClick={() => go('about')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                 블로그 소개
               </button>
-              <button onClick={() => go('privacy')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+              <button onClick={() => go('privacy')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                 개인정보처리방침
               </button>
-              <button onClick={() => go('terms')} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer">
+              <button onClick={() => go('terms')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                 이용약관
               </button>
               <a 
                 href="/sitemap.xml" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors cursor-pointer"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
               >
                 사이트맵
               </a>
@@ -559,8 +559,8 @@ export default function App() {
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 민우의 크리에이터 노트 (Creator Note). All rights reserved.</p>
-            <p>Designed for Google AdSense &amp; Tistory/Naver Blog Style Standards</p>
+            <p>© 2026 민우의 크리에이터 노트. All rights reserved.</p>
+            <p>질문과 답변 &amp; 1인 미디어 실전 가이드</p>
           </div>
         </div>
       </footer>
