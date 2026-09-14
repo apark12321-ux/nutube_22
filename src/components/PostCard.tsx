@@ -49,11 +49,8 @@ export const PostCard: React.FC<PostCardProps> = ({
         {/* Left: Content Text (phongnhaexplorer Q&A format) */}
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
-            {/* Meta Tags: Status + Category + Reading Time */}
+            {/* Meta Tags: Category + Reading Time */}
             <div className="flex items-center gap-2 mb-2 flex-wrap text-xs">
-              <span className="font-bold px-2 py-0.5 rounded text-[11px] bg-blue-600 text-white shadow-2xs">
-                답변완료
-              </span>
               <span className={`font-semibold px-2 py-0.5 rounded text-[11px] ${
                 dark ? 'bg-slate-800 text-blue-300' : 'bg-slate-100 text-slate-700'
               }`}>
