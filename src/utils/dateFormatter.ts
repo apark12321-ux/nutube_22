@@ -32,6 +32,31 @@ export const formatPostDateTime = (isoDateString: string, _slug?: string): strin
   }
 };
 
+export const formatPostDate = (isoDateString: string): string => {
+  if (!isoDateString) return '';
+  try {
+    const d = new Date(isoDateString);
+    if (isNaN(d.getTime())) return isoDateString;
+
+    const parts = new Intl.DateTimeFormat('ko-KR', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    }).formatToParts(d);
+
+    const getPart = (type: string) => parts.find(p => p.type === type)?.value || '';
+
+    const year = getPart('year');
+    const month = getPart('month');
+    const day = getPart('day');
+
+    return `${year}년 ${month}월 ${day}일`;
+  } catch {
+    return isoDateString;
+  }
+};
+
 export const formatShortDate = (isoDateString: string): string => {
   if (!isoDateString) return '';
   try {

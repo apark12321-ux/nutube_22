@@ -2,7 +2,7 @@ import React from 'react';
 import { GuidePost } from '../types';
 import { Calendar, User, Tag } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
-import { formatPostDateTime } from '../utils/dateFormatter';
+import { formatPostDate } from '../utils/dateFormatter';
 
 interface PostCardProps {
   post: GuidePost;
@@ -19,7 +19,7 @@ export const PostCard: React.FC<PostCardProps> = ({
   href, 
   theme = 'light' 
 }) => {
-  const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
+  const formattedDate = formatPostDate(post.publishedAt);
   const dark = theme === 'dark';
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -30,9 +30,6 @@ export const PostCard: React.FC<PostCardProps> = ({
   const summaryText = (post.summary || post.subtitle || '1인 크리에이터의 실전 경험과 구체적인 해결책을 담은 글입니다.')
     .replace(/\*\*/g, '')
     .replace(/`/g, '');
-
-  // Estimate reading time in minutes based on content length
-  const readingMinutes = Math.max(3, Math.round(post.content.length / 500));
 
   return (
     <article 
@@ -49,15 +46,12 @@ export const PostCard: React.FC<PostCardProps> = ({
         {/* Left: Content Text (phongnhaexplorer Q&A format) */}
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
-            {/* Meta Tags: Category + Reading Time */}
+            {/* Meta Tags: Category */}
             <div className="flex items-center gap-2 mb-2 flex-wrap text-xs">
               <span className={`font-semibold px-2 py-0.5 rounded text-[11px] ${
                 dark ? 'bg-slate-800 text-blue-300' : 'bg-slate-100 text-slate-700'
               }`}>
                 {post.categoryLabel}
-              </span>
-              <span className="text-[11px] text-slate-400 font-mono flex items-center gap-1">
-                <strong>{readingMinutes}분</strong> 읽기
               </span>
             </div>
 
@@ -87,7 +81,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <span>•</span>
             <span className="flex items-center gap-1 font-mono">
               <Calendar className="w-3.5 h-3.5" />
-              <time>{formattedDateTime.split(' ')[0]}</time>
+              <time>{formattedDate}</time>
             </span>
           </div>
         </div>

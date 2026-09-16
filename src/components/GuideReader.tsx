@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
 import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight, User, ShieldCheck, Folder } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
-import { formatPostDateTime } from '../utils/dateFormatter';
+import { formatPostDate } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
 
 interface GuideReaderProps {
@@ -193,8 +193,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     const others = allPosts.filter(p => p.slug !== post.slug && p.category !== post.category);
     return [...sameCat, ...others].slice(0, 4);
   }, [allPosts, post]);
-
-  const readingMinutes = Math.max(3, Math.round(post.content.length / 500));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -449,7 +447,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     return parts;
   };
 
-  const formattedDateTime = formatPostDateTime(post.publishedAt, post.slug);
+  const formattedDate = formatPostDate(post.publishedAt);
 
   return (
     <div className="relative pb-24" id={`guide-reader-${post.slug}`} itemScope itemType="https://schema.org/BlogPosting">
@@ -510,11 +508,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                 <span>•</span>
                 <span className="flex items-center gap-1 font-mono">
                   <Calendar className="w-3.5 h-3.5" />
-                  <time dateTime={new Date(post.publishedAt).toISOString()}>{formattedDateTime}</time>
-                </span>
-                <span>•</span>
-                <span className="font-mono text-blue-600 dark:text-blue-400 font-semibold">
-                  {readingMinutes}분 읽기
+                  <time dateTime={new Date(post.publishedAt).toISOString()}>{formattedDate}</time>
                 </span>
               </div>
 
@@ -836,7 +830,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                         {catPost.title} {isCurrent && <span className="text-[11px] font-bold text-purple-600 dark:text-purple-400">(현재글)</span>}
                       </button>
                       <span className="text-[11px] text-slate-400 font-mono shrink-0">
-                        {formatPostDateTime(catPost.publishedAt, catPost.slug).split(' ')[0]}
+                        {formatPostDate(catPost.publishedAt)}
                       </span>
                     </li>
                   );

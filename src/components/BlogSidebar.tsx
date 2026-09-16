@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { GuidePost, CategorySpec } from '../types';
 import { CATEGORIES_LIST } from '../data';
-import { formatPostDateTime } from '../utils/dateFormatter';
+import { formatPostDate } from '../utils/dateFormatter';
 import { getPostPath } from '../postSchedule';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 
@@ -117,7 +117,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
               }`}
             >
               <span className="flex items-center gap-1.5">
-                <span>📁 분류 전체보기</span>
+                <span>전체 분류 보기</span>
               </span>
               <span className="text-slate-400 font-mono text-[11px]">({posts.length})</span>
             </button>
@@ -192,7 +192,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
                   {post.title}
                 </h5>
                 <span className="text-[10px] text-slate-400 font-mono mt-1 block">
-                  {formatPostDateTime(post.publishedAt, post.slug).split(' ')[0]}
+                  {formatPostDate(post.publishedAt)}
                 </span>
               </div>
             </a>
