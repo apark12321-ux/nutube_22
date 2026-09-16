@@ -7,6 +7,7 @@ import { GuideReader } from './components/GuideReader';
 import { MetadataGenerator } from './components/MetadataGenerator';
 import { PersonaAdvisor } from './components/PersonaAdvisor';
 import { AdSenseDiagnostic } from './components/AdSenseDiagnostic';
+import { motion } from 'motion/react';
 
 import { 
   Search, 
@@ -129,13 +130,23 @@ export default function App() {
 
                     {/* AI 빌더 및 애드센스 구급대 유도 버튼 */}
                     <div className="mt-8 flex flex-wrap justify-center gap-3">
-                      <button
+                      <motion.button
                         onClick={() => handleNavigateTab('builder')}
-                        className="rounded-xl px-5 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-extrabold text-xs sm:text-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 flex items-center gap-2"
+                        animate={{ 
+                          y: [0, -6, 0] 
+                        }}
+                        transition={{ 
+                          duration: 2.6, 
+                          repeat: Infinity, 
+                          ease: "easeInOut" 
+                        }}
+                        whileHover={{ scale: 1.03, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="rounded-xl px-5 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-extrabold text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 flex items-center gap-2 cursor-pointer"
                       >
                         <Sparkles className="h-4.5 w-4.5" />
                         <span>원클릭 AI 비칭 부스터 사용해보기</span>
-                      </button>
+                      </motion.button>
                       <button
                         onClick={() => handleNavigateTab('adsense')}
                         className="rounded-xl px-5 py-3 bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-400 hover:to-rose-500 text-white font-extrabold text-xs sm:text-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-red-500/20 flex items-center gap-2"
