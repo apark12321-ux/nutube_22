@@ -7,6 +7,7 @@ import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
 import { BlogSidebar } from './components/BlogSidebar';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
+import { updatePageSeoMeta, resetDefaultSeoMeta } from './utils/seoAnalyzer';
 
 type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail';
 
@@ -95,7 +96,7 @@ const initialRoute = (): RouteState => {
 const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
   about: {
     title: '운영자 소개 & 블로그 운영 철학',
-    updated: '2026년 8월 30일',
+    updated: '2026년 9월 16일',
     intro: '안녕하세요, 1인 미디어와 애드센스 실전 노하우를 공유하는 블로그 운영자 민우입니다. 300만 원 상당의 고가 장비로 시작했다가 실패를 겪은 뒤, 스마트폰 한 대로 0에서부터 다시 구축한 실전 크리에이터의 진짜 이야기입니다.',
     sections: [
       {
@@ -121,16 +122,19 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
         ]
       },
       {
-        heading: '4. 크리에이터 고민 & 소통 안내',
+        heading: '4. 운영자 정보 및 소통 창구 (Contact Information)',
         body: [
-          '혼자 채널을 운영하거나 1인 미디어를 시작하다 보면 막막할 때가 많습니다. 크리에이터 노트는 실전에서 겪은 검증된 팁을 공유하며 크리에이터 여러분과 함께 성장해 나가겠습니다.'
+          '크리에이터 노트는 독자 여러분과의 소통과 투명한 콘텐츠 운영을 최우선으로 생각합니다. 가이드 내용에 대한 피드백, 제휴 문의, 오탈자 제보는 아래 공식 이메일로 언제든 연락해 주시기 바랍니다.',
+          '• 운영자: 민우 (5년 차 1인 크리에이터 & 콘텐츠 엔지니어)',
+          '• 공식 문의 이메일: minwoo@nutube.kr',
+          '• 회신 안내: 접수된 문의는 확인 후 영업일 기준 24~48시간 이내에 성심껏 답변드립니다.'
         ]
       }
     ]
   },
   terms: {
     title: '이용약관 및 면책조항 (Terms of Service & Disclaimer)',
-    updated: '2026년 8월 30일',
+    updated: '2026년 9월 16일',
     intro: '크리에이터 노트(Creator Note)를 방문해 주셔서 감사합니다. 본 블로그의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
     sections: [
       {
@@ -152,40 +156,67 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
         body: [
           '본 블로그에는 독자의 편의를 위해 유튜브 스튜디오, 구글 서치콘솔 등 공식 서비스 링크가 포함될 수 있습니다. 외부 사이트의 정책 및 운영에 대해서는 해당 사이트의 약관이 적용됩니다.'
         ]
+      },
+      {
+        heading: '4. 제휴 마케팅 및 스폰서십 투명성 고지 (FTC & 공정거래위원회 지침)',
+        body: [
+          '본 블로그는 공정거래위원회의 「추천·보증 등에 관한 표시·광고 심사지침」 및 미국 FTC 가이드라인을 엄격히 준수합니다.',
+          '블로그 내 일부 글에는 제휴 마케팅 링크(예: 쿠팡 파트너스, 도서/소프트웨어 제휴사 등)가 포함될 수 있으며, 독자께서 해당 링크를 통해 물품이나 서비스를 구매하실 경우 작성자에게 소정의 수수료가 지급될 수 있습니다.',
+          '단, 이는 독자의 구매 가격에 일체의 불이익이나 추가 비용을 발생시키지 않으며, 작성자가 최소 수개월 이상 직접 결제하여 검증한 장비와 툴에 대해서만 솔직한 후기를 바탕으로 소개합니다.'
+        ]
+      },
+      {
+        heading: '5. 이용자 분쟁 해결 및 문의처',
+        body: [
+          '이용약관 또는 게시물 권리 침해와 관련된 모든 문의는 공식 문의처(minwoo@nutube.kr)로 접수해 주시면 관계 법령에 따라 신속히 조치하겠습니다.'
+        ]
       }
     ]
   },
   privacy: {
     title: '개인정보처리방침 (Privacy Policy)',
-    updated: '2026년 8월 30일',
-    intro: '크리에이터 노트(이하 "블로그")는 정보통신망 이용촉진 및 정보보호 등에 관한 법률 및 구글 애드센스(Google AdSense) 프로그램 정책을 준수하며, 방문자의 개인정보와 브라우징 권리를 최우선으로 보호합니다.',
+    updated: '2026년 9월 16일',
+    intro: '크리에이터 노트(이하 "블로그")는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 개인정보 보호법 및 구글 애드센스(Google AdSense) 프로그램 정책을 엄격히 준수하며, 방문자의 개인정보와 권리를 최우선으로 보호합니다.',
     sections: [
       {
         heading: '1. 수집하는 개인정보 항목 및 수집 방법',
         body: [
           '본 블로그는 별도의 회원가입이나 개인정보 입력 없이 누구나 모든 글과 자료를 자유롭게 열람할 수 있습니다.',
-          '서버나 웹사이트 차원에서 이용자의 민감한 개인정보를 임의로 저장하거나 제3자에게 제공하지 않습니다.'
+          '웹사이트 차원에서 이용자의 주민등록번호, 연락처 등 민감한 고유 식별 정보를 임의로 수집하거나 외부 서버에 저장하지 않습니다.'
         ]
       },
       {
-        heading: '2. 쿠키(Cookie) 및 구글 애드센스(Google AdSense) 광고 게재 고지',
+        heading: '2. 쿠키(Cookie) 및 구글 애드센스(Google AdSense) 맞춤형 광고 고지',
         body: [
-          '본 블로그는 구글(Google LLC)을 포함한 제3자 광고 사업자가 제공하는 광고 서비스(Google AdSense)를 이용합니다.',
-          '구글 및 제3자 제공업체는 쿠키(DART 쿠키 등)를 사용하여 사용자의 본 사이트 및 다른 웹사이트 방문 내역을 바탕으로 관심사 기반의 맞춤형 광고를 게재할 수 있습니다.',
-          '사용자는 원치 않을 경우 광고 설정(https://www.google.com/settings/ads) 페이지를 방문하여 구글의 개인 맞춤 광고 설정을 직접 해제(Opt-out)하거나 관리하실 수 있습니다.',
-          '또한 www.aboutads.info 사이트를 방문하여 제3자 공급업체의 맞춤형 광고용 쿠키 사용을 선택적으로 비활성화할 수 있습니다.'
+          '본 블로그는 구글(Google LLC)을 포함한 제3자 광고 사업자가 제공하는 광고 서비스(Google AdSense)를 이용하고 있습니다.',
+          '• 쿠키의 사용 목적: Google을 비롯한 제3자 제공업체는 쿠키(DART 쿠키 등)를 사용하여 사용자의 본 블로그 및 인터넷상의 다른 웹사이트 이전 방문 기록을 기반으로 광고를 게재합니다.',
+          '• Google의 광고 쿠키 사용: Google은 광고 쿠키를 통해 사용자의 본 사이트 및 다른 사이트 방문을 바탕으로 Google 및 파트너사의 맞춤형 광고를 제공할 수 있습니다.',
+          '• 맞춤설정 광고 해제 방법(Opt-out): 사용자는 Google 광고 설정(https://adssettings.google.com 또는 https://www.google.com/settings/ads) 페이지를 방문하여 언제든지 개인 맞춤 광고를 비활성화할 수 있습니다.',
+          '• 제3자 광고 쿠키 비활성화: 사용자는 www.aboutads.info 및 https://youradchoices.com/ 페이지를 방문하여 제3자 공급업체의 맞춤형 광고 쿠키 사용을 선택적으로 차단하실 수 있습니다.'
         ]
       },
       {
-        heading: '3. 웹사이트 트래픽 분석 (Google Analytics)',
+        heading: '3. 웹사이트 트래픽 분석 (Google Analytics & Search Console)',
         body: [
-          '본 블로그는 사이트 개선 및 독자 선호도 분석을 위해 웹로그 분석 도구를 활용할 수 있습니다. 이는 익명화된 통계 정보(방문 페이지, 체류 시간, 유입 경로 등)만을 수집하며 개인을 식별하지 않습니다.'
+          '본 블로그는 사이트 품질 개선과 독자의 콘텐츠 열람 편의를 증진하기 위해 웹로그 분석 도구(Google Analytics)를 활용할 수 있습니다. 이는 브라우저 종류, 방문 페이지, 체류 시간 등 비식별 통계 정보만을 수집하며 개별 이용자를 특정할 수 없습니다.'
         ]
       },
       {
-        heading: '4. 개인정보 보호 책임자 안내',
+        heading: '4. 이용자의 권리 행사 및 쿠키 거부 방법 (GDPR, CCPA 및 국내 법령 준수)',
         body: [
-          '본 블로그의 개인정보 보호 및 운영에 관한 기본 방침은 관계 법령 및 구글 게시자 정책을 철저히 준수하여 안전하게 관리되고 있습니다.'
+          '• 브라우저 쿠키 제어: 이용자는 사용하는 웹 브라우저의 옵션을 설정함으로써 모든 쿠키를 허용하거나, 쿠키가 저장될 때마다 확인을 거치거나, 모든 쿠키의 저장을 거부할 수 있습니다. (설정 방법: Chrome의 경우 [설정] > [개인정보 보호 및 보안] > [쿠키 및 기타 사이트 데이터] 메뉴에서 차단 가능)',
+          '• 만 14세 미만 아동 보호: 본 블로그는 아동 온라인 사생활 보호법(COPPA)을 준수하며, 만 14세 미만 아동의 개인정보를 고의로 수집하지 않습니다.',
+          '• 권리 행사: 유럽 연합(EU/EEA)의 GDPR 및 미국 캘리포니아주 CCPA 대상 이용자를 포함한 모든 방문자는 언제든지 개인정보의 열람, 정정, 삭제 및 처리 정지를 요청할 권리를 가집니다.'
+        ]
+      },
+      {
+        heading: '5. 개인정보 보호책임자 및 고충처리 창구 (Contact Details)',
+        body: [
+          '본 블로그의 개인정보 보호 및 운영에 관한 문의, 불만 처리, 의견 수렴을 위해 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.',
+          '• 성명: 민우',
+          '• 직책: 크리에이터 노트 대표 및 개인정보 보호책임자',
+          '• 전자우편: minwoo@nutube.kr',
+          '• 고충 처리: 개인정보 보호와 관련된 문의 사항을 위 이메일로 보내주시면 영업일 기준 48시간 이내에 신속하고 성실하게 조치 결과를 안내해 드리겠습니다.'
         ]
       }
     ]
@@ -231,6 +262,14 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  useEffect(() => {
+    if (tab === 'about' || tab === 'terms' || tab === 'privacy') {
+      updatePageSeoMeta(tab);
+    } else if (tab === 'guides' && !post) {
+      resetDefaultSeoMeta();
+    }
+  }, [tab, post]);
 
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();

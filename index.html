@@ -18,6 +18,7 @@
 
     <!-- Google AdSense Official Script for Instant Site Approval -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9552509372228899" crossorigin="anonymous"></script>
+    <meta name="google-adsense-platform-account" content="ca-pub-9552509372228899" />
 
     <!-- Google Fonts: Black Han Sans, Noto Sans KR, Plus Jakarta Sans, Outfit, JetBrains Mono + Pretendard -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,21 +44,62 @@
     <meta name="twitter:description" content="유튜브 쇼츠, 구글 애드센스, 블로그 운영과 지식창업 실전 노하우" />
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80" />
 
-    <!-- WebSite & Organization JSON-LD Schema -->
+    <!-- WebSite, Blog & Person (E-E-A-T) JSON-LD Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "크리에이터 노트",
-        "alternateName": "Creator Note",
-        "url": "https://nutube.kr/",
-        "description": "1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오와 성장 팁을 담은 블로그.",
-        "inLanguage": "ko-KR",
-        "publisher": {
-          "@type": "Person",
-          "name": "민우",
-          "url": "https://nutube.kr/"
-        }
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://nutube.kr/#website",
+            "url": "https://nutube.kr/",
+            "name": "크리에이터 노트",
+            "alternateName": "Creator Note",
+            "description": "1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오, 애드센스 승인과 채널 성장의 경험을 솔직하게 담은 실전 블로그입니다.",
+            "inLanguage": "ko-KR",
+            "publisher": {
+              "@id": "https://nutube.kr/#author"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://nutube.kr/?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://nutube.kr/#author",
+            "name": "민우",
+            "jobTitle": "1인 미디어 크리에이터 & 콘텐츠 엔지니어",
+            "url": "https://nutube.kr/about",
+            "email": "minwoo@nutube.kr",
+            "description": "스마트폰 한 대로 시작해 5년간 유튜브, 구글 애드센스, 블로그 운영을 직접 연구하고 실행해온 실전 1인 크리에이터.",
+            "knowsAbout": [
+              "유튜브 운영 노하우",
+              "유튜브 쇼츠 제작",
+              "구글 애드센스 승인 및 최적화",
+              "스마트폰 영상 편집",
+              "1인 미디어 수익화"
+            ]
+          },
+          {
+            "@type": "Blog",
+            "@id": "https://nutube.kr/#blog",
+            "name": "크리에이터 노트 실전 가이드",
+            "url": "https://nutube.kr/",
+            "description": "유튜브 쇼츠, 구글 애드센스 승인, 채널 성장과 지식창업을 위한 실전 지침서",
+            "inLanguage": "ko-KR",
+            "author": {
+              "@id": "https://nutube.kr/#author"
+            },
+            "publisher": {
+              "@id": "https://nutube.kr/#author"
+            }
+          }
+        ]
       }
     </script>
   </head>

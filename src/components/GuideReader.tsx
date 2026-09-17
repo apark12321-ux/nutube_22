@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
+import { getPostPath } from '../postSchedule';
 import { ArrowLeft, Share2, Calendar, List, ArrowUp, ChevronDown, User, ShieldCheck, Folder } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDate } from '../utils/dateFormatter';
@@ -258,7 +259,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
       existingScript.remove();
     }
 
-    const postUrl = `https://nutube.kr/post/${post.slug}`;
+    const postUrl = `https://nutube.kr${getPostPath(post)}`;
     const formattedPublishedDate = new Date(post.publishedAt).toISOString();
     const formattedModifiedDate = post.updatedAt ? new Date(post.updatedAt).toISOString() : formattedPublishedDate;
 

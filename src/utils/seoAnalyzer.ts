@@ -1,4 +1,5 @@
 import { GuidePost } from '../types';
+import { getPostPath } from '../postSchedule';
 
 /**
  * Stopwords to filter out generic Korean words and punctuation
@@ -126,7 +127,8 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
   setMetaTag('name', 'author', post.author || '크리에이터 노트');
 
   // 4. Canonical & Open Graph
-  const canonicalUrl = `https://nutube.kr/guide/${post.slug}`;
+  const postPath = getPostPath(post);
+  const canonicalUrl = `https://nutube.kr${postPath}`;
   let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!canonicalEl) {
     canonicalEl = document.createElement('link');
@@ -153,6 +155,55 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
 }
 
 /**
+ * Updates document metadata for static policy & about pages
+ */
+export function updatePageSeoMeta(tab: 'about' | 'terms' | 'privacy') {
+  if (typeof document === 'undefined') return;
+
+  const setMetaTag = (attrName: string, attrValue: string, content: string) => {
+    let element = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
+    if (!element) {
+      element = document.createElement('meta');
+      element.setAttribute(attrName, attrValue);
+      document.head.appendChild(element);
+    }
+    element.setAttribute('content', content);
+  };
+
+  let title = '크리에이터 노트 | 1인 미디어 운영 & 채널 성장 실전 가이드';
+  let description = '1인 크리에이터가 직접 유튜브 채널과 블로그를 운영하며 겪은 시행착오와 성장 노하우를 솔직하게 담은 블로그입니다.';
+  let pageUrl = `https://nutube.kr/${tab}`;
+
+  if (tab === 'about') {
+    title = '운영자 소개 & 블로그 철학 | 크리에이터 노트';
+    description = '1인 미디어와 애드센스 실전 노하우를 기록하는 크리에이터 노트 운영자 민우의 소개와 운영 철학 및 3대 원칙(E-E-A-T)입니다.';
+  } else if (tab === 'terms') {
+    title = '이용약관 및 면책조항 | 크리에이터 노트';
+    description = '크리에이터 노트의 서비스 이용약관, 콘텐츠 저작권 보호 규정, 수익 면책조항 및 제휴 마케팅 투명성 고지입니다.';
+  } else if (tab === 'privacy') {
+    title = '개인정보처리방침 (Privacy Policy) | 크리에이터 노트';
+    description = '크리에이터 노트의 개인정보처리방침, 구글 애드센스(Google AdSense) 쿠키 및 맞춤형 광고 거부 안내, 개인정보 보호 정책입니다.';
+  }
+
+  document.title = title;
+
+  let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  if (!canonicalEl) {
+    canonicalEl = document.createElement('link');
+    canonicalEl.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonicalEl);
+  }
+  canonicalEl.setAttribute('href', pageUrl);
+
+  setMetaTag('name', 'description', description);
+  setMetaTag('property', 'og:title', title);
+  setMetaTag('property', 'og:description', description);
+  setMetaTag('property', 'og:url', pageUrl);
+  setMetaTag('name', 'twitter:title', title);
+  setMetaTag('name', 'twitter:description', description);
+}
+
+/**
  * Resets document metadata back to default homepage SEO values
  */
 export function resetDefaultSeoMeta() {
@@ -166,10 +217,13 @@ export function resetDefaultSeoMeta() {
   }
 
   const setMetaTag = (attrName: string, attrValue: string, content: string) => {
-    const element = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
-    if (element) {
-      element.setAttribute('content', content);
+    let element = document.querySelector(`meta[${attrName}="${attrValue}"]`) as HTMLMetaElement | null;
+    if (!element) {
+      element = document.createElement('meta');
+      element.setAttribute(attrName, attrValue);
+      document.head.appendChild(element);
     }
+    element.setAttribute('content', content);
   };
 
   setMetaTag('name', 'keywords', '크리에이터 노트, 유튜브 쇼츠 수익, 애드센스 승인, 구글 검색 노출, 블로그 글쓰기, 1인 크리에이터, 부수입, 전자책 판매');
