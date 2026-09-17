@@ -237,7 +237,7 @@ export default function App() {
     return [...POSTS]
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .filter((item) => !category || item.category === category)
-      .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q));
+      .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q) || (item.tags || []).some(t => t.toLowerCase().includes(q)));
   }, [query, category]);
 
   const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
@@ -302,6 +302,16 @@ export default function App() {
     } else {
       selectCategory(null);
     }
+  };
+
+  const handleSelectTag = (tag: string) => {
+    setQuery(tag);
+    setCategory(null);
+    setPage(1);
+    if (tab !== 'guides') {
+      go('guides');
+    }
+    scrollToPosts();
   };
 
   const openPost = (item: GuidePost) => {
@@ -495,6 +505,7 @@ export default function App() {
                 posts={POSTS}
                 onSelectPost={openPost}
                 onOpenAbout={() => go('about')}
+                onSelectTag={handleSelectTag}
                 theme={theme}
               />
 
@@ -515,6 +526,7 @@ export default function App() {
                 posts={POSTS}
                 onSelectPost={openPost}
                 onOpenAbout={() => go('about')}
+                onSelectTag={handleSelectTag}
                 theme={theme}
               />
             </div>

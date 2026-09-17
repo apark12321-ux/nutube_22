@@ -22,6 +22,7 @@ interface BlogSidebarProps {
   posts: GuidePost[];
   onSelectPost: (post: GuidePost) => void;
   onOpenAbout: () => void;
+  onSelectTag?: (tag: string) => void;
   theme?: 'light' | 'dark';
 }
 
@@ -31,6 +32,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
   posts,
   onSelectPost,
   onOpenAbout,
+  onSelectTag,
   theme = 'light'
 }) => {
   const dark = theme === 'dark';
@@ -251,16 +253,17 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
         </div>
         <div className="flex flex-wrap gap-1.5">
           {popularTags.map((tag) => (
-            <span
+            <button
               key={tag}
-              className={`text-xs px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+              onClick={() => onSelectTag?.(tag)}
+              className={`text-xs px-2.5 py-1 rounded-md transition-colors cursor-pointer text-left ${
                 dark 
                   ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' 
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
               }`}
             >
               #{tag}
-            </span>
+            </button>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GuidePost, CategorySpec, PostImage } from '../types';
-import { ArrowLeft, Share2, Calendar, ChevronRight, List, ArrowUp, ChevronDown, Lightbulb, CheckCircle2, HelpCircle, ArrowRight, User, ShieldCheck, Folder } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, List, ArrowUp, ChevronDown, User, ShieldCheck, Folder } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 import { formatPostDate } from '../utils/dateFormatter';
 import { updateDynamicPostSeoMeta, resetDefaultSeoMeta } from '../utils/seoAnalyzer';
@@ -185,14 +185,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     return items;
   }, [blocks]);
 
-  // Related questions for benchmarked phongnhaexplorer style
-  const relatedQuestions = useMemo(() => {
-    if (!allPosts || allPosts.length === 0) return [];
-    const sameCat = allPosts.filter(p => p.slug !== post.slug && p.category === post.category);
-    if (sameCat.length >= 4) return sameCat.slice(0, 4);
-    const others = allPosts.filter(p => p.slug !== post.slug && p.category !== post.category);
-    return [...sameCat, ...others].slice(0, 4);
-  }, [allPosts, post]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -533,64 +525,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
             </div>
           )}
 
-          {/* Best Answer Box (phongnhaexplorer signature #best-answer) */}
-          <div 
-            id="best-answer" 
-            className={`my-6 p-4 sm:p-5 rounded-xl border transition-colors ${
-              dark ? 'bg-blue-950/30 border-blue-900/80 text-slate-200' : 'bg-blue-50/70 border-blue-200 text-slate-900 shadow-xs'
-            }`}
-          >
-            <div className="flex items-center gap-2 font-bold text-sm text-blue-700 dark:text-blue-300 mb-2">
-              <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-              <span>핵심 답변 & 바로 알기</span>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed font-medium">
-              <strong className="text-blue-900 dark:text-blue-100">
-                {post.title.split('?')[0] || post.title}:
-              </strong>{' '}
-              {post.quickAnswer?.keyTakeaway || post.subtitle || post.summary || '1인 미디어 제작과 채널 성장을 위한 실전 핵심 노하우를 명확히 짚어드립니다.'}
-            </p>
-            {post.quickAnswer?.summary && post.quickAnswer.summary.length > 0 && (
-              <ul className="mt-3 pt-3 border-t border-blue-200/60 dark:border-blue-900/60 space-y-1 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                {post.quickAnswer.summary.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 font-bold">•</span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {/* Related Questions Box (phongnhaexplorer signature .question-more) */}
-          {relatedQuestions.length > 0 && (
-            <div className={`question-more mb-7 p-4 sm:p-5 rounded-xl border transition-colors ${
-              dark ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-50 border-slate-200/90'
-            }`}>
-              <div className="flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-slate-100 mb-2.5">
-                <HelpCircle className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-                <span>이런 질문도 있으신가요? (관련 추천 가이드)</span>
-              </div>
-              <ul className="space-y-2 text-xs sm:text-sm">
-                {relatedQuestions.map((q) => (
-                  <li key={q.slug} className="flex items-center gap-2">
-                    <span className="text-blue-500 font-bold">•</span>
-                    <button
-                      onClick={() => {
-                        if (onSelectPost) onSelectPost(q.slug);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      className={`text-left hover:underline cursor-pointer ${
-                        dark ? 'text-slate-300 hover:text-blue-400' : 'text-slate-700 hover:text-blue-600'
-                      }`}
-                    >
-                      {q.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {/* 3. Table of Contents Box (Tistory TOC Plugin Style) */}
           {tocItems.length > 0 && (
@@ -732,31 +666,6 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               // Paragraphs
               const paragraphText = block.lines.join(' ');
               paragraphCount += 1;
-
-              // Check if it's a Callout / Tip box (E-E-A-T Real Experience note)
-              const isTipBox = paragraphText.includes('실제 겪어본') || 
-                               paragraphText.includes('솔직 후기') || 
-                               paragraphText.includes('아쉬웠던 점') || 
-                               paragraphText.includes('실패담') || 
-                               paragraphText.includes('민우의');
-
-              if (isTipBox) {
-                return (
-                  <div key={index} className={`my-6 p-4 sm:p-5 rounded-xl border-l-4 transition-colors ${
-                    dark 
-                      ? 'bg-purple-950/20 border-purple-500 text-purple-200' 
-                      : 'bg-amber-50/70 border-amber-500 text-amber-950'
-                  }`}>
-                    <div className="flex items-center gap-2 mb-2 font-bold text-xs sm:text-sm">
-                      <Lightbulb className="w-4 h-4 text-amber-500" />
-                      <span>민우의 실전 코멘트 (E-E-A-T 시행착오 노트)</span>
-                    </div>
-                    <p className="text-xs sm:text-sm leading-relaxed">
-                      {renderFormattedText(paragraphText)}
-                    </p>
-                  </div>
-                );
-              }
 
               return (
                 <p key={index} className={`leading-relaxed text-sm sm:text-base mb-4 break-keep ${
