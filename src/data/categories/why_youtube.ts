@@ -201,7 +201,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "채널성장비결"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브는 이미 레드오션이라는 착각: 후발주자가 살아남는 핀셋 전략 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "유튜브는 이미 레드오션이라는 착각: 후발주자가 살아남는 핀셋 전략"
     }
@@ -242,7 +242,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브멘탈관리"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80",
       "alt": "카메라 울렁증 극복하기: 렌즈 앞에서 말문이 막힐 때 쓰는 3초 트릭 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "카메라 울렁증 극복하기: 렌즈 앞에서 말문이 막힐 때 쓰는 3초 트릭"
     }
@@ -283,7 +283,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "방구석촬영"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=80",
       "alt": "조용한 방구석 0원 스튜디오: 다이소 꿀템으로 완성하는 촬영 세팅 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "조용한 방구석 0원 스튜디오: 다이소 꿀템으로 완성하는 촬영 세팅"
     }
@@ -324,7 +324,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "번아웃극복"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
       "alt": "직장인 퇴근 후 1시간 유튜브 루틴: 번아웃 없이 주 1회 업로드 완성법 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "직장인 퇴근 후 1시간 유튜브 루틴: 번아웃 없이 주 1회 업로드 완성법"
     }
@@ -406,7 +406,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "알고리즘유입"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
       "alt": "첫 구독자 100명 모으는 가장 빠르고 확실한 3가지 실천법 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "첫 구독자 100명 모으는 가장 빠르고 확실한 3가지 실천법"
     }
@@ -447,7 +447,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
       "alt": "스마트폰 자연광 촬영법: 창문 하나로 스튜디오 조명 효과 내기 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "스마트폰 자연광 촬영법: 창문 하나로 스튜디오 조명 효과 내기"
     }
@@ -488,7 +488,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1542744095-2ad4b30c0ddf?auto=format&fit=crop&w=1200&q=80",
       "alt": "내 채널 이름 짓기: 시청자가 한 번 듣고 기억하는 네이밍 공식 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "내 채널 이름 짓기: 시청자가 한 번 듣고 기억하는 네이밍 공식"
     }
@@ -529,7 +529,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 배너와 프로필 10분 만에 캔바로 예쁘게 만들기 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "유튜브 배너와 프로필 10분 만에 캔바로 예쁘게 만들기"
     }
@@ -570,7 +570,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1200&q=80",
       "alt": "영상 찍을 때 프롬프터처럼 대본 보는 무료 스마트폰 앱 추천 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "영상 찍을 때 프롬프터처럼 대본 보는 무료 스마트폰 앱 추천"
     }
@@ -611,7 +611,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80",
       "alt": "완벽주의 버리기: 80% 완성도로 일단 올리는 사람이 결국 이기는 이유 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "완벽주의 버리기: 80% 완성도로 일단 올리는 사람이 결국 이기는 이유"
     }
@@ -652,7 +652,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
       "alt": "내 일상을 콘텐츠로 바꾸는 관찰 일기 메모법 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "내 일상을 콘텐츠로 바꾸는 관찰 일기 메모법"
     }
@@ -693,7 +693,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=80",
       "alt": "스마트폰 기본 카메라 프로 모드 활용해 DSLR 느낌 내기 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "스마트폰 기본 카메라 프로 모드 활용해 DSLR 느낌 내기"
     }
@@ -734,7 +734,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?auto=format&fit=crop&w=1200&q=80",
       "alt": "책상 위 톱다운(수직) 촬영 거치대 1만 원대로 세팅하는 법 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "책상 위 톱다운(수직) 촬영 거치대 1만 원대로 세팅하는 법"
     }
@@ -775,7 +775,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80",
       "alt": "목소리에 자신 없을 때: 나긋나긋한 감성 내레이션 녹음 팁 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "목소리에 자신 없을 때: 나긋나긋한 감성 내레이션 녹음 팁"
     }
@@ -816,7 +816,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=80",
       "alt": "가족·친구 몰래 유튜브 시작하는 비밀 계정 분리 및 프라이버시 설정 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "가족·친구 몰래 유튜브 시작하는 비밀 계정 분리 및 프라이버시 설정"
     }
@@ -857,7 +857,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
       "alt": "첫 영상 올리기 전 필수 체크리스트 7가지 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "첫 영상 올리기 전 필수 체크리스트 7가지"
     }
@@ -898,7 +898,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&q=80",
       "alt": "스마트폰 용량 부족 해결: 외장 SSD와 클라우드로 영상 원본 관리하기 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "스마트폰 용량 부족 해결: 외장 SSD와 클라우드로 영상 원본 관리하기"
     }
@@ -939,7 +939,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
       "alt": "혼자 찍는 인터뷰 & Q&A 영상 어색하지 않게 연출하는 법 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "혼자 찍는 인터뷰 & Q&A 영상 어색하지 않게 연출하는 법"
     }
@@ -980,7 +980,7 @@ export const WHY_YOUTUBE_POSTS: GuidePost[] = [
       "유튜브노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80",
       "alt": "퇴근 후 지친 몸으로 주 1편 영상 꾸준히 올리는 1시간 쪼개기 루틴 - 왜 유튜브인가 & 가벼운 시작 실전 가이드 썸네일",
       "caption": "퇴근 후 지친 몸으로 주 1편 영상 꾸준히 올리는 1시간 쪼개기 루틴"
     }

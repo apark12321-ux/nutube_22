@@ -58,8 +58,8 @@ export const FALLBACK_IMAGE_DATA_URI = `data:image/svg+xml;charset=utf-8,${encod
   <circle cx="600" cy="300" r="180" fill="#4338ca" opacity="0.25"/>
   <rect x="520" y="220" width="160" height="110" rx="24" fill="url(#accent)"/>
   <polygon points="585,255 625,275 585,295" fill="#ffffff"/>
-  <text x="600" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="28" font-weight="bold" fill="#f8fafc" text-anchor="middle">민우의 크리에이터 가이드</text>
-  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">1인 유튜브 실전 가이드 &amp; 데이터 노트</text>
+  <text x="600" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="28" font-weight="bold" fill="#f8fafc" text-anchor="middle">너튜브 (NuTube)</text>
+  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">너와 나의 1인 미디어 성장 노트 | 실전 가이드</text>
 </svg>
 `)}`;
 

@@ -45,7 +45,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     setCategory(catKey);
     setSearchQuery('');
     setLocalSearch('');
-    setTab('guides');
     setMobileMenuOpen(false);
   };
 
@@ -67,9 +66,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavCategory(null)}
               className="flex items-center gap-2.5 text-left group cursor-pointer"
             >
-              <span className="w-8 h-8 rounded-lg bg-red-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs tracking-tighter">
-                NU
-              </span>
+              <img
+                src="/nutube-logo.svg"
+                alt="NuTube 로고"
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 drop-shadow-xs group-hover:scale-105 transition-transform"
+                referrerPolicy="no-referrer"
+              />
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${

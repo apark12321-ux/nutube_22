@@ -119,7 +119,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "영상편집단축"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200&q=80",
       "alt": "캡컷(CapCut) AI 자동 자막 & 무음 컷편집으로 편집 시간 80% 줄이는 꿀팁 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "캡컷(CapCut) AI 자동 자막 & 무음 컷편집으로 편집 시간 80% 줄이는 꿀팁"
     }
@@ -160,7 +160,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1590602846989-e990c74070a9?auto=format&fit=crop&w=1200&q=80",
       "alt": "어색한 로봇 목소리는 이제 그만! 시청자가 좋아하는 매력적인 오디오 연출법 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "어색한 로봇 목소리는 이제 그만! 시청자가 좋아하는 매력적인 오디오 연출법"
     }
@@ -201,7 +201,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 시대일수록 '사람 냄새' 나는 채널이 롱런하고 돈을 버는 결정적인 이유 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 시대일수록 '사람 냄새' 나는 채널이 롱런하고 돈을 버는 결정적인 이유"
     }
@@ -242,7 +242,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
       "alt": "Gemini를 똑똑한 기획 비서로 부리는 실전 프롬프트 5선 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "Gemini를 똑똑한 기획 비서로 부리는 실전 프롬프트 5선"
     }
@@ -283,7 +283,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 생성 이미지로 감성적인 B-roll 배경 소스 1분 만에 만들기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 생성 이미지로 감성적인 B-roll 배경 소스 1분 만에 만들기"
     }
@@ -324,7 +324,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1200&q=80",
       "alt": "100% AI 대본의 어색한 어투를 자연스러운 구어체로 고치는 3단계 수정법 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "100% AI 대본의 어색한 어투를 자연스러운 구어체로 고치는 3단계 수정법"
     }
@@ -365,7 +365,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 썸네일 배경 생성과 캔바 텍스트의 환상적인 조합법 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 썸네일 배경 생성과 캔바 텍스트의 환상적인 조합법"
     }
@@ -406,7 +406,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 영상 툴(브루 Vrew)로 인터뷰 영상 텍스트 기반 컷편집 끝내기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 영상 툴(브루 Vrew)로 인터뷰 영상 텍스트 기반 컷편집 끝내기"
     }
@@ -447,7 +447,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브가 AI 콘텐츠에 요구하는 'AI 생성 표시' 라벨링 가이드 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "유튜브가 AI 콘텐츠에 요구하는 'AI 생성 표시' 라벨링 가이드"
     }
@@ -488,7 +488,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=1200&q=80",
       "alt": "ChatGPT로 시청자 시선 사로잡는 유튜브 제목 20개 순식간에 뽑기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "ChatGPT로 시청자 시선 사로잡는 유튜브 제목 20개 순식간에 뽑기"
     }
@@ -529,7 +529,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 번역 툴로 내 영상에 5개 국어 자동 자막 달고 해외 시청자 잡기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 번역 툴로 내 영상에 5개 국어 자동 자막 달고 해외 시청자 잡기"
     }
@@ -570,7 +570,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 음성 복제(Voice Cloning) 기술의 합법적 활용과 주의사항 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 음성 복제(Voice Cloning) 기술의 합법적 활용과 주의사항"
     }
@@ -611,7 +611,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&fit=crop&w=1200&q=80",
       "alt": "대본 요약부터 썸네일 문구까지 한 번에 끝내는 AI 통합 워크플로우 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "대본 요약부터 썸네일 문구까지 한 번에 끝내는 AI 통합 워크플로우"
     }
@@ -652,7 +652,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI가 지어낸 거짓 정보(할루시네이션) 1분 만에 팩트체크하는 법 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI가 지어낸 거짓 정보(할루시네이션) 1분 만에 팩트체크하는 법"
     }
@@ -693,7 +693,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
       "alt": "미드저니(Midjourney)로 고화질 캐릭터 일러스트 만들어 브랜딩하기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "미드저니(Midjourney)로 고화질 캐릭터 일러스트 만들어 브랜딩하기"
     }
@@ -734,7 +734,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
       "alt": "클로드(Claude)로 깊이 있는 장문 스토리텔링 대본 구조 짜기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "클로드(Claude)로 깊이 있는 장문 스토리텔링 대본 구조 짜기"
     }
@@ -775,7 +775,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI로 제작한 영상의 저작권과 상업적 이용 가능 여부 총정리 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI로 제작한 영상의 저작권과 상업적 이용 가능 여부 총정리"
     }
@@ -816,7 +816,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&w=1200&q=80",
       "alt": "캡컷 PC 버전에서 AI 스마트 지우개로 불필요한 배경 요소 지우기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "캡컷 PC 버전에서 AI 스마트 지우개로 불필요한 배경 요소 지우기"
     }
@@ -857,7 +857,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 음악 생성기(Suno, Udio)로 저작권 걱정 없는 오리지널 BGM 만들기 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 음악 생성기(Suno, Udio)로 저작권 걱정 없는 오리지널 BGM 만들기"
     }
@@ -898,7 +898,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
       "alt": "초보 크리에이터를 위한 추천 무료 AI 도구 7가지 총정리 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "초보 크리에이터를 위한 추천 무료 AI 도구 7가지 총정리"
     }
@@ -939,7 +939,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1508873696983-2df5703bc20d?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI를 복사붙여넣기 하지 않고 내 지식과 결합하는 하이브리드 제작법 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI를 복사붙여넣기 하지 않고 내 지식과 결합하는 하이브리드 제작법"
     }
@@ -980,7 +980,7 @@ export const AI_CREATOR_POSTS: GuidePost[] = [
       "콘텐츠워크플로우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=1200&q=80",
       "alt": "AI 목소리(TTS) 거부감 지우는 법: 사람 냄새 더해 시청 지속 시간 45% 지킨 오디오 믹스 - AI 크리에이터 & 도구 활용 실전 가이드 썸네일",
       "caption": "AI 목소리(TTS) 거부감 지우는 법: 사람 냄새 더해 시청 지속 시간 45% 지킨 오디오 믹스"
     }

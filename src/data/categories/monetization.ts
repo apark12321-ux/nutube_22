@@ -37,7 +37,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "디지털노마드"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1565372195458-9de0b320ef04?auto=format&fit=crop&w=1200&q=80",
       "alt": "조회수 광고비가 전부가 아니다? 유튜브로 돈 버는 5가지 현실적인 방법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "조회수 광고비가 전부가 아니다? 유튜브로 돈 버는 5가지 현실적인 방법"
     }
@@ -119,7 +119,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
       "alt": "영상 보면서 링크 누르게 만드는 제휴 마케팅(쿠팡 파트너스 등) 꿀팁 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "영상 보면서 링크 누르게 만드는 제휴 마케팅(쿠팡 파트너스 등) 꿀팁"
     }
@@ -160,7 +160,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80",
       "alt": "조회수 스트레스 없이 내 지식을 파는 PDF 전자책 & 템플릿 무인 판매 시스템 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "조회수 스트레스 없이 내 지식을 파는 PDF 전자책 & 템플릿 무인 판매 시스템"
     }
@@ -201,7 +201,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1200&q=80",
       "alt": "구독자 500명부터 시작하는 월 고정 수입: 유튜브 멤버십과 팬덤 후원의 맛 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "구독자 500명부터 시작하는 월 고정 수입: 유튜브 멤버십과 팬덤 후원의 맛"
     }
@@ -242,7 +242,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
       "alt": "광고 단가(CPM/RPM) 높은 알짜배기 콘텐츠 분야와 키워드 분석 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "광고 단가(CPM/RPM) 높은 알짜배기 콘텐츠 분야와 키워드 분석"
     }
@@ -283,7 +283,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80",
       "alt": "초보 유튜버를 위한 애드센스 계정 연결과 세금 정보 등록 완벽 가이드 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "초보 유튜버를 위한 애드센스 계정 연결과 세금 정보 등록 완벽 가이드"
     }
@@ -324,7 +324,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
       "alt": "구독자 1,000명 달성했을 때 협찬 제안서 메일 먼저 보내는 방법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "구독자 1,000명 달성했을 때 협찬 제안서 메일 먼저 보내는 방법"
     }
@@ -365,7 +365,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 고정 댓글과 더보기란을 활용한 고수익 전환 퍼널 설계법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 고정 댓글과 더보기란을 활용한 고수익 전환 퍼널 설계법"
     }
@@ -406,7 +406,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
       "alt": "노션(Notion) 템플릿 만들어 검로드/스마트스토어에서 자동 판매하기 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "노션(Notion) 템플릿 만들어 검로드/스마트스토어에서 자동 판매하기"
     }
@@ -447,7 +447,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 수익 종합소득세 신고와 사업자등록 언제 해야 할까? - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 수익 종합소득세 신고와 사업자등록 언제 해야 할까?"
     }
@@ -488,7 +488,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
       "alt": "광고 없는 클린 영상으로 브랜드 신뢰 쌓고 고액 컨설팅으로 연결하기 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "광고 없는 클린 영상으로 브랜드 신뢰 쌓고 고액 컨설팅으로 연결하기"
     }
@@ -529,7 +529,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 펀드가 사라지고 바뀐 쇼츠 광고 수익 배분 시스템 완벽 이해 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "쇼츠 펀드가 사라지고 바뀐 쇼츠 광고 수익 배분 시스템 완벽 이해"
     }
@@ -570,7 +570,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
       "alt": "조회수 1만 회로 100만 원 버는 타겟팅 콘텐츠 vs 10만 회로 5만 원 버는 영상 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "조회수 1만 회로 100만 원 버는 타겟팅 콘텐츠 vs 10만 회로 5만 원 버는 영상"
     }
@@ -611,7 +611,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 시청자를 내 뉴스레터 구독자로 전환하여 영구 고객 만드는 법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 시청자를 내 뉴스레터 구독자로 전환하여 영구 고객 만드는 법"
     }
@@ -652,7 +652,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80",
       "alt": "무료 폰트와 이미지로 고퀄리티 30페이지 전자책 3일 만에 완성하기 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "무료 폰트와 이미지로 고퀄리티 30페이지 전자책 3일 만에 완성하기"
     }
@@ -693,7 +693,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 쇼핑(YouTube Shopping) 기능 연동으로 내 굿즈와 상품 팔기 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 쇼핑(YouTube Shopping) 기능 연동으로 내 굿즈와 상품 팔기"
     }
@@ -734,7 +734,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80",
       "alt": "단발성 협찬에 그치지 않고 장기 브랜드 파트너십 맺는 비결 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "단발성 협찬에 그치지 않고 장기 브랜드 파트너십 맺는 비결"
     }
@@ -775,7 +775,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80",
       "alt": "수익 창출 승인 심사에서 재사용된 콘텐츠로 거절당했을 때 대처법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "수익 창출 승인 심사에서 재사용된 콘텐츠로 거절당했을 때 대처법"
     }
@@ -816,7 +816,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
       "alt": "내 유튜브 채널을 기반으로 온·오프라인 모임/강의 개설하는 법 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "내 유튜브 채널을 기반으로 온·오프라인 모임/강의 개설하는 법"
     }
@@ -857,7 +857,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80",
       "alt": "외화 통장 개설하고 구글 애드센스 달러 송금 수수료 아끼는 은행 팁 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "외화 통장 개설하고 구글 애드센스 달러 송금 수수료 아끼는 은행 팁"
     }
@@ -898,7 +898,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 알고리즘에 의존하지 않는 3중 수익 안전망 구축 로드맵 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 알고리즘에 의존하지 않는 3중 수익 안전망 구축 로드맵"
     }
@@ -939,7 +939,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
       "alt": "1인 크리에이터의 연간 수익 다각화 포트폴리오 실제 비율 공개 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "1인 크리에이터의 연간 수익 다각화 포트폴리오 실제 비율 공개"
     }
@@ -980,7 +980,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "1인기업"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1200&q=80",
       "alt": "애드센스 첫 100달러 입금 후 통장 쪼개기와 장비병 극복기 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "애드센스 첫 100달러 입금 후 통장 쪼개기와 장비병 극복기"
     }
@@ -1021,7 +1021,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "승인노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=1200&q=80",
       "alt": "2026년 최신 애드센스 '가치 없는 콘텐츠' 거절 극복: 4번 튕기고 하루 만에 통과한 비결 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "2026년 최신 애드센스 '가치 없는 콘텐츠' 거절 극복: 4번 튕기고 하루 만에 통과한 비결"
     }
@@ -1067,7 +1067,7 @@ export const MONETIZATION_POSTS: GuidePost[] = [
       "채널운영전략"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 YPP 수익 창출 정책 개편 총정리: AI 콘텐츠 파밍 퇴출과 3대 실무 대응 전략 - 유튜브 수익화의 모든 것 실전 가이드 썸네일",
       "caption": "유튜브 YPP 수익 창출 정책 개편 총정리: AI 콘텐츠 파밍 퇴출과 3대 실무 대응 전략"
     }

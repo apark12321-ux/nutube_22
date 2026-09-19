@@ -78,7 +78,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "유튜브팬덤"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=80",
       "alt": "각 잡힌 고화질보다 '날것의 일상'이 더 잘 터지는 요즘 트렌드의 이유 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "각 잡힌 고화질보다 '날것의 일상'이 더 잘 터지는 요즘 트렌드의 이유"
     }
@@ -119,7 +119,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "알고리즘최적화"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80",
       "alt": "시청자가 3초 만에 나가지 않게 만드는 요즘 유행 '10초 훅(Hook)' 기법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "시청자가 3초 만에 나가지 않게 만드는 요즘 유행 '10초 훅(Hook)' 기법"
     }
@@ -160,7 +160,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
       "alt": "끝까지 보게 만드는 마법: 궁금해서 못 참게 만드는 호기심 루프 만들기 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "끝까지 보게 만드는 마법: 궁금해서 못 참게 만드는 호기심 루프 만들기"
     }
@@ -201,7 +201,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80",
       "alt": "첫 영상 올리고 조회수 0회일 때! 알고리즘이 내 영상을 테스트하는 방식 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "첫 영상 올리고 조회수 0회일 때! 알고리즘이 내 영상을 테스트하는 방식"
     }
@@ -242,7 +242,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 '관련 동영상 링크' 기능으로 롱폼 조회수 3배 폭발시키는 법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "쇼츠 '관련 동영상 링크' 기능으로 롱폼 조회수 3배 폭발시키는 법"
     }
@@ -283,7 +283,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "모바일가독성"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
       "alt": "클릭률(CTR) 10% 넘기는 썸네일 글자 수와 색상 대비 공식 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "클릭률(CTR) 10% 넘기는 썸네일 글자 수와 색상 대비 공식"
     }
@@ -365,7 +365,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=1200&q=80",
       "alt": "댓글창 활성화의 비밀: 시청자가 댓글 안 달고는 못 배기게 만드는 질문법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "댓글창 활성화의 비밀: 시청자가 댓글 안 달고는 못 배기게 만드는 질문법"
     }
@@ -406,7 +406,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 60초 꽉 채우지 마세요! 15초~30초가 알고리즘에서 더 잘 터지는 이유 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "쇼츠 60초 꽉 채우지 마세요! 15초~30초가 알고리즘에서 더 잘 터지는 이유"
     }
@@ -447,7 +447,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=80",
       "alt": "조회수 정체기(슬럼프) 왔을 때 알고리즘 심폐소생하는 3가지 진단법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "조회수 정체기(슬럼프) 왔을 때 알고리즘 심폐소생하는 3가지 진단법"
     }
@@ -488,7 +488,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 검색 유입(SEO) 노리는 제목 키워드 배치법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "유튜브 검색 유입(SEO) 노리는 제목 키워드 배치법"
     }
@@ -529,7 +529,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80",
       "alt": "배경음악(BGM) 볼륨 조절의 황금 비율: 목소리가 또렷하게 꽂히는 데시벨 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "배경음악(BGM) 볼륨 조절의 황금 비율: 목소리가 또렷하게 꽂히는 데시벨"
     }
@@ -570,7 +570,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 무한 루프 영상 만드는 법: 시작과 끝을 자연스럽게 잇는 트릭 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "쇼츠 무한 루프 영상 만드는 법: 시작과 끝을 자연스럽게 잇는 트릭"
     }
@@ -611,7 +611,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 커뮤니티 탭 투표 기능으로 비구독자 피드 침투하기 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "유튜브 커뮤니티 탭 투표 기능으로 비구독자 피드 침투하기"
     }
@@ -652,7 +652,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
       "alt": "썸네일 얼굴 표정 하나로 클릭률 2배 올리는 감정 전달법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "썸네일 얼굴 표정 하나로 클릭률 2배 올리는 감정 전달법"
     }
@@ -693,7 +693,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80",
       "alt": "비디오 챕터(타임스탬프) 기능으로 구글 검색 상위 노출 잡기 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "비디오 챕터(타임스탬프) 기능으로 구글 검색 상위 노출 잡기"
     }
@@ -734,7 +734,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
       "alt": "시청자가 피로감 느끼는 과도한 효과음 줄이고 몰입도 높이기 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "시청자가 피로감 느끼는 과도한 효과음 줄이고 몰입도 높이기"
     }
@@ -775,7 +775,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
       "alt": "유튜브 최신 트렌드 키워드 실시간으로 발굴하는 무료 도구 3선 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "유튜브 최신 트렌드 키워드 실시간으로 발굴하는 무료 도구 3선"
     }
@@ -857,7 +857,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=80",
       "alt": "다시 보고 싶게 만드는 '체크리스트'형 정보 영상 구성법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "다시 보고 싶게 만드는 '체크리스트'형 정보 영상 구성법"
     }
@@ -898,7 +898,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 텍스트 오버레이 배치할 때 좋아요·댓글 버튼 안 가리는 안전 구역 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "쇼츠 텍스트 오버레이 배치할 때 좋아요·댓글 버튼 안 가리는 안전 구역"
     }
@@ -939,7 +939,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
       "alt": "구독 전환율을 5배 높이는 영상 끝 10초 아웃트로 설계법 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "구독 전환율을 5배 높이는 영상 끝 10초 아웃트로 설계법"
     }
@@ -980,7 +980,7 @@ export const TRENDS_POSTS: GuidePost[] = [
       "크리에이터노하우"
     ],
     "thumbnail": {
-      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "src": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
       "alt": "쇼츠 알고리즘 스와이프 방어율 75% 찍는 첫 2초 시각 트릭 - 최신 트렌드 & 알고리즘 실전 가이드 썸네일",
       "caption": "쇼츠 알고리즘 스와이프 방어율 75% 찍는 첫 2초 시각 트릭"
     }

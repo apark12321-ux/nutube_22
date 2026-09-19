@@ -309,7 +309,7 @@ export default function App() {
     }
     setPost(next === 'guide-detail' ? selectedPost : null);
     setTab(next);
-    if (next !== 'guide-detail') setCategory(null);
+    if (next !== 'guide-detail' && next !== 'guides') setCategory(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -325,6 +325,7 @@ export default function App() {
     setTab('guides');
     setQuery('');
     setCategory(nextCategory);
+    setPage(1);
 
     if (key === null) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -580,7 +581,13 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/70 dark:border-slate-800/80">
             <div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
+                <img
+                  src="/nutube-logo.svg"
+                  alt="NuTube 로고"
+                  className="w-5 h-5 object-contain shrink-0"
+                  referrerPolicy="no-referrer"
+                />
                 <span className="font-bold text-slate-900 dark:text-white text-sm">
                   너튜브
                 </span>
