@@ -114,7 +114,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
         ]
       },
       {
-        heading: '3. 크리에이터 노트의 3대 운영 원칙 (E-E-A-T)',
+        heading: '3. 너튜브(NuTube)의 3대 운영 원칙 (E-E-A-T)',
         items: [
           '직접 겪어보지 않은 뜬구름 잡는 이론이나 복사-붙여넣기식 정보는 절대 다루지 않습니다.',
           '모든 가이드에는 실제 적용해 보고 겪었던 실패 사례와 아쉬웠던 점(주관적 평가)을 솔직하게 기록합니다.',
@@ -124,7 +124,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
       {
         heading: '4. 운영자 정보 및 소통 창구 (Contact Information)',
         body: [
-          '크리에이터 노트는 독자 여러분과의 소통과 투명한 콘텐츠 운영을 최우선으로 생각합니다. 가이드 내용에 대한 피드백, 제휴 문의, 오탈자 제보는 아래 공식 이메일로 언제든 연락해 주시기 바랍니다.',
+          '너튜브(NuTube)는 독자 여러분과의 소통과 투명한 콘텐츠 운영을 최우선으로 생각합니다. 가이드 내용에 대한 피드백, 제휴 문의, 오탈자 제보는 아래 공식 이메일로 언제든 연락해 주시기 바랍니다.',
           '• 운영자: 민우 (5년 차 1인 크리에이터 & 콘텐츠 엔지니어)',
           '• 공식 문의 이메일: minwoo@nutube.kr',
           '• 회신 안내: 접수된 문의는 확인 후 영업일 기준 24~48시간 이내에 성심껏 답변드립니다.'
@@ -135,7 +135,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
   terms: {
     title: '이용약관 및 면책조항 (Terms of Service & Disclaimer)',
     updated: '2026년 9월 16일',
-    intro: '크리에이터 노트(Creator Note)를 방문해 주셔서 감사합니다. 본 블로그의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
+    intro: '너튜브(NuTube)를 방문해 주셔서 감사합니다. 본 블로그의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
     sections: [
       {
         heading: '1. 저작권 및 콘텐츠 인용 규정',
@@ -176,7 +176,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
   privacy: {
     title: '개인정보처리방침 (Privacy Policy)',
     updated: '2026년 9월 16일',
-    intro: '크리에이터 노트(이하 "블로그")는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 개인정보 보호법 및 구글 애드센스(Google AdSense) 프로그램 정책을 엄격히 준수하며, 방문자의 개인정보와 권리를 최우선으로 보호합니다.',
+    intro: '너튜브(NuTube, 이하 "블로그")는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 개인정보 보호법 및 구글 애드센스(Google AdSense) 프로그램 정책을 엄격히 준수하며, 방문자의 개인정보와 권리를 최우선으로 보호합니다.',
     sections: [
       {
         heading: '1. 수집하는 개인정보 항목 및 수집 방법',
@@ -214,7 +214,7 @@ const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro
         body: [
           '본 블로그의 개인정보 보호 및 운영에 관한 문의, 불만 처리, 의견 수렴을 위해 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.',
           '• 성명: 민우',
-          '• 직책: 크리에이터 노트 대표 및 개인정보 보호책임자',
+          '• 직책: 너튜브(NuTube) 대표 및 개인정보 보호책임자',
           '• 전자우편: minwoo@nutube.kr',
           '• 고충 처리: 개인정보 보호와 관련된 문의 사항을 위 이메일로 보내주시면 영업일 기준 48시간 이내에 신속하고 성실하게 조치 결과를 안내해 드리겠습니다.'
         ]
@@ -580,30 +580,35 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/70 dark:border-slate-800/80">
             <div>
-              <span className="font-bold text-slate-900 dark:text-white text-sm">
-                민우의 크리에이터 노트
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-slate-900 dark:text-white text-sm">
+                  너튜브
+                </span>
+                <span className="text-[10px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-1 py-0.2 rounded uppercase">
+                  NuTube
+                </span>
+              </div>
               <p className="text-[11px] text-slate-400 mt-0.5">
-                스마트폰 하나로 시작하는 1인 미디어 &amp; 구글 애드센스 실전 가이드
+                너와 나의 1인 미디어 성장 노트 | 스마트폰 하나로 시작하는 유튜브 &amp; 애드센스 실전 가이드
               </p>
             </div>
 
             <div className="flex items-center gap-4 text-xs font-medium">
-              <button onClick={() => go('about')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+              <button onClick={() => go('about')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
                 블로그 소개
               </button>
-              <button onClick={() => go('privacy')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+              <button onClick={() => go('privacy')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
                 개인정보처리방침
               </button>
-              <button onClick={() => go('terms')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+              <button onClick={() => go('terms')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
                 이용약관
               </button>
             </div>
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 민우의 크리에이터 노트. All rights reserved.</p>
-            <p>질문과 답변 &amp; 1인 미디어 실전 가이드</p>
+            <p>© 2026 너튜브 (NuTube). All rights reserved.</p>
+            <p>너(Nu)와 나를 잇는 1인 미디어 실전 가이드</p>
           </div>
         </div>
       </footer>

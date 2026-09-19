@@ -284,7 +284,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
         },
         "publisher": {
           "@type": "Organization",
-          "name": "크리에이터 노트",
+          "name": "너튜브 (NuTube)",
           "url": "https://nutube.kr/"
         },
         "image": post.thumbnail?.src || DEFAULT_REMOTE_IMAGE,
@@ -701,7 +701,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               <span>저작권 및 저작자표시 (CCL)</span>
             </div>
             <p>
-              본 콘텐츠는 <strong className="text-slate-800 dark:text-slate-200">크리에이터 노트 (운영자: 민우)</strong>에 저작권이 있습니다. 비영리적 목적의 출처 표기 인용은 자유로우나, 사전 동의 없는 무단 전문 복제 및 상업적 무단 배포는 엄격히 금지됩니다.
+              본 콘텐츠는 <strong className="text-slate-800 dark:text-slate-200">너튜브 (NuTube, 운영자: 민우)</strong>에 저작권이 있습니다. 비영리적 목적의 출처 표기 인용은 자유로우나, 사전 동의 없는 무단 전문 복제 및 상업적 무단 배포는 엄격히 금지됩니다.
             </p>
           </div>
 

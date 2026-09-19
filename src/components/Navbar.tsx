@@ -67,17 +67,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavCategory(null)}
               className="flex items-center gap-2.5 text-left group cursor-pointer"
             >
-              <span className="w-8 h-8 rounded-lg bg-blue-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
-                Q&A
+              <span className="w-8 h-8 rounded-lg bg-red-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs tracking-tighter">
+                NU
               </span>
               <div className="flex flex-col">
-                <span className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${
-                  dark ? 'text-white group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'
-                }`}>
-                  크리에이터 노트
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${
+                    dark ? 'text-white group-hover:text-red-400' : 'text-slate-900 group-hover:text-red-600'
+                  }`}>
+                    너튜브
+                  </span>
+                  <span className="text-[11px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-1.5 py-0.5 rounded tracking-wide uppercase">
+                    NuTube
+                  </span>
+                </div>
                 <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:inline-block">
-                  질문과 답변 & 1인 미디어 실전 가이드
+                  너와 나의 1인 미디어 성장 노트
                 </span>
               </div>
             </button>
