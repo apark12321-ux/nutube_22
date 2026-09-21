@@ -64,29 +64,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={() => handleNavCategory(null)}
-              className="flex items-center gap-2.5 text-left group cursor-pointer"
+              className="flex items-center text-left group cursor-pointer focus:outline-none"
+              aria-label="NuTube 홈으로 이동"
             >
               <img
-                src="/nutube-logo.svg"
-                alt="NuTube 로고"
-                className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 drop-shadow-xs group-hover:scale-105 transition-transform"
+                src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
+                alt="NuTube - 너와 나의 1인 미디어 성장 노트"
+                className="h-9 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-[1.02] transition-transform"
                 referrerPolicy="no-referrer"
               />
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${
-                    dark ? 'text-white group-hover:text-red-400' : 'text-slate-900 group-hover:text-red-600'
-                  }`}>
-                    너튜브
-                  </span>
-                  <span className="text-[11px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-1.5 py-0.5 rounded tracking-wide uppercase">
-                    NuTube
-                  </span>
-                </div>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:inline-block">
-                  너와 나의 1인 미디어 성장 노트
-                </span>
-              </div>
             </button>
           </div>
 

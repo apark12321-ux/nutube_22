@@ -1,39 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
   <defs>
-    <!-- Premium Crimson-Red NuTube Gradient -->
-    <linearGradient id="nutubeRed" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF1F44"/>
-      <stop offset="65%" stop-color="#E11D48"/>
-      <stop offset="100%" stop-color="#BE123C"/>
+    <!-- Vibrant Media Red Gradient -->
+    <linearGradient id="ntBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1E46"/>
+      <stop offset="50%" stop-color="#E11438"/>
+      <stop offset="100%" stop-color="#B90C28"/>
     </linearGradient>
 
-    <!-- Upward Growth Accent Glow -->
-    <linearGradient id="growthGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFE4E6"/>
-      <stop offset="100%" stop-color="#FFFFFF"/>
+    <!-- Upward Growth Arrow Gradient -->
+    <linearGradient id="ntArrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFE8EC"/>
     </linearGradient>
 
-    <filter id="softShadow" x="-10%" y="-10%" width="125%" height="125%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#881337" flood-opacity="0.3"/>
+    <!-- Subtle Depth Shadow -->
+    <filter id="ntShadow" x="-10%" y="-10%" width="125%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#88091E" flood-opacity="0.32"/>
     </filter>
   </defs>
 
-  <!-- Modern Rounded Squircle Container -->
-  <rect x="6" y="6" width="88" height="88" rx="22" fill="url(#nutubeRed)" filter="url(#softShadow)"/>
+  <!-- Modern Squircle Base (Curved Studio Screen) -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#ntBgGrad)" filter="url(#ntShadow)"/>
 
-  <!-- Subtle Top Specular Sheen -->
-  <path d="M 6 28 C 6 15.85 15.85 6 28 6 L 72 6 C 84.15 6 94 15.85 94 28 C 94 38 68 46 50 46 C 32 46 6 38 6 28 Z" fill="#FFFFFF" fill-opacity="0.12"/>
+  <!-- Top Glass Sheen (Subtle Modern Luster) -->
+  <path d="M 8 36 C 8 20.5 20.5 8 36 8 L 84 8 C 99.5 8 112 20.5 112 36 C 112 50 82 56 60 56 C 38 56 8 50 8 36 Z" fill="#FFFFFF" fill-opacity="0.15"/>
 
-  <!-- Left Lower Play Wing (Starting Point) -->
-  <path d="M 34 32 C 34 29.8 36.4 28.4 38.3 29.5 L 48 35.2 L 48 64.8 L 38.3 70.5 C 36.4 71.6 34 70.2 34 68 Z" fill="#FFFFFF" fill-opacity="0.88"/>
+  <!-- Media Play Triangle: Optical Center (X: 42 to 78, Y: 36 to 84) -->
+  <!-- Left Base Wing of Play Button -->
+  <path d="M 40 38 C 40 34.8 43.6 32.8 46.4 34.5 L 62 44 L 62 76 L 46.4 85.5 C 43.6 87.2 40 85.2 40 82 Z" fill="#FFFFFF" fill-opacity="0.92"/>
 
-  <!-- Center-Right Media Play Triangle Merged with Ascending Growth Arrow -->
-  <!-- Conveys Creation (Play Triangle) and Growth (Rising Trajectory Arrow) -->
-  <path d="M 52 37.6 L 68 47.3 C 69.8 48.4 69.8 51.6 68 52.7 L 52 62.4 Z" fill="#FFFFFF"/>
+  <!-- Center Play Core merging with Arrow -->
+  <polygon points="62,44 82,59.5 82,60.5 62,76" fill="#FFFFFF"/>
 
-  <!-- Dynamic Upward Growth Surge: Diagonal Arrow Shooting to the Top Right -->
-  <path d="M 43 72 L 72 43 M 72 43 L 56 43 M 72 43 L 72 59" stroke="url(#growthGlow)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Growth Dynamic Arrow: Ascends from lower-left through center to top-right -->
+  <g>
+    <!-- Growth Line Trajectory -->
+    <path d="M 33 80 L 52 64 L 66 72 L 88 42" stroke="url(#ntArrowGrad)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Arrowhead at Top Right Peak -->
+    <path d="M 72 41 L 89 41 L 89 58" stroke="url(#ntArrowGrad)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 
-  <!-- Mini Sparkle representing Fresh Creation (Top Right) -->
-  <circle cx="76" cy="24" r="3.5" fill="#FFE4E6"/>
+  <!-- Growth Sparkle Star (Breakthrough Inspiration) -->
+  <path d="M 94 22 Q 94 28 100 28 Q 94 28 94 34 Q 94 28 88 28 Q 94 28 94 22 Z" fill="#FFFFFF" opacity="0.95"/>
 </svg>

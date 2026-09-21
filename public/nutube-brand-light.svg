@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 56" width="240" height="56" fill="none">
+  <defs>
+    <linearGradient id="brandRedLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1E46"/>
+      <stop offset="60%" stop-color="#E11438"/>
+      <stop offset="100%" stop-color="#B90C28"/>
+    </linearGradient>
+    <linearGradient id="brandArrowLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFF0F2"/>
+    </linearGradient>
+    <filter id="iconShadowLight" x="-10%" y="-10%" width="125%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#88091E" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Icon Mark (Growth & Media Creation) -->
+  <g transform="translate(4, 4)">
+    <rect x="0" y="0" width="48" height="48" rx="14" fill="url(#brandRedLight)" filter="url(#iconShadowLight)"/>
+    
+    <!-- Top Glass Sheen -->
+    <path d="M 0 16 C 0 8 8 0 16 0 L 32 0 C 40 0 48 8 48 16 C 48 22 36 24 24 24 C 12 24 0 22 0 16 Z" fill="#FFFFFF" fill-opacity="0.16"/>
+
+    <!-- Play & Growth Geometry -->
+    <path d="M 16 15 C 16 13.8 17.5 13 18.6 13.7 L 25 17.6 L 25 30.4 L 18.6 34.3 C 17.5 35 16 34.2 16 33 Z" fill="#FFFFFF" fill-opacity="0.9"/>
+    <polygon points="25,17.6 34,23.8 34,24.2 25,30.4" fill="#FFFFFF"/>
+    
+    <!-- Dynamic Growth Arrow -->
+    <path d="M 14 33 L 21 26 L 27 30 L 37 17" stroke="url(#brandArrowLight)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 30 16.5 L 37.5 16.5 L 37.5 24" stroke="url(#brandArrowLight)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Sparkle Point -->
+    <circle cx="40" cy="9" r="1.8" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Typography: Modern Minimalist NuTube -->
+  <text x="62" y="33" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.03em" fill="#0F172A">Nu<tspan fill="#E11438">Tube</tspan></text>
+  
+  <!-- Subtitle: Korean E-E-A-T Identity & Growth Note -->
+  <text x="63" y="47" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="600" letter-spacing="-0.01em" fill="#64748B">너와 나의 1인 미디어 성장 노트</text>
+</svg>

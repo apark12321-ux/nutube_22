@@ -581,21 +581,19 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200/70 dark:border-slate-800/80">
             <div>
-              <div className="flex items-center gap-2">
+              <button
+                onClick={() => selectCategory(null)}
+                className="block text-left cursor-pointer focus:outline-none mb-1.5"
+                aria-label="NuTube 홈으로 이동"
+              >
                 <img
-                  src="/nutube-logo.svg"
-                  alt="NuTube 로고"
-                  className="w-5 h-5 object-contain shrink-0"
+                  src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
+                  alt="NuTube - 너와 나의 1인 미디어 성장 노트"
+                  className="h-8 w-auto object-contain shrink-0"
                   referrerPolicy="no-referrer"
                 />
-                <span className="font-bold text-slate-900 dark:text-white text-sm">
-                  너튜브
-                </span>
-                <span className="text-[10px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-1 py-0.2 rounded uppercase">
-                  NuTube
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              </button>
+              <p className="text-[11px] text-slate-400">
                 너와 나의 1인 미디어 성장 노트 | 스마트폰 하나로 시작하는 유튜브 &amp; 애드센스 실전 가이드
               </p>
             </div>
