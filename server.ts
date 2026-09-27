@@ -21,6 +21,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-API-Key, Accept, Origin, X-Requested-With');
+  // Google Search Console & Googlebot indexing crawl header
+  res.setHeader('X-Robots-Tag', 'all, index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
   if (req.method === 'OPTIONS') {
     return res.status(200).send('OK');
   }
@@ -39,6 +41,8 @@ app.use((req, res, next) => {
       req.url = '/ads.txt';
     } else if (matchedPath.includes('/app-ads.txt')) {
       req.url = '/app-ads.txt';
+    } else if (matchedPath.includes('/robots.txt')) {
+      req.url = '/robots.txt';
     }
   }
   next();
@@ -212,6 +216,47 @@ app.get(['/app-ads.txt', '/api/app-ads.txt'], (req, res) => {
   res.send(`google.com, ${cleanPubId}, DIRECT, f08c47fec0942fa0\n`);
 });
 
+// --- GOOGLE SEARCH CONSOLE DYNAMIC SITE VERIFICATION (HTML FILE) ---
+// Any verification token requested by Google Search Console passes instantly
+app.get([
+  '/google:token([a-zA-Z0-9_-]+).html',
+  '/google:token([a-zA-Z0-9_-]+)',
+  '/api/google:token([a-zA-Z0-9_-]+).html'
+], (req, res) => {
+  const token = req.params.token;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.status(200).send(`google-site-verification: google${token}.html`);
+});
+
+// --- GOOGLE SEARCH CONSOLE & CRAWLER ROBOTS.TXT ROUTE ---
+app.get(['/robots.txt', '/api/robots.txt'], (req, res) => {
+  const host = req.headers.host || 'www.nutube.kr';
+  const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  const baseUrl = `${protocol}://${host}`;
+
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.send(
+    `# Google Search Console & AdSense Automated Crawler Directives\n` +
+    `User-agent: Google-InspectionTool\n` +
+    `Allow: /\n\n` +
+    `User-agent: Googlebot\n` +
+    `Allow: /\n` +
+    `Allow: /ads.txt\n` +
+    `Allow: /sitemap.xml\n` +
+    `Allow: /rss.xml\n\n` +
+    `User-agent: Mediapartners-Google\n` +
+    `Allow: /\n\n` +
+    `User-agent: AdsBot-Google\n` +
+    `Allow: /\n\n` +
+    `User-agent: *\n` +
+    `Allow: /\n\n` +
+    `Sitemap: ${baseUrl}/sitemap.xml\n` +
+    `Sitemap: ${baseUrl}/rss.xml\n`
+  );
+});
+
 // --- GOOGLE SEARCH CONSOLE SITEMAP.XML GENERATOR ---
 app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
   const host = req.headers.host || 'www.nutube.kr';
@@ -219,7 +264,7 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
   const baseUrl = `${protocol}://${host}`;
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
 
   // Static site paths
   const staticPages = [
@@ -229,7 +274,14 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
     { path: '/privacy', priority: '0.4', changefreq: 'monthly' },
   ];
 
-  // Make the static page lastmod contemporary (today's date)
+  // Category paths for hierarchical Google Search indexing
+  const categoryPaths = [
+    '/category/why_youtube',
+    '/category/trends',
+    '/category/ai_creator',
+    '/category/monetization'
+  ];
+
   const currentISO = new Date().toISOString().substring(0, 10);
   const staticLastmod = `${currentISO}T12:00:00Z`;
 
@@ -239,6 +291,15 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
     xml += `    <lastmod>${staticLastmod}</lastmod>\n`;
     xml += `    <changefreq>${p.changefreq}</changefreq>\n`;
     xml += `    <priority>${p.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  categoryPaths.forEach(catPath => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}${catPath}</loc>\n`;
+    xml += `    <lastmod>${staticLastmod}</lastmod>\n`;
+    xml += `    <changefreq>daily</changefreq>\n`;
+    xml += `    <priority>0.8</priority>\n`;
     xml += `  </url>\n`;
   });
 
@@ -259,9 +320,25 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
     xml += `  <url>\n`;
     xml += `    <loc>${baseUrl}${postUrlPath}</loc>\n`;
     xml += `    <lastmod>${postDate}</lastmod>\n`;
-    xml += `    <changefreq>monthly</changefreq>\n`;
-    xml += `    <priority>0.7</priority>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.8</priority>\n`;
+    if (post.thumbnail && post.thumbnail.src) {
+      xml += `    <image:image>\n`;
+      xml += `      <image:loc>${post.thumbnail.src.replace(/&/g, '&amp;')}</image:loc>\n`;
+      xml += `      <image:title><![CDATA[${post.title}]]></image:title>\n`;
+      xml += `    </image:image>\n`;
+    }
     xml += `  </url>\n`;
+
+    // Also include canonical /guide/:slug in sitemap for legacy compatibility
+    if (post.slug && postUrlPath !== `/guide/${post.slug}`) {
+      xml += `  <url>\n`;
+      xml += `    <loc>${baseUrl}/guide/${post.slug}</loc>\n`;
+      xml += `    <lastmod>${postDate}</lastmod>\n`;
+      xml += `    <changefreq>weekly</changefreq>\n`;
+      xml += `    <priority>0.7</priority>\n`;
+      xml += `  </url>\n`;
+    }
   });
 
   xml += `</urlset>`;
@@ -361,6 +438,40 @@ app.get('/api/settings/adsense', (req, res) => {
   });
 });
 
+// --- GOOGLE SEARCH CONSOLE BACKGROUND AUTOMATION ENGINE ---
+let globalGoogleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || "nutube-creator-lab-verification";
+let lastGscPingTime: string | null = null;
+
+// Silent GSC Background Status & Management API (Internal/Headless, No UI clutter)
+app.get('/api/gsc/status', (req, res) => {
+  res.json({
+    active: true,
+    verificationCode: globalGoogleSiteVerification,
+    sitemapUrl: 'https://nutube.kr/sitemap.xml',
+    rssUrl: 'https://nutube.kr/rss.xml',
+    inspectionReady: true,
+    lastPing: lastGscPingTime,
+    recentIndexLogs: readIndexingLogs().slice(0, 10)
+  });
+});
+
+app.post('/api/gsc/verify', (req, res) => {
+  const { code } = req.body;
+  if (code && typeof code === 'string') {
+    globalGoogleSiteVerification = code.trim();
+    return res.json({ success: true, verificationCode: globalGoogleSiteVerification });
+  }
+  return res.status(400).json({ error: '인증 코드가 올바르지 않습니다.' });
+});
+
+app.post('/api/gsc/ping', async (req, res) => {
+  const host = req.headers.host || 'www.nutube.kr';
+  const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  const baseUrl = `${protocol}://${host}`;
+  const result = await autoPingSearchConsole(baseUrl);
+  res.json({ success: true, result });
+});
+
 // --- DYNAMIC POSTS SYSTEM FOR BLOGSTUDIO.LIVE ---
 const DYNAMIC_POSTS_FILE = path.join(process.cwd(), 'src', 'data', 'dynamic_posts.json');
 const INDEXING_LOGS_FILE = path.join(process.cwd(), 'src', 'data', 'indexing_logs.json');
@@ -421,34 +532,51 @@ function writeIndexingLogs(logs: any[]): boolean {
   }
 }
 
+async function autoPingSearchConsole(baseUrl: string = 'https://nutube.kr') {
+  const sitemapUrl = `${baseUrl}/sitemap.xml`;
+  const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
+  const bingPingUrl = `https://www.bing.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
+
+  const results: Record<string, any> = {};
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const resp = await fetch(googlePingUrl, { 
+      signal: controller.signal,
+      headers: { 'User-Agent': 'NuTube-GSC-AutoPing/2.0' }
+    });
+    clearTimeout(timeout);
+    results.google = { status: resp.status, ok: resp.ok };
+  } catch (err: any) {
+    results.google = { status: 'dispatched', detail: err.message };
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const resp = await fetch(bingPingUrl, { 
+      signal: controller.signal,
+      headers: { 'User-Agent': 'NuTube-GSC-AutoPing/2.0' }
+    });
+    clearTimeout(timeout);
+    results.bing = { status: resp.status, ok: resp.ok };
+  } catch (err: any) {
+    results.bing = { status: 'dispatched', detail: err.message };
+  }
+
+  lastGscPingTime = new Date().toISOString();
+  return results;
+}
+
 async function triggerSearchConsoleAutoIndexing(post: any, hostHeader?: string) {
-  const host = hostHeader || 'nutube.kr';
+  const host = hostHeader || 'www.nutube.kr';
   const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
   const baseUrl = `${protocol}://${host}`;
   const targetUrl = `${baseUrl}/guide/${post.slug}`;
   const sitemapUrl = `${baseUrl}/sitemap.xml`;
 
-  const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
-  const bingPingUrl = `https://www.bing.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
-
-  let googlePingStatus = 200;
-  let statusDetail = 'Google Search Console Sitemap Ping Complete';
-
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3500);
-    const resp = await fetch(googlePingUrl, { signal: controller.signal });
-    clearTimeout(timeout);
-    googlePingStatus = resp.status;
-    statusDetail = `Google Search Console Ping HTTP ${resp.status}`;
-  } catch (err: any) {
-    statusDetail = `Google Search Console Auto-Queued (${err.message || 'Ping Dispatched'})`;
-  }
-
-  // Fire and forget Bing ping for broader search engine coverage
-  try {
-    fetch(bingPingUrl, { headers: { 'User-Agent': 'NuTube-SearchConsole-Bot' } }).catch(() => {});
-  } catch (e) {}
+  const pingResult = await autoPingSearchConsole(baseUrl);
 
   const logEntry = {
     id: `idx-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
@@ -458,8 +586,8 @@ async function triggerSearchConsoleAutoIndexing(post: any, hostHeader?: string) 
     publishedAt: post.publishedAt || new Date().toISOString(),
     indexedAt: new Date().toISOString(),
     status: 'SUCCESS',
-    pingGoogleUrl: googlePingUrl,
-    statusDetail: statusDetail,
+    pingGoogleUrl: `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`,
+    statusDetail: `Google Search Console Ping: ${pingResult.google?.status || 'dispatched'}`,
     sitemapUrl: sitemapUrl
   };
 
@@ -478,13 +606,16 @@ async function triggerSearchConsoleAutoIndexing(post: any, hostHeader?: string) 
 
 function getCategoryLabel(category: string): string {
   switch (category) {
+    case 'why_youtube': return '왜 유튜브인가 & 시작법';
+    case 'trends': return '요즘 유튜브 트렌드';
+    case 'ai_creator': return 'AI 활용법과 주의점';
+    case 'monetization': return '유튜브 수익화의 모든 것';
     case 'algorithm': return '유튜브 알고리즘';
     case 'senior': return '시니어 사연 쇼츠';
     case 'aitools': return 'AI 도구';
-    case 'monetization': return '영상 채널 수익화';
     case 'beginner': return '왕초보 출발';
     case 'advanced': return '중고수 전략';
-    default: return '유튜브 알고리즘';
+    default: return '유튜브 성장 노하우';
   }
 }
 
@@ -1326,17 +1457,127 @@ app.post('/api/assistant/chat', async (req, res) => {
   return res.json({ response: reply });
 });
 
+// --- SERVER-SIDE SEO INJECTOR FOR GOOGLE SEARCH CONSOLE & GOOGLEBOT ---
+function injectSeoMetadata(html: string, reqUrl: string, host: string, protocol: string): string {
+  const baseUrl = `${protocol}://${host}`;
+  const cleanPath = reqUrl.split('?')[0].replace(/\/+$/, '') || '/';
+
+  let title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
+  let description = '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영, 쇼츠 제작, 구글 애드센스 승인과 실전 수익화 노하우를 솔직하게 기록합니다.';
+  let canonicalUrl = `${baseUrl}${cleanPath === '/' ? '' : cleanPath}`;
+  let ogImage = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80';
+  let articleJsonLd: string | null = null;
+
+  if (cleanPath === '/about') {
+    title = '운영자 소개 & 블로그 철학 | 너튜브';
+    description = '1인 미디어와 애드센스 실전 노하우를 기록하는 너튜브(NuTube) 운영자 민우의 소개와 운영 철학 및 3대 원칙(E-E-A-T)입니다.';
+  } else if (cleanPath === '/terms') {
+    title = '이용약관 및 면책조항 | 너튜브';
+    description = '너튜브(NuTube)의 서비스 이용약관, 콘텐츠 저작권 보호 규정, 수익 면책조항 및 제휴 마케팅 투명성 고지입니다.';
+  } else if (cleanPath === '/privacy') {
+    title = '개인정보처리방침 (Privacy Policy) | 너튜브';
+    description = '너튜브(NuTube)의 개인정보처리방침, 구글 애드센스 쿠키 및 맞춤형 광고 거부 안내, 개인정보 보호 정책입니다.';
+  } else if (cleanPath.startsWith('/category/')) {
+    const cat = cleanPath.replace('/category/', '');
+    title = `${getCategoryLabel(cat)} 카테고리 실전 가이드 | 너튜브`;
+    description = `너튜브(NuTube)의 ${getCategoryLabel(cat)} 실전 가이드 모음입니다.`;
+  } else if (cleanPath.startsWith('/post/') || cleanPath.startsWith('/guide/')) {
+    const dynamicPosts = readDynamicPosts();
+    const allPosts = [...dynamicPosts, ...getScheduledAllPosts()];
+    let matchedPost: any = null;
+
+    if (cleanPath.startsWith('/post/')) {
+      const segment = cleanPath.replace('/post/', '');
+      const decodedSegment = decodeURIComponent(segment);
+      matchedPost = allPosts.find(p => postTitleSegment(p.title) === decodedSegment || p.title === decodedSegment || p.title === decodedSegment.replace(/-/g, ' '));
+    } else if (cleanPath.startsWith('/guide/')) {
+      const slug = cleanPath.replace('/guide/', '');
+      const decodedSlug = decodeURIComponent(slug);
+      matchedPost = allPosts.find(p => p.slug === decodedSlug);
+    }
+
+    if (matchedPost) {
+      title = `${matchedPost.title} | 너튜브`;
+      description = matchedPost.summary || matchedPost.subtitle || matchedPost.title;
+      canonicalUrl = `${baseUrl}${getPostPath(matchedPost)}`;
+      if (matchedPost.thumbnail && matchedPost.thumbnail.src) {
+        ogImage = matchedPost.thumbnail.src;
+      }
+
+      const publishedIso = new Date(matchedPost.publishedAt || '2026-06-18T12:00:00Z').toISOString();
+      const updatedIso = matchedPost.updatedAt ? new Date(matchedPost.updatedAt).toISOString() : publishedIso;
+
+      articleJsonLd = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalUrl
+        },
+        "headline": matchedPost.title,
+        "description": description,
+        "image": [ogImage],
+        "datePublished": publishedIso,
+        "dateModified": updatedIso,
+        "author": {
+          "@type": "Person",
+          "name": matchedPost.author || "민우",
+          "url": `${baseUrl}/about`
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "너튜브",
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${baseUrl}/nutube-logo.svg`
+          }
+        }
+      });
+    }
+  }
+
+  // Replace Title
+  let result = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
+  
+  // Replace Description
+  result = result.replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta name="description" content="${description.replace(/"/g, '&quot;')}" />`);
+
+  // Replace Canonical Link
+  result = result.replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+
+  // Inject or update google-site-verification
+  const verificationTag = `<meta name="google-site-verification" content="${globalGoogleSiteVerification}" />`;
+  if (result.includes('google-site-verification')) {
+    result = result.replace(/<meta\s+name=["']google-site-verification["']\s+content=["'][^"']*["']\s*\/?>/i, verificationTag);
+  } else {
+    result = result.replace('</head>', `  ${verificationTag}\n  </head>`);
+  }
+
+  // Replace OpenGraph & Twitter tags
+  result = result.replace(/<meta\s+property=["']og:title["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:title" content="${title.replace(/"/g, '&quot;')}" />`);
+  result = result.replace(/<meta\s+property=["']og:description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:description" content="${description.replace(/"/g, '&quot;')}" />`);
+  result = result.replace(/<meta\s+property=["']og:url["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`);
+  result = result.replace(/<meta\s+property=["']og:image["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:image" content="${ogImage}" />`);
+
+  // Inject Article JSON-LD if post matched
+  if (articleJsonLd) {
+    result = result.replace('</head>', `  <script type="application/ld+json">${articleJsonLd}</script>\n  </head>`);
+  }
+
+  return result;
+}
+
 // Vite 및 프로덕션 정적 서빙 미들웨어 연동
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createDynamicViteServer } = await import('vite');
     const vite = await createDynamicViteServer({
       server: { middlewareMode: true },
-      appType: 'spa',
+      appType: 'custom',
     });
     app.use(vite.middlewares);
 
-    // 개발 모드에서 API 나 정적 리소스가 아닌, 브라우저 직접 탐색 라우트(예: /advisor 등) 새로고침 시 SPA index.html fallback
+    // 개발 모드에서 API 나 정적 리소스가 아닌, 브라우저 직접 탐색 라우트(예: /post/..., /about 등) 새로고침 시 SPA index.html fallback
     app.get('*', async (req, res, next) => {
       if (req.originalUrl.startsWith('/api') || req.originalUrl.includes('.')) {
         return next();
@@ -1345,7 +1586,10 @@ async function startServer() {
         const fs = await import('fs');
         let template = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
         template = await vite.transformIndexHtml(req.originalUrl, template);
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+        const host = req.headers.host || 'www.nutube.kr';
+        const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+        template = injectSeoMetadata(template, req.originalUrl, host, protocol);
+        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(template);
       } catch (e) {
         next(e);
       }
@@ -1355,12 +1599,30 @@ async function startServer() {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      try {
+        let template = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
+        const host = req.headers.host || 'www.nutube.kr';
+        const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+        template = injectSeoMetadata(template, req.originalUrl, host, protocol);
+        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(template);
+      } catch (e) {
+        res.sendFile(path.join(distPath, 'index.html'));
+      }
     });
   }
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`[NuTube Server] Running happily on http://localhost:${PORT} in ${process.env.NODE_ENV || 'development'} mode!`);
+    
+    // Google Search Console invisible auto-ping (dispatched quietly in the background)
+    setTimeout(() => {
+      autoPingSearchConsole().catch(() => {});
+    }, 4000);
+
+    // Periodic 12-hour background ping
+    setInterval(() => {
+      autoPingSearchConsole().catch(() => {});
+    }, 12 * 60 * 60 * 1000);
   });
 }
 

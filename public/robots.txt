@@ -1,11 +1,21 @@
-User-agent: Mediapartners-Google
+# Google Search Console & AdSense Automated Crawler Directives
+User-agent: Google-InspectionTool
 Allow: /
 
 User-agent: Googlebot
+Allow: /
 Allow: /ads.txt
+Allow: /sitemap.xml
+Allow: /rss.xml
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
 Allow: /
 
 User-agent: *
 Allow: /
 
 Sitemap: https://nutube.kr/sitemap.xml
+Sitemap: https://nutube.kr/rss.xml
