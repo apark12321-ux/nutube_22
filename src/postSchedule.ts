@@ -26,11 +26,12 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
   }
 
   const now = Date.now();
-  // If the calendar date has advanced beyond the latest post,
-  // automatically roll recent post dates forward so the latest post always reflects today
+  // Using Korean Standard Time (KST, UTC+9) calendar day calculation so the latest post
+  // always matches today's date in Korea
+  const getKstDayNumber = (t: number) => Math.floor((t + 9 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
   let shiftMs = 0;
-  if (maxPublishedTime > 0 && now > maxPublishedTime) {
-    const diffDays = Math.floor((now - maxPublishedTime) / (24 * 60 * 60 * 1000));
+  if (maxPublishedTime > 0) {
+    const diffDays = getKstDayNumber(now) - getKstDayNumber(maxPublishedTime);
     if (diffDays > 0) {
       shiftMs = diffDays * 24 * 60 * 60 * 1000;
     }

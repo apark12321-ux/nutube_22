@@ -5,6 +5,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
 import { ALL_POSTS } from './src/data';
 import { applyPostDateSchedule, postTitleSegment, getPostPath } from './src/postSchedule';
+import { renderSsrPage } from './src/ssrRenderer';
 
 const getScheduledAllPosts = () => applyPostDateSchedule(ALL_POSTS);
 
@@ -1457,93 +1458,42 @@ app.post('/api/assistant/chat', async (req, res) => {
   return res.json({ response: reply });
 });
 
-// --- SERVER-SIDE SEO INJECTOR FOR GOOGLE SEARCH CONSOLE & GOOGLEBOT ---
-function injectSeoMetadata(html: string, reqUrl: string, host: string, protocol: string): string {
-  const baseUrl = `${protocol}://${host}`;
-  const cleanPath = reqUrl.split('?')[0].replace(/\/+$/, '') || '/';
+// --- SERVER-SIDE SSR & SEO INJECTOR FOR GOOGLE SEARCH CONSOLE & ADSENSE COMPLIANCE ---
+function injectSsrAndSeoMetadata(html: string, reqUrl: string, host: string, protocol: string): { html: string; statusCode: number; is404: boolean } {
+  const dynamicPosts = readDynamicPosts();
+  const allPosts = [...dynamicPosts, ...getScheduledAllPosts()];
 
-  let title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
-  let description = '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영, 쇼츠 제작, 구글 애드센스 승인과 실전 수익화 노하우를 솔직하게 기록합니다.';
-  let canonicalUrl = `${baseUrl}${cleanPath === '/' ? '' : cleanPath}`;
-  let ogImage = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80';
-  let articleJsonLd: string | null = null;
+  const ssr = renderSsrPage(reqUrl, host, protocol, allPosts);
+  let result = html;
 
-  if (cleanPath === '/about') {
-    title = '운영자 소개 & 블로그 철학 | 너튜브';
-    description = '1인 미디어와 애드센스 실전 노하우를 기록하는 너튜브(NuTube) 운영자 민우의 소개와 운영 철학 및 3대 원칙(E-E-A-T)입니다.';
-  } else if (cleanPath === '/terms') {
-    title = '이용약관 및 면책조항 | 너튜브';
-    description = '너튜브(NuTube)의 서비스 이용약관, 콘텐츠 저작권 보호 규정, 수익 면책조항 및 제휴 마케팅 투명성 고지입니다.';
-  } else if (cleanPath === '/privacy') {
-    title = '개인정보처리방침 (Privacy Policy) | 너튜브';
-    description = '너튜브(NuTube)의 개인정보처리방침, 구글 애드센스 쿠키 및 맞춤형 광고 거부 안내, 개인정보 보호 정책입니다.';
-  } else if (cleanPath.startsWith('/category/')) {
-    const cat = cleanPath.replace('/category/', '');
-    title = `${getCategoryLabel(cat)} 카테고리 실전 가이드 | 너튜브`;
-    description = `너튜브(NuTube)의 ${getCategoryLabel(cat)} 실전 가이드 모음입니다.`;
-  } else if (cleanPath.startsWith('/post/') || cleanPath.startsWith('/guide/')) {
-    const dynamicPosts = readDynamicPosts();
-    const allPosts = [...dynamicPosts, ...getScheduledAllPosts()];
-    let matchedPost: any = null;
-
-    if (cleanPath.startsWith('/post/')) {
-      const segment = cleanPath.replace('/post/', '');
-      const decodedSegment = decodeURIComponent(segment);
-      matchedPost = allPosts.find(p => postTitleSegment(p.title) === decodedSegment || p.title === decodedSegment || p.title === decodedSegment.replace(/-/g, ' '));
-    } else if (cleanPath.startsWith('/guide/')) {
-      const slug = cleanPath.replace('/guide/', '');
-      const decodedSlug = decodeURIComponent(slug);
-      matchedPost = allPosts.find(p => p.slug === decodedSlug);
+  if (ssr.is404) {
+    // 404 Response: Remove Google AdSense scripts completely to comply with:
+    // "게시자 콘텐츠가 없거나 가치가 낮은 화면(알림, 경고, 오류 화면 등)에 광고를 게재할 수 없습니다."
+    result = result.replace(/<script[^>]*pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js[^>]*><\/script>/gi, '');
+    result = result.replace(/<meta[^>]*name=["']google-adsense-platform-account["'][^>]*\/?>/gi, '');
+    
+    // Set noindex, nofollow for 404 pages
+    if (result.includes('<meta name="robots"')) {
+      result = result.replace(/<meta\s+name=["']robots["'][^>]*\/?>/i, '<meta name="robots" content="noindex, nofollow" />');
+    } else {
+      result = result.replace('</head>', '  <meta name="robots" content="noindex, nofollow" />\n  </head>');
     }
-
-    if (matchedPost) {
-      title = `${matchedPost.title} | 너튜브`;
-      description = matchedPost.summary || matchedPost.subtitle || matchedPost.title;
-      canonicalUrl = `${baseUrl}${getPostPath(matchedPost)}`;
-      if (matchedPost.thumbnail && matchedPost.thumbnail.src) {
-        ogImage = matchedPost.thumbnail.src;
-      }
-
-      const publishedIso = new Date(matchedPost.publishedAt || '2026-06-18T12:00:00Z').toISOString();
-      const updatedIso = matchedPost.updatedAt ? new Date(matchedPost.updatedAt).toISOString() : publishedIso;
-
-      articleJsonLd = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": canonicalUrl
-        },
-        "headline": matchedPost.title,
-        "description": description,
-        "image": [ogImage],
-        "datePublished": publishedIso,
-        "dateModified": updatedIso,
-        "author": {
-          "@type": "Person",
-          "name": matchedPost.author || "민우",
-          "url": `${baseUrl}/about`
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "너튜브",
-          "logo": {
-            "@type": "ImageObject",
-            "url": `${baseUrl}/nutube-logo.svg`
-          }
-        }
-      });
+  } else {
+    // Robots tag for full crawlability
+    const robotsTag = '<meta name="robots" content="all, index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />';
+    if (result.includes('<meta name="robots"')) {
+      result = result.replace(/<meta\s+name=["']robots["'][^>]*\/?>/i, robotsTag);
     }
   }
 
   // Replace Title
-  let result = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
+  result = result.replace(/<title>[\s\S]*?<\/title>/i, `<title>${ssr.title}</title>`);
   
   // Replace Description
-  result = result.replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta name="description" content="${description.replace(/"/g, '&quot;')}" />`);
+  result = result.replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta name="description" content="${ssr.description.replace(/"/g, '&quot;')}" />`);
 
   // Replace Canonical Link
-  result = result.replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+  result = result.replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>/i, `<link rel="canonical" href="${ssr.canonicalUrl}" />`);
 
   // Inject or update google-site-verification
   const verificationTag = `<meta name="google-site-verification" content="${globalGoogleSiteVerification}" />`;
@@ -1554,17 +1504,26 @@ function injectSeoMetadata(html: string, reqUrl: string, host: string, protocol:
   }
 
   // Replace OpenGraph & Twitter tags
-  result = result.replace(/<meta\s+property=["']og:title["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:title" content="${title.replace(/"/g, '&quot;')}" />`);
-  result = result.replace(/<meta\s+property=["']og:description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:description" content="${description.replace(/"/g, '&quot;')}" />`);
-  result = result.replace(/<meta\s+property=["']og:url["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`);
-  result = result.replace(/<meta\s+property=["']og:image["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:image" content="${ogImage}" />`);
+  result = result.replace(/<meta\s+property=["']og:title["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:title" content="${ssr.title.replace(/"/g, '&quot;')}" />`);
+  result = result.replace(/<meta\s+property=["']og:description["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:description" content="${ssr.description.replace(/"/g, '&quot;')}" />`);
+  result = result.replace(/<meta\s+property=["']og:url["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:url" content="${ssr.canonicalUrl}" />`);
+  result = result.replace(/<meta\s+property=["']og:image["']\s+content=["'][^"']*["']\s*\/?>/i, `<meta property="og:image" content="${ssr.ogImage}" />`);
 
-  // Inject Article JSON-LD if post matched
-  if (articleJsonLd) {
-    result = result.replace('</head>', `  <script type="application/ld+json">${articleJsonLd}</script>\n  </head>`);
+  // Inject Schema.org JSON-LD scripts
+  if (ssr.jsonLdScripts && ssr.jsonLdScripts.length > 0) {
+    const scriptsHtml = ssr.jsonLdScripts.map(script => `  <script type="application/ld+json">${script}</script>`).join('\n');
+    result = result.replace('</head>', `${scriptsHtml}\n  </head>`);
   }
 
-  return result;
+  // CRITICAL: Pre-render semantic publisher HTML into <div id="root"></div>
+  // Ensures Google AdSense crawlers (Mediapartners-Google) and Googlebot immediately find rich publisher text!
+  result = result.replace('<div id="root"></div>', `<div id="root">${ssr.renderedHtml}</div>`);
+
+  return {
+    html: result,
+    statusCode: ssr.statusCode,
+    is404: ssr.is404
+  };
 }
 
 // Vite 및 프로덕션 정적 서빙 미들웨어 연동
@@ -1588,8 +1547,11 @@ async function startServer() {
         template = await vite.transformIndexHtml(req.originalUrl, template);
         const host = req.headers.host || 'www.nutube.kr';
         const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-        template = injectSeoMetadata(template, req.originalUrl, host, protocol);
-        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(template);
+        const { html, statusCode } = injectSsrAndSeoMetadata(template, req.originalUrl, host, protocol);
+        if (statusCode === 404) {
+          res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+        }
+        res.status(statusCode).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(html);
       } catch (e) {
         next(e);
       }
@@ -1603,8 +1565,11 @@ async function startServer() {
         let template = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
         const host = req.headers.host || 'www.nutube.kr';
         const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-        template = injectSeoMetadata(template, req.originalUrl, host, protocol);
-        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(template);
+        const { html, statusCode } = injectSsrAndSeoMetadata(template, req.originalUrl, host, protocol);
+        if (statusCode === 404) {
+          res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+        }
+        res.status(statusCode).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(html);
       } catch (e) {
         res.sendFile(path.join(distPath, 'index.html'));
       }

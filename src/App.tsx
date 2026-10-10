@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, Folder, Calendar, User, ExternalLink, ArrowRight, Info, ShieldCheck, FileText } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
+import { PAGE_CONTENT, PageSection } from './data/pages';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
@@ -9,19 +10,12 @@ import { BlogSidebar } from './components/BlogSidebar';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 import { updatePageSeoMeta, resetDefaultSeoMeta } from './utils/seoAnalyzer';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail' | 'not-found';
 
 interface RouteState {
   tab: Tab;
   post: GuidePost | null;
   category: string | null;
-}
-
-interface PageSection {
-  heading: string;
-  body?: string[];
-  items?: string[];
-  table?: { headers: string[]; rows: string[][] };
 }
 
 const POSTS = applyPostDateSchedule(ALL_POSTS);
@@ -56,28 +50,35 @@ const findPostByTitle = (titleSegment: string) => {
 const resolveRoute = (pathname: string): RouteState => {
   const path = normalizePath(pathname);
 
+  if (path === '/' || path === '') {
+    return { tab: 'guides', post: null, category: null };
+  }
+
   if (path.startsWith('/post/')) {
     const titleSegment = path.replace('/post/', '');
     const matchedPost = findPostByTitle(titleSegment);
-    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'guides', post: null, category: null };
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'not-found', post: null, category: null };
   }
 
   if (path.startsWith('/guide/')) {
     const slug = path.replace('/guide/', '');
     const matchedPost = findPostBySlug(slug);
-    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'guides', post: null, category: null };
+    return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'not-found', post: null, category: null };
   }
 
   if (path.startsWith('/category/')) {
     const categoryKey = decodeURIComponent(path.replace('/category/', ''));
-    return { tab: 'guides', post: null, category: isKnownCategory(categoryKey) ? categoryKey : null };
+    if (isKnownCategory(categoryKey)) {
+      return { tab: 'guides', post: null, category: categoryKey };
+    }
+    return { tab: 'not-found', post: null, category: null };
   }
 
   if (path === '/about') return { tab: 'about', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
   if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
 
-  return { tab: 'guides', post: null, category: null };
+  return { tab: 'not-found', post: null, category: null };
 };
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
@@ -85,142 +86,13 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'about') return '/about';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
+  if (tab === 'not-found') return '/404';
   return '/';
 };
 
 const initialRoute = (): RouteState => {
   if (typeof window === 'undefined') return { tab: 'guides', post: null, category: null };
   return resolveRoute(window.location.pathname);
-};
-
-const PAGE_CONTENT: Record<'about' | 'privacy' | 'terms', { title: string; intro: string; updated: string; sections: PageSection[] }> = {
-  about: {
-    title: '운영자 소개 & 블로그 운영 철학',
-    updated: '2026년 9월 16일',
-    intro: '안녕하세요, 1인 미디어와 애드센스 실전 노하우를 공유하는 블로그 운영자 민우입니다. 300만 원 상당의 고가 장비로 시작했다가 실패를 겪은 뒤, 스마트폰 한 대로 0에서부터 다시 구축한 실전 크리에이터의 진짜 이야기입니다.',
-    sections: [
-      {
-        heading: '1. 장비 욕심으로 300만 원 날리고 얻은 값진 교훈',
-        body: [
-          '처음 유튜브를 시작했을 때 "장비가 좋아야 구독자가 는다"는 생각에 미러리스 카메라와 무거운 삼각대, 80만 원짜리 조명부터 질렀습니다. 결과는 어땠을까요? 세팅하는 데 지쳐서 한 달에 영상 2개 올리기도 벅찼고, 조회수는 두 자릿수에 머물렀습니다.',
-          '결국 무거운 장비를 중고로 정리하고, 주머니 속 스마트폰과 5천 원짜리 다이소 거치대 하나로 다시 시작했습니다. 그때 깨달았습니다. 시청자가 원하는 건 4K 화질이 아니라, "3초 안에 내 문제를 해결해 주는 알맹이"라는 사실을요.'
-        ]
-      },
-      {
-        heading: '2. 왜 이 블로그를 개설하고 기록하는가',
-        body: [
-          '인터넷에 넘쳐나는 "하루 10분으로 월 천만 원" 같은 허황된 강의와 자극적인 어그로에 지쳤습니다.',
-          '쇼츠 100만 뷰를 찍었을 때 실제로 통장에 들어온 정산금의 실체, 스마트폰 하나로 시작하는 0원 세팅, 캡컷으로 편집 시간 80% 줄이는 꿀팁, 전자책과 제휴로 월 100만 원 파이프라인을 만드는 법 등 제가 직접 겪으며 터득한 알짜배기 노하우를 누구나 알기 쉽게 전해드리기 위해 이 공간을 만들었습니다.'
-        ]
-      },
-      {
-        heading: '3. 너튜브(NuTube)의 3대 운영 원칙 (E-E-A-T)',
-        items: [
-          '직접 겪어보지 않은 뜬구름 잡는 이론이나 복사-붙여넣기식 정보는 절대 다루지 않습니다.',
-          '모든 가이드에는 실제 적용해 보고 겪었던 실패 사례와 아쉬웠던 점(주관적 평가)을 솔직하게 기록합니다.',
-          '글을 다 읽고 "그래서 오늘 당장 뭘 해야 하지?"라는 물음표가 남지 않도록 구체적인 실행 행동(Action Item)을 반드시 제시합니다.'
-        ]
-      },
-      {
-        heading: '4. 운영자 정보 및 소통 창구 (Contact Information)',
-        body: [
-          '너튜브(NuTube)는 독자 여러분과의 소통과 투명한 콘텐츠 운영을 최우선으로 생각합니다. 가이드 내용에 대한 피드백, 제휴 문의, 오탈자 제보는 아래 공식 이메일로 언제든 연락해 주시기 바랍니다.',
-          '• 운영자: 민우 (5년 차 1인 크리에이터 & 콘텐츠 엔지니어)',
-          '• 공식 문의 이메일: minwoo@nutube.kr',
-          '• 회신 안내: 접수된 문의는 확인 후 영업일 기준 24~48시간 이내에 성심껏 답변드립니다.'
-        ]
-      }
-    ]
-  },
-  terms: {
-    title: '이용약관 및 면책조항 (Terms of Service & Disclaimer)',
-    updated: '2026년 9월 16일',
-    intro: '너튜브(NuTube)를 방문해 주셔서 감사합니다. 본 블로그의 콘텐츠 열람, 저작권, 그리고 정보 이용에 관한 규정 및 면책조항입니다.',
-    sections: [
-      {
-        heading: '1. 저작권 및 콘텐츠 인용 규정',
-        body: [
-          '본 블로그에 게시된 모든 텍스트, 차트, 이미지 캡션 및 실전 노하우는 작성자(민우)가 직접 연구하고 경험한 창작물입니다.',
-          '비상업적인 목적의 출처 표기 인용(본문 URL 링크 포함)은 자유롭게 허용되나, 사전 서면 동의 없는 무단 전문 복제, 상업적 재판매, 크롤링을 통한 2차 가공은 엄격히 금지됩니다.'
-        ]
-      },
-      {
-        heading: '2. 수익 및 성과 관련 면책조항 (Disclaimer)',
-        body: [
-          '본 블로그에서 다루는 유튜브 조회수, 시청 지속 시간, 클릭률(CTR), 구글 애드센스 정산금 및 부수입 데이터는 작성자 본인의 실제 경험에 기반한 참고용 사례입니다.',
-          '개별 채널의 카테고리, 시청자층, 운영 시기 및 알고리즘 변동에 따라 실제 성과는 달라질 수 있으며, 본 사이트의 내용은 특정 금액이나 수익의 확정적인 결과를 보장하지 않습니다.'
-        ]
-      },
-      {
-        heading: '3. 외부 링크 및 제3자 서비스에 관한 고지',
-        body: [
-          '본 블로그에는 독자의 편의를 위해 유튜브 스튜디오, 구글 서치콘솔 등 공식 서비스 링크가 포함될 수 있습니다. 외부 사이트의 정책 및 운영에 대해서는 해당 사이트의 약관이 적용됩니다.'
-        ]
-      },
-      {
-        heading: '4. 제휴 마케팅 및 스폰서십 투명성 고지 (FTC & 공정거래위원회 지침)',
-        body: [
-          '본 블로그는 공정거래위원회의 「추천·보증 등에 관한 표시·광고 심사지침」 및 미국 FTC 가이드라인을 엄격히 준수합니다.',
-          '블로그 내 일부 글에는 제휴 마케팅 링크(예: 쿠팡 파트너스, 도서/소프트웨어 제휴사 등)가 포함될 수 있으며, 독자께서 해당 링크를 통해 물품이나 서비스를 구매하실 경우 작성자에게 소정의 수수료가 지급될 수 있습니다.',
-          '단, 이는 독자의 구매 가격에 일체의 불이익이나 추가 비용을 발생시키지 않으며, 작성자가 최소 수개월 이상 직접 결제하여 검증한 장비와 툴에 대해서만 솔직한 후기를 바탕으로 소개합니다.'
-        ]
-      },
-      {
-        heading: '5. 이용자 분쟁 해결 및 문의처',
-        body: [
-          '이용약관 또는 게시물 권리 침해와 관련된 모든 문의는 공식 문의처(minwoo@nutube.kr)로 접수해 주시면 관계 법령에 따라 신속히 조치하겠습니다.'
-        ]
-      }
-    ]
-  },
-  privacy: {
-    title: '개인정보처리방침 (Privacy Policy)',
-    updated: '2026년 9월 16일',
-    intro: '너튜브(NuTube, 이하 "블로그")는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 개인정보 보호법 및 구글 애드센스(Google AdSense) 프로그램 정책을 엄격히 준수하며, 방문자의 개인정보와 권리를 최우선으로 보호합니다.',
-    sections: [
-      {
-        heading: '1. 수집하는 개인정보 항목 및 수집 방법',
-        body: [
-          '본 블로그는 별도의 회원가입이나 개인정보 입력 없이 누구나 모든 글과 자료를 자유롭게 열람할 수 있습니다.',
-          '웹사이트 차원에서 이용자의 주민등록번호, 연락처 등 민감한 고유 식별 정보를 임의로 수집하거나 외부 서버에 저장하지 않습니다.'
-        ]
-      },
-      {
-        heading: '2. 쿠키(Cookie) 및 구글 애드센스(Google AdSense) 맞춤형 광고 고지',
-        body: [
-          '본 블로그는 구글(Google LLC)을 포함한 제3자 광고 사업자가 제공하는 광고 서비스(Google AdSense)를 이용하고 있습니다.',
-          '• 쿠키의 사용 목적: Google을 비롯한 제3자 제공업체는 쿠키(DART 쿠키 등)를 사용하여 사용자의 본 블로그 및 인터넷상의 다른 웹사이트 이전 방문 기록을 기반으로 광고를 게재합니다.',
-          '• Google의 광고 쿠키 사용: Google은 광고 쿠키를 통해 사용자의 본 사이트 및 다른 사이트 방문을 바탕으로 Google 및 파트너사의 맞춤형 광고를 제공할 수 있습니다.',
-          '• 맞춤설정 광고 해제 방법(Opt-out): 사용자는 Google 광고 설정(https://adssettings.google.com 또는 https://www.google.com/settings/ads) 페이지를 방문하여 언제든지 개인 맞춤 광고를 비활성화할 수 있습니다.',
-          '• 제3자 광고 쿠키 비활성화: 사용자는 www.aboutads.info 및 https://youradchoices.com/ 페이지를 방문하여 제3자 공급업체의 맞춤형 광고 쿠키 사용을 선택적으로 차단하실 수 있습니다.'
-        ]
-      },
-      {
-        heading: '3. 웹사이트 트래픽 분석 (Google Analytics & Search Console)',
-        body: [
-          '본 블로그는 사이트 품질 개선과 독자의 콘텐츠 열람 편의를 증진하기 위해 웹로그 분석 도구(Google Analytics)를 활용할 수 있습니다. 이는 브라우저 종류, 방문 페이지, 체류 시간 등 비식별 통계 정보만을 수집하며 개별 이용자를 특정할 수 없습니다.'
-        ]
-      },
-      {
-        heading: '4. 이용자의 권리 행사 및 쿠키 거부 방법 (GDPR, CCPA 및 국내 법령 준수)',
-        body: [
-          '• 브라우저 쿠키 제어: 이용자는 사용하는 웹 브라우저의 옵션을 설정함으로써 모든 쿠키를 허용하거나, 쿠키가 저장될 때마다 확인을 거치거나, 모든 쿠키의 저장을 거부할 수 있습니다. (설정 방법: Chrome의 경우 [설정] > [개인정보 보호 및 보안] > [쿠키 및 기타 사이트 데이터] 메뉴에서 차단 가능)',
-          '• 만 14세 미만 아동 보호: 본 블로그는 아동 온라인 사생활 보호법(COPPA)을 준수하며, 만 14세 미만 아동의 개인정보를 고의로 수집하지 않습니다.',
-          '• 권리 행사: 유럽 연합(EU/EEA)의 GDPR 및 미국 캘리포니아주 CCPA 대상 이용자를 포함한 모든 방문자는 언제든지 개인정보의 열람, 정정, 삭제 및 처리 정지를 요청할 권리를 가집니다.'
-        ]
-      },
-      {
-        heading: '5. 개인정보 보호책임자 및 고충처리 창구 (Contact Details)',
-        body: [
-          '본 블로그의 개인정보 보호 및 운영에 관한 문의, 불만 처리, 의견 수렴을 위해 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.',
-          '• 성명: 민우',
-          '• 직책: 너튜브(NuTube) 대표 및 개인정보 보호책임자',
-          '• 전자우편: minwoo@nutube.kr',
-          '• 고충 처리: 개인정보 보호와 관련된 문의 사항을 위 이메일로 보내주시면 영업일 기준 48시간 이내에 신속하고 성실하게 조치 결과를 안내해 드리겠습니다.'
-        ]
-      }
-    ]
-  }
 };
 
 const getPageNumbers = (current: number, total: number): (number | string)[] => {
@@ -266,6 +138,10 @@ export default function App() {
   useEffect(() => {
     if (tab === 'about' || tab === 'terms' || tab === 'privacy') {
       updatePageSeoMeta(tab);
+    } else if (tab === 'not-found') {
+      if (typeof document !== 'undefined') {
+        document.title = '페이지를 찾을 수 없습니다 (404) | 너튜브';
+      }
     } else if (tab === 'guides' && !post) {
       resetDefaultSeoMeta();
     }
@@ -569,6 +445,53 @@ export default function App() {
                 onSelectTag={handleSelectTag}
                 theme={theme}
               />
+            </div>
+          </div>
+        )}
+
+        {/* 404 Not Found Screen (Strict AdSense compliance: zero ads on error screens) */}
+        {tab === 'not-found' && (
+          <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+            <div className={`p-8 sm:p-12 rounded-2xl border transition-colors ${
+              dark ? 'border-slate-800 bg-slate-900 text-slate-200' : 'border-slate-200 bg-white text-slate-800 shadow-2xs'
+            }`}>
+              <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 font-bold flex items-center justify-center text-xl mx-auto mb-4">
+                404
+              </div>
+              <h1 className={`text-2xl font-black mb-2 ${dark ? 'text-white' : 'text-slate-900'}`}>
+                요청하신 페이지를 찾을 수 없습니다
+              </h1>
+              <p className={`text-xs sm:text-sm mb-6 ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
+                존재하지 않거나 주소가 변경된 페이지입니다.<br />
+                아래 주요 카테고리나 최신 가이드 목록에서 원하는 정보를 확인해 보세요.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                <button
+                  onClick={() => selectCategory(null)}
+                  className="px-4 py-2 text-xs font-bold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer"
+                >
+                  너튜브 홈으로 이동
+                </button>
+                <button
+                  onClick={() => selectCategory('why_youtube')}
+                  className={`px-4 py-2 text-xs font-bold rounded-lg border transition-colors cursor-pointer ${
+                    dark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  시작의 이유
+                </button>
+                <button
+                  onClick={() => selectCategory('monetization')}
+                  className={`px-4 py-2 text-xs font-bold rounded-lg border transition-colors cursor-pointer ${
+                    dark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  수익화 파이프라인
+                </button>
+              </div>
+              <div className="pt-6 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400">
+                문의 사항이 있으시면 <button onClick={() => go('about')} className="text-blue-600 underline cursor-pointer">운영자 소개</button> 또는 <span className="font-mono">minwoo@nutube.kr</span> 로 연락해 주세요.
+              </div>
             </div>
           </div>
         )}
