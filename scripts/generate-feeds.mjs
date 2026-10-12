@@ -25,6 +25,16 @@ for (const file of categoryFiles) {
   }
 }
 
+// 콘텐츠 허브 자동 발행 글
+const autoPostsPath = path.join(ROOT, 'src', 'data', 'auto', 'posts.json');
+if (fs.existsSync(autoPostsPath)) {
+  try {
+    allPosts = allPosts.concat(JSON.parse(fs.readFileSync(autoPostsPath, 'utf-8')));
+  } catch (e) {
+    console.error('Error parsing auto/posts.json:', e);
+  }
+}
+
 // Auto-sync dates to current calendar date if time has elapsed
 let maxPublishedTime = 0;
 for (const post of allPosts) {
