@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const SITE_URL = 'https://www.nutube.kr';
+// www.nutube.kr는 nutube.kr로 301 이동하므로 대표 주소는 www 없는 주소다.
+const SITE_URL = 'https://nutube.kr';
 const ROOT = process.cwd();
 
 // Load posts from category files

@@ -206,8 +206,25 @@ export function updatePageSeoMeta(tab: 'about' | 'terms' | 'privacy') {
 /**
  * Resets document metadata back to default homepage SEO values
  */
-export function resetDefaultSeoMeta() {
+export function resetDefaultSeoMeta(category?: { key: string; label: string; description?: string; count?: number } | null) {
   if (typeof document === 'undefined') return;
+
+  // 카테고리 화면은 홈과 다른 페이지이므로 제목·대표 주소를 따로 둔다
+  // (사전 렌더링된 HTML과 같은 값이어야 검색엔진이 혼동하지 않는다).
+  if (category) {
+    const url = `https://nutube.kr/category/${category.key}`;
+    const title = `${category.label} 카테고리 실전 가이드${typeof category.count === 'number' ? ` (${category.count}편)` : ''} | 너튜브`;
+    document.title = title;
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    if (category.description) {
+      const desc = `${category.description} - 너튜브 민우의 실전 1인 크리에이터 가이드 모음입니다.`;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+      document.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
+    }
+    return;
+  }
 
   document.title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
 

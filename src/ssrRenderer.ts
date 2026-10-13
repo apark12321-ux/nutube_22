@@ -491,7 +491,7 @@ export function renderSsrPage(
     if (cleanPath.startsWith('/post/')) {
       const segment = cleanPath.replace('/post/', '');
       const decodedSegment = decodeURIComponent(segment);
-      matchedPost = allPosts.find(p => 
+      matchedPost = allPosts.find(p => p.slug === decodedSegment) || allPosts.find(p => 
         postTitleSegment(p.title) === decodedSegment || 
         p.title === decodedSegment || 
         p.title === decodedSegment.replace(/-/g, ' ')

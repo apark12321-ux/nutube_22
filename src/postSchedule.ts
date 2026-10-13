@@ -11,7 +11,11 @@ export const postTitleSegment = (title: string) =>
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-export const getPostPath = (post: Pick<GuidePost, 'title'>) => `/post/${postTitleSegment(post.title)}`;
+// 대표 글 주소는 slug 기반(/post/<slug>)이다. sitemap.xml·RSS와 같은 주소를 써야
+// 검색엔진이 받은 주소가 실제 글로 열린다. 예전 제목 기반 주소는 getLegacyPostPath로 남긴다.
+export const getPostPath = (post: Pick<GuidePost, 'slug'>) => `/post/${encodeURIComponent(post.slug)}`;
+
+export const getLegacyPostPath = (post: Pick<GuidePost, 'title'>) => `/post/${postTitleSegment(post.title)}`;
 
 export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
   if (!posts || posts.length === 0) return [];
