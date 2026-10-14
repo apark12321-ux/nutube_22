@@ -1,8 +1,7 @@
 import React from 'react';
 import { GuidePost } from '../types';
-import { Calendar, User, Tag } from 'lucide-react';
+import { Clock, User, Tag } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
-import { formatPostDate } from '../utils/dateFormatter';
 
 interface PostCardProps {
   post: GuidePost;
@@ -19,7 +18,8 @@ export const PostCard: React.FC<PostCardProps> = ({
   href, 
   theme = 'light' 
 }) => {
-  const formattedDate = formatPostDate(post.publishedAt);
+  // 목록에는 날짜 대신 읽는 시간(한국어 약 500자/분)을 보여 준다. 발행일은 글 화면에 표시한다.
+  const readMinutes = Math.max(1, Math.round((post.content || '').length / 500));
   const dark = theme === 'dark';
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -80,8 +80,8 @@ export const PostCard: React.FC<PostCardProps> = ({
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 font-mono">
-              <Calendar className="w-3.5 h-3.5" />
-              <time>{formattedDate}</time>
+              <Clock className="w-3.5 h-3.5" />
+              <span>{readMinutes}분 읽기</span>
             </span>
           </div>
         </div>
