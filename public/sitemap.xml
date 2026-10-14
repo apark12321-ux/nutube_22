@@ -2,763 +2,349 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nutube.kr/</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://nutube.kr/category/start</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nutube.kr/category/grow</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nutube.kr/category/money</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nutube.kr/category/pro</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://nutube.kr/about</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/terms</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://nutube.kr/contact</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://nutube.kr/policy</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://nutube.kr/privacy</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/shorts-first-3-seconds-hook</loc>
-    <lastmod>2026-10-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-invalid-traffic-protection-action-guide</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/elevenlabs-ai-dubbing-global-channel-experiment</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-algorithm-shares-and-saves-signal</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/weekend-batch-recording-creator-routine</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-cpm-rpm-optimization-guide</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/midjourney-flux-youtube-thumbnail-prompt</loc>
-    <lastmod>2026-09-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/community-tab-algorithm-revival-strategy</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/notion-template-digital-product-pipeline</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/smartphone-only-sound-lighting-budget</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/capcut-ai-auto-caption-styling-secret</loc>
-    <lastmod>2026-09-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/shorts-to-longform-funnel-conversion</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-identity-pin-verification-tips</loc>
-    <lastmod>2026-09-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/zero-subscriber-first-10-videos-mindset</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/chatgpt-youtube-script-human-rewriting</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-ypp-policy-update-strategy</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-algorithm-first-24hours-signals</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-shorts-sound-trending-algorithm</loc>
-    <lastmod>2026-09-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-shorts-pinned-comment-conversion-formula</loc>
-    <lastmod>2026-09-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/vrew-ai-shorts-subtitles-cut-editing</loc>
-    <lastmod>2026-09-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-thumbnail-color-psychology-ctr</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/faceless-youtube-screen-record-tools</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-niche-subscribers-keyword-research</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/clova-note-voice-record-script-workflow</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-search-seo-tag-description-formula</loc>
-    <lastmod>2026-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-low-value-content-rejection-fix-checklist</loc>
-    <lastmod>2026-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-first-month-routine-survival</loc>
-    <lastmod>2026-09-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/shorts-swipe-rate-retention-loop-strategy</loc>
-    <lastmod>2026-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/ai-voice-tts-hybrid-audio-retention</loc>
-    <lastmod>2026-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-first-payout-reinvestment-strategy</loc>
-    <lastmod>2026-09-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/creator-income-portfolio-breakdown</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/three-tier-income-safety-net</loc>
-    <lastmod>2026-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/foreign-currency-account-fee-save</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/creator-workshop-and-classes</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/reused-content-appeal-guide</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/long-term-brand-sponsorship</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-shopping-store-integration</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/create-30p-ebook-in-3-days</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/email-newsletter-creator-funnel</loc>
-    <lastmod>2026-08-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/high-value-niche-views</loc>
-    <lastmod>2026-08-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/shorts-ad-revenue-sharing-explained</loc>
-    <lastmod>2026-08-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/clean-content-high-ticket-consulting</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/creator-tax-reporting-guide</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/notion-template-selling-guide</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/pinned-comment-sales-funnel</loc>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/micro-influencer-brand-pitch</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/adsense-tax-info-setup-guide</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/high-cpm-keywords-analysis</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/membership-and-superchat-guide</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/digital-products-selling-funnel</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/worker-evening-routine-weekly-video-pipeline</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/affiliate-marketing-on-youtube</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/shorts-1m-views-real-revenue</loc>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-5-income-streams</loc>
-    <lastmod>2026-08-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/solo-interview-setup</loc>
-    <lastmod>2026-08-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/hybrid-creator-production-method</loc>
-    <lastmod>2026-08-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/top-7-free-ai-tools-for-creators</loc>
-    <lastmod>2026-08-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/ai-music-generation-bgm</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/video-storage-management</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/capcut-pc-ai-smart-erase</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/ai-copyright-commercial-use</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/claude-storytelling-script-guide</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/first-upload-checklist</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/midjourney-character-branding</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/fact-checking-ai-content</loc>
-    <lastmod>2026-08-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/all-in-one-ai-workflow</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/secret-channel-setup</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/ai-voice-cloning-ethics</loc>
-    <lastmod>2026-08-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/ai-multilingual-subtitles</loc>
-    <lastmod>2026-07-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/calm-voice-narration-tips</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://nutube.kr/terms</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/chatgpt-viral-title-generator</loc>
-    <lastmod>2026-07-30</lastmod>
+    <loc>https://nutube.kr/post/growing-beyond-solo</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/youtube-ai-labeling-rules</loc>
-    <lastmod>2026-07-29</lastmod>
+    <loc>https://nutube.kr/post/channel-security</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/vrew-text-based-video-editing</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://nutube.kr/post/copyright-and-portrait-rights</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/top-down-overhead-rig</loc>
-    <lastmod>2026-07-27</lastmod>
+    <loc>https://nutube.kr/post/collaboration-with-creators</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/ai-thumbnail-canva-workflow</loc>
-    <lastmod>2026-07-27</lastmod>
+    <loc>https://nutube.kr/post/first-live-stream</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/humanizing-ai-scripts</loc>
-    <lastmod>2026-07-26</lastmod>
+    <loc>https://nutube.kr/post/ai-tools-carefully</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/ai-image-b-roll-generation</loc>
-    <lastmod>2026-07-25</lastmod>
+    <loc>https://nutube.kr/post/one-video-many-uses</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/smartphone-pro-mode-tips</loc>
-    <lastmod>2026-07-24</lastmod>
+    <loc>https://nutube.kr/post/evergreen-vs-trend-videos</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/gemini-youtube-ideation-prompts</loc>
-    <lastmod>2026-07-24</lastmod>
+    <loc>https://nutube.kr/post/audience-retention-graph</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/human-touch-in-ai-era</loc>
-    <lastmod>2026-07-23</lastmod>
+    <loc>https://nutube.kr/post/storytelling-structure</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/natural-ai-voice-audio-tips</loc>
-    <lastmod>2026-07-22</lastmod>
+    <loc>https://nutube.kr/post/content-idea-notebook</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/daily-vlog-idea-capture</loc>
-    <lastmod>2026-07-21</lastmod>
+    <loc>https://nutube.kr/post/one-niche-deep</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/capcut-ai-time-saving-editing</loc>
-    <lastmod>2026-07-21</lastmod>
+    <loc>https://nutube.kr/post/affiliate-shopping-income</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/chatgpt-youtube-script-tips</loc>
-    <lastmod>2026-07-20</lastmod>
+    <loc>https://nutube.kr/post/sponsorship-paid-promotion</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/what-happens-if-you-only-use-ai</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://nutube.kr/post/memberships-super-thanks</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/done-is-better-than-perfect</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://nutube.kr/post/korea-tax-youtube-income</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/high-converting-outro-formula</loc>
-    <lastmod>2026-07-17</lastmod>
+    <loc>https://nutube.kr/post/us-tax-info-w8ben</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/shorts-safe-zone-guide</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://nutube.kr/post/first-payment-100-dollars</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/save-worthy-checklist-format</loc>
-    <lastmod>2026-07-15</lastmod>
+    <loc>https://nutube.kr/post/shorts-revenue-explained</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/teleprompter-app-guide</loc>
-    <lastmod>2026-07-15</lastmod>
+    <loc>https://nutube.kr/post/how-ad-revenue-works</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/retention-graph-analysis</loc>
-    <lastmod>2026-07-14</lastmod>
+    <loc>https://nutube.kr/post/adsense-for-youtube</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/trending-keyword-research-tools</loc>
-    <lastmod>2026-07-13</lastmod>
+    <loc>https://nutube.kr/post/ypp-rejection-reasons</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/sound-effects-pacing-guide</loc>
-    <lastmod>2026-07-12</lastmod>
+    <loc>https://nutube.kr/post/ypp-application-steps</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/canva-channel-art-guide</loc>
-    <lastmod>2026-07-12</lastmod>
+    <loc>https://nutube.kr/post/ypp-requirements</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/video-chapters-seo-guide</loc>
-    <lastmod>2026-07-11</lastmod>
+    <loc>https://nutube.kr/post/keep-going-one-year</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/thumbnail-facial-expression</loc>
-    <lastmod>2026-07-10</lastmod>
+    <loc>https://nutube.kr/post/thumbnail-test-compare</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/channel-naming-formula</loc>
-    <lastmod>2026-07-09</lastmod>
+    <loc>https://nutube.kr/post/when-views-stop</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/community-poll-growth-hack</loc>
-    <lastmod>2026-07-09</lastmod>
+    <loc>https://nutube.kr/post/playlists-and-series</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/infinite-loop-shorts-trick</loc>
-    <lastmod>2026-07-08</lastmod>
+    <loc>https://nutube.kr/post/replying-to-comments</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/bgm-volume-golden-ratio</loc>
-    <lastmod>2026-07-07</lastmod>
+    <loc>https://nutube.kr/post/analytics-two-numbers</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/natural-light-filming</loc>
-    <lastmod>2026-07-06</lastmod>
+    <loc>https://nutube.kr/post/shorts-and-long-videos-together</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/youtube-seo-keyword-hacks</loc>
-    <lastmod>2026-07-06</lastmod>
+    <loc>https://nutube.kr/post/shorts-getting-started</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/algorithm-slump-recovery</loc>
-    <lastmod>2026-07-05</lastmod>
+    <loc>https://nutube.kr/post/first-30-seconds</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/ideal-shorts-duration</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://nutube.kr/post/titles-people-search</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/comment-engagement-secrets</loc>
-    <lastmod>2026-07-03</lastmod>
+    <loc>https://nutube.kr/post/upload-schedule-routine</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nutube.kr/post/first-100-subscribers</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/retention-pacing-secrets</loc>
-    <lastmod>2026-07-02</lastmod>
+    <loc>https://nutube.kr/post/beginner-mistakes-first-month</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/high-ctr-thumbnail-formula</loc>
-    <lastmod>2026-07-01</lastmod>
+    <loc>https://nutube.kr/post/youtube-studio-basics</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/audio-quality-secrets</loc>
-    <lastmod>2026-06-30</lastmod>
+    <loc>https://nutube.kr/post/first-thumbnail-easy</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/related-video-link-hack</loc>
-    <lastmod>2026-06-30</lastmod>
+    <loc>https://nutube.kr/post/first-upload-settings</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/first-video-zero-views-remedy</loc>
-    <lastmod>2026-06-29</lastmod>
+    <loc>https://nutube.kr/post/first-edit-capcut</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/storytelling-that-keeps-watching</loc>
-    <lastmod>2026-06-28</lastmod>
+    <loc>https://nutube.kr/post/camera-shyness-tips</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/one-hour-daily-routine</loc>
-    <lastmod>2026-06-27</lastmod>
+    <loc>https://nutube.kr/post/clear-voice-recording</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/ten-second-hook-secret</loc>
-    <lastmod>2026-06-27</lastmod>
+    <loc>https://nutube.kr/post/smartphone-first-video</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/authentic-raw-content-trend</loc>
-    <lastmod>2026-06-26</lastmod>
+    <loc>https://nutube.kr/post/channel-name-profile-intro</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/shorts-and-longform-synergy</loc>
-    <lastmod>2026-06-25</lastmod>
+    <loc>https://nutube.kr/post/create-youtube-channel</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/budget-room-studio-setup</loc>
-    <lastmod>2026-06-24</lastmod>
+    <loc>https://nutube.kr/post/find-my-first-topic</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutube.kr/post/overcoming-camera-shyness</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/youtube-blue-ocean-strategy</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/finding-your-channel-topic</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/start-with-just-smartphone</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/faceless-youtube-types</loc>
-    <lastmod>2026-06-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nutube.kr/post/why-start-youtube-now</loc>
-    <lastmod>2026-06-04</lastmod>
+    <loc>https://nutube.kr/post/start-youtube-in-my-50s</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

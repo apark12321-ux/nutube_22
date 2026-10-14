@@ -279,12 +279,12 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
         "dateModified": formattedModifiedDate,
         "author": {
           "@type": "Person",
-          "name": post.author || "민우",
+          "name": "박프로",
           "url": "https://nutube.kr/"
         },
         "publisher": {
           "@type": "Organization",
-          "name": "너튜브 (NuTube)",
+          "name": "너튜브",
           "url": "https://nutube.kr/"
         },
         "image": post.thumbnail?.src || DEFAULT_REMOTE_IMAGE,
@@ -364,6 +364,40 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
 
   const renderFormattedText = (text: string): React.ReactNode[] => {
     if (!text) return [];
+    const linkRe = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+    const out: React.ReactNode[] = [];
+    let last = 0;
+    let m: RegExpExecArray | null;
+    while ((m = linkRe.exec(text)) !== null) {
+      if (m.index > last) out.push(...renderInline(text.slice(last, m.index), `s${last}`));
+      const [, label, href] = m;
+      const internal = href.startsWith('/post/');
+      out.push(
+        <a
+          key={`a-${m.index}`}
+          href={href}
+          className="text-blue-600 dark:text-blue-400 underline underline-offset-2 hover:text-blue-800"
+          {...(internal
+            ? {
+                onClick: (e: React.MouseEvent) => {
+                  if (!onSelectPost) return;
+                  e.preventDefault();
+                  onSelectPost(decodeURIComponent(href.replace('/post/', '')));
+                }
+              }
+            : { target: '_blank', rel: 'noopener noreferrer' })}
+        >
+          {label}
+        </a>
+      );
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) out.push(...renderInline(text.slice(last), `s${last}`));
+    return out;
+  };
+
+  const renderInline = (text: string, keyPrefix: string): React.ReactNode[] => {
+    if (!text) return [];
 
     let cleanText = text.replace(/\*\*\s*\*\*/g, '');
     cleanText = cleanText.replace(/\*\*'([^']+)'\*\*/g, "'$1'");
@@ -382,7 +416,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     while (i < cleanText.length) {
       if (cleanText.substring(i, i + 2) === '**') {
         if (currentText) {
-          parts.push(<span key={`txt-${i}`}>{currentText}</span>);
+          parts.push(<span key={`${keyPrefix}-txt-${i}`}>{currentText}</span>);
           currentText = '';
         }
         i += 2;
@@ -397,16 +431,16 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
         const trimmedBold = boldContent.trim();
         if (trimmedBold) {
           parts.push(
-            <strong key={`b-${i}`} className={`font-bold ${dark ? 'text-white' : 'text-slate-900 font-extrabold'}`}>
+            <strong key={`${keyPrefix}-b-${i}`} className={`font-bold ${dark ? 'text-white' : 'text-slate-900 font-extrabold'}`}>
               {trimmedBold}
             </strong>
           );
         } else {
-          parts.push(<span key={`sp-${i}`}> </span>);
+          parts.push(<span key={`${keyPrefix}-sp-${i}`}> </span>);
         }
       } else if (cleanText[i] === '`') {
         if (currentText) {
-          parts.push(<span key={`txt-${i}`}>{currentText}</span>);
+          parts.push(<span key={`${keyPrefix}-txt-${i}`}>{currentText}</span>);
           currentText = '';
         }
         i += 1;
@@ -422,7 +456,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
         const trimmedCode = codeContent.trim();
         if (trimmedCode) {
           parts.push(
-            <code key={`code-${i}`} className="rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 text-[0.9em] font-mono text-purple-700 dark:text-purple-300">
+            <code key={`${keyPrefix}-code-${i}`} className="rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 text-[0.9em] font-mono text-purple-700 dark:text-purple-300">
               {trimmedCode}
             </code>
           );
@@ -434,7 +468,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
     }
 
     if (currentText) {
-      parts.push(<span key="txt-end">{currentText}</span>);
+      parts.push(<span key={`${keyPrefix}-end`}>{currentText}</span>);
     }
 
     return parts;
@@ -496,7 +530,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="flex items-center gap-1 font-semibold text-slate-800 dark:text-slate-200">
                   <User className="w-3.5 h-3.5 text-blue-600" />
-                  <span>민우 (운영자)</span>
+                  <span>박프로</span>
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1 font-mono">
@@ -527,6 +561,17 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
           )}
 
 
+          {post.quickAnswer && post.quickAnswer.summary?.length > 0 && (
+            <section className={`mb-8 p-5 rounded-xl border ${dark ? 'bg-amber-950/30 border-amber-900 text-slate-200' : 'bg-amber-50/70 border-amber-200 text-slate-800'}`} aria-label="이 글 요약">
+              <h2 className={`text-sm font-black mb-2 ${dark ? 'text-amber-300' : 'text-amber-900'}`}>먼저 이것만 기억하세요</h2>
+              <ul className="space-y-1.5 text-sm pl-4 list-disc">
+                {post.quickAnswer.summary.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {/* 3. Table of Contents Box (Tistory TOC Plugin Style) */}
           {tocItems.length > 0 && (
             <div className={`mb-8 p-4 sm:p-5 rounded-xl border transition-colors ${
@@ -539,7 +584,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                 <div className="flex items-center gap-2">
                   <List className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   <span className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
-                    목차 (Table of Contents)
+                    목차
                   </span>
                 </div>
                 <span className="text-xs text-slate-400 flex items-center gap-1 font-mono">
@@ -604,20 +649,26 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               }
 
               if (block.type === 'list') {
+                const ordered = /^\d+\.\s+/.test(block.lines[0] || '');
+                const ListTag = ordered ? 'ol' : 'ul';
                 return (
-                  <ul key={index} className="my-4 space-y-2 pl-2">
+                  <ListTag key={index} className="my-4 space-y-2 pl-2">
                     {block.lines.map((item, idx) => {
                       const cleanItem = item.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '');
                       return (
                         <li key={idx} className="flex gap-2.5 items-start text-sm sm:text-base leading-relaxed">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-600 dark:bg-purple-400" />
+                          {ordered ? (
+                            <span className="shrink-0 font-bold text-blue-600 dark:text-blue-400">{idx + 1}.</span>
+                          ) : (
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400" />
+                          )}
                           <span className={dark ? 'text-slate-300' : 'text-slate-700'}>
                             {renderFormattedText(cleanItem)}
                           </span>
                         </li>
                       );
                     })}
-                  </ul>
+                  </ListTag>
                 );
               }
 
@@ -668,6 +719,14 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               const paragraphText = block.lines.join(' ');
               paragraphCount += 1;
 
+              if (paragraphText.startsWith('>')) {
+                return (
+                  <blockquote key={index} className={`my-4 pl-4 py-2 border-l-4 border-blue-500 text-sm sm:text-base ${dark ? 'bg-slate-900 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
+                    {renderFormattedText(paragraphText.replace(/^>\s*/, '').replace(/\s>\s*/g, ' '))}
+                  </blockquote>
+                );
+              }
+
               return (
                 <p key={index} className={`leading-relaxed text-sm sm:text-base mb-4 break-keep ${
                   dark ? 'text-slate-300' : 'text-slate-700'
@@ -677,6 +736,30 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               );
             })}
           </div>
+
+          {post.faqList && post.faqList.length > 0 && (
+            <section className="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800">
+              <h2 className={`text-lg font-black mb-4 ${dark ? 'text-white' : 'text-slate-900'}`}>자주 묻는 질문</h2>
+              <div className="space-y-3">
+                {post.faqList.map((faq) => (
+                  <div key={faq.question} className={`p-4 rounded-xl border ${dark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50/70'}`}>
+                    <h3 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>Q. {faq.question}</h3>
+                    <p className={`mt-2 text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-700'}`}>{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {post.authorityUrl && (
+            <p className="mt-8 text-xs text-slate-500">
+              참고한 공식 안내:{' '}
+              <a href={post.authorityUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                {post.authorityLabel || post.authorityUrl}
+              </a>{' '}
+              · 규정은 바뀔 수 있으니 최신 내용은 공식 안내에서 확인하세요.
+            </p>
+          )}
 
           {/* 5. Tags (Tistory Style) */}
           {post.tags && post.tags.length > 0 && (
@@ -698,10 +781,10 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
           }`}>
             <div className="flex items-center gap-2 mb-2 font-bold text-slate-800 dark:text-slate-200">
               <ShieldCheck className="w-4 h-4 text-purple-600" />
-              <span>저작권 및 저작자표시 (CCL)</span>
+              <span>글쓴이 박프로</span>
             </div>
             <p>
-              본 콘텐츠는 <strong className="text-slate-800 dark:text-slate-200">너튜브 (NuTube, 운영자: 민우)</strong>에 저작권이 있습니다. 비영리적 목적의 출처 표기 인용은 자유로우나, 사전 동의 없는 무단 전문 복제 및 상업적 무단 배포는 엄격히 금지됩니다.
+              쉰을 넘겨 유튜브를 왕초보로 시작해 수익 창출까지 해 본 50대입니다. 제가 겪은 순서대로, 쉬운 말로 적습니다. 출처를 밝힌 일부 인용은 괜찮지만 글 전체 복제는 삼가 주세요.
             </p>
           </div>
 
@@ -713,7 +796,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
               <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
                 <Folder className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
-                  '{post.categoryLabel}' 카테고리의 다른 글
+                  {post.categoryLabel} 단계의 다른 글
                 </h4>
               </div>
               <ul className="space-y-2 text-xs sm:text-sm">
@@ -740,7 +823,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                         {catPost.title} {isCurrent && <span className="text-[11px] font-bold text-purple-600 dark:text-purple-400">(현재글)</span>}
                       </button>
                       <span className="text-[11px] text-slate-400 font-mono shrink-0">
-                        {formatPostDate(catPost.publishedAt)}
+                        {catPost.order ? `${catPost.order}편` : ''}
                       </span>
                     </li>
                   );

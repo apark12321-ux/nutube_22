@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, Folder, Calendar, User, ExternalLink, ArrowRight, Info, ShieldCheck, FileText } from 'lucide-react';
 import { ALL_POSTS, CATEGORIES_LIST, CATEGORY_SPECS } from './data';
-import { PAGE_CONTENT, PageSection } from './data/pages';
+import { PAGE_CONTENT, PageSection, StaticPageKey, STATIC_PAGE_PATHS, STATIC_PAGE_LABELS, CONTACT_EMAIL } from './data/pages';
 import { GuidePost } from './types';
 import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
@@ -10,7 +10,10 @@ import { BlogSidebar } from './components/BlogSidebar';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 import { updatePageSeoMeta, resetDefaultSeoMeta } from './utils/seoAnalyzer';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'guide-detail' | 'not-found';
+type Tab = 'guides' | 'guide-detail' | 'not-found' | StaticPageKey;
+
+const STATIC_KEYS = Object.keys(STATIC_PAGE_PATHS) as StaticPageKey[];
+const isStaticTab = (t: Tab): t is StaticPageKey => (STATIC_KEYS as string[]).includes(t);
 
 interface RouteState {
   tab: Tab;
@@ -82,18 +85,15 @@ const resolveRoute = (pathname: string): RouteState => {
     return { tab: 'not-found', post: null, category: null };
   }
 
-  if (path === '/about') return { tab: 'about', post: null, category: null };
-  if (path === '/terms') return { tab: 'terms', post: null, category: null };
-  if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
+  const staticKey = STATIC_KEYS.find((k) => STATIC_PAGE_PATHS[k] === path);
+  if (staticKey) return { tab: staticKey, post: null, category: null };
 
   return { tab: 'not-found', post: null, category: null };
 };
 
 const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'guide-detail' && post) return getPostPath(post);
-  if (tab === 'about') return '/about';
-  if (tab === 'terms') return '/terms';
-  if (tab === 'privacy') return '/privacy';
+  if (isStaticTab(tab)) return STATIC_PAGE_PATHS[tab];
   if (tab === 'not-found') return '/404';
   return '/';
 };
@@ -132,7 +132,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(route.category);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10); // Standard blog page size
+  const [pageSize, setPageSize] = useState(12); // 한 단계(12편)씩
 
   useEffect(() => {
     setPage(1);
@@ -152,7 +152,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (tab === 'about' || tab === 'terms' || tab === 'privacy') {
+    if (isStaticTab(tab)) {
       updatePageSeoMeta(tab);
     } else if (tab === 'not-found') {
       if (typeof document !== 'undefined') {
@@ -171,7 +171,6 @@ export default function App() {
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();
     return [...POSTS]
-      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .filter((item) => !category || item.category === category)
       .filter((item) => !q || item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q) || (item.summary || '').toLowerCase().includes(q) || (item.tags || []).some(t => t.toLowerCase().includes(q)));
   }, [query, category]);
@@ -308,7 +307,7 @@ export default function App() {
                     <div className="flex items-center gap-2">
                       <Folder className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       <h1 className={`text-base sm:text-lg font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
-                        {category ? currentCategorySpec?.label : '전체 질문과 가이드'}
+                        {category ? currentCategorySpec?.label : '50대 박프로의 유튜브 도전기'}
                       </h1>
                       <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold">
                         ({posts.length})
@@ -320,7 +319,7 @@ export default function App() {
                         onClick={() => selectCategory(null)}
                         className="text-xs text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 underline cursor-pointer"
                       >
-                        전체 질문·가이드 보기
+                        처음부터 전체 보기
                       </button>
                     )}
                   </div>
@@ -328,7 +327,7 @@ export default function App() {
                   <p className={`text-xs sm:text-sm mt-2 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
                     {category 
                       ? currentCategorySpec?.description 
-                      : '스마트폰 하나로 가볍게 시작해 월 100만 원 수익 파이프라인을 구축하는 실전 크리에이터 가이드와 질문 답변입니다.'}
+                      : '쉰 넘어 유튜브를 시작한 박프로가 왕초보 첫걸음부터 채널 키우기, 수익 창출, 고수의 영역까지 겪은 순서대로 쉬운 말로 정리했습니다. 1단계 첫 글부터 차례로 읽어 보세요.'}
                   </p>
                 </div>
 
@@ -442,6 +441,7 @@ export default function App() {
                 posts={POSTS}
                 onSelectPost={openPost}
                 onOpenAbout={() => go('about')}
+                onOpenContact={() => go('contact')}
                 onSelectTag={handleSelectTag}
                 theme={theme}
               />
@@ -451,7 +451,7 @@ export default function App() {
         )}
 
         {/* Policy / About Pages (Rendered within 2-column layout for consistent Tistory look) */}
-        {(tab === 'about' || tab === 'terms' || tab === 'privacy') && (
+        {isStaticTab(tab) && (
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
               <div className="flex-1 min-w-0 w-full">
@@ -463,6 +463,7 @@ export default function App() {
                 posts={POSTS}
                 onSelectPost={openPost}
                 onOpenAbout={() => go('about')}
+                onOpenContact={() => go('contact')}
                 onSelectTag={handleSelectTag}
                 theme={theme}
               />
@@ -484,7 +485,7 @@ export default function App() {
               </h1>
               <p className={`text-xs sm:text-sm mb-6 ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
                 존재하지 않거나 주소가 변경된 페이지입니다.<br />
-                아래 주요 카테고리나 최신 가이드 목록에서 원하는 정보를 확인해 보세요.
+                아래 단계별 목록에서 원하는 글을 찾아보세요.
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-8">
                 <button
@@ -494,24 +495,24 @@ export default function App() {
                   너튜브 홈으로 이동
                 </button>
                 <button
-                  onClick={() => selectCategory('why_youtube')}
+                  onClick={() => selectCategory('start')}
                   className={`px-4 py-2 text-xs font-bold rounded-lg border transition-colors cursor-pointer ${
                     dark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  시작의 이유
+                  1단계 왕초보 첫걸음
                 </button>
                 <button
-                  onClick={() => selectCategory('monetization')}
+                  onClick={() => selectCategory('money')}
                   className={`px-4 py-2 text-xs font-bold rounded-lg border transition-colors cursor-pointer ${
                     dark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
-                  수익화 파이프라인
+                  3단계 수익 내기
                 </button>
               </div>
               <div className="pt-6 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400">
-                문의 사항이 있으시면 <button onClick={() => go('about')} className="text-blue-600 underline cursor-pointer">운영자 소개</button> 또는 <span className="font-mono">minwoo@nutube.kr</span> 로 연락해 주세요.
+                찾으시는 내용이 없으면 <button onClick={() => go('contact')} className="text-blue-600 underline cursor-pointer">문의하기</button>로 알려 주세요.
               </div>
             </div>
           </div>
@@ -528,36 +529,40 @@ export default function App() {
               <button
                 onClick={() => selectCategory(null)}
                 className="block text-left cursor-pointer focus:outline-none mb-1.5"
-                aria-label="NuTube 홈으로 이동"
+                aria-label="너튜브 홈으로 이동"
               >
                 <img
                   src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
-                  alt="NuTube - 너와 나의 1인 미디어 성장 노트"
+                  alt="너튜브 - 50대 박프로의 유튜브 도전기"
                   className="h-8 w-auto object-contain shrink-0"
                   referrerPolicy="no-referrer"
                 />
               </button>
               <p className="text-[11px] text-slate-400">
-                너와 나의 1인 미디어 성장 노트 | 스마트폰 하나로 시작하는 유튜브 &amp; 애드센스 실전 가이드
+                50대 박프로의 유튜브 도전기 · 왕초보부터 수익 창출, 고수의 영역까지
               </p>
             </div>
 
-            <div className="flex items-center gap-4 text-xs font-medium">
-              <button onClick={() => go('about')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
-                블로그 소개
-              </button>
-              <button onClick={() => go('privacy')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
-                개인정보처리방침
-              </button>
-              <button onClick={() => go('terms')} className="hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer">
-                이용약관
-              </button>
-            </div>
+            <nav className="flex flex-wrap items-center justify-center gap-4 text-xs font-medium" aria-label="사이트 안내">
+              {STATIC_KEYS.map((key) => (
+                <a
+                  key={key}
+                  href={STATIC_PAGE_PATHS[key]}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(key);
+                  }}
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+                >
+                  {STATIC_PAGE_LABELS[key]}
+                </a>
+              ))}
+            </nav>
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-            <p>© 2026 너튜브 (NuTube). All rights reserved.</p>
-            <p>너(Nu)와 나를 잇는 1인 미디어 실전 가이드</p>
+            <p>© 2026 너튜브 · 운영 박프로</p>
+            <p>문의 {CONTACT_EMAIL}</p>
           </div>
         </div>
       </footer>
@@ -572,7 +577,7 @@ function InfoPage({ page, theme }: { page: { title: string; intro: string; updat
       dark ? 'border-slate-800 bg-slate-900 text-slate-200' : 'border-slate-200 bg-white text-slate-800 shadow-2xs'
     }`}>
       <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">
-        최종 수정일: {page.updated}
+        최종 수정일 {page.updated}
       </span>
       <h1 className={`mt-2 font-heading text-xl sm:text-2xl font-black ${dark ? 'text-white' : 'text-slate-900'}`}>
         {page.title}

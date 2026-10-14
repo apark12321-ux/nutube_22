@@ -1,3 +1,4 @@
+import { PAGE_CONTENT, STATIC_PAGE_PATHS, StaticPageKey } from '../data/pages';
 import { GuidePost } from '../types';
 import { getPostPath } from '../postSchedule';
 
@@ -155,9 +156,9 @@ export function updateDynamicPostSeoMeta(post: GuidePost) {
 }
 
 /**
- * Updates document metadata for static policy & about pages
+ * Updates document metadata for static pages (about, contact, policy, privacy, terms)
  */
-export function updatePageSeoMeta(tab: 'about' | 'terms' | 'privacy') {
+export function updatePageSeoMeta(tab: StaticPageKey) {
   if (typeof document === 'undefined') return;
 
   const setMetaTag = (attrName: string, attrValue: string, content: string) => {
@@ -170,20 +171,11 @@ export function updatePageSeoMeta(tab: 'about' | 'terms' | 'privacy') {
     element.setAttribute('content', content);
   };
 
-  let title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
-  let description = '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영, 쇼츠 제작, 애드센스 승인과 실전 수익화 가이드입니다.';
-  let pageUrl = `https://nutube.kr/${tab}`;
-
-  if (tab === 'about') {
-    title = '운영자 소개 & 블로그 철학 | 너튜브';
-    description = '1인 미디어와 애드센스 실전 노하우를 기록하는 너튜브(NuTube) 운영자 민우의 소개와 운영 철학 및 3대 원칙(E-E-A-T)입니다.';
-  } else if (tab === 'terms') {
-    title = '이용약관 및 면책조항 | 너튜브';
-    description = '너튜브(NuTube)의 서비스 이용약관, 콘텐츠 저작권 보호 규정, 수익 면책조항 및 제휴 마케팅 투명성 고지입니다.';
-  } else if (tab === 'privacy') {
-    title = '개인정보처리방침 (Privacy Policy) | 너튜브';
-    description = '너튜브(NuTube)의 개인정보처리방침, 구글 애드센스(Google AdSense) 쿠키 및 맞춤형 광고 거부 안내, 개인정보 보호 정책입니다.';
-  }
+  // 사전 렌더링된 HTML(ssrRenderer)과 같은 제목·설명을 쓴다.
+  const page = PAGE_CONTENT[tab];
+  const title = `${page.title} | 너튜브`;
+  const description = page.intro.slice(0, 160);
+  const pageUrl = `https://nutube.kr${STATIC_PAGE_PATHS[tab]}`;
 
   document.title = title;
 
@@ -213,20 +205,20 @@ export function resetDefaultSeoMeta(category?: { key: string; label: string; des
   // (사전 렌더링된 HTML과 같은 값이어야 검색엔진이 혼동하지 않는다).
   if (category) {
     const url = `https://nutube.kr/category/${category.key}`;
-    const title = `${category.label} 카테고리 실전 가이드${typeof category.count === 'number' ? ` (${category.count}편)` : ''} | 너튜브`;
+    const title = `${category.label}${typeof category.count === 'number' ? ` (${category.count}편)` : ''} | 너튜브`;
     document.title = title;
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     if (category.description) {
-      const desc = `${category.description} - 너튜브 민우의 실전 1인 크리에이터 가이드 모음입니다.`;
+      const desc = category.description.slice(0, 160);
       document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
       document.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
     }
     return;
   }
 
-  document.title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
+  document.title = '너튜브 | 50대 박프로의 유튜브 도전기';
 
   let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (canonicalEl) {
@@ -243,11 +235,10 @@ export function resetDefaultSeoMeta(category?: { key: string; label: string; des
     element.setAttribute('content', content);
   };
 
-  setMetaTag('name', 'keywords', '너튜브, NuTube, 너와 나의 유튜브, 유튜브 쇼츠 수익, 애드센스 승인, 구글 검색 노출, 블로그 글쓰기, 1인 크리에이터, 부수입, 전자책 판매');
-  setMetaTag('name', 'description', '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영, 쇼츠 제작, 구글 애드센스 승인과 실전 수익화 노하우를 솔직하게 기록합니다.');
-  setMetaTag('property', 'og:title', '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트');
-  setMetaTag('property', 'og:description', '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영과 실전 수익화 가이드');
+    setMetaTag('name', 'description', '쉰 넘어 유튜브를 시작한 박프로가 왕초보 첫걸음부터 채널 키우기, 수익 창출, 고수의 영역까지 겪은 순서대로 쉬운 말로 정리한 블로그입니다.');
+  setMetaTag('property', 'og:title', '너튜브 | 50대 박프로의 유튜브 도전기');
+  setMetaTag('property', 'og:description', '쉰 넘어 유튜브를 시작한 박프로가 왕초보 첫걸음부터 채널 키우기, 수익 창출, 고수의 영역까지 겪은 순서대로 쉬운 말로 정리한 블로그입니다.');
   setMetaTag('property', 'og:url', 'https://nutube.kr/');
-  setMetaTag('name', 'twitter:title', '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트');
-  setMetaTag('name', 'twitter:description', '너(Nu)와 나의 1인 미디어 성장 노트. 유튜브 쇼츠, 구글 애드센스, 블로그 운영 실전 노하우');
+  setMetaTag('name', 'twitter:title', '너튜브 | 50대 박프로의 유튜브 도전기');
+  setMetaTag('name', 'twitter:description', '쉰 넘어 유튜브를 시작한 박프로가 왕초보 첫걸음부터 채널 키우기, 수익 창출, 고수의 영역까지 겪은 순서대로 쉬운 말로 정리한 블로그입니다.');
 }

@@ -66,12 +66,650 @@
     {
       "source": "/privacy",
       "destination": "/privacy/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/policy",
+      "destination": "/policy/index.html"
     }
   ],
   "redirects": [
     {
       "source": "/guide/:slug",
       "destination": "/post/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/category/why_youtube",
+      "destination": "/category/start",
+      "permanent": true
+    },
+    {
+      "source": "/category/trends",
+      "destination": "/category/grow",
+      "permanent": true
+    },
+    {
+      "source": "/category/ai_creator",
+      "destination": "/category/pro",
+      "permanent": true
+    },
+    {
+      "source": "/category/monetization",
+      "destination": "/category/money",
+      "permanent": true
+    },
+    {
+      "source": "/post/why-start-youtube-now",
+      "destination": "/post/start-youtube-in-my-50s",
+      "permanent": true
+    },
+    {
+      "source": "/post/faceless-youtube-types",
+      "destination": "/post/camera-shyness-tips",
+      "permanent": true
+    },
+    {
+      "source": "/post/start-with-just-smartphone",
+      "destination": "/post/smartphone-first-video",
+      "permanent": true
+    },
+    {
+      "source": "/post/finding-your-channel-topic",
+      "destination": "/post/find-my-first-topic",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-blue-ocean-strategy",
+      "destination": "/post/one-niche-deep",
+      "permanent": true
+    },
+    {
+      "source": "/post/overcoming-camera-shyness",
+      "destination": "/post/camera-shyness-tips",
+      "permanent": true
+    },
+    {
+      "source": "/post/budget-room-studio-setup",
+      "destination": "/post/smartphone-first-video",
+      "permanent": true
+    },
+    {
+      "source": "/post/one-hour-daily-routine",
+      "destination": "/post/upload-schedule-routine",
+      "permanent": true
+    },
+    {
+      "source": "/post/audio-quality-secrets",
+      "destination": "/post/clear-voice-recording",
+      "permanent": true
+    },
+    {
+      "source": "/post/natural-light-filming",
+      "destination": "/post/smartphone-first-video",
+      "permanent": true
+    },
+    {
+      "source": "/post/channel-naming-formula",
+      "destination": "/post/channel-name-profile-intro",
+      "permanent": true
+    },
+    {
+      "source": "/post/canva-channel-art-guide",
+      "destination": "/post/channel-name-profile-intro",
+      "permanent": true
+    },
+    {
+      "source": "/post/teleprompter-app-guide",
+      "destination": "/post/camera-shyness-tips",
+      "permanent": true
+    },
+    {
+      "source": "/post/done-is-better-than-perfect",
+      "destination": "/post/beginner-mistakes-first-month",
+      "permanent": true
+    },
+    {
+      "source": "/post/daily-vlog-idea-capture",
+      "destination": "/post/content-idea-notebook",
+      "permanent": true
+    },
+    {
+      "source": "/post/smartphone-pro-mode-tips",
+      "destination": "/post/smartphone-first-video",
+      "permanent": true
+    },
+    {
+      "source": "/post/top-down-overhead-rig",
+      "destination": "/post/smartphone-first-video",
+      "permanent": true
+    },
+    {
+      "source": "/post/calm-voice-narration-tips",
+      "destination": "/post/clear-voice-recording",
+      "permanent": true
+    },
+    {
+      "source": "/post/secret-channel-setup",
+      "destination": "/post/create-youtube-channel",
+      "permanent": true
+    },
+    {
+      "source": "/post/first-upload-checklist",
+      "destination": "/post/first-upload-settings",
+      "permanent": true
+    },
+    {
+      "source": "/post/video-storage-management",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/solo-interview-setup",
+      "destination": "/post/camera-shyness-tips",
+      "permanent": true
+    },
+    {
+      "source": "/post/worker-evening-routine-weekly-video-pipeline",
+      "destination": "/post/upload-schedule-routine",
+      "permanent": true
+    },
+    {
+      "source": "/post/zero-subscriber-first-10-videos-mindset",
+      "destination": "/post/first-100-subscribers",
+      "permanent": true
+    },
+    {
+      "source": "/post/smartphone-only-sound-lighting-budget",
+      "destination": "/post/clear-voice-recording",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-first-month-routine-survival",
+      "destination": "/post/beginner-mistakes-first-month",
+      "permanent": true
+    },
+    {
+      "source": "/post/faceless-youtube-screen-record-tools",
+      "destination": "/post/camera-shyness-tips",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-niche-subscribers-keyword-research",
+      "destination": "/post/find-my-first-topic",
+      "permanent": true
+    },
+    {
+      "source": "/post/weekend-batch-recording-creator-routine",
+      "destination": "/post/upload-schedule-routine",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-and-longform-synergy",
+      "destination": "/post/shorts-and-long-videos-together",
+      "permanent": true
+    },
+    {
+      "source": "/post/authentic-raw-content-trend",
+      "destination": "/post/evergreen-vs-trend-videos",
+      "permanent": true
+    },
+    {
+      "source": "/post/ten-second-hook-secret",
+      "destination": "/post/first-30-seconds",
+      "permanent": true
+    },
+    {
+      "source": "/post/storytelling-that-keeps-watching",
+      "destination": "/post/storytelling-structure",
+      "permanent": true
+    },
+    {
+      "source": "/post/first-video-zero-views-remedy",
+      "destination": "/post/when-views-stop",
+      "permanent": true
+    },
+    {
+      "source": "/post/related-video-link-hack",
+      "destination": "/post/shorts-and-long-videos-together",
+      "permanent": true
+    },
+    {
+      "source": "/post/high-ctr-thumbnail-formula",
+      "destination": "/post/first-thumbnail-easy",
+      "permanent": true
+    },
+    {
+      "source": "/post/retention-pacing-secrets",
+      "destination": "/post/audience-retention-graph",
+      "permanent": true
+    },
+    {
+      "source": "/post/comment-engagement-secrets",
+      "destination": "/post/replying-to-comments",
+      "permanent": true
+    },
+    {
+      "source": "/post/ideal-shorts-duration",
+      "destination": "/post/shorts-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/post/algorithm-slump-recovery",
+      "destination": "/post/when-views-stop",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-seo-keyword-hacks",
+      "destination": "/post/titles-people-search",
+      "permanent": true
+    },
+    {
+      "source": "/post/bgm-volume-golden-ratio",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/infinite-loop-shorts-trick",
+      "destination": "/post/shorts-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/post/community-poll-growth-hack",
+      "destination": "/post/one-video-many-uses",
+      "permanent": true
+    },
+    {
+      "source": "/post/thumbnail-facial-expression",
+      "destination": "/post/thumbnail-test-compare",
+      "permanent": true
+    },
+    {
+      "source": "/post/video-chapters-seo-guide",
+      "destination": "/post/playlists-and-series",
+      "permanent": true
+    },
+    {
+      "source": "/post/sound-effects-pacing-guide",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/trending-keyword-research-tools",
+      "destination": "/post/evergreen-vs-trend-videos",
+      "permanent": true
+    },
+    {
+      "source": "/post/retention-graph-analysis",
+      "destination": "/post/audience-retention-graph",
+      "permanent": true
+    },
+    {
+      "source": "/post/save-worthy-checklist-format",
+      "destination": "/post/storytelling-structure",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-safe-zone-guide",
+      "destination": "/post/shorts-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/post/high-converting-outro-formula",
+      "destination": "/post/playlists-and-series",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-swipe-rate-retention-loop-strategy",
+      "destination": "/post/first-30-seconds",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-algorithm-first-24hours-signals",
+      "destination": "/post/analytics-two-numbers",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-to-longform-funnel-conversion",
+      "destination": "/post/shorts-and-long-videos-together",
+      "permanent": true
+    },
+    {
+      "source": "/post/community-tab-algorithm-revival-strategy",
+      "destination": "/post/one-video-many-uses",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-search-seo-tag-description-formula",
+      "destination": "/post/titles-people-search",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-thumbnail-color-psychology-ctr",
+      "destination": "/post/first-thumbnail-easy",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-shorts-sound-trending-algorithm",
+      "destination": "/post/shorts-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-shorts-pinned-comment-conversion-formula",
+      "destination": "/post/replying-to-comments",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-algorithm-shares-and-saves-signal",
+      "destination": "/post/analytics-two-numbers",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-first-3-seconds-hook",
+      "destination": "/post/first-30-seconds",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-5-income-streams",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-1m-views-real-revenue",
+      "destination": "/post/shorts-revenue-explained",
+      "permanent": true
+    },
+    {
+      "source": "/post/affiliate-marketing-on-youtube",
+      "destination": "/post/affiliate-shopping-income",
+      "permanent": true
+    },
+    {
+      "source": "/post/digital-products-selling-funnel",
+      "destination": "/post/growing-beyond-solo",
+      "permanent": true
+    },
+    {
+      "source": "/post/membership-and-superchat-guide",
+      "destination": "/post/memberships-super-thanks",
+      "permanent": true
+    },
+    {
+      "source": "/post/high-cpm-keywords-analysis",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-tax-info-setup-guide",
+      "destination": "/post/us-tax-info-w8ben",
+      "permanent": true
+    },
+    {
+      "source": "/post/micro-influencer-brand-pitch",
+      "destination": "/post/sponsorship-paid-promotion",
+      "permanent": true
+    },
+    {
+      "source": "/post/pinned-comment-sales-funnel",
+      "destination": "/post/affiliate-shopping-income",
+      "permanent": true
+    },
+    {
+      "source": "/post/notion-template-selling-guide",
+      "destination": "/post/growing-beyond-solo",
+      "permanent": true
+    },
+    {
+      "source": "/post/creator-tax-reporting-guide",
+      "destination": "/post/korea-tax-youtube-income",
+      "permanent": true
+    },
+    {
+      "source": "/post/clean-content-high-ticket-consulting",
+      "destination": "/post/one-niche-deep",
+      "permanent": true
+    },
+    {
+      "source": "/post/shorts-ad-revenue-sharing-explained",
+      "destination": "/post/shorts-revenue-explained",
+      "permanent": true
+    },
+    {
+      "source": "/post/high-value-niche-views",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/email-newsletter-creator-funnel",
+      "destination": "/post/one-video-many-uses",
+      "permanent": true
+    },
+    {
+      "source": "/post/create-30p-ebook-in-3-days",
+      "destination": "/post/growing-beyond-solo",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-shopping-store-integration",
+      "destination": "/post/affiliate-shopping-income",
+      "permanent": true
+    },
+    {
+      "source": "/post/long-term-brand-sponsorship",
+      "destination": "/post/sponsorship-paid-promotion",
+      "permanent": true
+    },
+    {
+      "source": "/post/reused-content-appeal-guide",
+      "destination": "/post/ypp-rejection-reasons",
+      "permanent": true
+    },
+    {
+      "source": "/post/creator-workshop-and-classes",
+      "destination": "/post/growing-beyond-solo",
+      "permanent": true
+    },
+    {
+      "source": "/post/foreign-currency-account-fee-save",
+      "destination": "/post/first-payment-100-dollars",
+      "permanent": true
+    },
+    {
+      "source": "/post/three-tier-income-safety-net",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/creator-income-portfolio-breakdown",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-first-payout-reinvestment-strategy",
+      "destination": "/post/first-payment-100-dollars",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-low-value-content-rejection-fix-checklist",
+      "destination": "/post/adsense-for-youtube",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-ypp-policy-update-strategy",
+      "destination": "/post/ypp-requirements",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-identity-pin-verification-tips",
+      "destination": "/post/adsense-for-youtube",
+      "permanent": true
+    },
+    {
+      "source": "/post/notion-template-digital-product-pipeline",
+      "destination": "/post/growing-beyond-solo",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-cpm-rpm-optimization-guide",
+      "destination": "/post/how-ad-revenue-works",
+      "permanent": true
+    },
+    {
+      "source": "/post/adsense-invalid-traffic-protection-action-guide",
+      "destination": "/post/channel-security",
+      "permanent": true
+    },
+    {
+      "source": "/post/what-happens-if-you-only-use-ai",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/chatgpt-youtube-script-tips",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/capcut-ai-time-saving-editing",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/natural-ai-voice-audio-tips",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/human-touch-in-ai-era",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/gemini-youtube-ideation-prompts",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-image-b-roll-generation",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/humanizing-ai-scripts",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-thumbnail-canva-workflow",
+      "destination": "/post/first-thumbnail-easy",
+      "permanent": true
+    },
+    {
+      "source": "/post/vrew-text-based-video-editing",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/youtube-ai-labeling-rules",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/chatgpt-viral-title-generator",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-multilingual-subtitles",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-voice-cloning-ethics",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/all-in-one-ai-workflow",
+      "destination": "/post/first-thumbnail-easy",
+      "permanent": true
+    },
+    {
+      "source": "/post/fact-checking-ai-content",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/midjourney-character-branding",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/claude-storytelling-script-guide",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-copyright-commercial-use",
+      "destination": "/post/copyright-and-portrait-rights",
+      "permanent": true
+    },
+    {
+      "source": "/post/capcut-pc-ai-smart-erase",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-music-generation-bgm",
+      "destination": "/post/copyright-and-portrait-rights",
+      "permanent": true
+    },
+    {
+      "source": "/post/top-7-free-ai-tools-for-creators",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/hybrid-creator-production-method",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/ai-voice-tts-hybrid-audio-retention",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/chatgpt-youtube-script-human-rewriting",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/capcut-ai-auto-caption-styling-secret",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/midjourney-flux-youtube-thumbnail-prompt",
+      "destination": "/post/first-thumbnail-easy",
+      "permanent": true
+    },
+    {
+      "source": "/post/clova-note-voice-record-script-workflow",
+      "destination": "/post/ai-tools-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/post/vrew-ai-shorts-subtitles-cut-editing",
+      "destination": "/post/first-edit-capcut",
+      "permanent": true
+    },
+    {
+      "source": "/post/elevenlabs-ai-dubbing-global-channel-experiment",
+      "destination": "/post/ai-tools-carefully",
       "permanent": true
     }
   ]

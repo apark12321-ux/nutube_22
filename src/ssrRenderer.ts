@@ -1,6 +1,6 @@
 import { GuidePost, CategorySpec } from './types';
 import { CATEGORY_SPECS, CATEGORIES_LIST } from './data';
-import { PAGE_CONTENT, StaticPageData } from './data/pages';
+import { PAGE_CONTENT, StaticPageData, StaticPageKey, STATIC_PAGE_PATHS, STATIC_PAGE_LABELS, CONTACT_EMAIL } from './data/pages';
 import { getPostPath, postTitleSegment } from './postSchedule';
 import { formatPostDate } from './utils/dateFormatter';
 
@@ -36,7 +36,10 @@ function formatInlineMarkdown(text: string): string {
   formatted = formatted.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 text-xs font-mono bg-slate-100 text-purple-700 rounded border border-slate-200">$1</code>');
 
   // Links [text](url)
-  formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer">$1</a>');
+  formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, label, href) =>
+    href.startsWith('/')
+      ? `<a href="${href}" class="text-blue-600 underline hover:text-blue-800">${label}</a>`
+      : `<a href="${href}" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer">${label}</a>`);
 
   return formatted;
 }
@@ -130,14 +133,7 @@ function parseMarkdownToHtml(content: string): string {
       const headingText = line.replace('## ', '').trim();
       const id = `sec-${i}`;
       
-      // Check for Special Callout Headings
-      if (headingText.includes('실제 겪어본 솔직 후기') || headingText.includes('실패담')) {
-        htmlParts.push(`<h2 id="${id}" class="mt-8 mb-4 text-lg sm:text-xl font-black text-purple-900 flex items-center gap-2"><span class="px-2 py-0.5 text-xs bg-purple-100 text-purple-800 rounded font-bold">E-E-A-T 실전 경험</span> ${formatInlineMarkdown(headingText)}</h2>`);
-      } else if (headingText.includes('실행 과제') || headingText.includes('작은 액션')) {
-        htmlParts.push(`<h2 id="${id}" class="mt-8 mb-4 text-lg sm:text-xl font-black text-emerald-900 flex items-center gap-2"><span class="px-2 py-0.5 text-xs bg-emerald-100 text-emerald-800 rounded font-bold">Action Item</span> ${formatInlineMarkdown(headingText)}</h2>`);
-      } else {
-        htmlParts.push(`<h2 id="${id}" class="mt-8 mb-4 text-lg sm:text-xl font-black text-slate-900 pb-2 border-b border-slate-100">${formatInlineMarkdown(headingText)}</h2>`);
-      }
+      htmlParts.push(`<h2 id="${id}" class="mt-8 mb-4 text-lg sm:text-xl font-black text-slate-900 pb-2 border-b border-slate-100">${formatInlineMarkdown(headingText)}</h2>`);
       continue;
     }
 
@@ -179,9 +175,7 @@ function parseMarkdownToHtml(content: string): string {
     // Normal Paragraph / Callout Block
     flushList();
 
-    // Check for E-E-A-T Callout Quotes
-    if (line.includes('실제로 적용해 보니 이게 제일 빨랐다') || line.includes('이 부분은 아쉬웠던 점')) {
-      htmlParts.push(`<div class="my-4 p-4 rounded-xl border border-purple-200 bg-purple-50/70 text-xs sm:text-sm leading-relaxed text-purple-950 font-medium">${formatInlineMarkdown(line)}</div>`);
+    if (false) {
     } else if (line.startsWith('&gt;') || line.startsWith('>')) {
       const quoteText = line.replace(/^[&gt;>]+\s*/, '').trim();
       htmlParts.push(`<blockquote class="my-4 pl-4 py-2 border-l-4 border-purple-600 bg-slate-50 italic text-xs sm:text-sm text-slate-700">${formatInlineMarkdown(quoteText)}</blockquote>`);
@@ -198,28 +192,24 @@ function parseMarkdownToHtml(content: string): string {
 
 // Navigation Bar HTML
 function renderHeader(currentTab: string, currentCategory: string | null): string {
+  const navLink = (href: string, label: string, active: boolean) =>
+    `<a href="${href}" class="px-3 py-2 rounded-lg transition-colors ${active ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">${label}</a>`;
   return `
     <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         <a href="/" class="flex items-center gap-2.5 focus:outline-none" aria-label="너튜브 홈으로 이동">
-          <img src="/nutube-brand-light.svg" alt="너튜브 - 너와 나의 1인 미디어 성장 노트" class="h-8 w-auto object-contain" />
+          <img src="/nutube-brand-light.svg" alt="너튜브 - 50대 박프로의 유튜브 도전기" class="h-8 w-auto object-contain" />
         </a>
 
-        <nav class="hidden md:flex items-center gap-1 text-xs sm:text-sm font-semibold">
-          <a href="/" class="px-3 py-2 rounded-lg transition-colors ${!currentCategory && currentTab === 'guides' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">전체 가이드</a>
-          <a href="/category/why_youtube" class="px-3 py-2 rounded-lg transition-colors ${currentCategory === 'why_youtube' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">시작의 이유</a>
-          <a href="/category/trends" class="px-3 py-2 rounded-lg transition-colors ${currentCategory === 'trends' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">최신 트렌드</a>
-          <a href="/category/ai_creator" class="px-3 py-2 rounded-lg transition-colors ${currentCategory === 'ai_creator' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">AI 크리에이터</a>
-          <a href="/category/monetization" class="px-3 py-2 rounded-lg transition-colors ${currentCategory === 'monetization' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">수익화 파이프라인</a>
-          <a href="/about" class="px-3 py-2 rounded-lg transition-colors ${currentTab === 'about' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">블로그 소개</a>
+        <nav class="hidden md:flex items-center gap-1 text-xs sm:text-sm font-semibold" aria-label="주요 메뉴">
+          ${navLink('/', '처음부터 보기', !currentCategory && currentTab === 'guides')}
+          ${CATEGORIES_LIST.map((c) => navLink(`/category/${c.key}`, `${c.stepNumber}단계 ${escapeHtml(c.shortLabel || c.label)}`, currentCategory === c.key)).join('')}
+          ${navLink('/about', '박프로 소개', currentTab === 'about')}
         </nav>
-
-        <div class="flex items-center gap-2">
-          <a href="/about" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
-            운영자 민우 (E-E-A-T)
-          </a>
-        </div>
       </div>
+      <nav class="md:hidden flex gap-1 overflow-x-auto px-4 pb-2 text-xs font-semibold" aria-label="단계 메뉴">
+        ${CATEGORIES_LIST.map((c) => navLink(`/category/${c.key}`, `${c.stepNumber}단계 ${escapeHtml(c.shortLabel || c.label)}`, currentCategory === c.key)).join('')}
+      </nav>
     </header>
   `;
 }
@@ -230,33 +220,30 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
 
   return `
     <aside class="w-full lg:w-80 shrink-0 space-y-6">
-      <!-- 1. Profile Widget (E-E-A-T Creator Authenticity) -->
+      <!-- 1. Profile Widget -->
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-12 h-12 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-lg shadow-sm">
-            민우
+          <div class="w-12 h-12 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-sm shadow-sm">
+            박프로
           </div>
           <div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-sm font-bold text-slate-900">민우</span>
-              <span class="px-1.5 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-700 rounded">5년차 크리에이터</span>
-            </div>
-            <p class="text-xs text-slate-500">1인 미디어 &amp; 수익화 연구원</p>
+            <span class="text-sm font-bold text-slate-900">박프로</span>
+            <p class="text-xs text-slate-500">50대 유튜버 · 너튜브 운영자</p>
           </div>
         </div>
         <p class="text-xs text-slate-600 leading-relaxed">
-          300만 원 장비 실패 후 스마트폰 1대로 0에서 다시 시작해 월 100만 원 복합 파이프라인(유튜브+애드센스+디지털 상품)을 달성한 실전 데이터를 투명하게 기록합니다.
+          쉰을 넘겨 유튜브를 처음 시작했습니다. 왕초보 시절부터 수익 창출까지 제가 겪은 순서대로, 어려운 말 빼고 적고 있습니다.
         </p>
         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-          <a href="/about" class="text-blue-600 font-bold hover:underline">자세한 소개 &amp; 철학 &rarr;</a>
-          <span class="text-slate-400 font-mono text-[11px]">minwoo@nutube.kr</span>
+          <a href="/about" class="text-blue-600 font-bold hover:underline">박프로 소개 &rarr;</a>
+          <a href="/contact" class="text-slate-500 hover:underline">문의하기</a>
         </div>
       </div>
 
       <!-- 2. Categories Widget -->
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs">
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3 pb-2 border-b border-slate-100">
-          실전 카테고리
+          단계별로 읽기
         </h3>
         <ul class="space-y-1 text-xs">
           ${CATEGORIES_LIST.map(cat => {
@@ -277,7 +264,7 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
       <!-- 3. Popular Posts Widget -->
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs">
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3 pb-2 border-b border-slate-100">
-          가장 많이 본 실전 가이드
+          처음이라면 이 순서로
         </h3>
         <div class="space-y-3">
           ${popularPosts.map((post, idx) => `
@@ -290,7 +277,6 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
                   <h4 class="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                     ${escapeHtml(post.title)}
                   </h4>
-                  <span class="text-[10px] text-slate-400 font-mono mt-0.5 block">${formatPostDate(post.publishedAt)}</span>
                 </div>
               </div>
             </a>
@@ -303,32 +289,53 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
 
 // Footer HTML
 function renderFooter(): string {
+  const keys: StaticPageKey[] = ['about', 'contact', 'policy', 'privacy', 'terms'];
   return `
     <footer class="mt-auto border-t border-slate-200 bg-white text-slate-500 py-10 text-xs">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200">
           <div>
-            <a href="/" class="block mb-1.5 focus:outline-none" aria-label="NuTube 홈으로 이동">
-              <img src="/nutube-brand-light.svg" alt="NuTube" class="h-8 w-auto object-contain" />
+            <a href="/" class="block mb-1.5 focus:outline-none" aria-label="너튜브 홈으로 이동">
+              <img src="/nutube-brand-light.svg" alt="너튜브" class="h-8 w-auto object-contain" />
             </a>
-            <p class="text-[11px] text-slate-400">
-              너와 나의 1인 미디어 성장 노트 | 스마트폰 하나로 시작하는 유튜브 &amp; 애드센스 실전 가이드
-            </p>
+            <p class="text-[11px] text-slate-400">50대 박프로의 유튜브 도전기 · 왕초보부터 수익 창출, 고수의 영역까지</p>
           </div>
-
-          <div class="flex items-center gap-4 text-xs font-medium">
-            <a href="/about" class="hover:text-blue-600 transition-colors">블로그 소개</a>
-            <a href="/privacy" class="hover:text-blue-600 transition-colors">개인정보처리방침</a>
-            <a href="/terms" class="hover:text-blue-600 transition-colors">이용약관</a>
-          </div>
+          <nav class="flex flex-wrap items-center justify-center gap-4 text-xs font-medium" aria-label="사이트 안내">
+            ${keys.map((k) => `<a href="${STATIC_PAGE_PATHS[k]}" class="hover:text-blue-600 transition-colors">${STATIC_PAGE_LABELS[k]}</a>`).join('')}
+          </nav>
         </div>
-
         <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
-          <p>© 2026 너튜브 (NuTube). All rights reserved.</p>
-          <p>너(Nu)와 나를 잇는 1인 미디어 실전 가이드 (E-E-A-T 준수)</p>
+          <p>© 2026 너튜브 · 운영 박프로</p>
+          <p>문의 ${CONTACT_EMAIL}</p>
         </div>
       </div>
     </footer>
+  `;
+}
+
+// 글 목록 한 줄
+function renderPostRow(post: GuidePost): string {
+  return `
+    <article class="p-5 hover:bg-slate-50/80 transition-colors">
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 text-xs text-slate-400 mb-1.5">
+            <span class="font-bold text-blue-600">${post.stepNumber}단계 ${escapeHtml(post.categoryLabel)}${post.order ? ` · ${post.order}편` : ''}</span>
+          </div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-2">
+            <a href="${getPostPath(post)}">${escapeHtml(post.title)}</a>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 line-clamp-2 mt-2 leading-relaxed">
+            ${escapeHtml(post.summary || post.subtitle || '')}
+          </p>
+        </div>
+        ${post.thumbnail && post.thumbnail.src ? `
+          <a href="${getPostPath(post)}" class="w-full sm:w-36 h-24 rounded-lg overflow-hidden shrink-0 block bg-slate-100" tabindex="-1" aria-hidden="true">
+            <img src="${post.thumbnail.src}" alt="" class="w-full h-full object-cover" loading="lazy" />
+          </a>
+        ` : ''}
+      </div>
+    </article>
   `;
 }
 
@@ -343,8 +350,9 @@ export function renderSsrPage(
   const cleanPath = reqUrl.split('?')[0].replace(/\/+$/, '') || '/';
 
   // 1. Check for Static Pages (About, Terms, Privacy)
-  if (cleanPath === '/about' || cleanPath === '/terms' || cleanPath === '/privacy') {
-    const tabKey = cleanPath.replace('/', '') as 'about' | 'terms' | 'privacy';
+  const staticKey = (Object.keys(STATIC_PAGE_PATHS) as StaticPageKey[]).find((k) => STATIC_PAGE_PATHS[k] === cleanPath);
+  if (staticKey) {
+    const tabKey = staticKey;
     const pageData = PAGE_CONTENT[tabKey];
     const canonicalUrl = `${baseUrl}${cleanPath}`;
     const title = `${pageData.title} | 너튜브`;
@@ -358,7 +366,7 @@ export function renderSsrPage(
       url: canonicalUrl,
       publisher: {
         '@type': 'Organization',
-        name: '너튜브 (NuTube)',
+        name: '너튜브',
         url: baseUrl
       }
     });
@@ -413,8 +421,8 @@ export function renderSsrPage(
 
     const filteredPosts = allPosts.filter(p => p.category === catKey);
     const canonicalUrl = `${baseUrl}/category/${catKey}`;
-    const title = `${spec.label} 카테고리 실전 가이드 (${filteredPosts.length}편) | 너튜브`;
-    const description = `${spec.description} - 너튜브 민우의 실전 1인 크리에이터 가이드 모음입니다.`;
+    const title = `${spec.label} (${filteredPosts.length}편) | 너튜브`;
+    const description = spec.description.slice(0, 160);
 
     const bodyContent = `
       <div class="min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans">
@@ -425,7 +433,7 @@ export function renderSsrPage(
               <!-- Category Header -->
               <div class="p-6 rounded-xl border border-slate-200 bg-white mb-6 shadow-2xs">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">카테고리</span>
+                  <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">${spec.stepNumber}단계</span>
                   <h1 class="text-xl sm:text-2xl font-black text-slate-900">${escapeHtml(spec.label)}</h1>
                   <span class="text-xs font-mono font-bold text-blue-600">(${filteredPosts.length}편)</span>
                 </div>
@@ -434,35 +442,7 @@ export function renderSsrPage(
 
               <!-- Post List Feed -->
               <div class="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100 shadow-2xs overflow-hidden">
-                ${filteredPosts.map(post => `
-                  <article class="p-5 hover:bg-slate-50/80 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                      <div class="flex-1 min-w-0">
-                        <div class="flex items-center gap-2 text-xs text-slate-400 mb-1.5">
-                          <span class="font-bold text-blue-600">${escapeHtml(post.categoryLabel)}</span>
-                          <span>•</span>
-                          <span class="font-mono">${formatPostDate(post.publishedAt)}</span>
-                        </div>
-                        <h2 class="text-base sm:text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-2">
-                          <a href="${getPostPath(post)}">${escapeHtml(post.title)}</a>
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 line-clamp-2 mt-2 leading-relaxed">
-                          ${escapeHtml(post.summary || post.subtitle || '')}
-                        </p>
-                        ${post.tags && post.tags.length > 0 ? `
-                          <div class="flex flex-wrap gap-1.5 mt-3">
-                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
-                          </div>
-                        ` : ''}
-                      </div>
-                      ${post.thumbnail && post.thumbnail.src ? `
-                        <a href="${getPostPath(post)}" class="w-full sm:w-36 h-24 rounded-lg overflow-hidden shrink-0 block bg-slate-100">
-                          <img src="${post.thumbnail.src}" alt="${escapeHtml(post.thumbnail.alt || post.title)}" class="w-full h-full object-cover" loading="lazy" />
-                        </a>
-                      ` : ''}
-                    </div>
-                  </article>
-                `).join('')}
+                ${filteredPosts.map((post) => renderPostRow(post)).join('')}
               </div>
             </div>
             ${renderSidebar(allPosts, catKey)}
@@ -532,13 +512,12 @@ export function renderSsrPage(
       inLanguage: 'ko-KR',
       author: {
         '@type': 'Person',
-        name: post.author || '민우',
-        url: `${baseUrl}/about`,
-        jobTitle: '5년차 1인 크리에이터'
+        name: '박프로',
+        url: `${baseUrl}/about`
       },
       publisher: {
         '@type': 'Organization',
-        name: '너튜브 (NuTube)',
+        name: '너튜브',
         url: baseUrl,
         logo: {
           '@type': 'ImageObject',
@@ -597,8 +576,11 @@ export function renderSsrPage(
     const parsedContentHtml = parseMarkdownToHtml(post.content);
 
     // Related posts in same category
+    const idx = allPosts.findIndex((p) => p.slug === post.slug);
+    const prevPost = idx > 0 ? allPosts[idx - 1] : null;
+    const nextPost = idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
     const relatedPosts = allPosts
-      .filter(p => p.category === post.category && p.slug !== post.slug)
+      .filter((p) => p.category === post.category && p.slug !== post.slug && p.slug !== prevPost?.slug && p.slug !== nextPost?.slug)
       .slice(0, 3);
 
     const bodyContent = `
@@ -636,22 +618,29 @@ export function renderSsrPage(
                 </p>
               ` : ''}
 
-              <!-- Author & Publish Date Bar (E-E-A-T Trust) -->
+              <!-- Author & Date -->
               <div class="mt-6 pt-4 pb-6 border-y border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">
-                    민우
-                  </div>
+                  <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-[10px]">박프로</div>
                   <div>
-                    <div class="font-bold text-slate-900">${escapeHtml(post.author || '민우')}</div>
-                    <div class="text-[11px] text-slate-400">5년차 1인 크리에이터 및 콘텐츠 엔지니어</div>
+                    <a href="/about" class="font-bold text-slate-900 hover:underline">박프로</a>
+                    <div class="text-[11px] text-slate-400">50대 유튜버 · 너튜브 운영자</div>
                   </div>
                 </div>
                 <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
-                  <span>발행: ${formatPostDate(post.publishedAt)}</span>
-                  ${post.updatedAt ? `<span>(수정: ${formatPostDate(post.updatedAt)})</span>` : ''}
+                  <span>발행 ${formatPostDate(post.publishedAt)}</span>
+                  ${post.updatedAt && post.updatedAt.slice(0, 10) !== post.publishedAt.slice(0, 10) ? `<span>수정 ${formatPostDate(post.updatedAt)}</span>` : ''}
                 </div>
               </div>
+
+              ${post.quickAnswer && post.quickAnswer.summary?.length ? `
+                <section class="mt-6 p-5 rounded-xl border border-amber-200 bg-amber-50/60" aria-label="이 글 요약">
+                  <h2 class="text-sm font-black text-amber-900 mb-2">먼저 이것만 기억하세요</h2>
+                  <ul class="space-y-1.5 text-xs sm:text-sm text-slate-800 pl-4 list-disc">
+                    ${post.quickAnswer.summary.map((line) => `<li>${escapeHtml(line)}</li>`).join('')}
+                  </ul>
+                </section>
+              ` : ''}
 
               <!-- Featured Image -->
               ${post.thumbnail && post.thumbnail.src ? `
@@ -671,7 +660,7 @@ export function renderSsrPage(
                 <section class="mt-10 pt-8 border-t border-slate-200">
                   <h3 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
                     <span class="w-2 h-5 bg-blue-600 rounded-xs"></span>
-                    독자들이 자주 묻는 질문 (FAQ)
+                    자주 묻는 질문
                   </h3>
                   <div class="space-y-4">
                     ${post.faqList.map(faq => `
@@ -689,36 +678,46 @@ export function renderSsrPage(
                 </section>
               ` : ''}
 
-              <!-- Author E-E-A-T Bio Box -->
-              <div class="mt-12 p-6 rounded-xl border border-blue-200 bg-blue-50/50 flex flex-col sm:flex-row items-center gap-4">
-                <div class="w-16 h-16 rounded-full bg-blue-600 text-white font-black flex items-center justify-center text-xl shrink-0 shadow-sm">
-                  민우
-                </div>
+              ${post.authorityUrl ? `
+                <p class="mt-8 text-xs text-slate-500">
+                  참고한 공식 안내: <a href="${escapeHtml(post.authorityUrl)}" class="text-blue-600 underline" target="_blank" rel="noopener noreferrer">${escapeHtml(post.authorityLabel || post.authorityUrl)}</a>
+                  · 규정은 바뀔 수 있으니 최신 내용은 공식 안내에서 확인하세요.
+                </p>
+              ` : ''}
+
+              <!-- Prev / Next in the roadmap -->
+              <nav class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="이전 글, 다음 글">
+                ${prevPost ? `
+                  <a href="${getPostPath(prevPost)}" class="p-4 rounded-lg border border-slate-200 hover:border-blue-400 block">
+                    <span class="text-[11px] text-slate-400">&larr; 이전 글 · ${prevPost.stepNumber}단계</span>
+                    <span class="block text-xs font-bold text-slate-800 mt-1 leading-snug">${escapeHtml(prevPost.title)}</span>
+                  </a>` : '<span></span>'}
+                ${nextPost ? `
+                  <a href="${getPostPath(nextPost)}" class="p-4 rounded-lg border border-slate-200 hover:border-blue-400 block sm:text-right">
+                    <span class="text-[11px] text-slate-400">다음 글 · ${nextPost.stepNumber}단계 &rarr;</span>
+                    <span class="block text-xs font-bold text-slate-800 mt-1 leading-snug">${escapeHtml(nextPost.title)}</span>
+                  </a>` : ''}
+              </nav>
+
+              <!-- Author box -->
+              <div class="mt-10 p-6 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-blue-600 text-white font-black flex items-center justify-center text-xs shrink-0">박프로</div>
                 <div class="flex-1 text-center sm:text-left">
-                  <div class="flex items-center justify-center sm:justify-start gap-2">
-                    <span class="font-black text-slate-900 text-base">글쓴이: 민우</span>
-                    <span class="px-2 py-0.5 text-xs font-bold bg-blue-600 text-white rounded">인증된 작성자</span>
-                  </div>
+                  <span class="font-black text-slate-900 text-sm">글쓴이 박프로</span>
                   <p class="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                    스마트폰 하나로 시작해 5년간 유튜브, 구글 애드센스, 블로그 운영을 직접 연구하고 실행해온 실전 1인 크리에이터입니다. 이론 대신 본인의 실제 정산 금액, 클릭률, 실패담을 바탕으로 독자에게 실질적인 가치를 제공합니다.
+                    쉰을 넘겨 유튜브를 왕초보로 시작해 수익 창출까지 해 본 50대입니다. 제가 겪은 순서대로, 쉬운 말로 적습니다. 틀린 내용이나 궁금한 점은 <a href="/contact" class="text-blue-600 underline">문의하기</a>로 알려 주세요.
                   </p>
-                  <p class="mt-2 text-xs text-slate-400">문의: minwoo@nutube.kr</p>
                 </div>
               </div>
 
-              <!-- Related Posts in Category -->
               ${relatedPosts.length > 0 ? `
-                <div class="mt-12 pt-8 border-t border-slate-200">
-                  <h3 class="text-base font-bold text-slate-900 mb-4">
-                    '${escapeHtml(post.categoryLabel)}' 카테고리의 다른 실전 가이드
-                  </h3>
+                <div class="mt-10 pt-8 border-t border-slate-200">
+                  <h3 class="text-base font-bold text-slate-900 mb-4">${escapeHtml(post.categoryLabel)} 단계의 다른 글</h3>
                   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    ${relatedPosts.map(rel => `
-                      <a href="${getPostPath(rel)}" class="p-4 rounded-lg border border-slate-200 bg-white hover:border-blue-400 hover:shadow-xs transition-all block group">
-                        <span class="text-[11px] font-mono text-slate-400">${formatPostDate(rel.publishedAt)}</span>
-                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 mt-1 leading-snug">
-                          ${escapeHtml(rel.title)}
-                        </h4>
+                    ${relatedPosts.map((rel) => `
+                      <a href="${getPostPath(rel)}" class="p-4 rounded-lg border border-slate-200 bg-white hover:border-blue-400 block group">
+                        <span class="text-[11px] text-slate-400">${rel.stepNumber}단계 · ${rel.order ?? ''}편</span>
+                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 mt-1 leading-snug">${escapeHtml(rel.title)}</h4>
                       </a>
                     `).join('')}
                   </div>
@@ -751,80 +750,56 @@ export function renderSsrPage(
   // 4. Home Page (/)
   if (cleanPath === '/' || cleanPath === '') {
     const canonicalUrl = `${baseUrl}/`;
-    const title = '너튜브 (NuTube) | 너와 나의 1인 미디어 성장 노트';
-    const description = '너(Nu)와 나의 1인 미디어 성장 노트. 스마트폰 한 대로 시작하는 유튜브 채널 운영, 쇼츠 제작, 구글 애드센스 승인과 실전 수익화 노하우를 솔직하게 기록합니다.';
-    const latestPosts = allPosts.slice(0, 10);
+    const title = '너튜브 | 50대 박프로의 유튜브 도전기';
+    const description = '쉰 넘어 유튜브를 시작한 박프로가 왕초보 첫걸음부터 채널 키우기, 수익 창출, 고수의 영역까지 겪은 순서대로 쉬운 말로 정리한 블로그입니다.';
 
     const bodyContent = `
       <div class="min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans">
         ${renderHeader('guides', null)}
         <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full">
           <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            
             <div class="flex-1 min-w-0 w-full">
-              <!-- Hero Banner -->
               <div class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white mb-6 shadow-2xs">
-                <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">100% 실전 경험 기록</span>
-                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2 tracking-tight">
-                  너와 나의 1인 미디어 성장 노트
+                <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">50대 박프로의 유튜브 도전기</span>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mt-3 tracking-tight leading-snug">
+                  쉰 넘어 시작한 유튜브,<br class="hidden sm:block" /> 왕초보부터 수익 창출까지 걸어온 순서
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  스마트폰 하나로 가볍게 시작해 월 100만 원 수익 파이프라인을 구축하는 실전 크리에이터 가이드와 질문 답변입니다.
-                  복사-붙여넣기식 이론을 배제하고, 직접 겪은 실패와 정산 통계를 투명하게 공유합니다.
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                  영상 편집은 해 본 적도 없던 50대가 스마트폰 하나로 유튜브를 시작했습니다. 채널 만들기부터 첫 영상, 구독자 모으기, 수익 창출 신청과 정산, 세금, 그리고 오래 가는 채널 운영까지 제가 겪은 순서대로 쉬운 말로 적었습니다.
+                  처음이시라면 1단계 첫 글부터 차례로 읽어 보세요.
                 </p>
-
-                <!-- Category Quick Links -->
-                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                  ${CATEGORIES_LIST.map(c => `
-                    <a href="/category/${c.key}" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors">
-                      ${escapeHtml(c.label)} (${allPosts.filter(p => p.category === c.key).length})
-                    </a>
-                  `).join('')}
-                </div>
+                ${allPosts[0] ? `<a href="${getPostPath(allPosts[0])}" class="inline-block mt-4 px-4 py-2 text-xs font-bold rounded-lg bg-blue-600 text-white hover:bg-blue-700">1단계 첫 글부터 읽기 &rarr;</a>` : ''}
               </div>
 
-              <!-- Post List Feed -->
-              <div class="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100 shadow-2xs overflow-hidden">
-                ${latestPosts.map(post => `
-                  <article class="p-5 hover:bg-slate-50/80 transition-colors">
-                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                      <div class="flex-1 min-w-0">
-                        <div class="flex items-center gap-2 text-xs text-slate-400 mb-1.5">
-                          <span class="font-bold text-blue-600">${escapeHtml(post.categoryLabel)}</span>
-                          <span>•</span>
-                          <span class="font-mono">${formatPostDate(post.publishedAt)}</span>
-                        </div>
-                        <h2 class="text-base sm:text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-2">
-                          <a href="${getPostPath(post)}">${escapeHtml(post.title)}</a>
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 line-clamp-2 mt-2 leading-relaxed">
-                          ${escapeHtml(post.summary || post.subtitle || '')}
-                        </p>
-                        ${post.tags && post.tags.length > 0 ? `
-                          <div class="flex flex-wrap gap-1.5 mt-3">
-                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
-                          </div>
-                        ` : ''}
+              ${CATEGORIES_LIST.map((c) => {
+                const stagePosts = allPosts.filter((p) => p.category === c.key);
+                return `
+                  <section class="mb-8" aria-labelledby="stage-${c.key}">
+                    <div class="flex items-end justify-between gap-3 mb-3">
+                      <div>
+                        <h2 id="stage-${c.key}" class="text-lg sm:text-xl font-black text-slate-900">${escapeHtml(c.label)}</h2>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">${escapeHtml(c.description)}</p>
                       </div>
-                      ${post.thumbnail && post.thumbnail.src ? `
-                        <a href="${getPostPath(post)}" class="w-full sm:w-36 h-24 rounded-lg overflow-hidden shrink-0 block bg-slate-100">
-                          <img src="${post.thumbnail.src}" alt="${escapeHtml(post.thumbnail.alt || post.title)}" class="w-full h-full object-cover" loading="lazy" />
-                        </a>
-                      ` : ''}
+                      <a href="/category/${c.key}" class="text-xs font-bold text-blue-600 hover:underline shrink-0">${stagePosts.length}편 모두 보기</a>
                     </div>
-                  </article>
-                `).join('')}
-              </div>
-
-              <!-- Total count footer notice -->
-              <div class="text-center py-6 text-xs text-slate-400">
-                총 ${allPosts.length}개의 고품질 실전 가이드가 지속적으로 업데이트되고 있습니다.
-              </div>
+                    <ol class="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100 shadow-2xs overflow-hidden">
+                      ${stagePosts.map((post) => `
+                        <li class="px-5 py-3.5 hover:bg-slate-50/80">
+                          <a href="${getPostPath(post)}" class="flex items-start gap-3 group">
+                            <span class="w-6 h-6 rounded bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white">${post.order ?? ''}</span>
+                            <span class="min-w-0">
+                              <span class="block text-sm font-bold text-slate-900 group-hover:text-blue-600 leading-snug">${escapeHtml(post.title)}</span>
+                              <span class="block text-xs text-slate-500 mt-0.5 line-clamp-1">${escapeHtml(post.subtitle || '')}</span>
+                            </span>
+                          </a>
+                        </li>
+                      `).join('')}
+                    </ol>
+                  </section>
+                `;
+              }).join('')}
             </div>
-
-            <!-- Sidebar -->
             ${renderSidebar(allPosts, null)}
-
           </div>
         </main>
         ${renderFooter()}
@@ -860,23 +835,18 @@ function render404Page(baseUrl: string, cleanPath: string, allPosts: GuidePost[]
           <h1 class="text-2xl font-black text-slate-900 mb-2">요청하신 페이지를 찾을 수 없습니다</h1>
           <p class="text-xs sm:text-sm text-slate-600 mb-6">
             존재하지 않거나 주소가 변경된 페이지입니다.<br/>
-            아래 주요 카테고리나 최신 가이드 목록에서 원하는 정보를 확인해 보세요.
+            아래 단계별 목록에서 원하는 글을 찾아보세요.
           </p>
 
           <div class="flex flex-wrap justify-center gap-3 mb-8">
             <a href="/" class="px-4 py-2 text-xs font-bold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">
               너튜브 홈으로 이동
             </a>
-            <a href="/category/why_youtube" class="px-4 py-2 text-xs font-bold rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
-              시작의 이유
-            </a>
-            <a href="/category/monetization" class="px-4 py-2 text-xs font-bold rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
-              수익화 파이프라인
-            </a>
+            ${CATEGORIES_LIST.map((c) => `<a href="/category/${c.key}" class="px-4 py-2 text-xs font-bold rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">${escapeHtml(c.label)}</a>`).join('')}
           </div>
 
           <div class="pt-6 border-t border-slate-100 text-xs text-slate-400">
-            문의 사항이 있으시면 <a href="/about" class="text-blue-600 underline">운영자 소개</a> 또는 <span class="font-mono">minwoo@nutube.kr</span> 로 연락해 주세요.
+            찾으시는 내용이 없으면 <a href="/contact" class="text-blue-600 underline">문의하기</a>로 알려 주세요.
           </div>
         </div>
       </main>

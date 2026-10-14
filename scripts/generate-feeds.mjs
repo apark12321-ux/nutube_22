@@ -5,40 +5,20 @@ import path from 'path';
 const SITE_URL = 'https://nutube.kr';
 const ROOT = process.cwd();
 
-// Load posts from category files
-const categoriesDir = path.join(ROOT, 'src', 'data', 'categories');
-const categoryFiles = fs.readdirSync(categoriesDir).filter(f => f.endsWith('.ts'));
-
+// 단계별 글 (src/data/stages/*.json) + 자동 발행 글 (src/data/auto/posts.json)
+const STAGES = ['start', 'grow', 'money', 'pro'];
 let allPosts = [];
-
-for (const file of categoryFiles) {
-  const content = fs.readFileSync(path.join(categoriesDir, file), 'utf-8');
-  const equalIdx = content.indexOf('= [');
-  if (equalIdx !== -1) {
-    const jsonStart = equalIdx + 2;
-    const jsonEnd = content.lastIndexOf(']') + 1;
-    try {
-      const posts = JSON.parse(content.substring(jsonStart, jsonEnd));
-      allPosts = allPosts.concat(posts);
-    } catch (e) {
-      console.error(`Error parsing ${file}:`, e);
-    }
-  }
+for (const stage of STAGES) {
+  allPosts = allPosts.concat(JSON.parse(fs.readFileSync(path.join(ROOT, 'src', 'data', 'stages', `${stage}.json`), 'utf-8')));
 }
-
-// 콘텐츠 허브 자동 발행 글
 const autoPostsPath = path.join(ROOT, 'src', 'data', 'auto', 'posts.json');
 if (fs.existsSync(autoPostsPath)) {
-  try {
-    allPosts = allPosts.concat(JSON.parse(fs.readFileSync(autoPostsPath, 'utf-8')));
-  } catch (e) {
-    console.error('Error parsing auto/posts.json:', e);
-  }
+  allPosts = allPosts.concat(JSON.parse(fs.readFileSync(autoPostsPath, 'utf-8')));
 }
 
-// 날짜는 데이터에 적힌 실제 발행일을 그대로 쓴다 (예전의 '오늘 기준으로 밀기'는 제거).
-// Sort posts descending by publishedAt
+// RSS는 최신 글이 위로 오도록 발행일 역순
 allPosts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+const latest = (allPosts[0]?.updatedAt || allPosts[0]?.publishedAt || '2026-10-14').slice(0, 10);
 
 console.log(`Loaded ${allPosts.length} posts for feed generation.`);
 
@@ -57,10 +37,9 @@ function escapeXml(unsafe = '') {
 
 function buildSitemapXml(posts) {
   const staticPages = [
-    { loc: `${SITE_URL}/`, lastmod: '2026-08-31', changefreq: 'daily', priority: '1.0' },
-    { loc: `${SITE_URL}/about`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.6' },
-    { loc: `${SITE_URL}/terms`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' },
-    { loc: `${SITE_URL}/privacy`, lastmod: '2026-08-31', changefreq: 'monthly', priority: '0.3' }
+    { loc: `${SITE_URL}/`, lastmod: latest, changefreq: 'weekly', priority: '1.0' },
+    ...STAGES.map((k) => ({ loc: `${SITE_URL}/category/${k}`, lastmod: latest, changefreq: 'weekly', priority: '0.7' })),
+    ...['about', 'contact', 'policy', 'privacy', 'terms'].map((k) => ({ loc: `${SITE_URL}/${k}`, lastmod: '2026-10-14', changefreq: 'monthly', priority: k === 'about' ? '0.6' : '0.3' }))
   ];
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -91,14 +70,14 @@ function buildSitemapXml(posts) {
 }
 
 function buildRssXml(posts) {
-  const latestDate = posts.length > 0 ? new Date(posts[0].publishedAt).toUTCString() : new Date().toUTCString();
+  const latestDate = posts.length > 0 ? new Date(posts[0].publishedAt).toUTCString() : new Date('2026-10-14').toUTCString();
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">\n';
   xml += '  <channel>\n';
-  xml += '    <title>NuTube - 1인 크리에이터 유튜브 실전 성장 가이드</title>\n';
+  xml += '    <title>너튜브 - 50대 박프로의 유튜브 도전기</title>\n';
   xml += `    <link>${SITE_URL}/</link>\n`;
-  xml += '    <description>유튜브 채널 개설부터 스마트폰 촬영, 캡컷 컷편집, 알고리즘 분석, 월 100만 원 다중 파이프라인 구축까지 1인 크리에이터 실전 가이드</description>\n';
+  xml += '    <description>쉰 넘어 유튜브를 시작한 박프로의 왕초보 첫걸음부터 수익 창출, 고수의 영역까지 경험담</description>\n';
   xml += '    <language>ko-KR</language>\n';
   xml += `    <lastBuildDate>${latestDate}</lastBuildDate>\n`;
   xml += `    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />\n`;
@@ -121,7 +100,7 @@ function buildRssXml(posts) {
     xml += `      <link>${postUrl}</link>\n`;
     xml += `      <guid isPermaLink="true">${postUrl}</guid>\n`;
     xml += `      <pubDate>${pubDate}</pubDate>\n`;
-    xml += `      <author>minwoo@nutube.kr (${escapeXml(post.author || '민우')})</author>\n`;
+    xml += `      <author>apark12321@gmail.com (박프로)</author>\n`;
     xml += `      <category><![CDATA[${post.categoryLabel || post.category || '가이드'}]]></category>\n`;
     xml += `      <description><![CDATA[${summary}]]></description>\n`;
     xml += `      <content:encoded><![CDATA[${contentHtml}]]></content:encoded>\n`;

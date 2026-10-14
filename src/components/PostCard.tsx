@@ -51,7 +51,7 @@ export const PostCard: React.FC<PostCardProps> = ({
               <span className={`font-semibold px-2 py-0.5 rounded text-[11px] ${
                 dark ? 'bg-slate-800 text-blue-300' : 'bg-slate-100 text-slate-700'
               }`}>
-                {post.categoryLabel}
+                {post.stepNumber}단계 {post.categoryLabel}{post.order ? ` · ${post.order}편` : ''}
               </span>
             </div>
 
@@ -76,7 +76,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           }`}>
             <span className="flex items-center gap-1">
               <User className="w-3.5 h-3.5" />
-              <span>민우 (운영자)</span>
+              <span>박프로</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 font-mono">

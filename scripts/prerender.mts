@@ -7,6 +7,7 @@ import path from 'path';
 import { ALL_POSTS, CATEGORIES_LIST } from '../src/data';
 import { applyPostDateSchedule, getPostPath, getLegacyPostPath } from '../src/postSchedule';
 import { injectSsrAndSeoMetadata } from '../src/seoInject';
+import { STATIC_PAGE_PATHS } from '../src/data/pages';
 
 const HOST = 'nutube.kr';
 const PROTOCOL = 'https';
@@ -28,9 +29,7 @@ const writeRoute = (route: string, html: string) => {
 
 let written = 0;
 const routes = [
-  '/about',
-  '/terms',
-  '/privacy',
+  ...Object.values(STATIC_PAGE_PATHS),
   ...CATEGORIES_LIST.map((c) => `/category/${c.key}`),
   ...posts.map((p) => getPostPath(p)),
 ];
