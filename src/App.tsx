@@ -30,13 +30,21 @@ const isKnownCategory = (value: string | null) => {
   return CATEGORIES_LIST.some((item) => item.key === value);
 };
 
+const safeDecode = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
 const findPostBySlug = (slug: string) => {
-  const decodedSlug = decodeURIComponent(slug);
+  const decodedSlug = safeDecode(slug);
   return POSTS.find((item) => item.slug === decodedSlug) || null;
 };
 
 const findPostByTitle = (titleSegment: string) => {
-  const decodedSegment = decodeURIComponent(titleSegment);
+  const decodedSegment = safeDecode(titleSegment);
   const titleFromLegacySpaceUrl = decodedSegment.replace(/-/g, ' ');
 
   return (
@@ -56,7 +64,7 @@ const resolveRoute = (pathname: string): RouteState => {
 
   if (path.startsWith('/post/')) {
     const titleSegment = path.replace('/post/', '');
-    const matchedPost = findPostByTitle(titleSegment);
+    const matchedPost = findPostBySlug(titleSegment) || findPostByTitle(titleSegment);
     return matchedPost ? { tab: 'guide-detail', post: matchedPost, category: null } : { tab: 'not-found', post: null, category: null };
   }
 
@@ -92,7 +100,15 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
 
 const initialRoute = (): RouteState => {
   if (typeof window === 'undefined') return { tab: 'guides', post: null, category: null };
-  return resolveRoute(window.location.pathname);
+  const route = resolveRoute(window.location.pathname);
+  // 예전 제목 기반 주소로 들어오면 주소창을 대표 주소(slug)로 바꿔 준다.
+  if (route.tab === 'guide-detail' && route.post) {
+    const canonicalPath = getPostPath(route.post);
+    if (normalizePath(window.location.pathname) !== canonicalPath) {
+      window.history.replaceState(window.history.state, '', canonicalPath);
+    }
+  }
+  return route;
 };
 
 const getPageNumbers = (current: number, total: number): (number | string)[] => {
@@ -143,9 +159,14 @@ export default function App() {
         document.title = '페이지를 찾을 수 없습니다 (404) | 너튜브';
       }
     } else if (tab === 'guides' && !post) {
-      resetDefaultSeoMeta();
+      const spec = category ? CATEGORY_SPECS[category] : null;
+      resetDefaultSeoMeta(
+        spec && category
+          ? { key: category, label: spec.label, description: spec.description, count: POSTS.filter((item) => item.category === category).length }
+          : null
+      );
     }
-  }, [tab, post]);
+  }, [tab, post, category]);
 
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();
