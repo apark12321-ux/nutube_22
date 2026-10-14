@@ -27,10 +27,9 @@ export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
   return posts
     .map((post) => addPostImages(post))
     .sort((a, b) => {
-      // Step number first, then publication date
-      if (a.stepNumber && b.stepNumber && a.stepNumber !== b.stepNumber) {
-        return a.stepNumber - b.stepNumber;
-      }
+      // 단계(stepNumber) → 단계 안 순서(order) → 발행일 순
+      if ((a.stepNumber ?? 99) !== (b.stepNumber ?? 99)) return (a.stepNumber ?? 99) - (b.stepNumber ?? 99);
+      if ((a.order ?? 999) !== (b.order ?? 999)) return (a.order ?? 999) - (b.order ?? 999);
       return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
     });
 };

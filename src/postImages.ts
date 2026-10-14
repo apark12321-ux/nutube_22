@@ -2,28 +2,28 @@ import { GuidePost, PostImage } from './types';
 
 // Robust, high-speed creator-themed curated photos from Unsplash CDN
 const CATEGORY_IMAGE_POOLS: Record<string, string[]> = {
-  why_youtube: [
+  start: [
     'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=1200&q=80', // Smartphone recording & light
     'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80', // Microphone & audio
     'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80', // Camera gear
     'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=80', // Creator workspace
     'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?auto=format&fit=crop&w=1200&q=80', // Studio setup
   ],
-  trends: [
+  grow: [
     'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80', // Video editing timeline
     'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200&q=80', // Video production monitor
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', // Creative editing setup
     'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80', // Production workflow
     'https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=1200&q=80', // Editing workstation
   ],
-  ai_creator: [
+  pro: [
     'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80', // AI tech & neural compute
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', // Digital creative workflow
     'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80', // Computer and tools
     'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80', // High tech cyber visual
     'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80', // Code matrix screen
   ],
-  monetization: [
+  money: [
     'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80', // Revenue & pipeline finance
     'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80', // Business laptop & coffee
     'https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=1200&q=80', // Monetization dashboard
@@ -59,7 +59,7 @@ export const FALLBACK_IMAGE_DATA_URI = `data:image/svg+xml;charset=utf-8,${encod
   <rect x="520" y="220" width="160" height="110" rx="24" fill="url(#accent)"/>
   <polygon points="585,255 625,275 585,295" fill="#ffffff"/>
   <text x="600" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="28" font-weight="bold" fill="#f8fafc" text-anchor="middle">너튜브 (NuTube)</text>
-  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">너와 나의 1인 미디어 성장 노트 | 실전 가이드</text>
+  <text x="600" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">50대 박프로의 유튜브 도전기</text>
 </svg>
 `)}`;
 
@@ -87,7 +87,7 @@ const makeThumbnail = (post: GuidePost): PostImage => {
   }
   return {
     src: getCuratedImageUrl(post, 0),
-    alt: `${categoryLabel(post)} 주제의 영상 채널 운영 가이드 썸네일 이미지`,
+    alt: `${post.title} 대표 이미지`,
     caption: post.title,
   };
 };
