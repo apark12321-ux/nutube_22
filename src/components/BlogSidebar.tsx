@@ -1,8 +1,20 @@
-import React, { useMemo } from 'react';
-import { Folder, BookOpen, Tag as TagIcon, Info, Mail } from 'lucide-react';
-import { GuidePost } from '../types';
+import React from 'react';
+import { 
+  User, 
+  Folder, 
+  Clock, 
+  Trophy, 
+  Tag as TagIcon, 
+  ChevronRight, 
+  ExternalLink,
+  BookOpen,
+  Info
+} from 'lucide-react';
+import { GuidePost, CategorySpec } from '../types';
 import { CATEGORIES_LIST } from '../data';
+import { formatPostDate } from '../utils/dateFormatter';
 import { getPostPath } from '../postSchedule';
+import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
 
 interface BlogSidebarProps {
   currentCategory: string | null;
@@ -10,7 +22,6 @@ interface BlogSidebarProps {
   posts: GuidePost[];
   onSelectPost: (post: GuidePost) => void;
   onOpenAbout: () => void;
-  onOpenContact?: () => void;
   onSelectTag?: (tag: string) => void;
   theme?: 'light' | 'dark';
 }
@@ -21,98 +32,114 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
   posts,
   onSelectPost,
   onOpenAbout,
-  onOpenContact,
   onSelectTag,
   theme = 'light'
 }) => {
   const dark = theme === 'dark';
-  const box = `p-5 rounded-xl border transition-colors ${
-    dark ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-slate-200/90 text-slate-800 shadow-2xs'
-  }`;
-  const heading = `text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`;
 
-  // 처음 온 분께 권하는 순서: 1단계 앞부분 다섯 편
-  const startHere = posts.slice(0, 5);
+  // Recent 5 posts
+  const recentPosts = posts.slice(0, 5);
 
-  // 실제 글에 붙은 태그 중 많이 쓰인 것
-  const popularTags = useMemo(() => {
-    const counts = new Map<string, number>();
-    posts.forEach((p) => (p.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
-    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([t]) => t);
-  }, [posts]);
+  // Popular posts (simulated by selecting balanced high-value topics from each category)
+  const popularPosts = [
+    posts.find(p => p.slug === 'monetization-first-dollar') || posts[0],
+    posts.find(p => p.slug === 'shorts-100k-views-revenue') || posts[1],
+    posts.find(p => p.slug === 'zero-cost-smartphone-setup') || posts[2],
+    posts.find(p => p.slug === 'capcut-editing-hacks') || posts[3],
+    posts.find(p => p.slug === 'youtube-algorithm-first-10-seconds') || posts[4],
+  ].filter(Boolean) as GuidePost[];
+
+  // Popular Tags
+  const popularTags = [
+    '스마트폰촬영', '유튜브쇼츠', '애드센스승인', '캡컷편집', 
+    '조회수급상승', '마이크추천', '전자책수익', '알고리즘', '초보크리에이터'
+  ];
 
   return (
     <aside className="w-full lg:w-72 xl:w-80 shrink-0 space-y-6">
-      {/* 1. 글쓴이 */}
-      <div className={box}>
-        <div className="flex items-center gap-3">
-          <div className="w-14 h-14 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-sm shrink-0">
-            박프로
+      {/* 1. Profile Widget (Tistory/Naver Blog Style) */}
+      <div className={`p-5 rounded-xl border transition-colors ${
+        dark ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-slate-200/90 text-slate-800 shadow-2xs'
+      }`}>
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 rounded-full border-2 border-blue-500 bg-linear-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-xl shadow-xs mb-3 select-none">
+            민우
           </div>
-          <div>
-            <h3 className={`font-bold text-base tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>박프로</h3>
-            <p className="text-xs text-slate-500">50대 유튜버 · 너튜브 운영자</p>
+          <h3 className={`font-bold text-base tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>
+            민우 <span className="text-xs font-normal text-slate-400">(@minwoo)</span>
+          </h3>
+          <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+            50대 초반 · 5년 차 1인 크리에이터
+          </p>
+          <p className={`text-xs mt-2.5 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
+            50대 초반 인생 2막 도전! 300만 원 장비병 실패 후 스마트폰 한 대로 0에서 다시 시작해 월 100만 원 복합 파이프라인을 구축했습니다. 50대도 해내는 정직한 실전 데이터를 기록합니다.
+          </p>
+          
+          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 w-full flex items-center justify-center">
+            <button
+              onClick={onOpenAbout}
+              className={`w-full text-xs font-semibold py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
+                dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200' : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+              }`}
+            >
+              <Info className="w-3.5 h-3.5 text-slate-500" />
+              <span>블로그 소개 보기</span>
+            </button>
           </div>
-        </div>
-        <p className={`text-xs mt-3 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
-          쉰을 넘겨 유튜브를 처음 시작했습니다. 왕초보 시절부터 수익 창출까지 제가 겪은 순서대로, 어려운 말 빼고 적고 있습니다.
-        </p>
-        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2">
-          <button
-            onClick={onOpenAbout}
-            className={`text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer ${
-              dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200' : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
-            }`}
-          >
-            <Info className="w-3.5 h-3.5 text-slate-500" />
-            <span>박프로 소개</span>
-          </button>
-          <button
-            onClick={onOpenContact}
-            className={`text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer ${
-              dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200' : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
-            }`}
-          >
-            <Mail className="w-3.5 h-3.5 text-slate-500" />
-            <span>문의하기</span>
-          </button>
         </div>
       </div>
 
-      {/* 2. 단계별로 읽기 */}
-      <div className={box}>
+      {/* 2. Category Tree Widget (Tistory Signature) */}
+      <div className={`p-5 rounded-xl border transition-colors ${
+        dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
+      }`}>
         <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
-          <Folder className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-          <h4 className={heading}>단계별로 읽기</h4>
+          <Folder className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+            카테고리 분류
+          </h4>
         </div>
         <ul className="space-y-1.5 text-xs">
           <li>
             <button
               onClick={() => onSelectCategory(null)}
-              className={`w-full text-left py-1.5 px-2 rounded-md flex items-center justify-between cursor-pointer ${
+              className={`w-full text-left py-1.5 px-2 rounded-md transition-colors flex items-center justify-between cursor-pointer ${
                 currentCategory === null
-                  ? dark ? 'bg-slate-800 text-blue-300 font-bold' : 'bg-slate-100 text-slate-900 font-bold'
-                  : dark ? 'text-slate-300 hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-50'
+                  ? dark
+                    ? 'bg-slate-800 text-purple-300 font-bold'
+                    : 'bg-slate-100 text-slate-900 font-bold'
+                  : dark
+                    ? 'text-slate-300 hover:bg-slate-800/60'
+                    : 'text-slate-600 hover:bg-slate-50'
               }`}
             >
-              <span>처음부터 전체 보기</span>
+              <span className="flex items-center gap-1.5">
+                <span>전체 분류 보기</span>
+              </span>
               <span className="text-slate-400 font-mono text-[11px]">({posts.length})</span>
             </button>
           </li>
           {CATEGORIES_LIST.map((cat) => {
-            const count = posts.filter((p) => p.category === cat.key).length;
+            const count = posts.filter(p => p.category === cat.key).length;
             const isSelected = currentCategory === cat.key;
             return (
-              <li key={cat.key}>
+              <li key={cat.key} className="pl-2">
                 <button
                   onClick={() => onSelectCategory(cat.key)}
-                  className={`w-full text-left py-1.5 px-2 rounded-md flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left py-1.5 px-2 rounded-md transition-colors flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? dark ? 'bg-slate-800 text-blue-300 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
-                      : dark ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? dark
+                        ? 'bg-slate-800 text-purple-300 font-bold'
+                        : 'bg-purple-50 text-purple-700 font-bold'
+                      : dark
+                        ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <span className="truncate">{cat.label}</span>
+                  <span className="flex items-center gap-1 truncate">
+                    <span className="text-slate-300 dark:text-slate-600">└</span>
+                    <span className="truncate">{cat.shortLabel || cat.label}</span>
+                  </span>
                   <span className="text-slate-400 font-mono text-[11px] shrink-0">({count})</span>
                 </button>
               </li>
@@ -121,14 +148,57 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
         </ul>
       </div>
 
-      {/* 3. 처음이라면 이 순서로 */}
-      <div className={box}>
+      {/* 4. Recent Posts Widget */}
+      <div className={`p-5 rounded-xl border transition-colors ${
+        dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
+      }`}>
         <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
-          <BookOpen className="w-4 h-4 text-amber-500" />
-          <h4 className={heading}>처음이라면 이 순서로</h4>
+          <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+            최근에 올라온 글
+          </h4>
+        </div>
+        <div className="space-y-3">
+          {recentPosts.map((post) => (
+            <a
+              key={post.slug}
+              href={getPostPath(post)}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectPost(post);
+              }}
+              className="group flex items-start gap-3 cursor-pointer"
+            >
+              <div className="w-8 h-8 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 font-mono text-xs font-bold flex items-center justify-center shrink-0 border border-blue-200/60 dark:border-blue-900/50">
+                #
+              </div>
+              <div className="flex-1 min-w-0">
+                <h5 className={`text-xs font-semibold leading-snug line-clamp-2 transition-colors ${
+                  dark ? 'text-slate-200 group-hover:text-purple-300' : 'text-slate-800 group-hover:text-purple-600'
+                }`}>
+                  {post.title}
+                </h5>
+                <span className="text-[10px] text-slate-400 font-mono mt-1 block">
+                  {formatPostDate(post.publishedAt)}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* 5. Popular Posts Widget (phongnhaexplorer '가장 많이 본' style) */}
+      <div className={`p-5 rounded-xl border transition-colors ${
+        dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
+      }`}>
+        <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+          <Trophy className="w-4 h-4 text-amber-500" />
+          <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+            가장 많이 본 글
+          </h4>
         </div>
         <ol className="space-y-2.5">
-          {startHere.map((post, idx) => (
+          {popularPosts.map((post, idx) => (
             <li key={post.slug}>
               <a
                 href={getPostPath(post)}
@@ -138,10 +208,16 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
                 }}
                 className="group flex items-start gap-2.5 cursor-pointer text-xs"
               >
-                <span className="w-5 h-5 rounded flex items-center justify-center font-bold text-[11px] shrink-0 bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                <span className={`w-5 h-5 rounded flex items-center justify-center font-bold text-[11px] shrink-0 ${
+                  idx < 3 
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'
+                    : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                }`}>
                   {idx + 1}
                 </span>
-                <span className={`line-clamp-2 leading-snug ${dark ? 'text-slate-300 group-hover:text-blue-400' : 'text-slate-700 group-hover:text-blue-600'}`}>
+                <span className={`line-clamp-2 leading-snug transition-colors ${
+                  dark ? 'text-slate-300 group-hover:text-blue-400' : 'text-slate-700 group-hover:text-blue-600'
+                }`}>
                   {post.title}
                 </span>
               </a>
@@ -150,28 +226,32 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
         </ol>
       </div>
 
-      {/* 4. 태그 */}
-      {popularTags.length > 0 && (
-        <div className={box}>
-          <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
-            <TagIcon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <h4 className={heading}>자주 나오는 주제</h4>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {popularTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => onSelectTag?.(tag)}
-                className={`text-xs px-2.5 py-1 rounded-md cursor-pointer ${
-                  dark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                }`}
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
+      {/* 6. Tag Cloud Widget */}
+      <div className={`p-5 rounded-xl border transition-colors ${
+        dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
+      }`}>
+        <div className="flex items-center gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+          <TagIcon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <h4 className={`text-sm font-bold ${dark ? 'text-white' : 'text-slate-900'}`}>
+            태그 (Tags)
+          </h4>
         </div>
-      )}
+        <div className="flex flex-wrap gap-1.5">
+          {popularTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => onSelectTag?.(tag)}
+              className={`text-xs px-2.5 py-1 rounded-md transition-colors cursor-pointer text-left ${
+                dark 
+                  ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' 
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+              }`}
+            >
+              #{tag}
+            </button>
+          ))}
+        </div>
+      </div>
     </aside>
   );
 };

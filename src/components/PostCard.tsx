@@ -1,7 +1,8 @@
 import React from 'react';
 import { GuidePost } from '../types';
-import { Clock, User, Tag } from 'lucide-react';
+import { Calendar, User, Tag } from 'lucide-react';
 import { DEFAULT_REMOTE_IMAGE, FALLBACK_IMAGE_DATA_URI } from '../postImages';
+import { formatPostDate } from '../utils/dateFormatter';
 
 interface PostCardProps {
   post: GuidePost;
@@ -18,8 +19,7 @@ export const PostCard: React.FC<PostCardProps> = ({
   href, 
   theme = 'light' 
 }) => {
-  // 목록에는 날짜 대신 읽는 시간(한국어 약 500자/분)을 보여 준다. 발행일은 글 화면에 표시한다.
-  const readMinutes = Math.max(1, Math.round((post.content || '').length / 500));
+  const formattedDate = formatPostDate(post.publishedAt);
   const dark = theme === 'dark';
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -51,7 +51,7 @@ export const PostCard: React.FC<PostCardProps> = ({
               <span className={`font-semibold px-2 py-0.5 rounded text-[11px] ${
                 dark ? 'bg-slate-800 text-blue-300' : 'bg-slate-100 text-slate-700'
               }`}>
-                {post.stepNumber}단계 {post.categoryLabel}{post.order ? ` · ${post.order}편` : ''}
+                {post.categoryLabel}
               </span>
             </div>
 
@@ -76,29 +76,21 @@ export const PostCard: React.FC<PostCardProps> = ({
           }`}>
             <span className="flex items-center gap-1">
               <User className="w-3.5 h-3.5" />
-              <span>박프로</span>
+              <span>민우 (50대 크리에이터)</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 font-mono">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{readMinutes}분 읽기</span>
+              <Calendar className="w-3.5 h-3.5" />
+              <time>{formattedDate}</time>
             </span>
           </div>
         </div>
 
-        {/* Right: Thumbnail Image */}
-        <div className="w-full sm:w-40 md:w-44 aspect-[16/10] sm:aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-200/70 dark:border-slate-800">
-          <img
-            src={post.thumbnail?.src || DEFAULT_REMOTE_IMAGE}
-            alt={post.thumbnail?.alt || post.title}
-            loading="lazy"
-            referrerPolicy="no-referrer"
-            onError={(event) => {
-              event.currentTarget.onerror = null;
-              event.currentTarget.src = FALLBACK_IMAGE_DATA_URI;
-            }}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+        {/* Right: Technical Document Badge (Ultra-light Text Layout without <img>) */}
+        <div className="hidden sm:flex flex-col items-center justify-center w-28 h-20 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-2 shrink-0 text-center group-hover:border-blue-300 dark:group-hover:border-blue-700 transition-colors">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">GUIDE</span>
+          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 font-mono mt-0.5">MANUAL</span>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">전문 읽기 &rarr;</span>
         </div>
       </a>
     </article>

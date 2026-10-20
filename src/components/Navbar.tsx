@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Search, Menu, X, Sun, Moon, BookOpen, User, Shield, HelpCircle, FileText } from 'lucide-react';
 import { GuidePost } from '../types';
 import { CATEGORIES_LIST } from '../data';
-import { STATIC_PAGE_LABELS, StaticPageKey } from '../data/pages';
 
-type Tab = 'guides' | 'guide-detail' | 'not-found' | StaticPageKey;
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail';
 
 interface NavbarProps {
   currentTab: Tab;
@@ -58,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className={`border-b sticky top-0 z-40 transition-colors ${
       dark ? 'bg-slate-900/98 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900 shadow-xs'
     }`}>
-      {/* 1. Main Navigation Bar (phongnhaexplorer clean style) */}
+      {/* 1. Main Navigation Bar */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Site Title */}
@@ -66,19 +65,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => handleNavCategory(null)}
               className="flex items-center text-left group cursor-pointer focus:outline-none"
-              aria-label="너튜브 홈으로 이동"
+              aria-label="NuTube 홈으로 이동"
             >
               <img
                 src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
-                alt="너튜브 - 50대 박프로의 유튜브 도전기"
+                alt="NuTube - 너와 나의 1인 미디어 성장 노트"
                 className="h-9 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-[1.02] transition-transform"
                 referrerPolicy="no-referrer"
               />
             </button>
           </div>
 
-          {/* Center/Right: Category Links (Desktop) */}
-          <nav className="hidden lg:flex items-center gap-1 text-sm font-semibold">
+          {/* Center/Right: Only 'Home' and 1 'Single Core Category' (Rule 2) */}
+          <nav className="hidden lg:flex items-center gap-2 text-sm font-semibold">
             <button
               onClick={() => handleNavCategory(null)}
               className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
@@ -87,35 +86,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
               }`}
             >
-              처음부터
+              홈 (Home)
             </button>
 
-            {CATEGORIES_LIST.map((cat) => {
-              const isSelected = currentTab === 'guides' && category === cat.key;
-              return (
-                <button
-                  key={cat.key}
-                  onClick={() => handleNavCategory(cat.key)}
-                  className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-                    isSelected
-                      ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
-                      : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
-                  }`}
-                >
-                  {cat.stepNumber}단계 {cat.shortLabel || cat.label}
-                </button>
-              );
-            })}
-
             <button
-              onClick={() => handleNavTab('about')}
+              onClick={() => handleNavCategory('creator-guide')}
               className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
-                currentTab === 'about'
+                currentTab === 'guides' && (category === 'creator-guide' || category !== null)
                   ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
                   : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
               }`}
             >
-              박프로 소개
+              스마트폰 1인 크리에이터
             </button>
           </nav>
 
@@ -125,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <form onSubmit={handleSearchSubmit} className="hidden sm:flex items-center relative">
               <input
                 type="text"
-                placeholder="글 검색"
+                placeholder="가이드 & 질문 검색..."
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}
                 className={`w-40 md:w-52 text-xs pl-8 pr-3 py-1.5 rounded-lg border transition-colors outline-none focus:ring-1 focus:ring-blue-500 ${
@@ -186,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : dark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'
                 }`}
               >
-                {cat.stepNumber}단계 {cat.shortLabel || cat.label}
+                {cat.shortLabel || cat.label}
               </button>
             );
           })}
@@ -202,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <form onSubmit={handleSearchSubmit} className="flex items-center relative">
             <input
               type="text"
-              placeholder="글 검색"
+              placeholder="블로그 내 검색..."
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
               className={`w-full text-xs pl-8 pr-3 py-2 rounded-lg border outline-none ${
@@ -215,13 +197,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Categories */}
           <div className="space-y-1">
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-              단계별로 읽기
+              카테고리
             </p>
             <button
               onClick={() => handleNavCategory(null)}
               className="w-full text-left py-2 px-2 text-xs font-semibold rounded hover:bg-slate-100 dark:hover:bg-slate-800"
             >
-              처음부터 보기
+              전체 글 보기
             </button>
             {CATEGORIES_LIST.map((cat) => (
               <button
@@ -239,15 +221,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
               블로그 정보
             </p>
-            {(['about', 'contact', 'policy', 'privacy', 'terms'] as StaticPageKey[]).map((key) => (
-              <button
-                key={key}
-                onClick={() => handleNavTab(key)}
-                className="w-full text-left py-1.5 px-2 text-xs rounded hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                {STATIC_PAGE_LABELS[key]}
-              </button>
-            ))}
+            <button
+              onClick={() => handleNavTab('about')}
+              className="w-full text-left py-1.5 px-2 text-xs rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              사이트 소개 (About Us)
+            </button>
+            <button
+              onClick={() => handleNavTab('contact')}
+              className="w-full text-left py-1.5 px-2 text-xs rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              문의하기 (Contact Us)
+            </button>
+            <button
+              onClick={() => handleNavTab('privacy')}
+              className="w-full text-left py-1.5 px-2 text-xs rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              개인정보처리방침 (Privacy Policy)
+            </button>
           </div>
         </div>
       )}

@@ -268,22 +268,14 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
 
-  // Static site paths
+  // Static site paths (Rule 4: about, contact, privacy)
   const staticPages = [
     { path: '', priority: '1.0', changefreq: 'daily' },
+    { path: '/category/creator-guide', priority: '0.9', changefreq: 'daily' },
     { path: '/about', priority: '0.8', changefreq: 'weekly' },
-    { path: '/contact', priority: '0.4', changefreq: 'monthly' },
-    { path: '/policy', priority: '0.4', changefreq: 'monthly' },
+    { path: '/contact', priority: '0.8', changefreq: 'weekly' },
+    { path: '/privacy', priority: '0.5', changefreq: 'monthly' },
     { path: '/terms', priority: '0.4', changefreq: 'monthly' },
-    { path: '/privacy', priority: '0.4', changefreq: 'monthly' },
-  ];
-
-  // Category paths for hierarchical Google Search indexing
-  const categoryPaths = [
-    '/category/start',
-    '/category/grow',
-    '/category/money',
-    '/category/pro'
   ];
 
   const currentISO = new Date().toISOString().substring(0, 10);
@@ -298,21 +290,16 @@ app.get(['/sitemap.xml', '/api/sitemap.xml'], (req, res) => {
     xml += `  </url>\n`;
   });
 
-  categoryPaths.forEach(catPath => {
-    xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}${catPath}</loc>\n`;
-    xml += `    <lastmod>${staticLastmod}</lastmod>\n`;
-    xml += `    <changefreq>daily</changefreq>\n`;
-    xml += `    <priority>0.8</priority>\n`;
-    xml += `  </url>\n`;
-  });
-
-  // Dynamic Blog Post paths
+  // Dynamic Blog Post paths (Rule 3: Scheduled Publishing strict filter)
   const dynamicPosts = readDynamicPosts();
   const combined = [...dynamicPosts, ...getScheduledAllPosts()];
+  const nowTime = new Date().getTime();
   const seenSlugs = new Set<string>();
   const uniquePosts = combined.filter(post => {
     if (!post || !post.slug) return false;
+    if (post.publishedAt && new Date(post.publishedAt).getTime() > nowTime) {
+      return false;
+    }
     if (seenSlugs.has(post.slug)) return false;
     seenSlugs.add(post.slug);
     return true;
@@ -407,7 +394,7 @@ app.get(['/rss.xml', '/api/rss.xml'], (req, res) => {
     xml += `    <link>${guidUrl}</link>\n`;
     xml += `    <guid isPermaLink="true">${guidUrl}</guid>\n`;
     xml += `    <pubDate>${pubDate}</pubDate>\n`;
-    xml += `    <author>apark12321@gmail.com (박프로)</author>\n`;
+    xml += `    <author>minwoo@nutube.kr (${escapeXml(post.author || '민우')})</author>\n`;
     xml += `    <category><![CDATA[${post.categoryLabel || post.category || '가이드'}]]></category>\n`;
     xml += `    <description><![CDATA[${desc}]]></description>\n`;
     xml += `    <content:encoded><![CDATA[${contentHtml}]]></content:encoded>\n`;
@@ -610,10 +597,10 @@ async function triggerSearchConsoleAutoIndexing(post: any, hostHeader?: string) 
 
 function getCategoryLabel(category: string): string {
   switch (category) {
-    case 'start': return '왕초보 첫걸음';
-    case 'grow': return '채널 키우기';
-    case 'money': return '수익 내기';
-    case 'pro': return '고수의 영역';
+    case 'why_youtube': return '왜 유튜브인가 & 시작법';
+    case 'trends': return '요즘 유튜브 트렌드';
+    case 'ai_creator': return 'AI 활용법과 주의점';
+    case 'monetization': return '유튜브 수익화의 모든 것';
     case 'algorithm': return '유튜브 알고리즘';
     case 'senior': return '시니어 사연 쇼츠';
     case 'aitools': return 'AI 도구';

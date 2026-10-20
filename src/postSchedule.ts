@@ -1,4 +1,3 @@
-import { addPostImages } from './postImages';
 import { GuidePost } from './types';
 
 export const postTitleSegment = (title: string) =>
@@ -11,25 +10,35 @@ export const postTitleSegment = (title: string) =>
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-// 대표 글 주소는 slug 기반(/post/<slug>)이다. sitemap.xml·RSS와 같은 주소를 써야
-// 검색엔진이 받은 주소가 실제 글로 열린다. 예전 제목 기반 주소는 getLegacyPostPath로 남긴다.
+// 대표 글 주소는 slug 기반(/post/<slug>)이다.
 export const getPostPath = (post: Pick<GuidePost, 'slug'>) => `/post/${encodeURIComponent(post.slug)}`;
 
 export const getLegacyPostPath = (post: Pick<GuidePost, 'title'>) => `/post/${postTitleSegment(post.title)}`;
 
-// 글 목록에 대표 이미지를 붙이고 정렬한다.
-// 예전에는 가장 최근 글이 항상 "오늘" 날짜가 되도록 모든 글의 날짜를 매일 밀어 주었는데,
-// 실제 발행일과 다른 날짜가 화면·사이트맵·구조화 데이터에 나가게 되어 제거했다.
-// 날짜는 데이터에 적힌 publishedAt / updatedAt 을 그대로 쓴다.
+/**
+ * 구글 애드센스 심사 최적화: 자동 예약 발행(Scheduled Publishing) 검증 로직
+ * 현재 서버/클라이언트 시각 >= post.publishedAt 조건만 만족하는 글만 노출
+ */
+export const isPostPublished = (post: GuidePost, now: Date = new Date()): boolean => {
+  if (!post || !post.publishedAt) return true;
+  const pubTime = new Date(post.publishedAt).getTime();
+  if (isNaN(pubTime)) return true;
+  return pubTime <= now.getTime();
+};
+
+/**
+ * 발행 완료된 글만 필터링하고 최신 발행순으로 정렬 (사이트맵, 목록, RSS 전용)
+ */
+export const getPublishedPosts = (posts: GuidePost[], now: Date = new Date()): GuidePost[] => {
+  if (!posts || posts.length === 0) return [];
+  return posts
+    .filter((p) => isPostPublished(p, now))
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+};
+
+// 기존 함수 호환성 유지 (예약 발행 필터링 및 최신순 정렬)
 export const applyPostDateSchedule = (posts: GuidePost[]): GuidePost[] => {
   if (!posts || posts.length === 0) return [];
-
-  return posts
-    .map((post) => addPostImages(post))
-    .sort((a, b) => {
-      // 단계(stepNumber) → 단계 안 순서(order) → 발행일 순
-      if ((a.stepNumber ?? 99) !== (b.stepNumber ?? 99)) return (a.stepNumber ?? 99) - (b.stepNumber ?? 99);
-      if ((a.order ?? 999) !== (b.order ?? 999)) return (a.order ?? 999) - (b.order ?? 999);
-      return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
-    });
+  return getPublishedPosts(posts);
 };
+

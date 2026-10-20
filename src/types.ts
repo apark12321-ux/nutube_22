@@ -1,8 +1,12 @@
-export type CategoryKey =
-  | 'start'   // 1단계 왕초보 첫걸음
-  | 'grow'    // 2단계 채널 키우기
-  | 'money'   // 3단계 수익 내기
-  | 'pro';    // 4단계 고수의 영역
+export type CategoryKey = 
+  | 'creator-guide'      // 스마트폰 1인 크리에이터 실전 가이드 (핵심 단일 카테고리)
+  | 'why_youtube'        // 왜 유튜브인가 & 시작법
+  | 'trends'             // 요즘 유튜브 트렌드
+  | 'ai_creator'         // AI 활용법과 주의점
+  | 'monetization';      // 유튜브 수익화의 모든 것
+
+export type PrimaryCategoryKey = CategoryKey;
+
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
 export interface CategorySpec {
@@ -42,7 +46,6 @@ export interface GuidePost {
   category: CategoryKey;
   categoryLabel: string;
   stepNumber?: number;
-  order?: number;
   publishedAt: string;
   updatedAt?: string;
   author: string;
