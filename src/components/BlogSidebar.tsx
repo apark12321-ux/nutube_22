@@ -69,10 +69,10 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
             민우 <span className="text-xs font-normal text-slate-400">(@minwoo)</span>
           </h3>
           <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
-            50대 초반 · 5년 차 1인 크리에이터
+            교육·영상 수십 년 경력 & AI 파이프라인 연구가
           </p>
           <p className={`text-xs mt-2.5 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
-            50대 초반 인생 2막 도전! 300만 원 장비병 실패 후 스마트폰 한 대로 0에서 다시 시작해 월 100만 원 복합 파이프라인을 구축했습니다. 50대도 해내는 정직한 실전 데이터를 기록합니다.
+            교육과 영상 제작 분야에서 수십 년간 쌓아온 전문 기획력을 바탕으로, 생성형 AI의 등장과 함께 얼굴 노출 없는(Faceless) 유튜브 및 1인 미디어 N잡 파이프라인을 구축하고 있습니다.
           </p>
           
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 w-full flex items-center justify-center">

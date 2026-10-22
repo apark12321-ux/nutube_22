@@ -243,13 +243,13 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
           <div>
             <div class="flex items-center gap-1.5">
               <span class="text-sm font-bold text-slate-900">민우</span>
-              <span class="px-1.5 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-700 rounded">50대 초반 · 5년차 크리에이터</span>
+              <span class="px-1.5 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-700 rounded">교육·영상 수십년 경력 &amp; AI 연구가</span>
             </div>
-            <p class="text-xs text-slate-500">1인 미디어 &amp; 수익화 연구원</p>
+            <p class="text-xs text-slate-500">1인 미디어 &amp; N잡 파이프라인</p>
           </div>
         </div>
         <p class="text-xs text-slate-600 leading-relaxed">
-          50대 초반 인생 2막 도전! 300만 원 장비병 실패 후 스마트폰 1대로 0에서 다시 시작해 월 100만 원 복합 파이프라인(유튜브+애드센스+디지털 상품)을 달성한 실전 데이터를 투명하게 기록합니다.
+          교육·영상 분야 수십 년 경력의 베테랑. 생성형 AI의 등장과 함께 얼굴 노출 없는(Faceless) 유튜브와 스마트폰 1인 미디어 N잡 파이프라인을 구축하고 있습니다.
         </p>
         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
           <a href="/about" class="text-blue-600 font-bold hover:underline">자세한 소개 &amp; 철학 &rarr;</a>
@@ -401,6 +401,35 @@ export function renderSsrPage(
       canonicalUrl,
       ogImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
       jsonLdScripts: [jsonLd],
+      renderedHtml: bodyContent,
+      is404: false
+    };
+  }
+
+  // 1.5 Check for Studio Page (/studio)
+  if (cleanPath === '/studio') {
+    const canonicalUrl = `${baseUrl}/studio`;
+    const title = '노페이스 유튜브 크리에이터 스튜디오 | 너튜브';
+    const description = '교육·영상 실무 노하우와 생성형 AI를 결합한 얼굴 비노출 유튜브 시나리오, 메타데이터, 제작 파이프라인 관리 시스템';
+    const bodyContent = `
+      <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+        ${renderHeader(null, null)}
+        <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
+          <div class="p-8 rounded-xl border border-slate-800 bg-slate-900 text-center">
+            <h1 class="text-2xl sm:text-3xl font-black text-white">노페이스 유튜브 크리에이터 스튜디오</h1>
+            <p class="mt-2 text-sm text-slate-400">대본 스토리보드, 유튜브 메타데이터 연구실, 6단계 제작 칸반 파이프라인을 로딩 중입니다...</p>
+          </div>
+        </main>
+        ${renderFooter()}
+      </div>
+    `;
+    return {
+      statusCode: 200,
+      title,
+      description,
+      canonicalUrl,
+      ogImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+      jsonLdScripts: [],
       renderedHtml: bodyContent,
       is404: false
     };

@@ -722,7 +722,7 @@ export const GuideReader: React.FC<GuideReaderProps> = ({ post, onBack, theme = 
                 </span>
               </div>
               <p className={`mt-1.5 text-xs leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
-                50대 초반에 직장 퇴직 및 인생 2막을 준비하며 300만 원 장비병 실패를 겪은 후, 스마트폰 하나로 0에서 다시 시작해 5년간 유튜브, 구글 애드센스, 블로그 운영을 직접 연구하고 실행해온 실전 크리에이터입니다. 이론 대신 실제 정산 금액과 실패담을 정직하게 나눕니다.
+                교육 및 영상 분야에서 수십 년간 쌓아온 현장 기획력과 실무 역량을 바탕으로, 생성형 AI의 등장과 함께 얼굴 노출 없는(Faceless) 유튜브 및 1인 미디어 N잡·수익화 파이프라인을 구축하고 있습니다. 복잡한 이론 대신 바로 실행 가능한 실전 제작 매뉴얼을 전합니다.
               </p>
               <p className={`mt-2 text-[11px] font-mono ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
                 공식 소통 창구: minwoo@nutube.kr
