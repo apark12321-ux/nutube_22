@@ -7,11 +7,10 @@ import { Navbar } from './components/Navbar';
 import { PostCard } from './components/PostCard';
 import { GuideReader } from './components/GuideReader';
 import { BlogSidebar } from './components/BlogSidebar';
-import { CreatorStudio } from './components/CreatorStudio';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 import { updatePageSeoMeta, resetDefaultSeoMeta } from './utils/seoAnalyzer';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found' | 'studio';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found';
 
 interface RouteState {
   tab: Tab;
@@ -87,7 +86,6 @@ const resolveRoute = (pathname: string): RouteState => {
   if (path === '/contact') return { tab: 'contact', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
   if (path === '/privacy') return { tab: 'privacy', post: null, category: null };
-  if (path === '/studio') return { tab: 'studio', post: null, category: null };
 
   return { tab: 'not-found', post: null, category: null };
 };
@@ -98,7 +96,6 @@ const pathForTab = (tab: Tab, post?: GuidePost | null) => {
   if (tab === 'contact') return '/contact';
   if (tab === 'terms') return '/terms';
   if (tab === 'privacy') return '/privacy';
-  if (tab === 'studio') return '/studio';
   if (tab === 'not-found') return '/404';
   return '/';
 };
@@ -475,19 +472,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Creator Studio Workspace (/studio) */}
-        {tab === 'studio' && (
-          <CreatorStudio
-            theme={theme}
-            onNavigateHome={() => go('guides')}
-            onNavigatePost={(slug) => {
-              const target = POSTS.find(p => p.slug === slug);
-              if (target) openPost(target);
-              else go('guides');
-            }}
-          />
-        )}
-
         {/* 404 Not Found Screen (Strict AdSense compliance: zero ads on error screens) */}
         {tab === 'not-found' && (
           <div className="max-w-4xl mx-auto px-4 py-16 text-center">
@@ -561,13 +545,6 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
-              <a 
-                href="/studio" 
-                onClick={(e) => { e.preventDefault(); go('studio'); }} 
-                className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline transition-colors cursor-pointer"
-              >
-                🎬 제작 스튜디오 (Studio)
-              </a>
               <a 
                 href="/about" 
                 onClick={(e) => { e.preventDefault(); go('about'); }} 

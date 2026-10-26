@@ -406,34 +406,6 @@ export function renderSsrPage(
     };
   }
 
-  // 1.5 Check for Studio Page (/studio)
-  if (cleanPath === '/studio') {
-    const canonicalUrl = `${baseUrl}/studio`;
-    const title = '노페이스 유튜브 크리에이터 스튜디오 | 너튜브';
-    const description = '교육·영상 실무 노하우와 생성형 AI를 결합한 얼굴 비노출 유튜브 시나리오, 메타데이터, 제작 파이프라인 관리 시스템';
-    const bodyContent = `
-      <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
-        ${renderHeader(null, null)}
-        <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
-          <div class="p-8 rounded-xl border border-slate-800 bg-slate-900 text-center">
-            <h1 class="text-2xl sm:text-3xl font-black text-white">노페이스 유튜브 크리에이터 스튜디오</h1>
-            <p class="mt-2 text-sm text-slate-400">대본 스토리보드, 유튜브 메타데이터 연구실, 6단계 제작 칸반 파이프라인을 로딩 중입니다...</p>
-          </div>
-        </main>
-        ${renderFooter()}
-      </div>
-    `;
-    return {
-      statusCode: 200,
-      title,
-      description,
-      canonicalUrl,
-      ogImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
-      jsonLdScripts: [],
-      renderedHtml: bodyContent,
-      is404: false
-    };
-  }
 
   // 2. Check for Category Pages
   if (cleanPath.startsWith('/category/')) {

@@ -3,7 +3,7 @@ import { Search, Menu, X, Sun, Moon, BookOpen, User, Shield, HelpCircle, FileTex
 import { GuidePost } from '../types';
 import { CATEGORIES_LIST } from '../data';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'studio' | 'not-found';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found';
 
 interface NavbarProps {
   currentTab: Tab;
@@ -101,22 +101,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </nav>
 
-          {/* Right Side: Studio Link, Search Form & Theme Switch */}
+          {/* Right Side: Search Form & Theme Switch */}
           <div className="flex items-center gap-2">
-            {/* Creator Studio Quick Link */}
-            <button
-              onClick={() => handleNavTab('studio')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer shrink-0 ${
-                currentTab === 'studio'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : dark
-                    ? 'bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 hover:bg-indigo-900'
-                    : 'bg-indigo-50 text-indigo-700 border border-indigo-200/80 hover:bg-indigo-100'
-              }`}
-              title="노페이스 유튜브 제작 스튜디오"
-            >
-              <span>🎬 제작 스튜디오</span>
-            </button>
 
             {/* Desktop Search Bar */}
             <form onSubmit={handleSearchSubmit} className="hidden sm:flex items-center relative">
