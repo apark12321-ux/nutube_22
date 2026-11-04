@@ -7,6 +7,7 @@ import { ALL_POSTS } from './src/data';
 import { applyPostDateSchedule, postTitleSegment, getPostPath } from './src/postSchedule';
 import { injectSsrAndSeoMetadata as injectShared } from './src/seoInject';
 import { renderSsrPage } from './src/ssrRenderer';
+import { initAutoPostingDaemon } from './src/autoScheduler';
 
 const getScheduledAllPosts = () => applyPostDateSchedule(ALL_POSTS);
 
@@ -1512,6 +1513,11 @@ async function startServer() {
     setTimeout(() => {
       autoPingSearchConsole().catch(() => {});
     }, 4000);
+
+    // 1일 1포스팅 자동 스케줄러 데몬 초기화 (매일 랜덤 자연 시각 자동 발행)
+    setTimeout(() => {
+      initAutoPostingDaemon();
+    }, 2000);
 
     // Periodic 12-hour background ping
     setInterval(() => {
