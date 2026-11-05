@@ -594,7 +594,7 @@ export default function App() {
                 <img
                   src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
                   alt="NuTube - 너와 나의 1인 미디어 성장 노트"
-                  className="h-8 w-auto object-contain shrink-0"
+                  className="h-12 w-auto object-contain shrink-0"
                   referrerPolicy="no-referrer"
                 />
               </button>

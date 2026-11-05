@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     }`}>
       {/* 1. Main Navigation Bar */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo & Site Title */}
           <div className="flex items-center gap-3">
             <button
@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <img
                 src={dark ? "/nutube-brand-dark.svg" : "/nutube-brand-light.svg"}
                 alt="NuTube - 너와 나의 1인 미디어 성장 노트"
-                className="h-9 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-[1.02] transition-transform"
+                className="h-12 sm:h-14 w-auto object-contain shrink-0 group-hover:scale-[1.02] transition-transform"
                 referrerPolicy="no-referrer"
               />
             </button>

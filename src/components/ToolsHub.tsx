@@ -58,7 +58,7 @@ export const ToolsStrip: React.FC<{ theme: Theme; onOpenTool: (tool: ToolDef) =>
           전체 보기
         </button>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {TOOLS.map((tool) => {
           const Icon = ICONS[tool.key];
           return (
@@ -69,13 +69,13 @@ export const ToolsStrip: React.FC<{ theme: Theme; onOpenTool: (tool: ToolDef) =>
               className={`group p-4 rounded-lg border transition-colors ${dark ? 'border-slate-800 hover:border-slate-600 bg-slate-950/40' : 'border-slate-200 hover:border-blue-400 bg-slate-50/60'}`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="w-9 h-9 rounded-lg flex items-center justify-center text-white" style={{ backgroundColor: tool.accent }}>
-                  <Icon className="w-4.5 h-4.5" />
+                <span className="w-11 h-11 rounded-lg flex items-center justify-center text-white" style={{ backgroundColor: tool.accent }}>
+                  <Icon className="w-5 h-5" />
                 </span>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
+                <span className={`px-2 py-0.5 rounded text-xs font-bold ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
               </div>
-              <p className={`text-sm font-black ${dark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p>
-              <p className={`text-[11px] mt-1 leading-snug ${dark ? 'text-slate-400' : 'text-slate-600'}`}>{tool.tagline}</p>
+              <p className={`text-lg font-black ${dark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p>
+              <p className={`text-sm mt-1 leading-snug ${dark ? 'text-slate-400' : 'text-slate-600'}`}>{tool.tagline}</p>
             </a>
           );
         })}
@@ -90,7 +90,7 @@ export const ToolsIndex: React.FC<{ theme: Theme; onOpenTool: (tool: ToolDef) =>
   return (
     <div className="space-y-6">
       <header className={`p-6 sm:p-8 rounded-xl border ${dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'}`}>
-        <h1 className={`text-2xl sm:text-3xl font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>유튜브 도구</h1>
+        <h1 className={`text-3xl sm:text-4xl font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>유튜브 도구</h1>
         <p className={`mt-2 text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
           영상 제작·기획·분석·자동 발행에 필요한 도구를 한곳에 모았습니다. 각 도구는 별도 주소에서 제공되며, 이 페이지에서 용도와 진행 절차를 확인한 뒤 이용할 수 있습니다.
         </p>
@@ -103,7 +103,7 @@ export const ToolsIndex: React.FC<{ theme: Theme; onOpenTool: (tool: ToolDef) =>
             <article key={tool.key} className={`p-5 sm:p-6 rounded-xl border flex flex-col ${dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <span className="w-11 h-11 rounded-lg flex items-center justify-center text-white shrink-0" style={{ backgroundColor: tool.accent }}>
+                  <span className="w-12 h-12 rounded-lg flex items-center justify-center text-white shrink-0" style={{ backgroundColor: tool.accent }}>
                     <Icon className="w-5 h-5" />
                   </span>
                   <div>
@@ -111,7 +111,7 @@ export const ToolsIndex: React.FC<{ theme: Theme; onOpenTool: (tool: ToolDef) =>
                     <p className={`text-xs ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.form}</p>
                   </div>
                 </div>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
+                <span className={`px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
               </div>
               <p className={`mt-4 text-sm leading-relaxed flex-1 ${dark ? 'text-slate-300' : 'text-slate-700'}`}>{tool.description}</p>
               <dl className={`mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs ${dark ? 'text-slate-400' : 'text-slate-600'}`}>
@@ -157,13 +157,13 @@ export const ToolDetail: React.FC<{
 
       <header className={`p-6 sm:p-8 rounded-xl border ${dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-2xs'}`}>
         <div className="flex items-center gap-4">
-          <span className="w-14 h-14 rounded-xl flex items-center justify-center text-white shrink-0" style={{ backgroundColor: tool.accent }}>
-            <Icon className="w-7 h-7" />
+          <span className="w-16 h-16 rounded-xl flex items-center justify-center text-white shrink-0" style={{ backgroundColor: tool.accent }}>
+            <Icon className="w-8 h-8" />
           </span>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className={`text-2xl sm:text-3xl font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</h1>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
+              <h1 className={`text-3xl sm:text-4xl font-black tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</h1>
+              <span className={`px-2 py-0.5 rounded text-xs font-bold ${statusClass(tool.status, dark)}`}>{TOOL_STATUS_LABEL[tool.status]}</span>
             </div>
             <p className={`text-sm mt-1 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{tool.tagline}</p>
           </div>
@@ -183,7 +183,7 @@ export const ToolDetail: React.FC<{
         <ol className="grid gap-3 sm:grid-cols-3">
           {tool.steps.map((step, i) => (
             <li key={step.title} className={`p-4 rounded-lg border ${dark ? 'border-slate-800 bg-slate-950/40' : 'border-slate-200 bg-slate-50/70'}`}>
-              <span className="text-[11px] font-black" style={{ color: tool.accent }}>{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-sm font-black" style={{ color: tool.accent }}>{String(i + 1).padStart(2, '0')}</span>
               <p className={`text-sm font-bold mt-1 ${dark ? 'text-white' : 'text-slate-900'}`}>{step.title}</p>
               <p className={`text-xs mt-1 leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-600'}`}>{step.desc}</p>
             </li>

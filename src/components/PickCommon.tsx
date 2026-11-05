@@ -26,9 +26,9 @@ export const IntroSplash: React.FC = () => {
       aria-hidden="true"
     >
       <style>{`@keyframes nutubeIntroFade{0%{opacity:1}75%{opacity:1}100%{opacity:0;visibility:hidden}}`}</style>
-      <p className="text-4xl sm:text-5xl font-black tracking-tight">{SITE_DISPLAY_NAME}</p>
+      <p className="text-5xl sm:text-6xl font-black tracking-tight">{SITE_DISPLAY_NAME}</p>
       <p className="mt-3 text-sm sm:text-base text-blue-100 tracking-wide">유튜브 운영 도구와 가이드</p>
-      <img src="/pyj-mark-white.svg" alt="PYJ 픽스컴퍼니" className="absolute bottom-10 h-16 w-auto opacity-90" />
+      <img src="/pyj-mark-white.svg" alt="PYJ 픽스컴퍼니" className="absolute bottom-10 h-24 w-auto opacity-90" />
     </div>
   );
 };
@@ -36,13 +36,13 @@ export const IntroSplash: React.FC = () => {
 // 픽 시리즈 공통 푸터 (모든 픽 사이트 동일 적용)
 export const PickFooter: React.FC<{ dark?: boolean }> = ({ dark }) => (
   <div
-    className={`border-t py-6 text-[11px] ${
+    className={`border-t py-6 text-sm ${
       dark ? 'border-slate-800 bg-slate-950 text-slate-400' : 'border-slate-200 bg-slate-50 text-slate-500'
     }`}
   >
     <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div className="flex items-center gap-3">
-        <img src={dark ? '/pyj-mark-white.svg' : '/pyj-mark-black.svg'} alt="PYJ 픽스컴퍼니" className="h-10 w-auto" />
+        <img src={dark ? '/pyj-mark-white.svg' : '/pyj-mark-black.svg'} alt="PYJ 픽스컴퍼니" className="h-14 w-auto" />
         <div className="leading-relaxed">
           <p className={`font-bold ${dark ? 'text-slate-200' : 'text-slate-700'}`}>픽 시리즈 · 유튜브 도구 허브</p>
           <p>운영 제니스앤코 · 광고는 정액 광고만 게재합니다.</p>
@@ -57,10 +57,10 @@ export const PickFooter: React.FC<{ dark?: boolean }> = ({ dark }) => (
 
 // SSR(사전 렌더링)용 공통 푸터 HTML
 export const renderPickFooterHtml = () => `
-  <div class="border-t border-slate-200 bg-slate-50 text-slate-500 py-6 text-[11px]">
+  <div class="border-t border-slate-200 bg-slate-50 text-slate-500 py-6 text-sm">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <img src="/pyj-mark-black.svg" alt="PYJ 픽스컴퍼니" class="h-10 w-auto" />
+        <img src="/pyj-mark-black.svg" alt="PYJ 픽스컴퍼니" class="h-14 w-auto" />
         <div class="leading-relaxed">
           <p class="font-bold text-slate-700">픽 시리즈 · 유튜브 도구 허브</p>
           <p>운영 제니스앤코 · 광고는 정액 광고만 게재합니다.</p>

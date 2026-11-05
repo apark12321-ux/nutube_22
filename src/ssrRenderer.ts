@@ -202,9 +202,9 @@ function parseMarkdownToHtml(content: string): string {
 function renderHeader(currentTab: string, currentCategory: string | null): string {
   return `
     <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
         <a href="/" class="flex items-center gap-2.5 focus:outline-none" aria-label="너튜브 홈으로 이동">
-          <img src="/nutube-brand-light.svg" alt="너튜브 - 너와 나의 1인 미디어 성장 노트" class="h-8 w-auto object-contain" />
+          <img src="/nutube-brand-light.svg" alt="너튜브 - 너와 나의 1인 미디어 성장 노트" class="h-12 w-auto object-contain" />
         </a>
 
         <!-- Only Home and 1 Single Core Category (Part 1 Rule 2) -->
@@ -246,7 +246,7 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
           <div>
             <div class="flex items-center gap-1.5">
               <span class="text-sm font-bold text-slate-900">민우</span>
-              <span class="px-1.5 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-700 rounded">교육·영상 수십년 경력 &amp; AI 연구가</span>
+              <span class="px-1.5 py-0.5 text-xs font-bold bg-blue-100 text-blue-700 rounded">교육·영상 수십년 경력 &amp; AI 연구가</span>
             </div>
             <p class="text-xs text-slate-500">1인 미디어 &amp; N잡 파이프라인</p>
           </div>
@@ -256,7 +256,7 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
         </p>
         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
           <a href="/about" class="text-blue-600 font-bold hover:underline">자세한 소개 &amp; 철학 &rarr;</a>
-          <span class="text-slate-400 font-mono text-[11px]">minwoo@nutube.kr</span>
+          <span class="text-slate-400 font-mono text-sm">minwoo@nutube.kr</span>
         </div>
       </div>
 
@@ -273,7 +273,7 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
               <li>
                 <a href="/category/${cat.key}" class="flex items-center justify-between px-2.5 py-2 rounded-lg transition-colors ${isSelected ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}">
                   <span>${escapeHtml(cat.label)}</span>
-                  <span class="text-[11px] font-mono font-bold text-slate-400">(${count})</span>
+                  <span class="text-sm font-mono font-bold text-slate-400">(${count})</span>
                 </a>
               </li>
             `;
@@ -297,7 +297,7 @@ function renderSidebar(allPosts: GuidePost[], currentCategory: string | null): s
                   <h4 class="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                     ${escapeHtml(post.title)}
                   </h4>
-                  <span class="text-[10px] text-slate-400 font-mono mt-0.5 block">${formatPostDate(post.publishedAt)}</span>
+                  <span class="text-xs text-slate-400 font-mono mt-0.5 block">${formatPostDate(post.publishedAt)}</span>
                 </div>
               </div>
             </a>
@@ -316,9 +316,9 @@ function renderFooter(): string {
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-200">
           <div>
             <a href="/" class="block mb-1.5 focus:outline-none" aria-label="NuTube 홈으로 이동">
-              <img src="/nutube-brand-light.svg" alt="NuTube" class="h-8 w-auto object-contain" />
+              <img src="/nutube-brand-light.svg" alt="NuTube" class="h-12 w-auto object-contain" />
             </a>
-            <p class="text-[11px] text-slate-400">
+            <p class="text-sm text-slate-400">
               너와 나의 1인 미디어 성장 노트 | 스마트폰 하나로 시작하는 유튜브 &amp; 애드센스 실전 가이드
             </p>
           </div>
@@ -330,7 +330,7 @@ function renderFooter(): string {
           </div>
         </div>
 
-        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-[11px] text-slate-400">
+        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-sm text-slate-400">
           <p>© 2026 너튜브 (NuTube). All rights reserved.</p>
           <p>너(Nu)와 나를 잇는 1인 미디어 실전 가이드 (E-E-A-T 준수)</p>
         </div>
@@ -362,7 +362,7 @@ function renderToolCard(tool: ToolDef): string {
           <h2 class="text-lg font-black text-slate-900">${escapeHtml(tool.name)}</h2>
           <p class="text-xs text-slate-500">${escapeHtml(tool.form)}</p>
         </div>
-        <span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+        <span class="px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
       </div>
       <p class="mt-4 text-sm leading-relaxed text-slate-700 flex-1">${escapeHtml(tool.description)}</p>
       <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-slate-600">
@@ -386,15 +386,15 @@ export function renderToolsStripHtml(): string {
         </div>
         <a href="${TOOLS_PATH}" class="text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">전체 보기</a>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         ${TOOLS.map((tool) => `
           <a href="${getToolPath(tool)}" class="p-4 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50/60 transition-colors">
             <div class="flex items-center justify-between mb-2">
-              <span class="w-9 h-9 rounded-lg text-white font-black text-sm flex items-center justify-center" style="background-color:${tool.accent}">${escapeHtml(tool.name.slice(0, 1))}</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+              <span class="w-11 h-11 rounded-lg text-white font-black text-sm flex items-center justify-center" style="background-color:${tool.accent}">${escapeHtml(tool.name.slice(0, 1))}</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
             </div>
-            <p class="text-sm font-black text-slate-900">${escapeHtml(tool.name)}</p>
-            <p class="text-[11px] mt-1 leading-snug text-slate-600">${escapeHtml(tool.tagline)}</p>
+            <p class="text-lg font-black text-slate-900">${escapeHtml(tool.name)}</p>
+            <p class="text-sm mt-1 leading-snug text-slate-600">${escapeHtml(tool.tagline)}</p>
           </a>`).join('')}
       </div>
     </section>`;
@@ -419,7 +419,7 @@ function renderToolsPage(baseUrl: string, allPosts: GuidePost[]): SsrRenderResul
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
           <div class="flex-1 min-w-0 w-full space-y-6">
             <header class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white shadow-2xs">
-              <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">유튜브 도구</h1>
+              <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">유튜브 도구</h1>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">영상 제작·기획·분석·자동 발행에 필요한 도구를 한곳에 모았습니다. 각 도구는 별도 주소에서 제공되며, 이 페이지에서 용도와 진행 절차를 확인한 뒤 이용할 수 있습니다.</p>
             </header>
             <div class="grid gap-4 md:grid-cols-2">${TOOLS.map(renderToolCard).join('')}</div>
@@ -455,8 +455,8 @@ function renderToolDetailPage(baseUrl: string, tool: ToolDef, allPosts: GuidePos
             <a href="${TOOLS_PATH}" class="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-blue-600">&lsaquo; 유튜브 도구 전체</a>
             <header class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white shadow-2xs">
               <div class="flex items-center gap-2">
-                <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">${escapeHtml(tool.name)}</h1>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+                <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">${escapeHtml(tool.name)}</h1>
+                <span class="px-2 py-0.5 rounded text-xs font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
               </div>
               <p class="text-sm mt-1 text-slate-600">${escapeHtml(tool.tagline)}</p>
               <p class="mt-5 text-sm leading-relaxed text-slate-700">${escapeHtml(tool.description)}</p>
@@ -471,7 +471,7 @@ function renderToolDetailPage(baseUrl: string, tool: ToolDef, allPosts: GuidePos
               <ol class="grid gap-3 sm:grid-cols-3">
                 ${tool.steps.map((st, i) => `
                   <li class="p-4 rounded-lg border border-slate-200 bg-slate-50/70">
-                    <span class="text-[11px] font-black" style="color:${tool.accent}">${String(i + 1).padStart(2, '0')}</span>
+                    <span class="text-sm font-black" style="color:${tool.accent}">${String(i + 1).padStart(2, '0')}</span>
                     <p class="text-sm font-bold mt-1 text-slate-900">${escapeHtml(st.title)}</p>
                     <p class="text-xs mt-1 leading-relaxed text-slate-600">${escapeHtml(st.desc)}</p>
                   </li>`).join('')}
@@ -629,14 +629,14 @@ export function renderSsrPage(
                         </p>
                         ${post.tags && post.tags.length > 0 ? `
                           <div class="flex flex-wrap gap-1.5 mt-3">
-                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
+                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-sm rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
                           </div>
                         ` : ''}
                       </div>
                       <div class="hidden sm:flex flex-col items-center justify-center w-28 h-20 rounded-lg border border-slate-200 bg-slate-50 p-2 shrink-0 text-center">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">GUIDE</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">GUIDE</span>
                         <span class="text-xs font-bold text-blue-600 font-mono mt-0.5">MANUAL</span>
-                        <span class="text-[10px] text-slate-500 mt-1">전문 읽기 &rarr;</span>
+                        <span class="text-xs text-slate-500 mt-1">전문 읽기 &rarr;</span>
                       </div>
                     </div>
                   </article>
@@ -822,7 +822,7 @@ export function renderSsrPage(
                   </div>
                   <div>
                     <div class="font-bold text-slate-900">${escapeHtml(post.author || '민우')}</div>
-                    <div class="text-[11px] text-slate-400">5년차 1인 크리에이터 및 콘텐츠 엔지니어</div>
+                    <div class="text-sm text-slate-400">5년차 1인 크리에이터 및 콘텐츠 엔지니어</div>
                   </div>
                 </div>
                 <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
@@ -893,7 +893,7 @@ export function renderSsrPage(
                   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     ${relatedPosts.map(rel => `
                       <a href="${getPostPath(rel)}" class="p-4 rounded-lg border border-slate-200 bg-white hover:border-blue-400 hover:shadow-xs transition-all block group">
-                        <span class="text-[11px] font-mono text-slate-400">${formatPostDate(rel.publishedAt)}</span>
+                        <span class="text-sm font-mono text-slate-400">${formatPostDate(rel.publishedAt)}</span>
                         <h4 class="text-xs font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 mt-1 leading-snug">
                           ${escapeHtml(rel.title)}
                         </h4>
@@ -982,14 +982,14 @@ export function renderSsrPage(
                         </p>
                         ${post.tags && post.tags.length > 0 ? `
                           <div class="flex flex-wrap gap-1.5 mt-3">
-                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
+                            ${post.tags.slice(0, 4).map(t => `<span class="px-2 py-0.5 text-sm rounded bg-slate-100 text-slate-600">#${escapeHtml(t)}</span>`).join('')}
                           </div>
                         ` : ''}
                       </div>
                       <div class="hidden sm:flex flex-col items-center justify-center w-28 h-20 rounded-lg border border-slate-200 bg-slate-50 p-2 shrink-0 text-center">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">GUIDE</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">GUIDE</span>
                         <span class="text-xs font-bold text-blue-600 font-mono mt-0.5">MANUAL</span>
-                        <span class="text-[10px] text-slate-500 mt-1">전문 읽기 &rarr;</span>
+                        <span class="text-xs text-slate-500 mt-1">전문 읽기 &rarr;</span>
                       </div>
                     </div>
                   </article>
