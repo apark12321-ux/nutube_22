@@ -48,6 +48,14 @@
   ],
   "rewrites": [
     {
+      "source": "/tools",
+      "destination": "/tools/index.html"
+    },
+    {
+      "source": "/tools/:key",
+      "destination": "/tools/:key/index.html"
+    },
+    {
       "source": "/post/:slug",
       "destination": "/post/:slug/index.html"
     },

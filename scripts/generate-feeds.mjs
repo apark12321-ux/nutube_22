@@ -39,6 +39,8 @@ function buildSitemapXml(posts) {
   const staticPages = [
     { loc: `${SITE_URL}/`, lastmod: latest, changefreq: 'weekly', priority: '1.0' },
     ...STAGES.map((k) => ({ loc: `${SITE_URL}/category/${k}`, lastmod: latest, changefreq: 'weekly', priority: '0.7' })),
+    { loc: `${SITE_URL}/tools`, lastmod: '2026-11-05', changefreq: 'weekly', priority: '0.8' },
+    ...['shorts', 'script', 'channel', 'produce'].map((k) => ({ loc: `${SITE_URL}/tools/${k}`, lastmod: '2026-11-05', changefreq: 'weekly', priority: '0.7' })),
     ...['about', 'contact', 'policy', 'privacy', 'terms'].map((k) => ({ loc: `${SITE_URL}/${k}`, lastmod: '2026-10-14', changefreq: 'monthly', priority: k === 'about' ? '0.6' : '0.3' }))
   ];
 

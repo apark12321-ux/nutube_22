@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" fill="none">
+  <g stroke="#1e3a8a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 86V26h22a16 16 0 0 1 0 32H24"/>
+    <path d="M64 26l18 30 18-30M82 56v30"/>
+    <path d="M136 26v44a16 16 0 0 1-32 0"/>
+  </g>
+  <text x="80" y="110" text-anchor="middle" font-family="Pretendard, 'Noto Sans KR', sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#1e3a8a">픽스컴퍼니</text>
+</svg>

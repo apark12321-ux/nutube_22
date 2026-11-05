@@ -9,13 +9,17 @@ import { GuideReader } from './components/GuideReader';
 import { BlogSidebar } from './components/BlogSidebar';
 import { applyPostDateSchedule, getPostPath, postTitleSegment } from './postSchedule';
 import { updatePageSeoMeta, resetDefaultSeoMeta } from './utils/seoAnalyzer';
+import { TOOL_BY_KEY, ToolDef, TOOLS_PATH, getToolPath } from './data/tools';
+import { ToolsStrip, ToolsIndex, ToolDetail } from './components/ToolsHub';
+import { IntroSplash, PickFooter } from './components/PickCommon';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found' | 'tools' | 'tool-detail';
 
 interface RouteState {
   tab: Tab;
   post: GuidePost | null;
   category: string | null;
+  tool?: ToolDef | null;
 }
 
 const POSTS = applyPostDateSchedule(ALL_POSTS);
@@ -82,6 +86,12 @@ const resolveRoute = (pathname: string): RouteState => {
     return { tab: 'guides', post: null, category: 'creator-guide' };
   }
 
+  if (path === TOOLS_PATH) return { tab: 'tools', post: null, category: null };
+  if (path.startsWith(`${TOOLS_PATH}/`)) {
+    const key = path.replace(`${TOOLS_PATH}/`, '');
+    const tool = TOOL_BY_KEY[key];
+    return tool ? { tab: 'tool-detail', post: null, category: null, tool } : { tab: 'not-found', post: null, category: null };
+  }
   if (path === '/about') return { tab: 'about', post: null, category: null };
   if (path === '/contact') return { tab: 'contact', post: null, category: null };
   if (path === '/terms') return { tab: 'terms', post: null, category: null };
@@ -90,8 +100,10 @@ const resolveRoute = (pathname: string): RouteState => {
   return { tab: 'not-found', post: null, category: null };
 };
 
-const pathForTab = (tab: Tab, post?: GuidePost | null) => {
+const pathForTab = (tab: Tab, post?: GuidePost | null, tool?: ToolDef | null) => {
   if (tab === 'guide-detail' && post) return getPostPath(post);
+  if (tab === 'tools') return TOOLS_PATH;
+  if (tab === 'tool-detail' && tool) return getToolPath(tool);
   if (tab === 'about') return '/about';
   if (tab === 'contact') return '/contact';
   if (tab === 'terms') return '/terms';
@@ -131,6 +143,7 @@ export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [tab, setTab] = useState<Tab>(route.tab);
   const [post, setPost] = useState<GuidePost | null>(route.post);
+  const [tool, setTool] = useState<ToolDef | null>(route.tool || null);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string | null>(route.category);
   const [page, setPage] = useState(1);
@@ -144,6 +157,7 @@ export default function App() {
     const handlePopState = () => {
       const next = resolveRoute(window.location.pathname);
       setPost(next.post);
+      setTool(next.tool || null);
       setCategory(next.category);
       setTab(next.tab);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -156,6 +170,10 @@ export default function App() {
   useEffect(() => {
     if (tab === 'about' || tab === 'terms' || tab === 'privacy' || tab === 'contact') {
       updatePageSeoMeta(tab);
+    } else if (tab === 'tools') {
+      if (typeof document !== 'undefined') document.title = '유튜브 도구 | 너튜브';
+    } else if (tab === 'tool-detail' && tool) {
+      if (typeof document !== 'undefined') document.title = `${tool.name} | 유튜브 도구 | 너튜브`;
     } else if (tab === 'not-found') {
       if (typeof document !== 'undefined') {
         document.title = '페이지를 찾을 수 없습니다 (404) | 너튜브';
@@ -168,7 +186,7 @@ export default function App() {
           : null
       );
     }
-  }, [tab, post, category]);
+  }, [tab, post, category, tool]);
 
   const posts = useMemo(() => {
     const q = query.toLowerCase().trim();
@@ -201,12 +219,13 @@ export default function App() {
     scrollToPosts();
   };
 
-  const navigate = (next: Tab, selectedPost: GuidePost | null = null) => {
-    const nextPath = pathForTab(next, selectedPost);
+  const navigate = (next: Tab, selectedPost: GuidePost | null = null, selectedTool: ToolDef | null = null) => {
+    const nextPath = pathForTab(next, selectedPost, selectedTool);
     if (typeof window !== 'undefined' && window.location.pathname !== nextPath) {
-      window.history.pushState({ tab: next, title: selectedPost?.title || null }, '', nextPath);
+      window.history.pushState({ tab: next, title: selectedPost?.title || selectedTool?.name || null }, '', nextPath);
     }
     setPost(next === 'guide-detail' ? selectedPost : null);
+    setTool(next === 'tool-detail' ? selectedTool : null);
     setTab(next);
     if (next !== 'guide-detail' && next !== 'guides') setCategory(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -257,12 +276,17 @@ export default function App() {
     navigate('guide-detail', item);
   };
 
+  const openTool = (item: ToolDef) => {
+    navigate('tool-detail', null, item);
+  };
+
   const dark = theme === 'dark';
 
   const currentCategorySpec = category ? CATEGORY_SPECS[category] : null;
 
   return (
     <div className={dark ? 'min-h-screen bg-[#0d1117] text-slate-100 flex flex-col font-sans' : 'min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans'}>
+      <IntroSplash />
       {/* 1. Header (Navbar) */}
       <Navbar 
         currentTab={tab} 
@@ -301,7 +325,11 @@ export default function App() {
               
               {/* Left Column: Post Feed */}
               <div id="blog-main-content" className="flex-1 min-w-0 w-full">
-                
+
+                {!category && !query && (
+                  <ToolsStrip theme={theme} onOpenTool={openTool} onOpenTools={() => go('tools')} />
+                )}
+
                 {/* Category Header Bar (phongnhaexplorer clean style) */}
                 <div className={`p-5 rounded-xl border mb-6 transition-colors ${
                   dark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-2xs'
@@ -452,6 +480,37 @@ export default function App() {
           </div>
         )}
 
+        {/* 유튜브 도구 허브 */}
+        {(tab === 'tools' || (tab === 'tool-detail' && tool)) && (
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+              <div className="flex-1 min-w-0 w-full">
+                {tab === 'tools' ? (
+                  <ToolsIndex theme={theme} onOpenTool={openTool} onContact={() => go('contact')} />
+                ) : (
+                  <ToolDetail
+                    tool={tool as ToolDef}
+                    theme={theme}
+                    posts={POSTS}
+                    onBack={() => go('tools')}
+                    onSelectPost={openPost}
+                    onContact={() => go('contact')}
+                  />
+                )}
+              </div>
+              <BlogSidebar 
+                currentCategory={category}
+                onSelectCategory={selectCategory}
+                posts={POSTS}
+                onSelectPost={openPost}
+                onOpenAbout={() => go('about')}
+                onSelectTag={handleSelectTag}
+                theme={theme}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Policy / About / Contact Pages */}
         {(tab === 'about' || tab === 'terms' || tab === 'privacy' || tab === 'contact') && (
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -575,6 +634,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <PickFooter dark={dark} />
     </div>
   );
 }

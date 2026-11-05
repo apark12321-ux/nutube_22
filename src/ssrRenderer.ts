@@ -3,6 +3,8 @@ import { CATEGORY_SPECS, CATEGORIES_LIST } from './data';
 import { PAGE_CONTENT, StaticPageData } from './data/pages';
 import { getPostPath, postTitleSegment } from './postSchedule';
 import { formatPostDate } from './utils/dateFormatter';
+import { TOOLS, TOOL_BY_KEY, TOOL_STATUS_LABEL, ToolDef, TOOLS_PATH, getToolPath } from './data/tools';
+import { renderPickFooterHtml } from './components/PickCommon';
 
 export interface SsrRenderResult {
   statusCode: number;
@@ -207,8 +209,9 @@ function renderHeader(currentTab: string, currentCategory: string | null): strin
 
         <!-- Only Home and 1 Single Core Category (Part 1 Rule 2) -->
         <nav class="hidden md:flex items-center gap-2 text-xs sm:text-sm font-semibold">
-          <a href="/" class="px-3 py-2 rounded-lg transition-colors ${!currentCategory && currentTab === 'guides' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">홈 (Home)</a>
-          <a href="/category/creator-guide" class="px-3 py-2 rounded-lg transition-colors ${currentCategory || currentTab === 'creator-guide' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">스마트폰 1인 크리에이터</a>
+          <a href="/" class="px-3 py-2 rounded-lg transition-colors ${!currentCategory && currentTab === 'guides' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">홈</a>
+          <a href="${TOOLS_PATH}" class="px-3 py-2 rounded-lg transition-colors ${currentTab === 'tools' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">유튜브 도구</a>
+          <a href="/category/creator-guide" class="px-3 py-2 rounded-lg transition-colors ${currentCategory || currentTab === 'creator-guide' ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-600 hover:text-slate-900'}">유튜브 가이드</a>
         </nav>
 
         <div class="flex items-center gap-2">
@@ -333,7 +336,167 @@ function renderFooter(): string {
         </div>
       </div>
     </footer>
+    ${renderPickFooterHtml()}
   `;
+}
+
+const STATUS_CLASS: Record<ToolDef['status'], string> = {
+  live: 'bg-emerald-50 text-emerald-700',
+  beta: 'bg-amber-50 text-amber-700',
+  soon: 'bg-slate-100 text-slate-600',
+};
+
+function renderToolCta(tool: ToolDef, large = false): string {
+  const size = large ? 'px-5 py-2.5 text-sm' : 'px-3 py-1.5 text-xs';
+  if (tool.url) {
+    return `<a href="${escapeHtml(tool.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 rounded-lg font-bold text-white ${size}" style="background-color:${tool.accent}">${escapeHtml(tool.name)} 이용하기 &rarr;</a>`;
+  }
+  return `<a href="/contact" class="inline-flex items-center gap-1.5 rounded-lg font-bold border border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 ${size}">출시 알림 신청 &rarr;</a>`;
+}
+
+function renderToolCard(tool: ToolDef): string {
+  return `
+    <article class="p-5 sm:p-6 rounded-xl border border-slate-200 bg-white shadow-2xs flex flex-col">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-black text-slate-900">${escapeHtml(tool.name)}</h2>
+          <p class="text-xs text-slate-500">${escapeHtml(tool.form)}</p>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-slate-700 flex-1">${escapeHtml(tool.description)}</p>
+      <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-slate-600">
+        <dt class="font-bold">대상</dt><dd>${escapeHtml(tool.audience)}</dd>
+        <dt class="font-bold">형태</dt><dd>${escapeHtml(tool.form)}</dd>
+      </dl>
+      <div class="mt-5 flex items-center gap-2 flex-wrap">
+        ${renderToolCta(tool)}
+        <a href="${getToolPath(tool)}" class="px-3 py-1.5 text-xs font-bold text-blue-600 hover:underline">상세 안내</a>
+      </div>
+    </article>`;
+}
+
+export function renderToolsStripHtml(): string {
+  return `
+    <section class="p-5 rounded-xl border border-slate-200/90 bg-white mb-6 shadow-2xs">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-base sm:text-lg font-black tracking-tight text-slate-900">유튜브 도구</h2>
+          <p class="text-xs mt-1 text-slate-600">제작·분석·자동화 도구를 한곳에 모았습니다.</p>
+        </div>
+        <a href="${TOOLS_PATH}" class="text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">전체 보기</a>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        ${TOOLS.map((tool) => `
+          <a href="${getToolPath(tool)}" class="p-4 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50/60 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-9 h-9 rounded-lg text-white font-black text-sm flex items-center justify-center" style="background-color:${tool.accent}">${escapeHtml(tool.name.slice(0, 1))}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+            </div>
+            <p class="text-sm font-black text-slate-900">${escapeHtml(tool.name)}</p>
+            <p class="text-[11px] mt-1 leading-snug text-slate-600">${escapeHtml(tool.tagline)}</p>
+          </a>`).join('')}
+      </div>
+    </section>`;
+}
+
+function renderToolsPage(baseUrl: string, allPosts: GuidePost[]): SsrRenderResult {
+  const canonicalUrl = `${baseUrl}${TOOLS_PATH}`;
+  const title = '유튜브 도구 | 너튜브';
+  const description = '쇼츠 제작, 대본 생성, 채널 성과 분석, 영상 자동 제작까지 유튜브 운영에 필요한 도구를 한곳에 모았습니다.';
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: '유튜브 도구',
+    description,
+    url: canonicalUrl,
+    hasPart: TOOLS.map((t) => ({ '@type': 'SoftwareApplication', name: t.name, description: t.tagline, url: `${baseUrl}${getToolPath(t)}`, applicationCategory: 'MultimediaApplication' })),
+  });
+  const bodyContent = `
+    <div class="min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans">
+      ${renderHeader('tools', null)}
+      <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+          <div class="flex-1 min-w-0 w-full space-y-6">
+            <header class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">유튜브 도구</h1>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">영상 제작·기획·분석·자동 발행에 필요한 도구를 한곳에 모았습니다. 각 도구는 별도 주소에서 제공되며, 이 페이지에서 용도와 진행 절차를 확인한 뒤 이용할 수 있습니다.</p>
+            </header>
+            <div class="grid gap-4 md:grid-cols-2">${TOOLS.map(renderToolCard).join('')}</div>
+          </div>
+          ${renderSidebar(allPosts, null)}
+        </div>
+      </main>
+      ${renderFooter()}
+    </div>`;
+  return { statusCode: 200, title, description, canonicalUrl, ogImage: `${baseUrl}/nutube-logo.svg`, jsonLdScripts: [jsonLd], renderedHtml: bodyContent, is404: false };
+}
+
+function renderToolDetailPage(baseUrl: string, tool: ToolDef, allPosts: GuidePost[]): SsrRenderResult {
+  const canonicalUrl = `${baseUrl}${getToolPath(tool)}`;
+  const title = `${tool.name} | 유튜브 도구 | 너튜브`;
+  const description = tool.description.slice(0, 160);
+  const related = tool.relatedSlugs.map((s) => allPosts.find((p) => p.slug === s)).filter(Boolean) as GuidePost[];
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description,
+    url: canonicalUrl,
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: tool.form,
+  });
+  const bodyContent = `
+    <div class="min-h-screen bg-[#f8f9fa] text-slate-800 flex flex-col font-sans">
+      ${renderHeader('tools', null)}
+      <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+          <div class="flex-1 min-w-0 w-full space-y-6">
+            <a href="${TOOLS_PATH}" class="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-blue-600">&lsaquo; 유튜브 도구 전체</a>
+            <header class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="flex items-center gap-2">
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">${escapeHtml(tool.name)}</h1>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${STATUS_CLASS[tool.status]}">${TOOL_STATUS_LABEL[tool.status]}</span>
+              </div>
+              <p class="text-sm mt-1 text-slate-600">${escapeHtml(tool.tagline)}</p>
+              <p class="mt-5 text-sm leading-relaxed text-slate-700">${escapeHtml(tool.description)}</p>
+              <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-slate-600">
+                <dt class="font-bold">대상</dt><dd>${escapeHtml(tool.audience)}</dd>
+                <dt class="font-bold">제공 형태</dt><dd>${escapeHtml(tool.form)}</dd>
+              </dl>
+              <div class="mt-6">${renderToolCta(tool, true)}</div>
+            </header>
+            <section class="p-6 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <h2 class="text-base font-black mb-4 text-slate-900">진행 절차</h2>
+              <ol class="grid gap-3 sm:grid-cols-3">
+                ${tool.steps.map((st, i) => `
+                  <li class="p-4 rounded-lg border border-slate-200 bg-slate-50/70">
+                    <span class="text-[11px] font-black" style="color:${tool.accent}">${String(i + 1).padStart(2, '0')}</span>
+                    <p class="text-sm font-bold mt-1 text-slate-900">${escapeHtml(st.title)}</p>
+                    <p class="text-xs mt-1 leading-relaxed text-slate-600">${escapeHtml(st.desc)}</p>
+                  </li>`).join('')}
+              </ol>
+            </section>
+            <section class="p-6 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <h2 class="text-base font-black mb-4 text-slate-900">주요 기능</h2>
+              <ul class="grid gap-2 sm:grid-cols-2 text-sm text-slate-700 list-disc pl-5">
+                ${tool.features.map((f) => `<li>${escapeHtml(f)}</li>`).join('')}
+              </ul>
+            </section>
+            ${related.length ? `
+            <section class="p-6 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <h2 class="text-base font-black mb-4 text-slate-900">함께 읽을 가이드</h2>
+              <ul class="space-y-2">
+                ${related.map((p) => `<li><a href="${getPostPath(p)}" class="block p-3 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 hover:border-blue-400">${escapeHtml(p.title)}</a></li>`).join('')}
+              </ul>
+            </section>` : ''}
+          </div>
+          ${renderSidebar(allPosts, null)}
+        </div>
+      </main>
+      ${renderFooter()}
+    </div>`;
+  return { statusCode: 200, title, description, canonicalUrl, ogImage: `${baseUrl}/nutube-logo.svg`, jsonLdScripts: [jsonLd], renderedHtml: bodyContent, is404: false };
 }
 
 // Main SSR Renderer Entry Point
@@ -345,6 +508,14 @@ export function renderSsrPage(
 ): SsrRenderResult {
   const baseUrl = `${protocol}://${host}`;
   const cleanPath = reqUrl.split('?')[0].replace(/\/+$/, '') || '/';
+
+  // 0. 유튜브 도구 허브
+  if (cleanPath === TOOLS_PATH) return renderToolsPage(baseUrl, allPosts);
+  if (cleanPath.startsWith(`${TOOLS_PATH}/`)) {
+    const tool = TOOL_BY_KEY[cleanPath.replace(`${TOOLS_PATH}/`, '')];
+    if (tool) return renderToolDetailPage(baseUrl, tool, allPosts);
+    return render404Page(baseUrl, cleanPath, allPosts);
+  }
 
   // 1. Check for Static Pages (About, Terms, Privacy, Contact)
   if (cleanPath === '/about' || cleanPath === '/terms' || cleanPath === '/privacy' || cleanPath === '/contact') {
@@ -770,6 +941,7 @@ export function renderSsrPage(
           <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
             
             <div class="flex-1 min-w-0 w-full">
+              ${renderToolsStripHtml()}
               <!-- Hero Banner -->
               <div class="p-6 sm:p-8 rounded-xl border border-slate-200 bg-white mb-6 shadow-2xs">
                 <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">100% 실전 경험 기록</span>

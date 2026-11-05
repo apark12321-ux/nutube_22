@@ -3,7 +3,7 @@ import { Search, Menu, X, Sun, Moon, BookOpen, User, Shield, HelpCircle, FileTex
 import { GuidePost } from '../types';
 import { CATEGORIES_LIST } from '../data';
 
-type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found';
+type Tab = 'guides' | 'about' | 'terms' | 'privacy' | 'contact' | 'guide-detail' | 'not-found' | 'tools' | 'tool-detail';
 
 interface NavbarProps {
   currentTab: Tab;
@@ -86,7 +86,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
               }`}
             >
-              홈 (Home)
+              홈
+            </button>
+
+            <button
+              onClick={() => handleNavTab('tools')}
+              className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer ${
+                currentTab === 'tools' || currentTab === 'tool-detail'
+                  ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                  : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
+              }`}
+            >
+              유튜브 도구
             </button>
 
             <button
@@ -97,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : dark ? 'text-slate-300 hover:text-white hover:bg-slate-800' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100'
               }`}
             >
-              스마트폰 1인 크리에이터
+              유튜브 가이드
             </button>
           </nav>
 
@@ -157,6 +168,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             전체
           </button>
+          <button
+            onClick={() => handleNavTab('tools')}
+            className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap cursor-pointer ${
+              currentTab === 'tools' || currentTab === 'tool-detail'
+                ? dark ? 'bg-blue-950 text-blue-400 font-bold' : 'bg-blue-50 text-blue-700 font-bold'
+                : dark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-blue-600'
+            }`}
+          >
+            유튜브 도구
+          </button>
           {CATEGORIES_LIST.map((cat) => {
             const isSelected = currentTab === 'guides' && category === cat.key;
             return (
@@ -200,6 +221,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
               카테고리
             </p>
+            <button
+              onClick={() => handleNavTab('tools')}
+              className="w-full text-left py-2 px-2 text-xs font-semibold rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              유튜브 도구
+            </button>
             <button
               onClick={() => handleNavCategory(null)}
               className="w-full text-left py-2 px-2 text-xs font-semibold rounded hover:bg-slate-100 dark:hover:bg-slate-800"
